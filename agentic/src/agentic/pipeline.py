@@ -232,8 +232,10 @@ Read:
 Score every human-judged rubric item in [1, 5] (use 0 for
 `hardcoded_weights_bonus` when not applicable). One-line justification per
 item. Copy `metrics` from the latest `benchmark.json` into `automated_metrics`.
-Set `overall` to `pass` / `borderline` / `fail` based on the worst of
-architecture_fit / baseline_comparison / faithfulness.
+`overall` is derived from the MEAN of your scored rubric items (0/N-A items
+excluded): mean <2 → `fail`, <4 → `borderline`, <5 → `good`, exactly 5 →
+`perfect`. Set `overall` to match that mean — the dashboard recomputes it from
+your scores, so keep the two consistent.
 
 Write `experiments/<slug>/<attempt>/verdict.json` matching this schema
 EXACTLY (no extra keys, no commentary outside the JSON):
@@ -317,7 +319,13 @@ def _prior_attempt_context(slug: str, attempt_name: str, goal_dir: Path) -> str:
         "pass. Its verdict and full source are below. Read the verdict's notes, "
         "diagnose why it fell short (e.g. it faked the mechanism, the app didn't "
         "boot, weak faithfulness evidence), and take a MEANINGFULLY DIFFERENT "
-        "approach. Do not copy the previous code wholesale — fix the root cause.\n"
+        "approach.\n"
+        "This is a FRESH attempt in its own folder: you are free to DISCARD ALL of "
+        "the previous code and start from a clean slate. You are NOT required to "
+        "build on it or keep any of it. Treat the prior attempt as a worked example "
+        "of what failed, not as a starting point — reuse a piece only if it is "
+        "genuinely sound and addresses the verdict. If the root cause is the overall "
+        "approach, throw it out entirely and write something new.\n"
     ]
     if verdict:
         parts.append(f"--- {prior.name}/verdict.json (jury) ---\n{verdict}\n")
@@ -381,41 +389,106 @@ async def _run_subprocess_with_gpu(
     return await asyncio.to_thread(_go)
 
 
-_APP_IMPORT_CHECK = """
-import importlib.util, sys
+# Uses __APP_PATH__ as a placeholder (replaced with a repr'd path) rather than
+# str.format so the body can use braces (dict/set literals) freely.
+_APP_IMPORT_CHECK = r'''
+import importlib.util, sys, traceback, types
 import gradio as gr
-spec = importlib.util.spec_from_file_location("app", {app_path!r})
+
+spec = importlib.util.spec_from_file_location("app", __APP_PATH__)
 assert spec is not None and spec.loader is not None
 m = importlib.util.module_from_spec(spec)
 sys.modules["app"] = m
 spec.loader.exec_module(m)
 demo = getattr(m, "demo", None)
 assert isinstance(demo, gr.Blocks), (
-    f"app.py must expose a module-level `demo: gr.Blocks`; got {{type(demo).__name__}}"
+    "app.py must expose a module-level `demo: gr.Blocks`; got %s" % type(demo).__name__
 )
-print("ok")
-"""
+
+
+def _example_for(c):
+    """Best-effort raw (un-preprocessed) example value for an input component."""
+    v = getattr(c, "value", None)
+    if v is not None:
+        return v
+    if isinstance(c, gr.Slider):
+        return getattr(c, "minimum", 0) or 0
+    if isinstance(c, gr.Number):
+        return 0
+    if isinstance(c, gr.Checkbox):
+        return False
+    if isinstance(c, (gr.Dropdown, gr.Radio)):
+        choices = getattr(c, "choices", None) or []
+        if choices:
+            first = choices[0]
+            return first[1] if isinstance(first, (list, tuple)) else first
+        return None
+    if isinstance(c, gr.Textbox):
+        return ""
+    return None
+
+
+def _exhaust(result):
+    """Streaming handlers return a generator; pull one value to exercise the body."""
+    if isinstance(result, types.GeneratorType):
+        for _ in result:
+            break
+
+
+# Run every event handler once with example inputs. A handler that raises is a
+# real bug (NameError from a missing import, bad indexing, Gradio misuse) that a
+# bare import check would miss because the callbacks never fire until clicked.
+ran = 0
+errors = []
+fns = demo.fns.values() if isinstance(demo.fns, dict) else list(demo.fns)
+for bf in fns:
+    fn = getattr(bf, "fn", None)
+    if fn is None or not callable(fn):
+        continue
+    inputs = list(getattr(bf, "inputs", None) or [])
+    examples = [_example_for(c) for c in inputs]
+    label = getattr(bf, "api_name", None) or getattr(fn, "__name__", repr(fn))
+    try:
+        if getattr(bf, "inputs_as_dict", False):
+            _exhaust(fn({c: v for c, v in zip(inputs, examples)}))
+        else:
+            _exhaust(fn(*examples))
+        ran += 1
+    except Exception:
+        errors.append("event handler %r failed:\n%s" % (label, traceback.format_exc()))
+
+if errors:
+    raise SystemExit("\n\n".join(errors))
+print("ok (ran %d handler(s))" % ran)
+'''
 
 
 async def _boot_check_app_with_gpu(
     app_path: Path,
     *,
     n_gpus: int = 1,
-    wait_s: int = 60,
+    wait_s: int = 120,
 ) -> tuple[bool, str]:
-    """Verify `app.py` imports cleanly and exposes `demo: gr.Blocks`.
+    """Verify `app.py` imports cleanly, exposes `demo: gr.Blocks`, and that every
+    event handler runs once with example inputs.
 
     Cheaper than launching the server: catches Gradio API misuse (calling
     `.load`/`.click`/etc. outside a Blocks context), import errors, syntax
     errors, missing `demo`, and wrong type — all the bugs a launch would
     surface in its first second, but with no port binding and no wait for
     the "Running on local URL" line.
+
+    Beyond importing, it enumerates `demo.fns` and invokes each handler's `fn`
+    once with example inputs derived from its input components (a generator
+    result is pulled once). This exercises callback bodies that a bare import
+    would never run, surfacing the bugs that only fire on interaction — e.g. a
+    handler referencing `np` when `app.py` never imported numpy.
     """
 
     def _go() -> tuple[bool, str]:
         with acquire_gpus(n_gpus) as gpu_ids:
             env = _build_subprocess_env(gpu_ids)
-            script = _APP_IMPORT_CHECK.format(app_path=str(app_path))
+            script = _APP_IMPORT_CHECK.replace("__APP_PATH__", repr(str(app_path)))
             try:
                 proc = subprocess.run(
                     ["uv", "run", "--project", str(Path.cwd()), "python", "-c", script],
@@ -579,6 +652,11 @@ async def _smoke_test_benchmark(slug: str, *, timeout_s: int) -> tuple[bool, str
 
 
 # ---------- retry loops with tier escalation ----------
+
+# Ascending rung order for the solver/picker tier ladder. Used to honour a
+# `min_tier` floor: a re-run can skip the cheaper rungs and go straight to a
+# better model (see `run_pipeline`'s `min_tier`).
+_TIER_RANK: dict[Tier, int] = {Tier.QUICK: 0, Tier.STANDARD: 1, Tier.EXPERT: 2}
 
 
 def _build_picker_prompt(
@@ -782,6 +860,7 @@ async def _solver_with_benchmark_retries(
     attempt_dir: Path,
     gpu_requirement: int,
     broken_predicate: Any,
+    min_tier: Tier | None = None,
 ) -> tuple[bool, dict[str, Any] | None, str]:
     """SOLVER → run main.py → check benchmark loop with tier escalation.
 
@@ -800,6 +879,10 @@ async def _solver_with_benchmark_retries(
     Tries QUICK tier `solver_retries_base` times, escalates to STANDARD for
     `solver_retries_escalated` more, then to EXPERT (agentic Opus) for
     `solver_retries_expert` more. Returns (ok, last_metrics_or_None, last_log).
+
+    `min_tier` drops every rung below it from the schedule, so a re-run can go
+    straight to a better model (e.g. EXPERT-only) instead of burning the cheap
+    QUICK/STANDARD attempts again.
     """
     readme_experiment = _read_if_exists("README_EXPERIMENT.md")
     goal_readme = _read_if_exists(goal_dir / "README.md")
@@ -814,16 +897,23 @@ async def _solver_with_benchmark_retries(
     n_base = settings.solver_retries_base
     n_esc = settings.solver_retries_escalated
     n_expert = settings.solver_retries_expert
+    # Flooring the run to EXPERT drops the cheap rungs below, so the expert tier
+    # is the only fallback left — bump its retry budget instead of the usual
+    # last-ditch 2 so the chosen tier actually gets a real shot.
+    if min_tier is Tier.EXPERT:
+        n_expert = settings.solver_retries_expert_floored
     last_log = ""
     last_metrics: dict[str, Any] | None = None
 
-    for i in range(n_base + n_esc + n_expert):
-        if i < n_base:
-            tier = Tier.QUICK
-        elif i < n_base + n_esc:
-            tier = Tier.STANDARD
-        else:
-            tier = Tier.EXPERT
+    # Full escalation ladder, then drop rungs below the requested floor.
+    schedule = [Tier.QUICK] * n_base + [Tier.STANDARD] * n_esc + [Tier.EXPERT] * n_expert
+    if min_tier is not None:
+        schedule = [t for t in schedule if _TIER_RANK[t] >= _TIER_RANK[min_tier]]
+    if not schedule:
+        emit("solver_no_attempts", slug=slug, attempt=attempt_name, min_tier=getattr(min_tier, "value", None))
+        return False, None, "no solver attempts scheduled (min_tier above all configured retries)"
+
+    for i, tier in enumerate(schedule):
         prompt = _build_solver_prompt(
             slug,
             attempt_name,
@@ -974,9 +1064,12 @@ async def _solver_with_benchmark_retries(
             last_log = log_app
             feedback = (
                 "\n\n=== PREVIOUS ATTEMPT'S app.py FAILED ITS BOOT CHECK ===\n"
-                "main.py ran and the benchmark passed, but app.py could not be "
-                "imported as a Gradio app. The check imports app.py and verifies "
-                "it exposes a module-level `demo: gr.Blocks`.\n"
+                "main.py ran and the benchmark passed, but app.py failed its "
+                "boot check. The check imports app.py, verifies it exposes a "
+                "module-level `demo: gr.Blocks`, and then runs every event "
+                "handler once with example inputs derived from its input "
+                "components — so a callback that crashes on interaction (not just "
+                "an import error) also fails the check.\n"
                 "Error tail:\n"
                 f"{log_app}\n"
                 "=== END ===\n\n"
@@ -1033,6 +1126,7 @@ async def run_pipeline(
     skip_jury: bool = False,
     force: bool = False,
     resume: bool = False,
+    min_tier: Tier | None = None,
 ) -> dict[str, Any]:
     """Pick → benchmark → review → solve → judge. Returns a status dict.
 
@@ -1040,6 +1134,10 @@ async def run_pipeline(
     already passed them — a benchmark that passed smoke is reused as-is, and a
     benchmark that was already reviewed isn't re-reviewed. The solver onward
     always re-runs. Used to retry a failed task without redoing benchmark prep.
+
+    `min_tier` raises the solver's starting rung: the QUICK/STANDARD attempts
+    below it are dropped so a re-run goes straight to a better model. Pairs with
+    `resume` for a cheap "retry this at a higher tier only" re-run.
     """
     if slug is None:
         block = next_pending()
@@ -1153,6 +1251,7 @@ async def run_pipeline(
                 attempt_dir,
                 gpu_requirement,
                 broken_predicate,
+                min_tier=min_tier,
             )
         if not ok:
             update_state(slug, status="failed", attempt=attempt_name)

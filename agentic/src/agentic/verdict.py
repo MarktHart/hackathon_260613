@@ -17,6 +17,28 @@ from typing import Any, Literal
 
 VERDICT_VERSION = 1
 
+# Overall grade as a pure function of the mean rubric score (1–5). This is the
+# single source of truth for the verdict label — the jury scores each criterion,
+# and the grade falls out of the average so it can't drift from the numbers.
+GRADES = ("fail", "borderline", "good", "perfect", "unscored")
+
+
+def grade_from_score(score: float | None) -> str:
+    """Map a mean rubric score in [1, 5] to an overall grade.
+
+    Thresholds: <2 → ``fail``, <4 → ``borderline``, <5 → ``good``, ==5 →
+    ``perfect``. ``None`` (no scored criteria) → ``unscored``.
+    """
+    if score is None:
+        return "unscored"
+    if score < 2:
+        return "fail"
+    if score < 4:
+        return "borderline"
+    if score < 5:
+        return "good"
+    return "perfect"
+
 
 @dataclass
 class CriterionScore:
@@ -43,7 +65,7 @@ class Verdict:
 
     automated_metrics: dict[str, Any] = field(default_factory=dict)
 
-    overall: Literal["pass", "fail", "borderline", "unscored"] = "unscored"
+    overall: Literal["perfect", "good", "borderline", "fail", "unscored"] = "unscored"
     notes: str = ""
 
     def to_dict(self) -> dict[str, Any]:
@@ -89,7 +111,7 @@ JURY_OUTPUT_SCHEMA = """\
   "visual_judgement":         {"score": 1-5, "note": "one line"},
   "visualisation_rationale":  {"score": 1-5, "note": "one line"},
   "automated_metrics":        {"<copied from benchmark.json>": ...},
-  "overall":                  "pass" | "borderline" | "fail",
+  "overall":                  "perfect" | "good" | "borderline" | "fail",
   "notes":                    "two-three sentence summary"
 }
 """

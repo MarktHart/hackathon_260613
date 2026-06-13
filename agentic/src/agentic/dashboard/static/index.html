@@ -29,6 +29,9 @@
     white-space:nowrap; }
   th { color:var(--mut); font-weight:600; font-size:11px; text-transform:uppercase; }
   td.num,th.num { text-align:right; font-variant-numeric:tabular-nums; }
+  .tier-row td { background:var(--panel); color:var(--fg); font-weight:600;
+    font-size:12px; letter-spacing:.02em; padding-top:11px; padding-bottom:7px;
+    border-bottom:1px solid var(--line); }
   .badge { display:inline-block; padding:1px 8px; border-radius:10px; font-size:11px;
     border:1px solid var(--line); }
   .b-running{ color:var(--ok); border-color:var(--ok); }
@@ -37,12 +40,13 @@
   .b-failed{ color:var(--bad); border-color:var(--bad); }
   .b-stalled{ color:var(--warn); border-color:var(--warn); }
   .b-pending{ color:var(--mut); }
-  .v-pass{ color:var(--ok); border-color:var(--ok); }
+  .v-perfect{ color:#0d1117; background:var(--ok); border-color:var(--ok); font-weight:600; }
+  .v-good{ color:var(--ok); border-color:var(--ok); }
   .v-fail{ color:var(--bad); border-color:var(--bad); }
   .v-borderline{ color:var(--warn); border-color:var(--warn); }
   .v-unscored{ color:var(--mut); }
   .avg{ color:var(--mut); margin-left:6px; }
-  .prob-cell{ cursor:pointer; }
+  .prob-cell{ cursor:pointer; white-space:normal; word-break:break-word; }
   .prob-cell:hover .title{ color:var(--acc); }
   .prob-cell .caret{ display:inline-block; width:12px; color:var(--mut); }
   .verdict-detail td{ white-space:normal; background:var(--panel); padding:0; }
@@ -77,6 +81,9 @@
   button:disabled{ opacity:.35; cursor:default; }
   button.primary{ border-color:var(--ok); color:var(--ok); }
   button.start{ padding:2px 10px; font-size:12px; }
+  select.tier-sel{ font:inherit; font-size:11px; color:var(--fg); background:var(--panel);
+    border:1px solid var(--line); border-radius:6px; padding:2px 4px; margin-left:5px; cursor:pointer; }
+  select.tier-sel:hover{ border-color:var(--acc); }
   button.warn{ border-color:var(--warn); color:var(--warn); }
   .controls{ margin-left:auto; display:flex; align-items:center; gap:8px; }
   .controls input[type=number]{ font:inherit; width:56px; text-align:right; color:var(--fg);
@@ -115,6 +122,12 @@
   <span class="stat">total cost <b id="s-cost">–</b></span>
   <span class="stat">total tokens <b id="s-tokens">–</b></span>
   <span class="controls">
+    <select class="tier-sel" id="rerun-tier"
+      title="Solver tier applied to every Start / Re-run below — skip the cheaper rungs and run straight at this tier or better">
+      <option value="">tier: auto</option>
+      <option value="standard">tier: standard+</option>
+      <option value="expert">tier: expert</option>
+    </select>
     <input type="number" id="pending-count" min="1" value="5"
       title="How many pending tasks to start" oninput="syncPendingLabel()" />
     <button class="primary" id="start-pending" onclick="startPending()">▶ Start next <span id="pending-n">5</span> pending</button>
@@ -151,18 +164,6 @@
   </section>
 
   <section>
-    <h2>Stage timeline</h2>
-    <div class="legend">
-      <span><i style="background:var(--picker)"></i>picker</span>
-      <span><i style="background:var(--reviewer)"></i>reviewer</span>
-      <span><i style="background:var(--solver)"></i>solver</span>
-      <span><i style="background:var(--jury)"></i>jury</span>
-      <span class="mut">bar width ∝ tokens</span>
-    </div>
-    <div class="panel" id="timeline"></div>
-  </section>
-
-  <section>
     <h2>All problems</h2>
     <table>
       <thead><tr>
@@ -172,6 +173,18 @@
       </tr></thead>
       <tbody id="rows"></tbody>
     </table>
+  </section>
+
+  <section>
+    <h2>Stage timeline</h2>
+    <div class="legend">
+      <span><i style="background:var(--picker)"></i>picker</span>
+      <span><i style="background:var(--reviewer)"></i>reviewer</span>
+      <span><i style="background:var(--solver)"></i>solver</span>
+      <span><i style="background:var(--jury)"></i>jury</span>
+      <span class="mut">bar width ∝ tokens</span>
+    </div>
+    <div class="panel" id="timeline"></div>
   </section>
 </main>
 
@@ -189,7 +202,7 @@ const ago = s => s==null ? "–" : s<60 ? Math.round(s)+"s" : s<3600 ? Math.roun
 const esc = s => (s+"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 const expandedProblems = new Set();   // slugs whose attempts detail row is open
 const VERDICT_COLS = 10;              // colspan for the detail row (All problems table)
-const VCLASS = {pass:"v-pass",fail:"v-fail",borderline:"v-borderline"};
+const VCLASS = {perfect:"v-perfect",good:"v-good",fail:"v-fail",borderline:"v-borderline"};
 
 // Inline cell: the BEST verdict across all of a problem's attempts (or a dash
 // when nothing has been graded yet).
@@ -218,7 +231,8 @@ function attemptRubric(vr){
 // rubric, and a button to open its Gradio visualisation in a new tab.
 function attemptsDetailRow(p){
   const open=expandedProblems.has(p.slug);
-  const atts=p.attempts||[];
+  // Latest attempt first (server sends them chronologically).
+  const atts=[...(p.attempts||[])].reverse();
   const body = atts.length ? atts.map(a=>{
     const vr=a.verdict;
     const cls=vr ? (VCLASS[vr.overall]||"v-unscored") : "v-unscored";
@@ -294,8 +308,16 @@ function render(v){
       </tr>`).join("")}</tbody></table>`
     : `<div class="empty">No agents currently running.</div>`;
 
-  // All problems
-  document.getElementById("rows").innerHTML = v.problems.map(p=>{
+  // All problems, grouped by BLOCKS.md difficulty tier. Tiers appear in
+  // first-seen order (problems arrive in BLOCKS.md order from the server).
+  const tierOrder = [];
+  const byTier = new Map();
+  for(const p of v.problems){
+    const tier = p.tier || "Unclassified";
+    if(!byTier.has(tier)){ byTier.set(tier, []); tierOrder.push(tier); }
+    byTier.get(tier).push(p);
+  }
+  const problemRow = p => {
     const n=(p.attempts||[]).length;
     return `
     <tr>
@@ -315,6 +337,12 @@ function render(v){
         ? `<button class="start" onclick="startSlug('${esc(p.slug)}',this)">${p.status==='pending'?'Start':'Re-run'}</button>`
         : `<span class="mut">running</span>`}</td>
     </tr>${attemptsDetailRow(p)}`;
+  };
+  document.getElementById("rows").innerHTML = tierOrder.map(tier=>{
+    const ps = byTier.get(tier);
+    const header = `<tr class="tier-row"><td colspan="${VERDICT_COLS}">
+      ${esc(tier)} <span class="mut">· ${ps.length} problem${ps.length===1?'':'s'}</span></td></tr>`;
+    return header + ps.map(problemRow).join("");
   }).join("");
 
   // Stage timeline (bar width ∝ tokens within each problem)
@@ -463,13 +491,16 @@ async function post(url, body){
 }
 
 async function startSlug(slug, btn){
+  const sel = document.getElementById("rerun-tier");
+  const minTier = sel && sel.value ? sel.value : null;
+  const orig = btn ? btn.textContent : "";
   if(btn){ btn.disabled=true; btn.textContent="starting…"; }
   try{
-    await post("/api/start",{slug});
-    toast(`Started ${slug}`,"ok");
+    await post("/api/start",{slug, min_tier:minTier});
+    toast(`Started ${slug}${minTier?` (${minTier})`:""}`,"ok");
   }catch(e){
     toast(`Could not start ${slug}: ${e.message}`,"err");
-    if(btn){ btn.disabled=false; btn.textContent="Start"; }
+    if(btn){ btn.disabled=false; btn.textContent=orig; }
   }
 }
 

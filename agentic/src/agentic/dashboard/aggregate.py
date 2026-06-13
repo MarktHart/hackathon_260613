@@ -16,6 +16,7 @@ from agentic.blocks import BlockState, load_state, parse_blocks
 from agentic.config import settings
 from agentic.dashboard.pricing import cost_for
 from agentic.events import read_events
+from agentic.verdict import grade_from_score
 
 # Human-judged rubric criteria in the order the jury writes them (see verdict.py).
 # Each is a {"score": int, "note": str} object in verdict.json.
@@ -56,7 +57,7 @@ STALL_AFTER_S = 1200
 # Rank verdicts so we can pick the single "best" attempt per problem. Higher is
 # better; ties break on the mean rubric score. An ungraded attempt ranks below
 # every graded one.
-_VERDICT_RANK = {"pass": 3, "borderline": 2, "fail": 1, "unscored": 0}
+_VERDICT_RANK = {"perfect": 4, "good": 3, "borderline": 2, "fail": 1, "unscored": 0}
 
 
 def _epoch(ts: str | None) -> float:
@@ -111,11 +112,14 @@ def _load_verdict(path: str | None) -> dict[str, Any] | None:
         if score > 0:  # 0 == not applicable; keep out of the mean.
             scores.append(score)
 
+    score_avg = round(sum(scores) / len(scores), 2) if scores else None
     return {
-        "overall": data.get("overall") or "unscored",
+        # Grade is derived from the mean score (the single source of truth), not
+        # the jury's free-text choice, so the label always matches the numbers.
+        "overall": grade_from_score(score_avg),
         "notes": data.get("notes") or "",
         "criteria": criteria,
-        "score_avg": round(sum(scores) / len(scores), 2) if scores else None,
+        "score_avg": score_avg,
     }
 
 
@@ -177,6 +181,7 @@ def build_view(
     states = load_state() if states is None else states
     blocks = parse_blocks()
     titles = {b.slug: b.title for b in blocks}
+    tiers = {b.slug: b.tier for b in blocks}
 
     now = _epoch(now_iso) if now_iso else datetime.now(UTC).timestamp()
 
@@ -193,6 +198,7 @@ def build_view(
             problems[slug] = {
                 "slug": slug,
                 "title": titles.get(slug, slug),
+                "tier": tiers.get(slug, ""),
                 "status": "pending",
                 "current_stage": None,
                 "last_event_ts": None,

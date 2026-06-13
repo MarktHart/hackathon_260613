@@ -25,13 +25,32 @@ def pipeline(
         "--resume",
         help="Skip picker/reviewer stages a prior run already passed (re-runs solver onward).",
     ),
+    min_tier: str | None = typer.Option(
+        None,
+        "--min-tier",
+        help="Floor the solver tier (quick|standard|expert): drop cheaper rungs so a re-run "
+        "goes straight to a better model.",
+    ),
 ) -> None:
     """Run the picker → reviewer → solver → jury pipeline for one slug."""
+    from agentic.config import Tier
     from agentic.pipeline import run_pipeline
+
+    try:
+        tier = Tier(min_tier) if min_tier else None
+    except ValueError:
+        raise typer.BadParameter(
+            f"--min-tier must be one of: {', '.join(t.value for t in Tier)}"
+        ) from None
 
     result = asyncio.run(
         run_pipeline(
-            slug=slug, skip_solver=skip_solver, skip_jury=skip_jury, force=force, resume=resume
+            slug=slug,
+            skip_solver=skip_solver,
+            skip_jury=skip_jury,
+            force=force,
+            resume=resume,
+            min_tier=tier,
         )
     )
     typer.echo(json.dumps(result, indent=2))
@@ -93,11 +112,12 @@ def show_events(
 
 @app.command()
 def reconcile() -> None:
-    """Repair block state after a crash: reset stuck/dangling slugs to pending.
+    """Repair block state to match what's on disk.
 
-    Slugs left in a non-terminal state by a dead pipeline, or marked graded
-    but missing their attempt/verdict on disk, are reset to `pending` so the
-    runner picks them up cleanly. GPU locks self-heal (flock) — nothing to do.
+    Restores slugs to `graded` when a `verdict.json` is present on disk (a
+    crashed run that was wrongly bounced back to `pending`), resets stuck
+    in-flight slugs with no graded attempt to `pending`, and clears dangling
+    `graded` records whose attempt/verdict is gone. GPU locks self-heal (flock).
     """
     from agentic.blocks import reconcile as _reconcile
 

@@ -31,6 +31,7 @@ from agentic.dashboard.aggregate import build_view
 from agentic.dashboard.launcher import (
     UnknownAttempt,
     UnknownSlug,
+    UnknownTier,
     launch_app,
     launch_failed,
     launch_pending,
@@ -71,6 +72,9 @@ def api_state() -> dict[str, Any]:
 
 class StartRequest(BaseModel):
     slug: str
+    # Optional solver-tier floor (quick|standard|expert). When set, the re-run
+    # skips the cheaper rungs and goes straight to this tier or better.
+    min_tier: str | None = None
 
 
 class StartPendingRequest(BaseModel):
@@ -85,10 +89,14 @@ def api_start(req: StartRequest) -> dict[str, Any]:
     if match is not None and match["is_running"]:
         raise HTTPException(status_code=409, detail=f"{req.slug} is already running")
     try:
-        pid = launch_slug(req.slug)
+        # resume=True reuses prep stages a prior run already passed (the pipeline
+        # self-gates on event-log evidence, so a fresh task still runs everything).
+        pid = launch_slug(req.slug, resume=True, min_tier=req.min_tier)
     except UnknownSlug:
         raise HTTPException(status_code=400, detail=f"unknown task: {req.slug}") from None
-    return {"ok": True, "slug": req.slug, "pid": pid}
+    except UnknownTier:
+        raise HTTPException(status_code=400, detail=f"unknown tier: {req.min_tier}") from None
+    return {"ok": True, "slug": req.slug, "pid": pid, "min_tier": req.min_tier}
 
 
 @app.post("/api/start-pending")

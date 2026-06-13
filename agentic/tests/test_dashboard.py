@@ -133,17 +133,17 @@ def _att(name: str, overall: str | None, avg: float | None) -> dict:
 
 
 def test_row_verdict_is_best_over_attempts(monkeypatch: pytest.MonkeyPatch) -> None:
-    # first_pass failed; pass_2 passed — the row should headline pass_2.
+    # first_pass failed; pass_2 was good — the row should headline pass_2.
     monkeypatch.setattr(
         aggregate,
         "_load_attempts",
-        lambda slug: [_att("first_pass", "fail", 2.0), _att("pass_2", "pass", 4.5)],
+        lambda slug: [_att("first_pass", "fail", 2.0), _att("pass_2", "good", 4.5)],
     )
     states = {"a": BlockState(slug="a", status="graded")}
     v = build_view(events=[], states=states, now_iso="2026-06-13T10:00:00+00:00")
     p = next(p for p in v["problems"] if p["slug"] == "a")
     assert p["best_attempt"] == "pass_2"
-    assert p["verdict"]["overall"] == "pass"
+    assert p["verdict"]["overall"] == "good"
     assert [a["name"] for a in p["attempts"]] == ["first_pass", "pass_2"]
 
 

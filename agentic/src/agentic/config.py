@@ -126,6 +126,13 @@ class Settings:
     solver_retries_expert: int = field(
         default_factory=lambda: int(os.getenv("AGENTIC_SOLVER_RETRIES_EXPERT", "2"))
     )
+    # When a run is explicitly floored to the EXPERT tier (e.g. the dashboard's
+    # "tier: expert"), the QUICK/STANDARD rungs are dropped, leaving no cheaper
+    # fallback. Give the expert tier a larger retry budget than the usual
+    # last-ditch `solver_retries_expert` so the chosen tier gets a real shot.
+    solver_retries_expert_floored: int = field(
+        default_factory=lambda: int(os.getenv("AGENTIC_SOLVER_RETRIES_EXPERT_FLOORED", "32"))
+    )
     # Sub-second smoke test that runs after the picker; hard cap.
     smoke_test_timeout_s: int = field(
         default_factory=lambda: int(os.getenv("AGENTIC_SMOKE_TIMEOUT_S", "60"))
