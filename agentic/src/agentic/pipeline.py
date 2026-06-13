@@ -532,38 +532,56 @@ async def _picker_with_smoke_retries(
 
         emit("picker_attempt", slug=slug, attempt_idx=i, tier=tier.value)
 
-        if cfg.mode == "completion":
-            text = await _completion_with_timeout(
-                tier,
-                prompt,
-                system_prompt=PICKER_SYSTEM_COMPLETION,
-                timeout_s=cfg.wall_clock_s,
-            )
-            written = apply_blocks(
-                text,
-                root=Path.cwd(),
-                allowed_prefixes=(f"experiments/{slug}/",),
-            )
-            emit(
-                "benchmark_written",
-                slug=slug,
-                tier=tier.value,
-                attempt_idx=i,
-                files=[str(p.relative_to(Path.cwd())) for p in written],
-            )
-        else:
-            await _drain_with_timeout(
-                "picker",
-                slug,
-                run_at_tier_agentic(
+        try:
+            if cfg.mode == "completion":
+                text = await _completion_with_timeout(
                     tier,
-                    prompt=prompt,
-                    system_prompt=PICKER_SYSTEM_AGENTIC,
-                    allowed_tools=["Read", "Write", "Edit"],
-                ),
-                timeout_s=cfg.wall_clock_s,
+                    prompt,
+                    system_prompt=PICKER_SYSTEM_COMPLETION,
+                    timeout_s=cfg.wall_clock_s,
+                )
+                written = apply_blocks(
+                    text,
+                    root=Path.cwd(),
+                    allowed_prefixes=(f"experiments/{slug}/",),
+                )
+                emit(
+                    "benchmark_written",
+                    slug=slug,
+                    tier=tier.value,
+                    attempt_idx=i,
+                    files=[str(p.relative_to(Path.cwd())) for p in written],
+                )
+            else:
+                await _drain_with_timeout(
+                    "picker",
+                    slug,
+                    run_at_tier_agentic(
+                        tier,
+                        prompt=prompt,
+                        system_prompt=PICKER_SYSTEM_AGENTIC,
+                        allowed_tools=["Read", "Write", "Edit"],
+                    ),
+                    timeout_s=cfg.wall_clock_s,
+                )
+                emit("benchmark_written", slug=slug, tier=tier.value, attempt_idx=i)
+        except Exception as exc:  # noqa: BLE001 — feed any failure into the next retry
+            last_log = f"{type(exc).__name__}: {exc}"
+            emit(
+                "picker_call_error",
+                slug=slug,
+                attempt_idx=i,
+                tier=tier.value,
+                error=last_log,
             )
-            emit("benchmark_written", slug=slug, tier=tier.value, attempt_idx=i)
+            feedback = (
+                "\n\n=== PREVIOUS ATTEMPT'S MODEL CALL FAILED ===\n"
+                f"{last_log}\n"
+                "=== END ===\n\n"
+                "Try again — keep your response short and the file blocks "
+                "complete. If the failure was a timeout, reduce verbosity."
+            )
+            continue
 
         ok, log = await _smoke_test_benchmark(slug, timeout_s=settings.smoke_test_timeout_s)
         last_log = log
@@ -701,9 +719,28 @@ async def _solver_with_benchmark_retries(
 
         emit("solver_attempt", slug=slug, attempt=attempt_name, attempt_idx=i, tier=tier.value)
 
-        text = await _completion_with_timeout(
-            tier, prompt, system_prompt=SOLVER_SYSTEM, timeout_s=cfg.wall_clock_s
-        )
+        try:
+            text = await _completion_with_timeout(
+                tier, prompt, system_prompt=SOLVER_SYSTEM, timeout_s=cfg.wall_clock_s
+            )
+        except Exception as exc:  # noqa: BLE001 — feed any failure into the next retry
+            last_log = f"{type(exc).__name__}: {exc}"
+            emit(
+                "solver_call_error",
+                slug=slug,
+                attempt=attempt_name,
+                attempt_idx=i,
+                tier=tier.value,
+                error=last_log,
+            )
+            feedback = (
+                "\n\n=== PREVIOUS ATTEMPT'S MODEL CALL FAILED ===\n"
+                f"{last_log}\n"
+                "=== END ===\n\n"
+                "Try again — keep your response short and the file blocks "
+                "complete. If the failure was a timeout, reduce verbosity."
+            )
+            continue
         apply_blocks(
             text,
             root=Path.cwd(),
