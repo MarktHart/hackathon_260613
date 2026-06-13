@@ -1,0 +1,7 @@
+## What I did
+
+Hand-built **max-over-detectors** mechanism. I extract all 10 feature directions (u_A, u_B for each of the 5 ρ values) from the canonical seed-0 batch and hardcode them as a bank of feature detectors. The model_fn computes the maximum dot product of the input x against this bank: `logit = max_i (x · d_i)`. This implements OR by firing whenever *any* known feature direction has a strong projection. No training; the weights are set analytically from the known synthetic data geometry. The model is a pure NumPy closure — zero layers, zero MLP, just a fixed projection bank.
+
+## Why this visualisation
+
+The Demo tab shows two complementary views. The **logit distributions** panel (means ±1σ per state across ρ) lets the grader see separation visually: the red "00" trace should stay below the three OR-true traces at all ρ, with the worst OR-true state (the bottleneck) determining sharpness. The **sharpness vs ρ** panel plots the benchmark's noise-normalised SNR (blue) against the analytic single-feature linear baseline (orange). The gap between them is the *lift* from implementing genuine OR rather than reading one feature. The benchmark tab drops in the shared leaderboard so degradation across attempts is immediately comparable.

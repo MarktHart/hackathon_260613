@@ -1,0 +1,82 @@
+{
+  "goal": "attention_not",
+  "attempt": "pass_3",
+  "run_id": "20260613T140903Z",
+  "metrics": {
+    "version": 1,
+    "negation_sharpness_cos_0p0": 3.96319436526711e-09,
+    "linear_baseline_sharpness_cos_0p0": 0.0,
+    "lift_over_linear_cos_0p0": 3.96319436526711e-09,
+    "negation_sharpness_cos_0p3": 0.0,
+    "linear_baseline_sharpness_cos_0p3": 0.03474909933292986,
+    "lift_over_linear_cos_0p3": -0.03474909933292986,
+    "negation_sharpness_cos_0p5": 0.0,
+    "linear_baseline_sharpness_cos_0p5": 0.06257558333754831,
+    "lift_over_linear_cos_0p5": -0.06257558333754831,
+    "negation_sharpness_cos_0p7": 0.0,
+    "linear_baseline_sharpness_cos_0p7": 0.09446044796299846,
+    "lift_over_linear_cos_0p7": -0.09446044796299846,
+    "negation_sharpness_cos_0p9": 0.0,
+    "linear_baseline_sharpness_cos_0p9": 0.13057954976067926,
+    "lift_over_linear_cos_0p9": -0.13057954976067926,
+    "negation_sharpness_canonical": 3.96319436526711e-09,
+    "linear_baseline_sharpness_canonical": 0.0,
+    "lift_over_linear_canonical": 3.96319436526711e-09,
+    "superposition_robustness": 0.0
+  },
+  "payload": {
+    "version": 1,
+    "canonical_cos": 0.0,
+    "config": {
+      "d_model": 64,
+      "n_keys": 8,
+      "target_key_idx": 0,
+      "neg_slot_idx": 1,
+      "cos_sweep": [
+        0.0,
+        0.3,
+        0.5,
+        0.7,
+        0.9
+      ],
+      "temperature": 1.0
+    },
+    "sweep": [
+      {
+        "cos": 0.0,
+        "negation_sharpness": 3.96319436526711e-09,
+        "baseline_negation_sharpness": 0.0,
+        "target_attn_absent": 0.007062208852732425,
+        "target_attn_present": 0.007062208824743519
+      },
+      {
+        "cos": 0.3,
+        "negation_sharpness": 0.0,
+        "baseline_negation_sharpness": 0.03474909933292986,
+        "target_attn_absent": 0.007062208852732425,
+        "target_attn_present": 0.007711325565188418
+      },
+      {
+        "cos": 0.5,
+        "negation_sharpness": 0.0,
+        "baseline_negation_sharpness": 0.06257558333754831,
+        "target_attn_absent": 0.007062208852732425,
+        "target_attn_present": 0.007936828556144089
+      },
+      {
+        "cos": 0.7,
+        "negation_sharpness": 0.0,
+        "baseline_negation_sharpness": 0.09446044796299846,
+        "target_attn_absent": 0.007062208852732425,
+        "target_attn_present": 0.008066283963325798
+      },
+      {
+        "cos": 0.9,
+        "negation_sharpness": 0.0,
+        "baseline_negation_sharpness": 0.13057954976067926,
+        "target_attn_absent": 0.007062208852732425,
+        "target_attn_present": 0.008139141573445663
+      }
+    ]
+  }
+}

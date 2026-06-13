@@ -1,0 +1,66 @@
+{
+  "goal": "attention_identity_copy",
+  "attempt": "first_pass",
+  "run_id": "20260613T132246Z",
+  "metrics": {
+    "version": 1,
+    "uniform_baseline_mass": 0.125,
+    "copy_mass_cos_0p0": 0.15500017830717155,
+    "copy_accuracy_cos_0p0": 1.0,
+    "lift_over_uniform_cos_0p0": 0.030000178307171554,
+    "copy_mass_cos_0p3": 0.14542917953026935,
+    "copy_accuracy_cos_0p3": 1.0,
+    "lift_over_uniform_cos_0p3": 0.020429179530269348,
+    "copy_mass_cos_0p5": 0.13932469812960832,
+    "copy_accuracy_cos_0p5": 1.0,
+    "lift_over_uniform_cos_0p5": 0.014324698129608321,
+    "copy_mass_cos_0p7": 0.13343644582555564,
+    "copy_accuracy_cos_0p7": 1.0,
+    "lift_over_uniform_cos_0p7": 0.008436445825555638,
+    "copy_mass_cos_0p9": 0.12776010725139322,
+    "copy_accuracy_cos_0p9": 1.0,
+    "lift_over_uniform_cos_0p9": 0.0027601072513932234,
+    "copy_mass_canonical": 0.13343644582555564,
+    "copy_accuracy_canonical": 1.0,
+    "lift_over_uniform_canonical": 0.008436445825555638,
+    "copy_fidelity_robustness": 0.1401901218087996,
+    "copy_accuracy_mean": 1.0
+  },
+  "payload": {
+    "version": 1,
+    "config": {
+      "d_model": 16,
+      "n_candidates": 8,
+      "n_trials": 256,
+      "canonical_cos": 0.7
+    },
+    "uniform_baseline_mass": 0.125,
+    "sweep": [
+      {
+        "cos": 0.0,
+        "copy_mass": 0.15500017830717155,
+        "copy_accuracy": 1.0
+      },
+      {
+        "cos": 0.3,
+        "copy_mass": 0.14542917953026935,
+        "copy_accuracy": 1.0
+      },
+      {
+        "cos": 0.5,
+        "copy_mass": 0.13932469812960832,
+        "copy_accuracy": 1.0
+      },
+      {
+        "cos": 0.7,
+        "copy_mass": 0.13343644582555564,
+        "copy_accuracy": 1.0
+      },
+      {
+        "cos": 0.9,
+        "copy_mass": 0.12776010725139322,
+        "copy_accuracy": 1.0
+      }
+    ]
+  }
+}

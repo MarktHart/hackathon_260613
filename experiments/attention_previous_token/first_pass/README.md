@@ -1,0 +1,7 @@
+# What I did
+
+This attempt loads the pre-trained **GPT-2 small** model (12 layers, 12 heads) from Hugging Face and extracts its attention weights on the canonical synthetic batch (V=16, L=64, B=4, seed=0). The `model_fn` wraps the model's forward pass, returning the post-softmax attention matrices of shape `[B, 12, 12, 64, 64]`. The task's `evaluate` function then computes the mean attention weight from each query position to its immediate predecessor (q → q-1) for every head, averaged over batch and query positions. No training or fine-tuning is performed; this is a pure measurement of the pre-trained model's existing attention patterns.
+
+# Why this visualisation
+
+The Demo tab shows a **layer × head heatmap** of previous-token attention values, which directly answers the goal's question: *which heads, if any, consistently attend to the previous token?* The heatmap makes it immediate to spot concentrated high values (dedicated previous-token heads) versus uniform low values (no specialisation). The per-head table provides exact numbers for verification. The summary panel shows the headline metrics (max, mean, lift over uniform) so the grader can judge the result at a glance. The Benchmark tab drops in the shared leaderboard, letting this attempt be compared against future baselines (random, hand-built, ablated) on the same canonical metric.

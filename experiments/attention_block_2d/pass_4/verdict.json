@@ -1,0 +1,27 @@
+{
+  "goal": "attention_block_2d",
+  "attempt": "pass_4",
+  "run_id": "20260613T163817Z",
+  "verdict_version": 1,
+  "architecture_fit":         {"score": 5, "note": "Hand-built geometric reader recovers family + params straight off the matrix; minimal, on-task, and honestly avoids the private generators."},
+  "baseline_comparison":      {"score": 4, "note": "Shows +0.75 lift over the majority-local baseline and renders it as a dashed line; baseline is the provided majority-class strawman rather than an adversarial one."},
+  "faithfulness":             {"score": 3, "note": "Synthetic method, no model to patch; README argues each rule is the minimal thing whose removal breaks one family but the ablations are described, not run/shown."},
+  "operating_range":          {"score": 2, "note": "Only evaluated on the canonical 16 (8x8, seed 0, canonical params); code handles larger windows/global_pos=N-1/other grids but none is demonstrated."},
+  "hardcoded_weights_bonus":  {"score": 5, "note": "Entire mechanism is a hand-set geometric circuit with no learning — exactly the hand-built-weights case."},
+  "visual_judgement":         {"score": 4, "note": "Demo shows matrix heatmap + displacement footprint (the quantity the classifier consumes) + per-family accuracy bar vs baseline — legible and well chosen."},
+  "visualisation_rationale":  {"score": 4, "note": "'Why this visualisation' ties the footprint directly to the classifier's input and explains how each family reads off it."},
+  "automated_metrics": {
+    "version": 1,
+    "pattern_acc_canonical": 1.0,
+    "pattern_acc_local": 1.0,
+    "pattern_acc_dilated": 1.0,
+    "pattern_acc_global": 1.0,
+    "pattern_acc_causal_2d": 1.0,
+    "mean_confidence_correct": 0.9898036122322083,
+    "mean_confidence_incorrect": 0.0,
+    "linear_baseline_acc": 0.25,
+    "lift_over_linear_baseline": 0.75
+  },
+  "overall": "borderline",
+  "notes": "A clean, honest hand-built geometric classifier that recovers all four pattern families perfectly on the canonical batch and is fully hand-set (no peeking at generators). Main weaknesses are operating range — nothing beyond the canonical 16 is tested despite code that generalizes — and faithfulness, where the self-ablation argument is stated but not demonstrated. Strong visualisation and baseline framing keep it just below the good threshold."
+}

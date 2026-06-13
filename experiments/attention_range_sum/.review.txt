@@ -1,0 +1,1 @@
+APPROVED: payload contract is consistent across README/task/benchmark, generate is deterministic (canonical seed=42, k=8), metric formulae and baselines match the README, edge cases (empty slice, zero denominator, non-finite) are handled, and VERSION=1 with a documented bump procedure (hardened to also update task.evaluate's version literal).

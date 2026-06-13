@@ -1,0 +1,32 @@
+{
+  "goal": "attention_span",
+  "attempt": "pass_5",
+  "run_id": "20260613T163752Z",
+  "verdict_version": 1,
+  "architecture_fit":         {"score": 5, "note": "Minimal delta from base_model.py: one attention head, token embedding + Q/K projections, softmax, no MLP — directly answers the span question."},
+  "baseline_comparison":      {"score": 5, "note": "Positional ALiBi strawman (finite, decaying span) and uniform baseline both fail where the content head holds flat at 0.997."},
+  "faithfulness":             {"score": 5, "note": "Ablation zeroing the needle key direction collapses attention exactly to uniform, causally isolating the Q/K alignment as the source of span."},
+  "operating_range":          {"score": 5, "note": "Attention stays flat ~0.997 across d=1..256 (>2 orders of magnitude), robustness ratio ~1.0."},
+  "hardcoded_weights_bonus":  {"score": 5, "note": "Entirely hand-set weights (build_head) reproduce the target behaviour — clean demonstration of mechanism understanding."},
+  "visual_judgement":         {"score": 5, "note": "Single log2-distance chart overlays content (flat-high), positional (decaying), ablation (pinned to baseline) plus an interactive ALiBi-slope slider — claim is legible at a glance."},
+  "visualisation_rationale":  {"score": 5, "note": "README ties log2 axis, uniform baseline reference, and three-curve contrast to exactly what the goal asks about span."},
+  "automated_metrics":        {
+    "version": 1,
+    "attention_on_target_dist_1": 0.9968692660331726,
+    "attention_on_target_dist_2": 0.9968692660331726,
+    "attention_on_target_dist_4": 0.9968692660331726,
+    "attention_on_target_dist_8": 0.9968692660331726,
+    "attention_on_target_dist_16": 0.9968692660331726,
+    "attention_on_target_dist_32": 0.9968692660331726,
+    "attention_on_target_dist_64": 0.9968694448471069,
+    "attention_on_target_dist_128": 0.9968695044517517,
+    "attention_on_target_dist_256": 0.9968698620796204,
+    "attention_span_auc_canonical": 0.9968693554401398,
+    "attention_span_robustness": 1.000000597918371,
+    "linear_baseline_attention_span_auc": 0.001953125,
+    "linear_baseline_attention_on_target_dist_1": 0.001953125,
+    "lift_over_baseline_auc": 0.9949162304401398
+  },
+  "overall":                  "perfect",
+  "notes": "A clean, minimal hand-built single-head content-retrieval circuit that answers the goal directly: span is bounded by content addressing, not distance, holding ~0.997 attention flat across 1..256. It pairs a decaying ALiBi positional strawman with a key-direction ablation that collapses to uniform, giving both a baseline contrast and genuine causal evidence. The visualisation cleanly overlays all three curves on a log2 axis with an interactive span-shrinking slider; every rubric item is satisfied."
+}

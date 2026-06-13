@@ -1,0 +1,31 @@
+{
+  "goal": "attention_range_sum",
+  "attempt": "first_pass",
+  "run_id": "20260613T135501Z",
+  "verdict_version": 1,
+  "architecture_fit":         {"score": 1, "note": "No attention or transformer at all; pure NumPy cumsum that re-implements the generator, so it never addresses whether attention can compute a range sum."},
+  "baseline_comparison":      {"score": 2, "note": "Beats the built-in constant-predictor baseline trivially (exact targets), but constructs no attention-vs-no-attention strawman of its own."},
+  "faithfulness":             {"score": 1, "note": "No model exists to test; it reconstructs ground-truth sums directly, so there is no mechanism to causally ablate."},
+  "operating_range":          {"score": 3, "note": "Sweeps k=2..32 with 0 MSE and robustness 1.0, but the invariance is trivial because the arithmetic is exact rather than learned."},
+  "hardcoded_weights_bonus":  {"score": 2, "note": "Hand-built rather than learned, but it bypasses attention entirely instead of hand-setting an attention circuit, so it shows no mechanism understanding."},
+  "visual_judgement":         {"score": 1, "note": "Demo tab only emits a 'Run loaded successfully' status string; no chart or interactive view of the claim, just the generic benchmark panel."},
+  "visualisation_rationale":  {"score": 2, "note": "README argues no dynamic demo is needed since MSE is trivially zero; weak, since it skips visualising any actual mechanism."},
+  "automated_metrics": {
+    "version": 1,
+    "range_sum_mse_k_2": 0.0,
+    "linear_baseline_mse_k_2": 0.6392667005073408,
+    "range_sum_mse_k_4": 0.0,
+    "linear_baseline_mse_k_4": 1.2559059446513716,
+    "range_sum_mse_k_8": 0.0,
+    "linear_baseline_mse_k_8": 2.5637509893405137,
+    "range_sum_mse_k_16": 0.0,
+    "linear_baseline_mse_k_16": 4.920725050463028,
+    "range_sum_mse_k_32": 0.0,
+    "linear_baseline_mse_k_32": 9.916405494618136,
+    "range_sum_mse_canonical": 0.0,
+    "lift_over_linear_k_8": 2.5637509893405137,
+    "range_sum_robustness": 1.0
+  },
+  "overall": "fail",
+  "notes": "This attempt scores perfect MSE only because it re-implements the dataset generator's own cumsum to reconstruct the targets; it contains no attention head, no transformer, and no model whatsoever. It therefore fails the goal's central question (can attention express a range sum) on architecture fit and faithfulness, and the empty Demo tab adds no interpretive value. Useful only as a declared upper-bound reference, not as a mechanistic result."
+}

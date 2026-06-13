@@ -1,0 +1,210 @@
+{
+  "goal": "attention_block_2d",
+  "attempt": "pass_3",
+  "run_id": "20260613T151102Z",
+  "metrics": {
+    "version": 1,
+    "pattern_acc_canonical": 1.0,
+    "pattern_acc_local": 1.0,
+    "pattern_acc_dilated": 1.0,
+    "pattern_acc_global": 1.0,
+    "pattern_acc_causal_2d": 1.0,
+    "mean_confidence_correct": 0.9986524396270633,
+    "mean_confidence_incorrect": 0.0,
+    "linear_baseline_acc": 0.25,
+    "lift_over_linear_baseline": 0.75
+  },
+  "payload": {
+    "version": 1,
+    "grid_size": [
+      8,
+      8
+    ],
+    "sweep": [
+      {
+        "pattern_id": "local",
+        "params": {
+          "window_size": 1
+        },
+        "pred_pattern_id": "local",
+        "pred_params": {
+          "window_size": 1
+        },
+        "confidence": 1.0,
+        "correct": true
+      },
+      {
+        "pattern_id": "local",
+        "params": {
+          "window_size": 1
+        },
+        "pred_pattern_id": "local",
+        "pred_params": {
+          "window_size": 1
+        },
+        "confidence": 0.9995177888799757,
+        "correct": true
+      },
+      {
+        "pattern_id": "local",
+        "params": {
+          "window_size": 1
+        },
+        "pred_pattern_id": "local",
+        "pred_params": {
+          "window_size": 1
+        },
+        "confidence": 0.9995156243687587,
+        "correct": true
+      },
+      {
+        "pattern_id": "local",
+        "params": {
+          "window_size": 1
+        },
+        "pred_pattern_id": "local",
+        "pred_params": {
+          "window_size": 1
+        },
+        "confidence": 0.9995173037786508,
+        "correct": true
+      },
+      {
+        "pattern_id": "dilated",
+        "params": {
+          "window_size": 1,
+          "dilation": 2
+        },
+        "pred_pattern_id": "dilated",
+        "pred_params": {
+          "window_size": 1,
+          "dilation": 2
+        },
+        "confidence": 0.9994130517857521,
+        "correct": true
+      },
+      {
+        "pattern_id": "dilated",
+        "params": {
+          "window_size": 1,
+          "dilation": 2
+        },
+        "pred_pattern_id": "dilated",
+        "pred_params": {
+          "window_size": 1,
+          "dilation": 2
+        },
+        "confidence": 0.9993912532510505,
+        "correct": true
+      },
+      {
+        "pattern_id": "dilated",
+        "params": {
+          "window_size": 1,
+          "dilation": 2
+        },
+        "pred_pattern_id": "dilated",
+        "pred_params": {
+          "window_size": 1,
+          "dilation": 2
+        },
+        "confidence": 0.9994090587649614,
+        "correct": true
+      },
+      {
+        "pattern_id": "dilated",
+        "params": {
+          "window_size": 1,
+          "dilation": 2
+        },
+        "pred_pattern_id": "dilated",
+        "pred_params": {
+          "window_size": 1,
+          "dilation": 2
+        },
+        "confidence": 0.9994036436050427,
+        "correct": true
+      },
+      {
+        "pattern_id": "global",
+        "params": {
+          "global_pos": 0
+        },
+        "pred_pattern_id": "global",
+        "pred_params": {
+          "global_pos": 0
+        },
+        "confidence": 0.995870909741597,
+        "correct": true
+      },
+      {
+        "pattern_id": "global",
+        "params": {
+          "global_pos": 0
+        },
+        "pred_pattern_id": "global",
+        "pred_params": {
+          "global_pos": 0
+        },
+        "confidence": 0.9958623848726907,
+        "correct": true
+      },
+      {
+        "pattern_id": "global",
+        "params": {
+          "global_pos": 0
+        },
+        "pred_pattern_id": "global",
+        "pred_params": {
+          "global_pos": 0
+        },
+        "confidence": 0.9958092172697546,
+        "correct": true
+      },
+      {
+        "pattern_id": "global",
+        "params": {
+          "global_pos": 0
+        },
+        "pred_pattern_id": "global",
+        "pred_params": {
+          "global_pos": 0
+        },
+        "confidence": 0.9958160653596576,
+        "correct": true
+      },
+      {
+        "pattern_id": "causal_2d",
+        "params": {},
+        "pred_pattern_id": "causal_2d",
+        "pred_params": {},
+        "confidence": 0.9997286963848231,
+        "correct": true
+      },
+      {
+        "pattern_id": "causal_2d",
+        "params": {},
+        "pred_pattern_id": "causal_2d",
+        "pred_params": {},
+        "confidence": 0.9997231470781206,
+        "correct": true
+      },
+      {
+        "pattern_id": "causal_2d",
+        "params": {},
+        "pred_pattern_id": "causal_2d",
+        "pred_params": {},
+        "confidence": 0.9997387120121358,
+        "correct": true
+      },
+      {
+        "pattern_id": "causal_2d",
+        "params": {},
+        "pred_pattern_id": "causal_2d",
+        "pred_params": {},
+        "confidence": 0.9997221768800414,
+        "correct": true
+      }
+    ]
+  }
+}

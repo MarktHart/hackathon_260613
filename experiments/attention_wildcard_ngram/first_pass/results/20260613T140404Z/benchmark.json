@@ -1,0 +1,173 @@
+{
+  "goal": "attention_wildcard_ngram",
+  "attempt": "first_pass",
+  "run_id": "20260613T140404Z",
+  "metrics": {
+    "version": 1,
+    "wildcard_match_canonical": 0.5,
+    "wildcard_match_prefix_canonical": 0.5,
+    "wildcard_match_suffix_canonical": 0.5,
+    "wildcard_distractor_leak_canonical": 0.0,
+    "wildcard_background_canonical": 0.0,
+    "wildcard_robustness": 0.5,
+    "linear_baseline_match_canonical": 0.015873015873015872,
+    "lift_over_baseline_canonical": 0.48412698412698413,
+    "wildcard_match_prefix_len_1_suffix_len_2": 0.375,
+    "wildcard_match_prefix_prefix_len_1_suffix_len_2": 0.5,
+    "wildcard_match_suffix_prefix_len_1_suffix_len_2": 0.25,
+    "wildcard_distractor_leak_prefix_len_1_suffix_len_2": 0.0,
+    "wildcard_background_prefix_len_1_suffix_len_2": 0.0,
+    "wildcard_match_prefix_len_2_suffix_len_1": 0.375,
+    "wildcard_match_prefix_prefix_len_2_suffix_len_1": 0.25,
+    "wildcard_match_suffix_prefix_len_2_suffix_len_1": 0.5,
+    "wildcard_distractor_leak_prefix_len_2_suffix_len_1": 0.0,
+    "wildcard_background_prefix_len_2_suffix_len_1": 0.0,
+    "wildcard_match_prefix_len_2_suffix_len_2": 0.25,
+    "wildcard_match_prefix_prefix_len_2_suffix_len_2": 0.25,
+    "wildcard_match_suffix_prefix_len_2_suffix_len_2": 0.25,
+    "wildcard_distractor_leak_prefix_len_2_suffix_len_2": 0.0,
+    "wildcard_background_prefix_len_2_suffix_len_2": 0.0
+  },
+  "payload": {
+    "version": 1,
+    "config": {
+      "seq_len": 64,
+      "vocab_size": 9,
+      "batch_size": 32,
+      "prefix_len": 1,
+      "suffix_len": 1,
+      "num_distractors": 3,
+      "seed": 42
+    },
+    "sweep": [
+      {
+        "condition": "canonical",
+        "prefix_len": 1,
+        "suffix_len": 1,
+        "wildcard_pos": 31,
+        "prefix_positions": [
+          30
+        ],
+        "suffix_positions": [
+          32
+        ],
+        "distractor_positions": [
+          [
+            0,
+            2
+          ],
+          [
+            4,
+            6
+          ],
+          [
+            8,
+            10
+          ]
+        ],
+        "attn_wild_to_prefix": 0.5,
+        "attn_wild_to_suffix": 0.5,
+        "attn_wild_to_distractors": 0.0,
+        "attn_wild_to_other": 0.0,
+        "num_heads": 4
+      },
+      {
+        "condition": "prefix_len_1_suffix_len_2",
+        "prefix_len": 1,
+        "suffix_len": 2,
+        "wildcard_pos": 31,
+        "prefix_positions": [
+          30
+        ],
+        "suffix_positions": [
+          32,
+          33
+        ],
+        "distractor_positions": [
+          [
+            0,
+            2
+          ],
+          [
+            5,
+            7
+          ],
+          [
+            10,
+            12
+          ]
+        ],
+        "attn_wild_to_prefix": 0.5,
+        "attn_wild_to_suffix": 0.25,
+        "attn_wild_to_distractors": 0.0,
+        "attn_wild_to_other": 0.0,
+        "num_heads": 4
+      },
+      {
+        "condition": "prefix_len_2_suffix_len_1",
+        "prefix_len": 2,
+        "suffix_len": 1,
+        "wildcard_pos": 32,
+        "prefix_positions": [
+          30,
+          31
+        ],
+        "suffix_positions": [
+          33
+        ],
+        "distractor_positions": [
+          [
+            1,
+            3
+          ],
+          [
+            6,
+            8
+          ],
+          [
+            11,
+            13
+          ]
+        ],
+        "attn_wild_to_prefix": 0.25,
+        "attn_wild_to_suffix": 0.5,
+        "attn_wild_to_distractors": 0.0,
+        "attn_wild_to_other": 0.0,
+        "num_heads": 4
+      },
+      {
+        "condition": "prefix_len_2_suffix_len_2",
+        "prefix_len": 2,
+        "suffix_len": 2,
+        "wildcard_pos": 31,
+        "prefix_positions": [
+          29,
+          30
+        ],
+        "suffix_positions": [
+          32,
+          33
+        ],
+        "distractor_positions": [
+          [
+            1,
+            3
+          ],
+          [
+            7,
+            9
+          ],
+          [
+            13,
+            15
+          ]
+        ],
+        "attn_wild_to_prefix": 0.25,
+        "attn_wild_to_suffix": 0.25,
+        "attn_wild_to_distractors": 0.0,
+        "attn_wild_to_other": 0.0,
+        "num_heads": 4
+      }
+    ]
+  }
+}

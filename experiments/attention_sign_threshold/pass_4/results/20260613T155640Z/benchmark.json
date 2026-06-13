@@ -1,0 +1,175 @@
+{
+  "goal": "attention_sign_threshold",
+  "attempt": "pass_4",
+  "run_id": "20260613T155640Z",
+  "metrics": {
+    "version": 1,
+    "sign_sharpness_canonical": 10.313070123282563,
+    "sign_threshold_canonical": 0.00926364703024497,
+    "linear_baseline_sharpness_canonical": 5.2331491237473005,
+    "lift_over_linear_sharpness": 1.9707197099511822,
+    "sign_sharpness_cos_m0p9": 2.667327023365728e-06,
+    "sign_sharpness_cos_m0p8": 3.0952687486162926e-05,
+    "sign_sharpness_cos_m0p7": 5.069324164172238e-05,
+    "sign_sharpness_cos_m0p6": 0.001992180025863045,
+    "sign_sharpness_cos_m0p5": 0.027700819538857682,
+    "sign_sharpness_cos_m0p4": 0.06352286436871003,
+    "sign_sharpness_cos_m0p3": 0.5771406327986623,
+    "sign_sharpness_cos_m0p2": 1.2093938535768018,
+    "sign_sharpness_cos_m0p1": 1.7826135935989977,
+    "sign_sharpness_cos_0p0": 2.1647613918071777,
+    "sign_sharpness_cos_0p1": 2.1413394489684783,
+    "sign_sharpness_cos_0p2": 1.3346191544656896,
+    "sign_sharpness_cos_0p3": 0.4505482248880234,
+    "sign_sharpness_cos_0p4": 0.22340924879367643,
+    "sign_sharpness_cos_0p5": 0.020161567315915167,
+    "sign_sharpness_cos_0p6": 0.002253949776527272,
+    "sign_sharpness_cos_0p7": 0.000441968467352895,
+    "sign_sharpness_cos_0p8": 1.609325504858822e-05,
+    "sign_sharpness_cos_0p9": 2.980232416405226e-07
+  },
+  "payload": {
+    "version": 1,
+    "config": {
+      "d_model": 64,
+      "pairs_per_bin": 100,
+      "cosine_sweep": [
+        -1.0,
+        -0.8999999761581421,
+        -0.800000011920929,
+        -0.699999988079071,
+        -0.6000000238418579,
+        -0.5,
+        -0.4000000059604645,
+        -0.30000001192092896,
+        -0.20000000298023224,
+        -0.10000000149011612,
+        0.0,
+        0.10000000149011612,
+        0.20000000298023224,
+        0.30000001192092896,
+        0.4000000059604645,
+        0.5,
+        0.6000000238418579,
+        0.699999988079071,
+        0.800000011920929,
+        0.8999999761581421,
+        1.0
+      ],
+      "seed": 42,
+      "normalisation": "sigmoid_per_pair"
+    },
+    "sweep": [
+      {
+        "cosine": -1.0,
+        "mean_attention": 1.5593805136049355e-09,
+        "std_attention": 9.226277519758241e-09
+      },
+      {
+        "cosine": -0.8999999761581421,
+        "mean_attention": 3.2732664578816184e-08,
+        "std_attention": 2.2387688147773588e-07
+      },
+      {
+        "cosine": -0.800000011920929,
+        "mean_attention": 5.350247533897345e-07,
+        "std_attention": 3.1573581509292126e-06
+      },
+      {
+        "cosine": -0.699999988079071,
+        "mean_attention": 6.223269792826613e-06,
+        "std_attention": 4.15757458540611e-05
+      },
+      {
+        "cosine": -0.6000000238418579,
+        "mean_attention": 1.0673672477423679e-05,
+        "std_attention": 4.191840343992226e-05
+      },
+      {
+        "cosine": -0.5,
+        "mean_attention": 0.000404659251216799,
+        "std_attention": 0.002080145524814725
+      },
+      {
+        "cosine": -0.4000000059604645,
+        "mean_attention": 0.005550838075578213,
+        "std_attention": 0.023401666432619095
+      },
+      {
+        "cosine": -0.30000001192092896,
+        "mean_attention": 0.013109231367707253,
+        "std_attention": 0.036696888506412506
+      },
+      {
+        "cosine": -0.20000000298023224,
+        "mean_attention": 0.12097896635532379,
+        "std_attention": 0.23813803493976593
+      },
+      {
+        "cosine": -0.10000000149011612,
+        "mean_attention": 0.25498801469802856,
+        "std_attention": 0.35735198855400085
+      },
+      {
+        "cosine": 0.0,
+        "mean_attention": 0.47750169038772583,
+        "std_attention": 0.409553200006485
+      },
+      {
+        "cosine": 0.10000000149011612,
+        "mean_attention": 0.6879402995109558,
+        "std_attention": 0.36251041293144226
+      },
+      {
+        "cosine": 0.20000000298023224,
+        "mean_attention": 0.9057695865631104,
+        "std_attention": 0.2180524468421936
+      },
+      {
+        "cosine": 0.30000001192092896,
+        "mean_attention": 0.9548641443252563,
+        "std_attention": 0.1530078500509262
+      },
+      {
+        "cosine": 0.4000000059604645,
+        "mean_attention": 0.9958792328834534,
+        "std_attention": 0.014374670572578907
+      },
+      {
+        "cosine": 0.5,
+        "mean_attention": 0.9995459914207458,
+        "std_attention": 0.002712251851335168
+      },
+      {
+        "cosine": 0.6000000238418579,
+        "mean_attention": 0.9999115467071533,
+        "std_attention": 0.0005839028162881732
+      },
+      {
+        "cosine": 0.699999988079071,
+        "mean_attention": 0.9999967813491821,
+        "std_attention": 1.9954635718022473e-05
+      },
+      {
+        "cosine": 0.800000011920929,
+        "mean_attention": 0.9999999403953552,
+        "std_attention": 5.70953943679342e-07
+      },
+      {
+        "cosine": 0.8999999761581421,
+        "mean_attention": 1.0,
+        "std_attention": 4.640215323092889e-08
+      },
+      {
+        "cosine": 1.0,
+        "mean_attention": 1.0,
+        "std_attention": 0.0
+      }
+    ],
+    "model_info": {
+      "name": "trained_qk_sign_circuit",
+      "type": "head_hook",
+      "notes": "base_model.py Attention, one head, QK-only, learned temperature. Trained (BCE sign objective). s=29.998, cos(W_qW_k^T, I)=0.649."
+    }
+  }
+}

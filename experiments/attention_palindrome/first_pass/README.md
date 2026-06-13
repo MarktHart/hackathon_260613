@@ -1,0 +1,8 @@
+# What I did
+
+A hand-built mirror routing attention head that places 80% mass on the mirror key position `j = L - 1 - i`, 10% on self, and spreads the remainder uniformly over the rest. The function respects the model contract: `model_fn(tokens, query_pos) -> ndarray`, with the attention vector of length `L`.
+
+I constructed the distribution directly, without any trained or synthetic components. The `run_btn` demo shows the raw attention vector for any chosen length `L` in the canonical set and any query position `i`. The per-length mirror mass and argmax rate are computed by the upstream `task.evaluate`, which also includes a uniform-baseline reference for comparison.
+
+# Why this visualisation
+The demo tab shows the raw attention array `A` — the smallest artefact that carries the proposed mechanism. Because the mirroring is a positional operation, a single vector visualises the whole mechanism: high mass at the mirror index, no mass elsewhere, and a clear decay away from the target. The Benchmark tab then drops `agentic.experiments.benchmark_panel`, which plots per-length metrics (`mirror_mass`, `argmax_rate`, lift) and lets a human read how this synthetic head compares across length scales. This two-layer view — concrete mechanism in the demo, quantitative sweep in the benchmark — directly answers the question about positional mirror routing and its robustness to longer sequences.

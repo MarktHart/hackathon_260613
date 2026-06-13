@@ -1,0 +1,83 @@
+{
+  "goal": "attention_one_hot",
+  "attempt": "pass_2",
+  "run_id": "20260613T150731Z",
+  "metrics": {
+    "version": 1,
+    "one_hot_length_16": 0.9999995231628418,
+    "peak_attention_length_16": 0.9999995231628418,
+    "entropy_length_16": 9.015065161257169e-06,
+    "output_cosine_length_16": 0.999999974285184,
+    "linear_baseline_one_hot_length_16": 0.0625,
+    "one_hot_length_32": 0.9999990463256836,
+    "peak_attention_length_32": 0.9999990463256836,
+    "entropy_length_32": 1.8599337434720722e-05,
+    "output_cosine_length_32": 1.0000000237126296,
+    "linear_baseline_one_hot_length_32": 0.03125,
+    "one_hot_length_64": 0.9999979734420776,
+    "peak_attention_length_64": 0.9999979734420776,
+    "entropy_length_64": 3.788706268539632e-05,
+    "output_cosine_length_64": 0.99999999340168,
+    "linear_baseline_one_hot_length_64": 0.015625,
+    "one_hot_canonical": 0.9999979734420776,
+    "one_hot_length_128": 0.9999958276748657,
+    "peak_attention_length_128": 0.9999958276748657,
+    "entropy_length_128": 7.646239905668409e-05,
+    "output_cosine_length_128": 1.0000000383485452,
+    "linear_baseline_one_hot_length_128": 0.0078125,
+    "one_hot_length_256": 0.999991774559021,
+    "peak_attention_length_256": 0.999991774559021,
+    "entropy_length_256": 0.00015337422808783327,
+    "output_cosine_length_256": 1.0000000315449173,
+    "linear_baseline_one_hot_length_256": 0.00390625,
+    "length_robustness": 0.9999922513924844
+  },
+  "payload": {
+    "version": 1,
+    "canonical_length": 64,
+    "temperature": 0.1,
+    "d_model": 32,
+    "sweep": [
+      {
+        "length": 16,
+        "target_pos": 8,
+        "attention_entropy": 9.015065161257169e-06,
+        "peak_attention": 0.9999995231628418,
+        "target_attention": 0.9999995231628418,
+        "output_cosine": 0.999999974285184
+      },
+      {
+        "length": 32,
+        "target_pos": 28,
+        "attention_entropy": 1.8599337434720722e-05,
+        "peak_attention": 0.9999990463256836,
+        "target_attention": 0.9999990463256836,
+        "output_cosine": 1.0000000237126296
+      },
+      {
+        "length": 64,
+        "target_pos": 32,
+        "attention_entropy": 3.788706268539632e-05,
+        "peak_attention": 0.9999979734420776,
+        "target_attention": 0.9999979734420776,
+        "output_cosine": 0.99999999340168
+      },
+      {
+        "length": 128,
+        "target_pos": 90,
+        "attention_entropy": 7.646239905668409e-05,
+        "peak_attention": 0.9999958276748657,
+        "target_attention": 0.9999958276748657,
+        "output_cosine": 1.0000000383485452
+      },
+      {
+        "length": 256,
+        "target_pos": 113,
+        "attention_entropy": 0.00015337422808783327,
+        "peak_attention": 0.999991774559021,
+        "target_attention": 0.999991774559021,
+        "output_cosine": 1.0000000315449173
+      }
+    ]
+  }
+}

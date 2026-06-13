@@ -1,0 +1,87 @@
+{
+  "goal": "attention_boundary",
+  "attempt": "first_pass",
+  "run_id": "20260613T151301Z",
+  "metrics": {
+    "version": 1,
+    "boundary_sharpness_canonical": 0.9399999789893627,
+    "boundary_sharpness_segA": 0.9399999789893627,
+    "boundary_sharpness_segB": 0.9399999789893627,
+    "boundary_crossing_rate_canonical": 0.019999999552965164,
+    "boundary_crossing_rate_segA": 0.019999999552965164,
+    "boundary_crossing_rate_segB": 0.019999999552965164,
+    "delim_leakage_canonical": 0.009999999776482582,
+    "delim_leakage_segA": 0.009999999776482582,
+    "delim_leakage_segB": 0.009999999776482582,
+    "linear_baseline_sharpness_canonical": 0.0,
+    "linear_baseline_sharpness_segA": 0.0,
+    "linear_baseline_sharpness_segB": 0.0,
+    "lift_over_linear_sharpness": 0.9399999789893627
+  },
+  "payload": {
+    "version": 1,
+    "config": {
+      "vocab_size": 64,
+      "seg_len": 8,
+      "batch_size": 32,
+      "n_heads": 4,
+      "seq_len": 18,
+      "delim_pos": 8,
+      "canonical_seed": 0
+    },
+    "sweep": [
+      {
+        "query_segment": "segA",
+        "within_seg_attn": 0.9599999785423279,
+        "delim_attn": 0.009999999776482582,
+        "cross_seg_attn": 0.019999999552965164,
+        "eos_attn": 0.009999999776482582,
+        "head_sharpness": [
+          0.9399999789893627,
+          0.9399999789893627,
+          0.9399999789893627,
+          0.9399999789893627
+        ]
+      },
+      {
+        "query_segment": "segB",
+        "within_seg_attn": 0.9599999785423279,
+        "delim_attn": 0.009999999776482582,
+        "cross_seg_attn": 0.019999999552965164,
+        "eos_attn": 0.009999999776482582,
+        "head_sharpness": [
+          0.9399999789893627,
+          0.9399999789893627,
+          0.9399999789893627,
+          0.9399999789893627
+        ]
+      }
+    ],
+    "linear_baseline": {
+      "segA": {
+        "within_seg_attn": 0.4444444444444444,
+        "delim_attn": 0.05555555555555555,
+        "cross_seg_attn": 0.4444444444444444,
+        "eos_attn": 0.05555555555555555,
+        "head_sharpness": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "segB": {
+        "within_seg_attn": 0.4444444444444444,
+        "delim_attn": 0.05555555555555555,
+        "cross_seg_attn": 0.4444444444444444,
+        "eos_attn": 0.05555555555555555,
+        "head_sharpness": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    }
+  }
+}

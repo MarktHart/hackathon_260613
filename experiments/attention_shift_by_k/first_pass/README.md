@@ -1,0 +1,7 @@
+# What I did
+
+This attempt implements a **hand-built QK circuit** that exactly solves the relative positional shift task. The mechanism uses identity positional embeddings (one-hot per position, valid since `d_model = seq_len = 64`) with a fixed query projection `W_Q = I` and a k-dependent key projection `W_K(k)` that shifts keys by `k` positions. For query position `i`, the logits are a one-hot vector with a large positive value at the target `i - k` and zeros elsewhere. After scaling by `logit_scale=10`, the softmax concentrates ~99.7% probability mass on the target, yielding near-perfect shift accuracy across all offsets `k ∈ {1,2,4,8,16}`. No training is involved — the circuit is constructed analytically from the problem definition.
+
+# Why this visualisation
+
+The demo shows two coordinated views: (left) grouped bars comparing mean target mass against the uniform-attention baseline for each offset `k`, making the lift immediately visible; (right) shift accuracy and lift plotted against `k` on a log₂ scale, exposing whether performance degrades at larger offsets. The canonical offset `k=4` is highlighted in the metrics table. This two-panel layout directly answers the goal's question — "does the behaviour hold across a sweep of offsets?" — by putting the sweep on the x-axis and the two key metrics (mass concentration and argmax correctness) on the y-axes, with the uniform baseline as the anchored reference.

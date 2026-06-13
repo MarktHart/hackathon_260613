@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "model_name": "unknown",
+  "seq_len": 32,
+  "batch_size": 8,
+  "vocab_size": 64,
+  "num_heads": 6,
+  "k_values": [
+    1,
+    2,
+    3,
+    4,
+    8
+  ],
+  "canonical_k": 1,
+  "uniform_baseline": 0.03125,
+  "sweep": [
+    {
+      "k": 1,
+      "best_head_index": 0,
+      "best_head_mass": 0.03125,
+      "best_head_argmax_acc": 0.03225806451612903,
+      "mean_head_mass": 0.030984583577782995,
+      "uniform_baseline": 0.03125
+    },
+    {
+      "k": 2,
+      "best_head_index": 0,
+      "best_head_mass": 0.03125,
+      "best_head_argmax_acc": 0.03333333333333333,
+      "mean_head_mass": 0.030984583577782995,
+      "uniform_baseline": 0.03125
+    },
+    {
+      "k": 3,
+      "best_head_index": 0,
+      "best_head_mass": 0.03125,
+      "best_head_argmax_acc": 0.034482758620689655,
+      "mean_head_mass": 0.030984583577782998,
+      "uniform_baseline": 0.03125
+    },
+    {
+      "k": 4,
+      "best_head_index": 0,
+      "best_head_mass": 0.03125,
+      "best_head_argmax_acc": 0.03571428571428571,
+      "mean_head_mass": 0.030984583577782998,
+      "uniform_baseline": 0.03125
+    },
+    {
+      "k": 8,
+      "best_head_index": 0,
+      "best_head_mass": 0.03125,
+      "best_head_argmax_acc": 0.041666666666666664,
+      "mean_head_mass": 0.030984583577783,
+      "uniform_baseline": 0.03125
+    }
+  ]
+}

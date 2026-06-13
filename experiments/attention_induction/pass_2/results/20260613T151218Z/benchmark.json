@@ -1,0 +1,76 @@
+{
+  "goal": "attention_induction",
+  "attempt": "pass_2",
+  "run_id": "20260613T151218Z",
+  "metrics": {
+    "version": 1,
+    "induction_accuracy": 1.0,
+    "induction_ce_loss": 0.0030344885916755338,
+    "uniform_baseline_accuracy": 0.0078125,
+    "uniform_baseline_ce_loss": 4.852030263919617,
+    "lift_over_uniform": 0.9921875,
+    "num_targets": 2496,
+    "induction_accuracy_dist_16": 1.0,
+    "induction_ce_loss_dist_16": 0.001498641108228032,
+    "num_targets_dist_16": 240,
+    "induction_accuracy_dist_32": 1.0,
+    "induction_ce_loss_dist_32": 0.00484321054801781,
+    "num_targets_dist_32": 496,
+    "induction_accuracy_dist_48": 1.0,
+    "induction_ce_loss_dist_48": 0.002225744046956434,
+    "num_targets_dist_48": 752,
+    "induction_accuracy_dist_64": 1.0,
+    "induction_ce_loss_dist_64": 0.0031135096267056865,
+    "num_targets_dist_64": 1008,
+    "induction_accuracy_canonical": 1.0,
+    "distance_robustness": 1.0
+  },
+  "payload": {
+    "version": 1,
+    "model_name": "synthetic_induction",
+    "vocab_size": 128,
+    "seq_len": 192,
+    "canonical_distance": 16,
+    "sweep": [
+      {
+        "distance": 16,
+        "num_targets": 240,
+        "accuracy": 1.0,
+        "ce_loss": 0.001498641108228032,
+        "uniform_baseline_accuracy": 0.0078125,
+        "uniform_baseline_ce_loss": 4.852030263919617
+      },
+      {
+        "distance": 32,
+        "num_targets": 496,
+        "accuracy": 1.0,
+        "ce_loss": 0.00484321054801781,
+        "uniform_baseline_accuracy": 0.0078125,
+        "uniform_baseline_ce_loss": 4.852030263919617
+      },
+      {
+        "distance": 48,
+        "num_targets": 752,
+        "accuracy": 1.0,
+        "ce_loss": 0.002225744046956434,
+        "uniform_baseline_accuracy": 0.0078125,
+        "uniform_baseline_ce_loss": 4.852030263919617
+      },
+      {
+        "distance": 64,
+        "num_targets": 1008,
+        "accuracy": 1.0,
+        "ce_loss": 0.0031135096267056865,
+        "uniform_baseline_accuracy": 0.0078125,
+        "uniform_baseline_ce_loss": 4.852030263919617
+      }
+    ],
+    "aggregate": {
+      "accuracy": 1.0,
+      "ce_loss": 0.0030344885916755338,
+      "num_targets": 2496,
+      "uniform_baseline_accuracy": 0.0078125,
+      "uniform_baseline_ce_loss": 4.852030263919617
+    }
+  }
+}

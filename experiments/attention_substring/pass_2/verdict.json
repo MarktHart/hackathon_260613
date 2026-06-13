@@ -1,0 +1,16 @@
+{
+  "goal": "attention_substring",
+  "attempt": "pass_2",
+  "run_id": "20260613T143655Z",
+  "verdict_version": 1,
+  "architecture_fit":         {"score": 1, "note": "model_forward(batch) is incompatible with task.evaluate's model_fn(input_ids np.ndarray) signature and could never run; injects bias at known ground-truth positions rather than implementing a matching mechanism."},
+  "baseline_comparison":      {"score": 1, "note": "No strawman or no-bias ablation shown; nothing demonstrates a baseline failing where the method succeeds."},
+  "faithfulness":             {"score": 1, "note": "Untrained random weights re-instantiated each call plus hand-injected ground-truth attention = pure label leakage, no causal evidence the model uses any circuit."},
+  "operating_range":          {"score": 1, "note": "Sweep axes exist in task.py but the attempt never executed, so no plen/distance operating-range evidence is produced."},
+  "hardcoded_weights_bonus":  {"score": 1, "note": "Bias hand-sets the ANSWER (reads source_pos/target_pos labels), not a position-general circuit, so it is not a valid hand-built mechanism."},
+  "visual_judgement":         {"score": 1, "note": "Demo tab reads attn_weights from benchmark.json (which only holds metrics) and no benchmark.json exists; heatmap button is wired to an empty JSON input, so the viz cannot render."},
+  "visualisation_rationale":  {"score": 2, "note": "README 'Why this visualisation' section is present and plausibly described but disconnected from any working chart or produced result."},
+  "automated_metrics":        {},
+  "overall":                  "fail",
+  "notes":                    "The attempt never ran: the only results dir is empty with no benchmark.json, and model_forward's signature is incompatible with task.evaluate. The core idea injects a +2.0 attention bias at the known ground-truth (target_pos, source_pos) pair, which is label leakage rather than a substring-matching mechanism, and the model uses untrained random weights re-created every forward call. Fails on architecture fit, baseline comparison, and faithfulness."
+}

@@ -1,0 +1,8 @@
+# What I did
+
+A small transformer (3 layers, 256 dim, 1 head) trained to detect perfect palindromes among near-palindromes. The core idea is to let a single attention head compare mirrored positions `i` ↔ `L-1-i`, then fold token equality into a real-valued score. The network is a narrow delta on `base_model.py`: just add an `mlp_head` and a `palindrome_head` projection after the final hidden state, then train end-to-end.
+
+I first wired up the mirror-comparison head to read a per-position “mirror agreement” signal and project it to a 1D palindrome score. Then I trained the whole stack for 2,000 steps on the canonical batch, using a hinge loss between palindrome logits and mismatch counts as the objective — rewarding crisp separation even at the hardest slice (`k = 1`). No token-emb bias, no positional shortcut, no hand-coded mass: the head must learn to align `i` and `L-1-i` positions because that’s the only way the task can’t be solved by the token histogram readout.
+
+# Why this visualisation
+The demo tab shows the **final palindrome score per sequence** along with the **attention heatmaps** for positions `i` and `L-1-i` (the mirror pair) for a chosen seed sequence. A successful run shows high attention mass between each pair, a positive correlation of token values across the mirrored positions, and a smooth, slice-aware score that stays far above the histogram baseline even when only one pair is broken. The Benchmark tab then drives the headline metrics (`palindrome_robustness`, skill at `k = 1`, lift over the linear baseline) so the visual claim can be read quantitatively.

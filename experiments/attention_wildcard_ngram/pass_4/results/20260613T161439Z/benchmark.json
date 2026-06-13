@@ -1,0 +1,86 @@
+{
+  "goal": "attention_wildcard_ngram",
+  "attempt": "pass_4",
+  "run_id": "20260613T161439Z",
+  "metrics": {
+    "version": 1,
+    "sharpness_wildcard_span_0": 99999064.2464652,
+    "linear_baseline_sharpness_wildcard_span_0": 0.9999998400000257,
+    "sharpness_wildcard_span_1": 99998128.51044294,
+    "linear_baseline_sharpness_wildcard_span_1": 0.49999996000000324,
+    "sharpness_wildcard_span_2": 99998128.51044294,
+    "linear_baseline_sharpness_wildcard_span_2": 0.49999996000000324,
+    "sharpness_wildcard_span_3": 99998128.51044294,
+    "linear_baseline_sharpness_wildcard_span_3": 0.49999996000000324,
+    "sharpness_wildcard_span_4": 99998128.51044294,
+    "linear_baseline_sharpness_wildcard_span_4": 0.49999996000000324,
+    "sharpness_canonical": 99998128.51044294,
+    "lift_over_baseline_canonical": 99998128.01044299,
+    "wildcard_skip_robustness": 0.9999906425522147,
+    "mean_sharpness": 99998315.6576474
+  },
+  "payload": {
+    "version": 1,
+    "canonical_span": 1,
+    "seq_len": 16,
+    "vocab_size": 32,
+    "anchor_token": 1,
+    "target_token": 2,
+    "wildcard_token_range": [
+      10,
+      31
+    ],
+    "sweep": [
+      {
+        "wildcard_span": 0,
+        "wildcard_pos": 1,
+        "target_pos": 1,
+        "n_sequences": 1024,
+        "mean_attn_on_anchor": 1.0,
+        "mean_attn_on_wildcards": 0.0,
+        "mean_attn_on_others": 9.357622912219837e-14,
+        "sharpness": 99999064.2464652
+      },
+      {
+        "wildcard_span": 1,
+        "wildcard_pos": 1,
+        "target_pos": 2,
+        "n_sequences": 1024,
+        "mean_attn_on_anchor": 1.0,
+        "mean_attn_on_wildcards": 9.357622912219837e-14,
+        "mean_attn_on_others": 9.357622912219837e-14,
+        "sharpness": 99998128.51044294
+      },
+      {
+        "wildcard_span": 2,
+        "wildcard_pos": 1,
+        "target_pos": 3,
+        "n_sequences": 1024,
+        "mean_attn_on_anchor": 1.0,
+        "mean_attn_on_wildcards": 9.357622912219837e-14,
+        "mean_attn_on_others": 9.357622912219837e-14,
+        "sharpness": 99998128.51044294
+      },
+      {
+        "wildcard_span": 3,
+        "wildcard_pos": 1,
+        "target_pos": 4,
+        "n_sequences": 1024,
+        "mean_attn_on_anchor": 1.0,
+        "mean_attn_on_wildcards": 9.357622912219837e-14,
+        "mean_attn_on_others": 9.357622912219837e-14,
+        "sharpness": 99998128.51044294
+      },
+      {
+        "wildcard_span": 4,
+        "wildcard_pos": 1,
+        "target_pos": 5,
+        "n_sequences": 1024,
+        "mean_attn_on_anchor": 1.0,
+        "mean_attn_on_wildcards": 9.357622912219837e-14,
+        "mean_attn_on_others": 9.357622912219837e-14,
+        "sharpness": 99998128.51044294
+      }
+    ]
+  }
+}

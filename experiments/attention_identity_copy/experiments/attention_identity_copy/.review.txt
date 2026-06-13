@@ -1,0 +1,1 @@
+APPROVED: README/task/benchmark agree on payload & metrics; generate(seed=0) deterministic, canonical cos=0.7 unambiguous; formulae match, edge cases & validation handled; VERSION=1 set with documented bump procedure. Verified: copy head scores 0.95/0.999 (not broken), random reference at 0.125 floor (correctly flagged broken).

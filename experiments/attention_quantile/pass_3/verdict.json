@@ -1,0 +1,31 @@
+{
+  "goal": "attention_quantile",
+  "attempt": "pass_3",
+  "run_id": "20260613T161302Z",
+  "verdict_version": 1,
+  "architecture_fit":         {"score": 5, "note": "Single softmax attention head with a temperature knob — the minimal delta from base_model.py, no MLP, and it directly produces the heavy/light tail the goal measures."},
+  "baseline_comparison":      {"score": 5, "note": "Compares against uniform baseline (ratio=1.0) plus two ablations (no_temperature, linear_no_exp) that visibly fail where the full mechanism succeeds."},
+  "faithfulness":             {"score": 4, "note": "Genuine causal ablations through the identical evaluate path show temperature/exp are responsible; somewhat tautological since it's a hand-built circuit with no learned model, which the README states."},
+  "operating_range":          {"score": 3, "note": "Sweeps scales 0.15–2.8 (~1.3 orders) per the canonical conditions but does not stress ≥2 orders of magnitude or vary n_keys to find a break point."},
+  "hardcoded_weights_bonus":  {"score": 5, "note": "Fully hand-set: GAIN=6.0 fixed constant, zero training, the whole circuit is written out by hand."},
+  "visual_judgement":         {"score": 5, "note": "Three legible charts — sweep bars vs baseline line, ablation bars, and a Lorenz curve — each isolating one claim cleanly."},
+  "visualisation_rationale":  {"score": 5, "note": "README maps each chart to a specific claim (tail split, causal ablation, concentration) with justified axes and baselines."},
+  "automated_metrics": {
+    "version": 1,
+    "quantile_ratio_pareto_0p1": 13.88015953817693,
+    "quantile_ratio_pareto_0p3": 9.559652907673524,
+    "quantile_ratio_pareto_0p5": 6.5124132188736965,
+    "quantile_ratio_pareto_0p7": 4.4558222747394085,
+    "quantile_ratio_pareto_1p0": 2.5237214304895983,
+    "quantile_ratio_exponential_0p5": 2.110278966672049,
+    "quantile_ratio_exponential_1p0": 1.5958428857352527,
+    "quantile_ratio_exponential_2p0": 1.3235704891441147,
+    "quantile_ratio_exponential_5p0": 1.1504823837862335,
+    "quantile_ratio_canonical": 6.5124132188736965,
+    "pareto_vs_exponential_lift": 4.780676406256189,
+    "linear_baseline_quantile_ratio_canonical": 1.0,
+    "lift_over_linear_baseline": 6.5124132188736965
+  },
+  "overall": "good",
+  "notes": "A clean, minimal hand-built single-head softmax-attention circuit whose temperature knob reproduces the heavy/light tail structure the goal asks about, with strong baselines, real ablations, and well-justified visuals. It is fully hardcoded, earning the bonus. The main gap is operating range: the sweep spans only ~1.3 orders of magnitude of scale and never probes where the mechanism breaks. Mean of scored items ≈4.57 → good."
+}

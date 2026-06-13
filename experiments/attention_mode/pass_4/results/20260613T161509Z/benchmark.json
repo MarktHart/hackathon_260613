@@ -1,0 +1,2797 @@
+{
+  "goal": "attention_mode",
+  "attempt": "pass_4",
+  "run_id": "20260613T161509Z",
+  "metrics": {
+    "version": 1,
+    "accuracy_canonical": 1.0,
+    "macro_f1_canonical": 1.0,
+    "cross_entropy_canonical": 0.03845309639085018,
+    "accuracy_mode_positional": 1.0,
+    "accuracy_mode_uniform": 1.0,
+    "accuracy_mode_diagonal": 1.0,
+    "accuracy_mode_induction": 1.0,
+    "accuracy_mode_previous_token": 1.0,
+    "accuracy_noise_0p0": 1.0,
+    "accuracy_noise_0p1": 1.0,
+    "accuracy_noise_0p2": 1.0,
+    "accuracy_noise_0p3": 1.0,
+    "accuracy_noise_0p5": 1.0,
+    "mode_robustness": 1.0,
+    "linear_baseline_accuracy_canonical": 0.2,
+    "lift_over_baseline_accuracy": 0.8
+  },
+  "payload": {
+    "version": 1,
+    "L": 16,
+    "seed": 0,
+    "modes": [
+      "positional",
+      "uniform",
+      "diagonal",
+      "induction",
+      "previous_token"
+    ],
+    "noise_levels": [
+      0.0,
+      0.1,
+      0.2,
+      0.3,
+      0.5
+    ],
+    "canonical_noise": 0.0,
+    "n_per_mode": 10,
+    "sweep": [
+      {
+        "noise": 0.0,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999999985510801,
+          "uniform": 1.250152868302281e-09,
+          "diagonal": 6.62556744618699e-11,
+          "induction": 6.62556744618699e-11,
+          "previous_token": 6.62556744618699e-11
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999999985510801,
+          "uniform": 1.250152868302281e-09,
+          "diagonal": 6.62556744618699e-11,
+          "induction": 6.62556744618699e-11,
+          "previous_token": 6.62556744618699e-11
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999999985510801,
+          "uniform": 1.250152868302281e-09,
+          "diagonal": 6.62556744618699e-11,
+          "induction": 6.62556744618699e-11,
+          "previous_token": 6.62556744618699e-11
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999999985510801,
+          "uniform": 1.250152868302281e-09,
+          "diagonal": 6.62556744618699e-11,
+          "induction": 6.62556744618699e-11,
+          "previous_token": 6.62556744618699e-11
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999999985510801,
+          "uniform": 1.250152868302281e-09,
+          "diagonal": 6.62556744618699e-11,
+          "induction": 6.62556744618699e-11,
+          "previous_token": 6.62556744618699e-11
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999999985510801,
+          "uniform": 1.250152868302281e-09,
+          "diagonal": 6.62556744618699e-11,
+          "induction": 6.62556744618699e-11,
+          "previous_token": 6.62556744618699e-11
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999999985510801,
+          "uniform": 1.250152868302281e-09,
+          "diagonal": 6.62556744618699e-11,
+          "induction": 6.62556744618699e-11,
+          "previous_token": 6.62556744618699e-11
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999999985510801,
+          "uniform": 1.250152868302281e-09,
+          "diagonal": 6.62556744618699e-11,
+          "induction": 6.62556744618699e-11,
+          "previous_token": 6.62556744618699e-11
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999999985510801,
+          "uniform": 1.250152868302281e-09,
+          "diagonal": 6.62556744618699e-11,
+          "induction": 6.62556744618699e-11,
+          "previous_token": 6.62556744618699e-11
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999999985510801,
+          "uniform": 1.250152868302281e-09,
+          "diagonal": 6.62556744618699e-11,
+          "induction": 6.62556744618699e-11,
+          "previous_token": 6.62556744618699e-11
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.04372805049610213,
+          "uniform": 0.8250877980155915,
+          "diagonal": 0.04372805049610213,
+          "induction": 0.04372805049610213,
+          "previous_token": 0.04372805049610213
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.04372805049610213,
+          "uniform": 0.8250877980155915,
+          "diagonal": 0.04372805049610213,
+          "induction": 0.04372805049610213,
+          "previous_token": 0.04372805049610213
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.04372805049610213,
+          "uniform": 0.8250877980155915,
+          "diagonal": 0.04372805049610213,
+          "induction": 0.04372805049610213,
+          "previous_token": 0.04372805049610213
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.04372805049610213,
+          "uniform": 0.8250877980155915,
+          "diagonal": 0.04372805049610213,
+          "induction": 0.04372805049610213,
+          "previous_token": 0.04372805049610213
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.04372805049610213,
+          "uniform": 0.8250877980155915,
+          "diagonal": 0.04372805049610213,
+          "induction": 0.04372805049610213,
+          "previous_token": 0.04372805049610213
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.04372805049610213,
+          "uniform": 0.8250877980155915,
+          "diagonal": 0.04372805049610213,
+          "induction": 0.04372805049610213,
+          "previous_token": 0.04372805049610213
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.04372805049610213,
+          "uniform": 0.8250877980155915,
+          "diagonal": 0.04372805049610213,
+          "induction": 0.04372805049610213,
+          "previous_token": 0.04372805049610213
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.04372805049610213,
+          "uniform": 0.8250877980155915,
+          "diagonal": 0.04372805049610213,
+          "induction": 0.04372805049610213,
+          "previous_token": 0.04372805049610213
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.04372805049610213,
+          "uniform": 0.8250877980155915,
+          "diagonal": 0.04372805049610213,
+          "induction": 0.04372805049610213,
+          "previous_token": 0.04372805049610213
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.04372805049610213,
+          "uniform": 0.8250877980155915,
+          "diagonal": 0.04372805049610213,
+          "induction": 0.04372805049610213,
+          "previous_token": 0.04372805049610213
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 6.625567446880922e-11,
+          "uniform": 1.250152868433216e-09,
+          "diagonal": 0.9999999986558155,
+          "induction": 1.388794459509834e-11,
+          "previous_token": 1.388794459509834e-11
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 6.625567446880922e-11,
+          "uniform": 1.250152868433216e-09,
+          "diagonal": 0.9999999986558155,
+          "induction": 1.388794459509834e-11,
+          "previous_token": 1.388794459509834e-11
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 6.625567446880922e-11,
+          "uniform": 1.250152868433216e-09,
+          "diagonal": 0.9999999986558155,
+          "induction": 1.388794459509834e-11,
+          "previous_token": 1.388794459509834e-11
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 6.625567446880922e-11,
+          "uniform": 1.250152868433216e-09,
+          "diagonal": 0.9999999986558155,
+          "induction": 1.388794459509834e-11,
+          "previous_token": 1.388794459509834e-11
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 6.625567446880922e-11,
+          "uniform": 1.250152868433216e-09,
+          "diagonal": 0.9999999986558155,
+          "induction": 1.388794459509834e-11,
+          "previous_token": 1.388794459509834e-11
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 6.625567446880922e-11,
+          "uniform": 1.250152868433216e-09,
+          "diagonal": 0.9999999986558155,
+          "induction": 1.388794459509834e-11,
+          "previous_token": 1.388794459509834e-11
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 6.625567446880922e-11,
+          "uniform": 1.250152868433216e-09,
+          "diagonal": 0.9999999986558155,
+          "induction": 1.388794459509834e-11,
+          "previous_token": 1.388794459509834e-11
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 6.625567446880922e-11,
+          "uniform": 1.250152868433216e-09,
+          "diagonal": 0.9999999986558155,
+          "induction": 1.388794459509834e-11,
+          "previous_token": 1.388794459509834e-11
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 6.625567446880922e-11,
+          "uniform": 1.250152868433216e-09,
+          "diagonal": 0.9999999986558155,
+          "induction": 1.388794459509834e-11,
+          "previous_token": 1.388794459509834e-11
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 6.625567446880922e-11,
+          "uniform": 1.250152868433216e-09,
+          "diagonal": 0.9999999986558155,
+          "induction": 1.388794459509834e-11,
+          "previous_token": 1.388794459509834e-11
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 6.625567446880922e-11,
+          "uniform": 1.250152868433216e-09,
+          "diagonal": 1.388794459509834e-11,
+          "induction": 0.9999999986558155,
+          "previous_token": 1.388794459509834e-11
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 6.625567446880922e-11,
+          "uniform": 1.250152868433216e-09,
+          "diagonal": 1.388794459509834e-11,
+          "induction": 0.9999999986558155,
+          "previous_token": 1.388794459509834e-11
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 6.625567446880922e-11,
+          "uniform": 1.250152868433216e-09,
+          "diagonal": 1.388794459509834e-11,
+          "induction": 0.9999999986558155,
+          "previous_token": 1.388794459509834e-11
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 6.625567446880922e-11,
+          "uniform": 1.250152868433216e-09,
+          "diagonal": 1.388794459509834e-11,
+          "induction": 0.9999999986558155,
+          "previous_token": 1.388794459509834e-11
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 6.625567446880922e-11,
+          "uniform": 1.250152868433216e-09,
+          "diagonal": 1.388794459509834e-11,
+          "induction": 0.9999999986558155,
+          "previous_token": 1.388794459509834e-11
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 6.625567446880922e-11,
+          "uniform": 1.250152868433216e-09,
+          "diagonal": 1.388794459509834e-11,
+          "induction": 0.9999999986558155,
+          "previous_token": 1.388794459509834e-11
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 6.625567446880922e-11,
+          "uniform": 1.250152868433216e-09,
+          "diagonal": 1.388794459509834e-11,
+          "induction": 0.9999999986558155,
+          "previous_token": 1.388794459509834e-11
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 6.625567446880922e-11,
+          "uniform": 1.250152868433216e-09,
+          "diagonal": 1.388794459509834e-11,
+          "induction": 0.9999999986558155,
+          "previous_token": 1.388794459509834e-11
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 6.625567446880922e-11,
+          "uniform": 1.250152868433216e-09,
+          "diagonal": 1.388794459509834e-11,
+          "induction": 0.9999999986558155,
+          "previous_token": 1.388794459509834e-11
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 6.625567446880922e-11,
+          "uniform": 1.250152868433216e-09,
+          "diagonal": 1.388794459509834e-11,
+          "induction": 0.9999999986558155,
+          "previous_token": 1.388794459509834e-11
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 6.625567446880922e-11,
+          "uniform": 1.250152868433216e-09,
+          "diagonal": 1.388794459509834e-11,
+          "induction": 1.388794459509834e-11,
+          "previous_token": 0.9999999986558155
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 6.625567446880922e-11,
+          "uniform": 1.250152868433216e-09,
+          "diagonal": 1.388794459509834e-11,
+          "induction": 1.388794459509834e-11,
+          "previous_token": 0.9999999986558155
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 6.625567446880922e-11,
+          "uniform": 1.250152868433216e-09,
+          "diagonal": 1.388794459509834e-11,
+          "induction": 1.388794459509834e-11,
+          "previous_token": 0.9999999986558155
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 6.625567446880922e-11,
+          "uniform": 1.250152868433216e-09,
+          "diagonal": 1.388794459509834e-11,
+          "induction": 1.388794459509834e-11,
+          "previous_token": 0.9999999986558155
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 6.625567446880922e-11,
+          "uniform": 1.250152868433216e-09,
+          "diagonal": 1.388794459509834e-11,
+          "induction": 1.388794459509834e-11,
+          "previous_token": 0.9999999986558155
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 6.625567446880922e-11,
+          "uniform": 1.250152868433216e-09,
+          "diagonal": 1.388794459509834e-11,
+          "induction": 1.388794459509834e-11,
+          "previous_token": 0.9999999986558155
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 6.625567446880922e-11,
+          "uniform": 1.250152868433216e-09,
+          "diagonal": 1.388794459509834e-11,
+          "induction": 1.388794459509834e-11,
+          "previous_token": 0.9999999986558155
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 6.625567446880922e-11,
+          "uniform": 1.250152868433216e-09,
+          "diagonal": 1.388794459509834e-11,
+          "induction": 1.388794459509834e-11,
+          "previous_token": 0.9999999986558155
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 6.625567446880922e-11,
+          "uniform": 1.250152868433216e-09,
+          "diagonal": 1.388794459509834e-11,
+          "induction": 1.388794459509834e-11,
+          "previous_token": 0.9999999986558155
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 6.625567446880922e-11,
+          "uniform": 1.250152868433216e-09,
+          "diagonal": 1.388794459509834e-11,
+          "induction": 1.388794459509834e-11,
+          "previous_token": 0.9999999986558155
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999999846556762,
+          "uniform": 1.3279770856812318e-08,
+          "diagonal": 7.035524277346164e-10,
+          "induction": 6.667990501798686e-10,
+          "previous_token": 6.942015744531935e-10
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999999848496501,
+          "uniform": 1.308968202870552e-08,
+          "diagonal": 6.580019207511163e-10,
+          "induction": 6.994274497967385e-10,
+          "previous_token": 7.032385123156304e-10
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999999840554612,
+          "uniform": 1.3719988481941123e-08,
+          "diagonal": 7.33334881118002e-10,
+          "induction": 7.751249518550478e-10,
+          "previous_token": 7.160903977741184e-10
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999999853927959,
+          "uniform": 1.2609682891289611e-08,
+          "diagonal": 6.763907113302185e-10,
+          "induction": 6.284077610852358e-10,
+          "previous_token": 6.927228134288543e-10
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999999854607562,
+          "uniform": 1.2598504278718752e-08,
+          "diagonal": 6.801268338443345e-10,
+          "induction": 6.36775178875979e-10,
+          "previous_token": 6.2383741709122e-10
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999999854090416,
+          "uniform": 1.2561337564458752e-08,
+          "diagonal": 6.795666707902607e-10,
+          "induction": 6.69061685173384e-10,
+          "previous_token": 6.809926967334333e-10
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999999859037152,
+          "uniform": 1.2094828967728419e-08,
+          "diagonal": 6.81351243591051e-10,
+          "induction": 6.417707386092288e-10,
+          "previous_token": 6.783338239861079e-10
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999999848697743,
+          "uniform": 1.3019713998658852e-08,
+          "diagonal": 6.950720449511077e-10,
+          "induction": 6.905751421690539e-10,
+          "previous_token": 7.248645462992491e-10
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999999849754384,
+          "uniform": 1.2938441234960997e-08,
+          "diagonal": 6.660223938878782e-10,
+          "induction": 7.200979704246826e-10,
+          "previous_token": 6.999999918899153e-10
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999999847689083,
+          "uniform": 1.3098572693494418e-08,
+          "diagonal": 6.968042703287863e-10,
+          "induction": 6.612857383102081e-10,
+          "previous_token": 7.744289536045218e-10
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.04541907256167652,
+          "uniform": 0.8240019389987714,
+          "diagonal": 0.0436943934743998,
+          "induction": 0.043712919343744196,
+          "previous_token": 0.043171675621408064
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.043901422601613414,
+          "uniform": 0.8245522060281405,
+          "diagonal": 0.04355668050054507,
+          "induction": 0.04498378710766913,
+          "previous_token": 0.043005903762031845
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.0449815214608148,
+          "uniform": 0.8269142066485101,
+          "diagonal": 0.0416826576307911,
+          "induction": 0.04319200000151992,
+          "previous_token": 0.04322961425836411
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.04237328731785338,
+          "uniform": 0.825369753772064,
+          "diagonal": 0.04416744295816086,
+          "induction": 0.046691021595756894,
+          "previous_token": 0.041398494356164856
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.04603834283523304,
+          "uniform": 0.8239033590511989,
+          "diagonal": 0.04184755124960324,
+          "induction": 0.04133202320331439,
+          "previous_token": 0.04687872366065042
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.04147013417612012,
+          "uniform": 0.8251018659154773,
+          "diagonal": 0.04483094933456093,
+          "induction": 0.046327104065915344,
+          "previous_token": 0.042269946507926294
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.04412062290850086,
+          "uniform": 0.8270515573196809,
+          "diagonal": 0.04479687861190194,
+          "induction": 0.04174341820523522,
+          "previous_token": 0.04228752295468105
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.045221957467087404,
+          "uniform": 0.8238641466225657,
+          "diagonal": 0.04145885181689911,
+          "induction": 0.04747678623577978,
+          "previous_token": 0.041978257857668066
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.041968162504446696,
+          "uniform": 0.8296535037199783,
+          "diagonal": 0.04403679400956586,
+          "induction": 0.04124577278239822,
+          "previous_token": 0.04309576698361091
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.04366792042182297,
+          "uniform": 0.8223129006733697,
+          "diagonal": 0.0440162834973963,
+          "induction": 0.04463680510934597,
+          "previous_token": 0.045366090298065063
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 6.799128386811581e-10,
+          "uniform": 1.304347544944171e-08,
+          "diagonal": 0.9999999859339181,
+          "induction": 1.6689877023241458e-10,
+          "previous_token": 1.757950427147515e-10
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 6.633815629686493e-10,
+          "uniform": 1.2479831222556629e-08,
+          "diagonal": 0.9999999865410811,
+          "induction": 1.623891971240818e-10,
+          "previous_token": 1.533168293892201e-10
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 7.221542148767786e-10,
+          "uniform": 1.3376576097865327e-08,
+          "diagonal": 0.9999999855557604,
+          "induction": 1.7256197610274933e-10,
+          "previous_token": 1.7294716797557923e-10
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 6.659525615147618e-10,
+          "uniform": 1.3040316199156293e-08,
+          "diagonal": 0.9999999859576154,
+          "induction": 1.641298740518364e-10,
+          "previous_token": 1.7198596471943164e-10
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 7.031754519485624e-10,
+          "uniform": 1.3660842922232635e-08,
+          "diagonal": 0.9999999852759667,
+          "induction": 1.8222456608462759e-10,
+          "previous_token": 1.7779026600062646e-10
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 6.304341966940555e-10,
+          "uniform": 1.1988992754634872e-08,
+          "diagonal": 0.9999999870784964,
+          "induction": 1.5103088029344962e-10,
+          "previous_token": 1.5104585442630077e-10
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 7.111291456287879e-10,
+          "uniform": 1.2907235988471797e-08,
+          "diagonal": 0.9999999860321866,
+          "induction": 1.6366408000060041e-10,
+          "previous_token": 1.8578426037877612e-10
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 7.653496613263589e-10,
+          "uniform": 1.3513927556846867e-08,
+          "diagonal": 0.9999999853655397,
+          "induction": 1.6971791778936346e-10,
+          "previous_token": 1.854652515512539e-10
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 6.648610463153545e-10,
+          "uniform": 1.223182161606526e-08,
+          "diagonal": 0.999999986787752,
+          "induction": 1.5118506247004598e-10,
+          "previous_token": 1.6438020172125658e-10
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 7.155674280157516e-10,
+          "uniform": 1.3773319169489295e-08,
+          "diagonal": 0.9999999851581447,
+          "induction": 1.7961104559082817e-10,
+          "previous_token": 1.733576728640752e-10
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 7.283736285355066e-10,
+          "uniform": 1.3535880662791358e-08,
+          "diagonal": 1.678805125915856e-10,
+          "induction": 0.9999999853851937,
+          "previous_token": 1.82671403109837e-10
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 6.351158404362169e-10,
+          "uniform": 1.2216782979760194e-08,
+          "diagonal": 1.572690706932392e-10,
+          "induction": 0.999999986828565,
+          "previous_token": 1.6226721141754213e-10
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 7.761782769764426e-10,
+          "uniform": 1.347326319713827e-08,
+          "diagonal": 1.7963365255027104e-10,
+          "induction": 0.9999999853999673,
+          "previous_token": 1.7095770382870443e-10
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 6.815617971793199e-10,
+          "uniform": 1.3359595015527087e-08,
+          "diagonal": 1.795836370400907e-10,
+          "induction": 0.9999999856023731,
+          "previous_token": 1.7688646126289926e-10
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 6.788593478308894e-10,
+          "uniform": 1.3395647953184712e-08,
+          "diagonal": 1.757363673673679e-10,
+          "induction": 0.999999985584773,
+          "previous_token": 1.649832746617936e-10
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 7.297907175608827e-10,
+          "uniform": 1.3032956752154432e-08,
+          "diagonal": 1.711704365209068e-10,
+          "induction": 0.9999999859024038,
+          "previous_token": 1.6367844348953821e-10
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 6.836136555225114e-10,
+          "uniform": 1.3797324855328523e-08,
+          "diagonal": 1.7485403143278167e-10,
+          "induction": 0.9999999851485677,
+          "previous_token": 1.9563980700235683e-10
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 7.186311996539206e-10,
+          "uniform": 1.344582026168322e-08,
+          "diagonal": 1.8376451482190248e-10,
+          "induction": 0.9999999854710806,
+          "previous_token": 1.8070342182066818e-10
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 7.213310399078427e-10,
+          "uniform": 1.354492054268663e-08,
+          "diagonal": 1.759134340252776e-10,
+          "induction": 0.9999999853904857,
+          "previous_token": 1.6734917373843882e-10
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 6.397235990786223e-10,
+          "uniform": 1.2085328136070707e-08,
+          "diagonal": 1.5715573082233988e-10,
+          "induction": 0.999999986959863,
+          "previous_token": 1.5792948687147468e-10
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 7.064986824806593e-10,
+          "uniform": 1.363832315876009e-08,
+          "diagonal": 1.776404414060158e-10,
+          "induction": 1.995642927062814e-10,
+          "previous_token": 0.9999999852779735
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 6.162814066236948e-10,
+          "uniform": 1.231631136301929e-08,
+          "diagonal": 1.655996290358386e-10,
+          "induction": 1.5144364728119032e-10,
+          "previous_token": 0.999999986750364
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 6.871275670658777e-10,
+          "uniform": 1.350905678769083e-08,
+          "diagonal": 1.7420954703017117e-10,
+          "induction": 1.7328892235596564e-10,
+          "previous_token": 0.9999999854563171
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 7.285681948729848e-10,
+          "uniform": 1.386729199610271e-08,
+          "diagonal": 1.7939602313019343e-10,
+          "induction": 1.7547445178787938e-10,
+          "previous_token": 0.9999999850492693
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 7.272741747980314e-10,
+          "uniform": 1.3397589510493109e-08,
+          "diagonal": 1.6918301237231605e-10,
+          "induction": 1.7261333779081408e-10,
+          "previous_token": 0.9999999855333399
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 7.129558503259962e-10,
+          "uniform": 1.3921382060466665e-08,
+          "diagonal": 1.8413395532033162e-10,
+          "induction": 1.744309809308543e-10,
+          "previous_token": 0.9999999850070971
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 6.925259718202663e-10,
+          "uniform": 1.2252065865894542e-08,
+          "diagonal": 1.5300745189974077e-10,
+          "induction": 1.655358328438968e-10,
+          "previous_token": 0.999999986736865
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 6.542088450793576e-10,
+          "uniform": 1.229525798186745e-08,
+          "diagonal": 1.5963757881472055e-10,
+          "induction": 1.5437584339275226e-10,
+          "previous_token": 0.9999999867365197
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 6.346399984652199e-10,
+          "uniform": 1.2823069540415359e-08,
+          "diagonal": 1.6589458744531002e-10,
+          "induction": 1.6063512798325092e-10,
+          "previous_token": 0.9999999862157607
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 7.898537823668236e-10,
+          "uniform": 1.2949600320797799e-08,
+          "diagonal": 1.6696371827750578e-10,
+          "induction": 1.6526893509868833e-10,
+          "previous_token": 0.9999999859283133
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999998388167898,
+          "uniform": 1.4068464202617926e-07,
+          "diagonal": 6.801479094218533e-09,
+          "induction": 6.862227386951708e-09,
+          "previous_token": 6.834861722810972e-09
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999998468170629,
+          "uniform": 1.3317925154312021e-07,
+          "diagonal": 7.70714399429067e-09,
+          "induction": 6.165532763591328e-09,
+          "previous_token": 6.1310088255012784e-09
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999998580623514,
+          "uniform": 1.2206888022727675e-07,
+          "diagonal": 6.80565721630815e-09,
+          "induction": 6.704811664470612e-09,
+          "previous_token": 6.3582995200412984e-09
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999998404759018,
+          "uniform": 1.3820217657118183e-07,
+          "diagonal": 7.075940436980147e-09,
+          "induction": 7.515967989177292e-09,
+          "previous_token": 6.730013164110546e-09
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.99999983932537,
+          "uniform": 1.3807334080867e-07,
+          "diagonal": 7.913274152004689e-09,
+          "induction": 7.924995442123445e-09,
+          "previous_token": 6.763019641431721e-09
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999998558713639,
+          "uniform": 1.2529062275202503e-07,
+          "diagonal": 6.470043450754278e-09,
+          "induction": 5.991817559349329e-09,
+          "previous_token": 6.376152335990643e-09
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999998292387698,
+          "uniform": 1.4700662328994014e-07,
+          "diagonal": 8.099401620402186e-09,
+          "induction": 7.741840546989118e-09,
+          "previous_token": 7.913364666380784e-09
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999998351717863,
+          "uniform": 1.4129052127652621e-07,
+          "diagonal": 7.691064323162116e-09,
+          "induction": 8.37605235818218e-09,
+          "previous_token": 7.470575816886849e-09
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999998280516171,
+          "uniform": 1.4960899995874987e-07,
+          "diagonal": 7.353773202237215e-09,
+          "induction": 7.587351679801753e-09,
+          "previous_token": 7.398258060131014e-09
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999998574409423,
+          "uniform": 1.224251604816678e-07,
+          "diagonal": 6.770092328538642e-09,
+          "induction": 6.627267024736862e-09,
+          "previous_token": 6.736537836804281e-09
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.043772754632614694,
+          "uniform": 0.8267874964114278,
+          "diagonal": 0.0415131648335804,
+          "induction": 0.04515856639023323,
+          "previous_token": 0.04276801773214393
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.0436210416931853,
+          "uniform": 0.8225252781533688,
+          "diagonal": 0.04880350546545359,
+          "induction": 0.04239374105620647,
+          "previous_token": 0.04265643363178584
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.04246043572054936,
+          "uniform": 0.8250429341585537,
+          "diagonal": 0.04221141495598163,
+          "induction": 0.04818093583661824,
+          "previous_token": 0.04210427932829705
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.041694701028575754,
+          "uniform": 0.8198973001532055,
+          "diagonal": 0.03944218188108639,
+          "induction": 0.042186405824023526,
+          "previous_token": 0.056779411113108774
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.04593990117899816,
+          "uniform": 0.8252299047135164,
+          "diagonal": 0.04150343422041848,
+          "induction": 0.03969375520146,
+          "previous_token": 0.04763300468560693
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.04141137903226089,
+          "uniform": 0.8353144837660522,
+          "diagonal": 0.04283020432405935,
+          "induction": 0.04088509980161115,
+          "previous_token": 0.03955883307601635
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.04750877955059264,
+          "uniform": 0.8216657028036131,
+          "diagonal": 0.04366624664388108,
+          "induction": 0.04343989798932545,
+          "previous_token": 0.043719373012587756
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.04644560562491134,
+          "uniform": 0.823277912150865,
+          "diagonal": 0.04595124468825278,
+          "induction": 0.04317474850350335,
+          "previous_token": 0.04115048903246754
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.0494081364657945,
+          "uniform": 0.8247787159760419,
+          "diagonal": 0.04285736217031519,
+          "induction": 0.039706090525460154,
+          "previous_token": 0.0432496948623882
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.04512404345160787,
+          "uniform": 0.8204876306725686,
+          "diagonal": 0.04329585721039559,
+          "induction": 0.04297796328332965,
+          "previous_token": 0.04811450538209834
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 7.4497019755378074e-09,
+          "uniform": 1.3631229088895065e-07,
+          "diagonal": 0.9999998522085058,
+          "induction": 2.0578222981429528e-09,
+          "previous_token": 1.9716789859014286e-09
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 7.490194026298391e-09,
+          "uniform": 1.3625692535988328e-07,
+          "diagonal": 0.9999998519099565,
+          "induction": 2.0825638389624132e-09,
+          "previous_token": 2.2603602780615083e-09
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 6.524570568496044e-09,
+          "uniform": 1.2343008217154105e-07,
+          "diagonal": 0.9999998665323423,
+          "induction": 1.7938137386179915e-09,
+          "previous_token": 1.7191912093048318e-09
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 8.080438295833747e-09,
+          "uniform": 1.3728081722056092e-07,
+          "diagonal": 0.9999998505114956,
+          "induction": 2.0740293298735487e-09,
+          "previous_token": 2.053219532174684e-09
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 7.0054119535610244e-09,
+          "uniform": 1.4978574190451478e-07,
+          "diagonal": 0.9999998384330648,
+          "induction": 2.4524561342087e-09,
+          "previous_token": 2.3233252115058112e-09
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 6.623299095702164e-09,
+          "uniform": 1.3074140946742028e-07,
+          "diagonal": 0.999999858643162,
+          "induction": 2.0669838715806345e-09,
+          "previous_token": 1.9251455558541796e-09
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 8.187844744093437e-09,
+          "uniform": 1.4603575369699668e-07,
+          "diagonal": 0.9999998411556724,
+          "induction": 2.3295420224336027e-09,
+          "previous_token": 2.2911871491220745e-09
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 6.7380668488773715e-09,
+          "uniform": 1.2982149832312572e-07,
+          "diagonal": 0.9999998593642353,
+          "induction": 2.062927118226023e-09,
+          "previous_token": 2.013272394513589e-09
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 8.748292375190154e-09,
+          "uniform": 1.492669602743534e-07,
+          "diagonal": 0.9999998371608305,
+          "induction": 2.403673155559572e-09,
+          "previous_token": 2.4202436775683423e-09
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 6.973270651277642e-09,
+          "uniform": 1.3664444120528018e-07,
+          "diagonal": 0.9999998523443672,
+          "induction": 1.890965996619649e-09,
+          "previous_token": 2.1469549971068277e-09
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 7.93264724416338e-09,
+          "uniform": 1.3057494338778748e-07,
+          "diagonal": 1.9608332281311453e-09,
+          "induction": 0.9999998576384845,
+          "previous_token": 1.8930916395843806e-09
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 6.712872759872235e-09,
+          "uniform": 1.328316979423381e-07,
+          "diagonal": 2.08382728190028e-09,
+          "induction": 0.9999998563116317,
+          "previous_token": 2.05997036604192e-09
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 6.543488739511144e-09,
+          "uniform": 1.2750031192233607e-07,
+          "diagonal": 1.6701313353087677e-09,
+          "induction": 0.9999998620920861,
+          "previous_token": 2.19398184403248e-09
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 7.1451757512213316e-09,
+          "uniform": 1.4302772854834215e-07,
+          "diagonal": 2.4722094598904906e-09,
+          "induction": 0.9999998450747982,
+          "previous_token": 2.2800880368761595e-09
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 7.709540345326114e-09,
+          "uniform": 1.3521126239201707e-07,
+          "diagonal": 2.2357568502461747e-09,
+          "induction": 0.9999998527500361,
+          "previous_token": 2.0934042800650047e-09
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 5.925140773056367e-09,
+          "uniform": 1.1807785584162171e-07,
+          "diagonal": 1.8789256660527047e-09,
+          "induction": 0.9999998724583115,
+          "previous_token": 1.6597661995278912e-09
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 7.60528863298827e-09,
+          "uniform": 1.3518340917280092e-07,
+          "diagonal": 2.0517709186474743e-09,
+          "induction": 0.9999998531587003,
+          "previous_token": 2.000831001105381e-09
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 8.214484038207948e-09,
+          "uniform": 1.2671240512076444e-07,
+          "diagonal": 2.1149479518379765e-09,
+          "induction": 0.9999998606125567,
+          "previous_token": 2.3456061064230034e-09
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 7.674665932366206e-09,
+          "uniform": 1.4661738975985171e-07,
+          "diagonal": 2.4118612819068336e-09,
+          "induction": 0.999999841246178,
+          "previous_token": 2.049905053464303e-09
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 7.354418634623104e-09,
+          "uniform": 1.3748914844941673e-07,
+          "diagonal": 2.102968848052999e-09,
+          "induction": 0.9999998512754762,
+          "previous_token": 1.7779880376125908e-09
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 8.093641953996141e-09,
+          "uniform": 1.3765707797842156e-07,
+          "diagonal": 1.9965612997797375e-09,
+          "induction": 1.9667173955651683e-09,
+          "previous_token": 0.9999998502860014
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 5.870066991105376e-09,
+          "uniform": 1.279229427728924e-07,
+          "diagonal": 1.878893450684405e-09,
+          "induction": 1.9293508657795575e-09,
+          "previous_token": 0.9999998623987459
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 6.50101829766298e-09,
+          "uniform": 1.2342230883555635e-07,
+          "diagonal": 1.7194895262472687e-09,
+          "induction": 1.8132250997694307e-09,
+          "previous_token": 0.9999998665439583
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 7.168846215301914e-09,
+          "uniform": 1.346176041581655e-07,
+          "diagonal": 1.8273349015680917e-09,
+          "induction": 2.1116425825321982e-09,
+          "previous_token": 0.9999998542745722
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 7.010879247998256e-09,
+          "uniform": 1.3441595216086076e-07,
+          "diagonal": 2.2123664539714186e-09,
+          "induction": 1.894608864324454e-09,
+          "previous_token": 0.9999998544661933
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 9.316399718721693e-09,
+          "uniform": 1.4574302418953026e-07,
+          "diagonal": 2.2773584318013474e-09,
+          "induction": 2.350057608867957e-09,
+          "previous_token": 0.99999984031316
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 7.106128358140317e-09,
+          "uniform": 1.3848794400442858e-07,
+          "diagonal": 2.0033551984755054e-09,
+          "induction": 2.053615215314888e-09,
+          "previous_token": 0.9999998503489572
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 6.609304073027127e-09,
+          "uniform": 1.3017260589533908e-07,
+          "diagonal": 1.9556713605790992e-09,
+          "induction": 1.95742884358932e-09,
+          "previous_token": 0.9999998593049898
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 6.529338329154724e-09,
+          "uniform": 1.205926722556454e-07,
+          "diagonal": 1.7138642532656274e-09,
+          "induction": 1.7264796063289178e-09,
+          "previous_token": 0.9999998694376454
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 6.98116219585717e-09,
+          "uniform": 1.2553175351641147e-07,
+          "diagonal": 1.889531165953195e-09,
+          "induction": 1.8589562905101994e-09,
+          "previous_token": 0.9999998637385968
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999985395250282,
+          "uniform": 1.2595687609042354e-06,
+          "diagonal": 7.274667207266936e-08,
+          "induction": 6.385604082515532e-08,
+          "previous_token": 6.430349804750661e-08
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999981169431575,
+          "uniform": 1.6082952178805575e-06,
+          "diagonal": 8.605116117755998e-08,
+          "induction": 8.657615990148422e-08,
+          "previous_token": 1.0213430349760627e-07
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.999998628535235,
+          "uniform": 1.1885959305572376e-06,
+          "diagonal": 6.876097854864605e-08,
+          "induction": 6.051444847525696e-08,
+          "previous_token": 5.3593407373973956e-08
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999985309561503,
+          "uniform": 1.2708674037027957e-06,
+          "diagonal": 6.462108170329407e-08,
+          "induction": 6.72290011276083e-08,
+          "previous_token": 6.632636309041329e-08
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999984493551692,
+          "uniform": 1.329491781606177e-06,
+          "diagonal": 9.105995613291271e-08,
+          "induction": 6.873040905594683e-08,
+          "previous_token": 6.136268397594564e-08
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.999998712095022,
+          "uniform": 1.1064910709094497e-06,
+          "diagonal": 6.820779226002302e-08,
+          "induction": 5.181379975673262e-08,
+          "previous_token": 6.139231510467107e-08
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999982676779197,
+          "uniform": 1.501067542561278e-06,
+          "diagonal": 7.883647597358438e-08,
+          "induction": 7.447107879709331e-08,
+          "previous_token": 7.794698300017394e-08
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999983625194366,
+          "uniform": 1.4167788864973204e-06,
+          "diagonal": 6.060047954956766e-08,
+          "induction": 8.05746844069339e-08,
+          "previous_token": 7.952651292150617e-08
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999987774626841,
+          "uniform": 1.0457840426110016e-06,
+          "diagonal": 6.029670445889315e-08,
+          "induction": 5.90873927338694e-08,
+          "previous_token": 5.736917610613289e-08
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9999984495685591,
+          "uniform": 1.3374833990945157e-06,
+          "diagonal": 7.433287578113796e-08,
+          "induction": 6.361108305594753e-08,
+          "previous_token": 7.500408295058362e-08
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.040888173470862516,
+          "uniform": 0.838213063994634,
+          "diagonal": 0.04376744302067651,
+          "induction": 0.03857168355159537,
+          "previous_token": 0.038559635962231574
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.04302620823642301,
+          "uniform": 0.8192262527461909,
+          "diagonal": 0.04425190695744891,
+          "induction": 0.053660310005242975,
+          "previous_token": 0.03983532205469426
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.04117738317476046,
+          "uniform": 0.825136514655394,
+          "diagonal": 0.045418935236445,
+          "induction": 0.047037953796455326,
+          "previous_token": 0.04122921313694523
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.03947662527845197,
+          "uniform": 0.8265901320113728,
+          "diagonal": 0.04572434370093012,
+          "induction": 0.048039805534912376,
+          "previous_token": 0.0401690934743328
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.04259511812554628,
+          "uniform": 0.8252811997187093,
+          "diagonal": 0.0447166821184878,
+          "induction": 0.04050670921613757,
+          "previous_token": 0.04690029082111906
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.04091674773519117,
+          "uniform": 0.8314787621575779,
+          "diagonal": 0.037789709302936354,
+          "induction": 0.04441002690181096,
+          "previous_token": 0.04540475390248367
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.04621118313314777,
+          "uniform": 0.835393795291571,
+          "diagonal": 0.04196706758169639,
+          "induction": 0.03800755305650148,
+          "previous_token": 0.03842040093708344
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.05005222894212433,
+          "uniform": 0.8097839891181589,
+          "diagonal": 0.05377411429752324,
+          "induction": 0.04075995057255066,
+          "previous_token": 0.04562971706964286
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.0427452656319894,
+          "uniform": 0.827223708921406,
+          "diagonal": 0.0426919381019629,
+          "induction": 0.0484288478445763,
+          "previous_token": 0.038910239500065454
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.04349276747500654,
+          "uniform": 0.8200893417067335,
+          "diagonal": 0.03981837926941956,
+          "induction": 0.04929434130298654,
+          "previous_token": 0.04730517024585383
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 7.606413914795811e-08,
+          "uniform": 1.4263721232030632e-06,
+          "diagonal": 0.9999984407131162,
+          "induction": 2.846290997865703e-08,
+          "previous_token": 2.8387711465294057e-08
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 6.585163567272724e-08,
+          "uniform": 1.4464264651610733e-06,
+          "diagonal": 0.9999984296346303,
+          "induction": 2.5591091383928248e-08,
+          "previous_token": 3.249617752191501e-08
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 8.252259449058557e-08,
+          "uniform": 1.4419666344799752e-06,
+          "diagonal": 0.9999984228271408,
+          "induction": 2.3530064361598147e-08,
+          "previous_token": 2.915356587155235e-08
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 8.396167874900582e-08,
+          "uniform": 1.3535487586491166e-06,
+          "diagonal": 0.9999985167309875,
+          "induction": 2.0482072511312313e-08,
+          "previous_token": 2.5276502572016485e-08
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 7.341629827653882e-08,
+          "uniform": 1.3833206934423854e-06,
+          "diagonal": 0.9999984912942942,
+          "induction": 2.3965616253024426e-08,
+          "previous_token": 2.8003097878895048e-08
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 7.959784759282825e-08,
+          "uniform": 1.4067728857592638e-06,
+          "diagonal": 0.9999984635535872,
+          "induction": 2.1982815859675036e-08,
+          "previous_token": 2.809286351978199e-08
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 1.2369948085509386e-07,
+          "uniform": 1.5962240466621414e-06,
+          "diagonal": 0.9999982260143285,
+          "induction": 2.6276130088411438e-08,
+          "previous_token": 2.7786013883346853e-08
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 8.30088106385819e-08,
+          "uniform": 1.4554120155823277e-06,
+          "diagonal": 0.9999984092465648,
+          "induction": 2.577891927395197e-08,
+          "previous_token": 2.6553689712163316e-08
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 7.893459053331862e-08,
+          "uniform": 1.423605114956983e-06,
+          "diagonal": 0.9999984517208964,
+          "induction": 2.2933406318181655e-08,
+          "previous_token": 2.2805991794621466e-08
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 7.948785986059897e-08,
+          "uniform": 1.3606022325793214e-06,
+          "diagonal": 0.9999985174576692,
+          "induction": 2.158844981258894e-08,
+          "previous_token": 2.0863788543987607e-08
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 9.765690700204038e-08,
+          "uniform": 1.5956244154540825e-06,
+          "diagonal": 3.795978669689047e-08,
+          "induction": 0.9999982446335406,
+          "previous_token": 2.4125350297185796e-08
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 7.465854163361006e-08,
+          "uniform": 1.4474474660630744e-06,
+          "diagonal": 2.8917201846608595e-08,
+          "induction": 0.9999984154258482,
+          "previous_token": 3.3550942187520067e-08
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 8.751191396488906e-08,
+          "uniform": 1.1883465704992976e-06,
+          "diagonal": 1.9142113629325383e-08,
+          "induction": 0.9999986864719734,
+          "previous_token": 1.852742843905803e-08
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 7.208988285627363e-08,
+          "uniform": 1.3040162293033772e-06,
+          "diagonal": 2.6730529030608354e-08,
+          "induction": 0.9999985743202731,
+          "previous_token": 2.2843085755635457e-08
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 7.284929357577993e-08,
+          "uniform": 1.2586587734777293e-06,
+          "diagonal": 1.882716138862873e-08,
+          "induction": 0.9999986286259925,
+          "previous_token": 2.103877907517687e-08
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 6.187652937512362e-08,
+          "uniform": 1.286856494523429e-06,
+          "diagonal": 2.2785994406191465e-08,
+          "induction": 0.9999986076586965,
+          "previous_token": 2.0822285135984447e-08
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 7.742588641355536e-08,
+          "uniform": 1.2117708129343275e-06,
+          "diagonal": 1.9913077020950304e-08,
+          "induction": 0.9999986691992018,
+          "previous_token": 2.1691021888697474e-08
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 7.396176825464562e-08,
+          "uniform": 1.5866474231615512e-06,
+          "diagonal": 2.7647982126123842e-08,
+          "induction": 0.999998282889318,
+          "previous_token": 2.8853508413456548e-08
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 8.916148914442264e-08,
+          "uniform": 1.7085928732824032e-06,
+          "diagonal": 3.0980630800343385e-08,
+          "induction": 0.9999981353732897,
+          "previous_token": 3.589171707316914e-08
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 6.357652605028626e-08,
+          "uniform": 1.25825064692202e-06,
+          "diagonal": 2.37931361550163e-08,
+          "induction": 0.999998635950316,
+          "previous_token": 1.842937480761323e-08
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 7.673647502236368e-08,
+          "uniform": 1.681022885264975e-06,
+          "diagonal": 2.444677117456123e-08,
+          "induction": 2.816630777052336e-08,
+          "previous_token": 0.9999981896275608
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 7.349335504092946e-08,
+          "uniform": 1.4067835807501717e-06,
+          "diagonal": 2.4411181102745524e-08,
+          "induction": 2.5767319441630062e-08,
+          "previous_token": 0.9999984695445636
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 8.76923500809673e-08,
+          "uniform": 1.2864392249632398e-06,
+          "diagonal": 2.4254083379615093e-08,
+          "induction": 2.415510477573478e-08,
+          "previous_token": 0.9999985774592368
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 8.045827498783341e-08,
+          "uniform": 1.4894259975148366e-06,
+          "diagonal": 2.507013383029136e-08,
+          "induction": 2.635880439529467e-08,
+          "previous_token": 0.9999983786867893
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 6.531787998374302e-08,
+          "uniform": 1.1635053642681138e-06,
+          "diagonal": 1.981434474867111e-08,
+          "induction": 2.2022857322432236e-08,
+          "previous_token": 0.9999987293395537
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 1.0377655210167899e-07,
+          "uniform": 1.492261078885263e-06,
+          "diagonal": 2.4771159842843537e-08,
+          "induction": 2.806233701748305e-08,
+          "previous_token": 0.9999983511288721
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 6.582740375316262e-08,
+          "uniform": 1.3798661046474413e-06,
+          "diagonal": 2.4821673086078387e-08,
+          "induction": 2.8563087565046385e-08,
+          "previous_token": 0.9999985009217309
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 7.755224549184998e-08,
+          "uniform": 1.2770880464416208e-06,
+          "diagonal": 2.843534894130102e-08,
+          "induction": 2.48202086723347e-08,
+          "previous_token": 0.9999985921041504
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 7.607677594499111e-08,
+          "uniform": 1.2737771596444341e-06,
+          "diagonal": 2.5053696869367694e-08,
+          "induction": 2.1170893323545917e-08,
+          "previous_token": 0.9999986039214742
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 9.694868760864846e-08,
+          "uniform": 1.6502549192625577e-06,
+          "diagonal": 2.76012986061653e-08,
+          "induction": 2.847723791397776e-08,
+          "previous_token": 0.9999981967178566
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9998414463247424,
+          "uniform": 0.00013634005081470836,
+          "diagonal": 5.421637041109272e-06,
+          "induction": 7.055183649502986e-06,
+          "previous_token": 9.736803752307269e-06
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.999844054096644,
+          "uniform": 0.00013049492291250932,
+          "diagonal": 1.0893930046744726e-05,
+          "induction": 6.9574292372753295e-06,
+          "previous_token": 7.599621159516569e-06
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9997890067753867,
+          "uniform": 0.0001820487718867354,
+          "diagonal": 1.017855939934892e-05,
+          "induction": 8.811934542179031e-06,
+          "previous_token": 9.953958785019973e-06
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.999769430668124,
+          "uniform": 0.00019962262832411224,
+          "diagonal": 1.1097735751604075e-05,
+          "induction": 1.0703880873823669e-05,
+          "previous_token": 9.145086926532902e-06
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.999774737379202,
+          "uniform": 0.00019213868334000455,
+          "diagonal": 1.2645393115414934e-05,
+          "induction": 1.1177915253117713e-05,
+          "previous_token": 9.30062908947563e-06
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9997939229628076,
+          "uniform": 0.00017348123534531508,
+          "diagonal": 1.0554806725822977e-05,
+          "induction": 1.451065929406217e-05,
+          "previous_token": 7.5303358272018685e-06
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9998266169638456,
+          "uniform": 0.00014987203861272291,
+          "diagonal": 7.130654515926725e-06,
+          "induction": 8.786527420338584e-06,
+          "previous_token": 7.593815605484305e-06
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9998130835565342,
+          "uniform": 0.00016073001290571248,
+          "diagonal": 1.0607795364288213e-05,
+          "induction": 8.21260209277047e-06,
+          "previous_token": 7.3660331029933506e-06
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9997793823623016,
+          "uniform": 0.0001910512906940922,
+          "diagonal": 9.97492113247516e-06,
+          "induction": 8.626344244679608e-06,
+          "previous_token": 1.0965081627185621e-05
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.9998270701200417,
+          "uniform": 0.00014873272198317005,
+          "diagonal": 8.636987186382466e-06,
+          "induction": 6.997935880163956e-06,
+          "previous_token": 8.56223490860551e-06
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.04062797365467339,
+          "uniform": 0.8404115752737814,
+          "diagonal": 0.03356586284155858,
+          "induction": 0.04018217935547377,
+          "previous_token": 0.04521240887451291
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.042625100605183805,
+          "uniform": 0.8247007832109461,
+          "diagonal": 0.04167968903901046,
+          "induction": 0.051769179000307385,
+          "previous_token": 0.03922524814455222
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.03940588456052642,
+          "uniform": 0.8317713010183331,
+          "diagonal": 0.03472385377011376,
+          "induction": 0.04095252087074448,
+          "previous_token": 0.05314643978028222
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.05544435895317258,
+          "uniform": 0.819902109803228,
+          "diagonal": 0.035310267875935615,
+          "induction": 0.054331320459673996,
+          "previous_token": 0.035011942907989875
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.050824272430981095,
+          "uniform": 0.8121478406312347,
+          "diagonal": 0.04624135333595139,
+          "induction": 0.04090487880809458,
+          "previous_token": 0.049881654793738295
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.04669634816668864,
+          "uniform": 0.8258254270407546,
+          "diagonal": 0.04610217551560674,
+          "induction": 0.03774083187859189,
+          "previous_token": 0.04363521739835811
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.04417884854015257,
+          "uniform": 0.8183425908786831,
+          "diagonal": 0.04298217722720436,
+          "induction": 0.055374940644947905,
+          "previous_token": 0.03912144270901211
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.04035137909419448,
+          "uniform": 0.8206872390003205,
+          "diagonal": 0.06341255952292588,
+          "induction": 0.03334005810372986,
+          "previous_token": 0.04220876427882928
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.04525793903381627,
+          "uniform": 0.8243160506059357,
+          "diagonal": 0.03873580907995291,
+          "induction": 0.05062728540264018,
+          "previous_token": 0.04106291587765487
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.046233577513455505,
+          "uniform": 0.834015519694072,
+          "diagonal": 0.040578232727133956,
+          "induction": 0.03723716874559107,
+          "previous_token": 0.041935501319747465
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 7.83622211395279e-06,
+          "uniform": 0.00014800270425700785,
+          "diagonal": 0.9998370794424726,
+          "induction": 3.3807890697877825e-06,
+          "previous_token": 3.700842086668345e-06
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 1.2945970685066611e-05,
+          "uniform": 0.00020916286017781755,
+          "diagonal": 0.9997667881717246,
+          "induction": 4.282082135965759e-06,
+          "previous_token": 6.820915276539941e-06
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 8.371071666706086e-06,
+          "uniform": 0.00014470669972808234,
+          "diagonal": 0.9998384211278363,
+          "induction": 4.377638862756909e-06,
+          "previous_token": 4.123461906183235e-06
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 7.1991226315836665e-06,
+          "uniform": 0.00018113953198547157,
+          "diagonal": 0.9998039097267374,
+          "induction": 3.7993877746737367e-06,
+          "previous_token": 3.95223087090614e-06
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 7.1175172907630825e-06,
+          "uniform": 0.00015104162399278234,
+          "diagonal": 0.9998354301219935,
+          "induction": 3.604633555337457e-06,
+          "previous_token": 2.8061031676614216e-06
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 8.209251751735824e-06,
+          "uniform": 0.00015998725871400722,
+          "diagonal": 0.9998228876140784,
+          "induction": 5.396687665636364e-06,
+          "previous_token": 3.5191877901170884e-06
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 9.250860653143506e-06,
+          "uniform": 0.00015790581303562216,
+          "diagonal": 0.9998251653303115,
+          "induction": 4.0244939891165385e-06,
+          "previous_token": 3.6535020106026277e-06
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 8.680724856007241e-06,
+          "uniform": 0.0001610127933008714,
+          "diagonal": 0.9998227866655729,
+          "induction": 3.784459262247966e-06,
+          "previous_token": 3.7353570079698166e-06
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 5.665429725294084e-06,
+          "uniform": 0.0001414276275404672,
+          "diagonal": 0.9998448471773463,
+          "induction": 4.448432975664382e-06,
+          "previous_token": 3.6113324122518097e-06
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 9.39086763969593e-06,
+          "uniform": 0.00013370128212556834,
+          "diagonal": 0.9998496930394258,
+          "induction": 4.200512715845202e-06,
+          "previous_token": 3.014298093041445e-06
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 1.0440967503312766e-05,
+          "uniform": 0.00017598444806184776,
+          "diagonal": 3.5544306316456425e-06,
+          "induction": 0.9998054060865671,
+          "previous_token": 4.614067236062143e-06
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 7.674829969533972e-06,
+          "uniform": 0.00014431530044550734,
+          "diagonal": 2.694953789934829e-06,
+          "induction": 0.9998422608243415,
+          "previous_token": 3.0540914535289784e-06
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 1.2557132726073716e-05,
+          "uniform": 0.00020120404141259587,
+          "diagonal": 5.885701502231569e-06,
+          "induction": 0.9997762634956501,
+          "previous_token": 4.089628709034827e-06
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 7.948486432506284e-06,
+          "uniform": 0.0001429322333926086,
+          "diagonal": 4.095558899083537e-06,
+          "induction": 0.9998416001145898,
+          "previous_token": 3.4236066859759816e-06
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 7.552679954044735e-06,
+          "uniform": 0.00016268353258935885,
+          "diagonal": 3.973929506417657e-06,
+          "induction": 0.9998222499679348,
+          "previous_token": 3.53989001542283e-06
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 1.0200815398984023e-05,
+          "uniform": 0.00019745371790755645,
+          "diagonal": 4.6394125688338945e-06,
+          "induction": 0.9997816810204482,
+          "previous_token": 6.025033676487817e-06
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 7.466453563995605e-06,
+          "uniform": 0.00014620313051905726,
+          "diagonal": 3.889121004812014e-06,
+          "induction": 0.9998392490087824,
+          "previous_token": 3.192286129749096e-06
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 9.33690408732649e-06,
+          "uniform": 0.00017784108840636974,
+          "diagonal": 5.032651452498803e-06,
+          "induction": 0.999804041691418,
+          "previous_token": 3.7476646357762878e-06
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 7.875490537365593e-06,
+          "uniform": 0.00017831544653193533,
+          "diagonal": 3.3372155070015293e-06,
+          "induction": 0.999805204689291,
+          "previous_token": 5.267158132734575e-06
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 9.861770099754832e-06,
+          "uniform": 0.00015735177873562329,
+          "diagonal": 4.5637793743443004e-06,
+          "induction": 0.9998246008621217,
+          "previous_token": 3.6218096686112843e-06
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 4.839118959972323e-06,
+          "uniform": 0.00010104243970141261,
+          "diagonal": 2.1727142020982148e-06,
+          "induction": 2.3213740687679695e-06,
+          "previous_token": 0.9998896243530677
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 8.13923704750247e-06,
+          "uniform": 0.0001541447233994181,
+          "diagonal": 4.083222745158249e-06,
+          "induction": 5.557755090495312e-06,
+          "previous_token": 0.9998280750617174
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 1.1394665440231748e-05,
+          "uniform": 0.0001846784599923051,
+          "diagonal": 3.98278662174004e-06,
+          "induction": 4.038925178381015e-06,
+          "previous_token": 0.9997959051627674
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 1.0219071038987157e-05,
+          "uniform": 0.0001629620155191609,
+          "diagonal": 3.26009018766436e-06,
+          "induction": 4.74784268254189e-06,
+          "previous_token": 0.9998188109805717
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 7.663167528438287e-06,
+          "uniform": 0.00014339153042572736,
+          "diagonal": 3.645421777079338e-06,
+          "induction": 3.6337245372312197e-06,
+          "previous_token": 0.9998416661557316
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 5.4495406795032315e-06,
+          "uniform": 0.00013370526032239154,
+          "diagonal": 4.097960534676965e-06,
+          "induction": 3.078984440326686e-06,
+          "previous_token": 0.9998536682540231
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 6.802070424721733e-06,
+          "uniform": 0.00014045477550029878,
+          "diagonal": 2.444801965495098e-06,
+          "induction": 3.4121119491112124e-06,
+          "previous_token": 0.9998468862401604
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 9.328742350965058e-06,
+          "uniform": 0.00015313575101456742,
+          "diagonal": 3.6672098550471968e-06,
+          "induction": 4.129632417629434e-06,
+          "previous_token": 0.9998297386643618
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 5.523577981464493e-06,
+          "uniform": 0.00010048865338961817,
+          "diagonal": 2.5622551847638163e-06,
+          "induction": 2.4558645458614813e-06,
+          "previous_token": 0.9998889696488983
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 7.4996978828828575e-06,
+          "uniform": 0.00013710060991349715,
+          "diagonal": 3.1771075419647068e-06,
+          "induction": 3.017014399266614e-06,
+          "previous_token": 0.9998492055702624
+        }
+      }
+    ]
+  }
+}

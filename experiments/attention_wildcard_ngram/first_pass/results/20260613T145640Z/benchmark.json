@@ -1,0 +1,86 @@
+{
+  "goal": "attention_wildcard_ngram",
+  "attempt": "first_pass",
+  "run_id": "20260613T145640Z",
+  "metrics": {
+    "version": 1,
+    "sharpness_wildcard_span_0": 100000000.0,
+    "linear_baseline_sharpness_wildcard_span_0": 0.9999998400000257,
+    "sharpness_wildcard_span_1": 100000000.0,
+    "linear_baseline_sharpness_wildcard_span_1": 0.49999996000000324,
+    "sharpness_wildcard_span_2": 100000000.0,
+    "linear_baseline_sharpness_wildcard_span_2": 0.49999996000000324,
+    "sharpness_wildcard_span_3": 100000000.0,
+    "linear_baseline_sharpness_wildcard_span_3": 0.49999996000000324,
+    "sharpness_wildcard_span_4": 100000000.0,
+    "linear_baseline_sharpness_wildcard_span_4": 0.49999996000000324,
+    "sharpness_canonical": 100000000.0,
+    "lift_over_baseline_canonical": 99999999.50000004,
+    "wildcard_skip_robustness": 1.0,
+    "mean_sharpness": 100000000.0
+  },
+  "payload": {
+    "version": 1,
+    "canonical_span": 1,
+    "seq_len": 16,
+    "vocab_size": 32,
+    "anchor_token": 1,
+    "target_token": 2,
+    "wildcard_token_range": [
+      10,
+      31
+    ],
+    "sweep": [
+      {
+        "wildcard_span": 0,
+        "wildcard_pos": 1,
+        "target_pos": 1,
+        "n_sequences": 1024,
+        "mean_attn_on_anchor": 1.0,
+        "mean_attn_on_wildcards": 0.0,
+        "mean_attn_on_others": 0.0,
+        "sharpness": 100000000.0
+      },
+      {
+        "wildcard_span": 1,
+        "wildcard_pos": 1,
+        "target_pos": 2,
+        "n_sequences": 1024,
+        "mean_attn_on_anchor": 1.0,
+        "mean_attn_on_wildcards": 0.0,
+        "mean_attn_on_others": 0.0,
+        "sharpness": 100000000.0
+      },
+      {
+        "wildcard_span": 2,
+        "wildcard_pos": 1,
+        "target_pos": 3,
+        "n_sequences": 1024,
+        "mean_attn_on_anchor": 1.0,
+        "mean_attn_on_wildcards": 0.0,
+        "mean_attn_on_others": 0.0,
+        "sharpness": 100000000.0
+      },
+      {
+        "wildcard_span": 3,
+        "wildcard_pos": 1,
+        "target_pos": 4,
+        "n_sequences": 1024,
+        "mean_attn_on_anchor": 1.0,
+        "mean_attn_on_wildcards": 0.0,
+        "mean_attn_on_others": 0.0,
+        "sharpness": 100000000.0
+      },
+      {
+        "wildcard_span": 4,
+        "wildcard_pos": 1,
+        "target_pos": 5,
+        "n_sequences": 1024,
+        "mean_attn_on_anchor": 1.0,
+        "mean_attn_on_wildcards": 0.0,
+        "mean_attn_on_others": 0.0,
+        "sharpness": 100000000.0
+      }
+    ]
+  }
+}

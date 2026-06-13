@@ -1,0 +1,79 @@
+{
+  "goal": "attention_equality",
+  "attempt": "first_pass",
+  "run_id": "20260613T151307Z",
+  "metrics": {
+    "version": 1,
+    "match_mass_L_8": 0.5,
+    "uniform_baseline_L_8": 0.18339843749999998,
+    "lift_over_uniform_L_8": 0.31660156250000004,
+    "match_mass_L_16": 0.5,
+    "uniform_baseline_L_16": 0.09885308376519313,
+    "lift_over_uniform_L_16": 0.40114691623480686,
+    "match_mass_L_32": 0.5,
+    "uniform_baseline_L_32": 0.053057330795655964,
+    "lift_over_uniform_L_32": 0.44694266920434406,
+    "match_mass_L_64": 0.5,
+    "uniform_baseline_L_64": 0.02994549760822799,
+    "lift_over_uniform_L_64": 0.470054502391772,
+    "match_mass_canonical": 0.5,
+    "uniform_baseline_canonical": 0.09885308376519313,
+    "lift_over_uniform_canonical": 0.40114691623480686,
+    "equality_robustness": 0.5,
+    "uniform_baseline_robustness": 0.09131358741726926,
+    "attn_rowsum_max_dev": 5.895284260759581e-12
+  },
+  "payload": {
+    "version": 1,
+    "config": {
+      "V": 128,
+      "B": 256,
+      "canonical_L": 16,
+      "L_sweep": [
+        8,
+        16,
+        32,
+        64
+      ],
+      "causal": true
+    },
+    "canonical": {
+      "L": 16,
+      "n_eval": 256,
+      "match_mass": 0.5,
+      "uniform_baseline": 0.09885308376519313,
+      "attn_rowsum_max_dev": 1.4035439477311229e-12
+    },
+    "sweep": [
+      {
+        "L": 8,
+        "n_eval": 256,
+        "match_mass": 0.5,
+        "uniform_baseline": 0.18339843749999998,
+        "attn_rowsum_max_dev": 6.550315845288424e-13
+      },
+      {
+        "L": 16,
+        "n_eval": 256,
+        "match_mass": 0.5,
+        "uniform_baseline": 0.09885308376519313,
+        "attn_rowsum_max_dev": 1.4035439477311229e-12
+      },
+      {
+        "L": 32,
+        "n_eval": 256,
+        "match_mass": 0.5,
+        "uniform_baseline": 0.053057330795655964,
+        "attn_rowsum_max_dev": 2.900790718740609e-12
+      },
+      {
+        "L": 64,
+        "n_eval": 256,
+        "match_mass": 0.5,
+        "uniform_baseline": 0.02994549760822799,
+        "attn_rowsum_max_dev": 5.895284260759581e-12
+      }
+    ],
+    "attn_rowsum_max_dev": 5.895284260759581e-12
+  }
+}

@@ -1,0 +1,1 @@
+APPROVED: README/task/benchmark contracts align; deterministic; metrics match; edge cases handled. Fixed zero-attention-row renormalisation in task.py to report uniform ~1/L mass as the README documents (no VERSION bump needed). Verified end-to-end with random, zero-attn, and perfect-oracle model_fns.

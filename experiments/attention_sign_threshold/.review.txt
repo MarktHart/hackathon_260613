@@ -1,0 +1,1 @@
+APPROVED — fixed fatal per-bin-softmax degeneracy (now per-pair sigmoid), gave the linear baseline a real max(0,cos) curve, and aligned README normalisation/example/per-slice-naming/smoke-test with task.py + benchmark.py; verified metrics discriminate, stay in range, and flag no-mechanism attempts. VERSION=1.

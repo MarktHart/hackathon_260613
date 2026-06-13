@@ -1,0 +1,113 @@
+{
+  "goal": "attention_quantile",
+  "attempt": "pass_2",
+  "run_id": "20260613T143849Z",
+  "metrics": {
+    "version": 1,
+    "quantile_ratio_pareto_0p1": 1.5134764991230059,
+    "quantile_ratio_pareto_0p3": 1.4248786816504968,
+    "quantile_ratio_pareto_0p5": 1.3447168226957575,
+    "quantile_ratio_pareto_0p7": 1.267745885027795,
+    "quantile_ratio_pareto_1p0": 1.1603782444163309,
+    "quantile_ratio_exponential_0p5": 1.1271508085088175,
+    "quantile_ratio_exponential_1p0": 1.077724218746237,
+    "quantile_ratio_exponential_2p0": 1.0483280420868035,
+    "quantile_ratio_exponential_5p0": 1.0312267535314006,
+    "quantile_ratio_canonical": 1.3447168226957575,
+    "pareto_vs_exponential_lift": 1.2531321852134192,
+    "linear_baseline_quantile_ratio_canonical": 1.0,
+    "lift_over_linear_baseline": 1.3447168226957575
+  },
+  "payload": {
+    "version": 1,
+    "config": {
+      "n_queries": 32,
+      "n_keys": 128,
+      "d_model": 64,
+      "seed": 42
+    },
+    "sweep": [
+      {
+        "condition_id": "pareto_0p1",
+        "tail_type": "pareto",
+        "alpha": 0.1,
+        "rate": null,
+        "quantile_50": 0.007703375071287155,
+        "quantile_90": 0.01165887713432312,
+        "quantile_ratio": 1.5134764991230059
+      },
+      {
+        "condition_id": "pareto_0p3",
+        "tail_type": "pareto",
+        "alpha": 0.3,
+        "rate": null,
+        "quantile_50": 0.007814479991793633,
+        "quantile_90": 0.011134685948491096,
+        "quantile_ratio": 1.4248786816504968
+      },
+      {
+        "condition_id": "pareto_0p5",
+        "tail_type": "pareto",
+        "alpha": 0.5,
+        "rate": null,
+        "quantile_50": 0.00790342502295971,
+        "quantile_90": 0.010627868585288525,
+        "quantile_ratio": 1.3447168226957575
+      },
+      {
+        "condition_id": "pareto_0p7",
+        "tail_type": "pareto",
+        "alpha": 0.7,
+        "rate": null,
+        "quantile_50": 0.007989228703081608,
+        "quantile_90": 0.010128311812877655,
+        "quantile_ratio": 1.267745885027795
+      },
+      {
+        "condition_id": "pareto_1p0",
+        "tail_type": "pareto",
+        "alpha": 1.0,
+        "rate": null,
+        "quantile_50": 0.0080727469176054,
+        "quantile_90": 0.009367439895868301,
+        "quantile_ratio": 1.1603782444163309
+      },
+      {
+        "condition_id": "exponential_0p5",
+        "tail_type": "exponential",
+        "alpha": null,
+        "rate": 0.5,
+        "quantile_50": 0.008097349666059017,
+        "quantile_90": 0.009126934222877026,
+        "quantile_ratio": 1.1271508085088175
+      },
+      {
+        "condition_id": "exponential_1p0",
+        "tail_type": "exponential",
+        "alpha": null,
+        "rate": 1.0,
+        "quantile_50": 0.008120914921164513,
+        "quantile_90": 0.008752106688916683,
+        "quantile_ratio": 1.077724218746237
+      },
+      {
+        "condition_id": "exponential_2p0",
+        "tail_type": "exponential",
+        "alpha": null,
+        "rate": 2.0,
+        "quantile_50": 0.008129698224365711,
+        "quantile_90": 0.00852259062230587,
+        "quantile_ratio": 1.0483280420868035
+      },
+      {
+        "condition_id": "exponential_5p0",
+        "tail_type": "exponential",
+        "alpha": null,
+        "rate": 5.0,
+        "quantile_50": 0.00812777504324913,
+        "quantile_90": 0.00838157907128334,
+        "quantile_ratio": 1.0312267535314006
+      }
+    ]
+  }
+}

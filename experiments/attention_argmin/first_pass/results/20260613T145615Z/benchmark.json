@@ -1,0 +1,176 @@
+{
+  "goal": "attention_argmin",
+  "attempt": "first_pass",
+  "run_id": "20260613T145615Z",
+  "metrics": {
+    "version": 1,
+    "argmin_sharpness_canonical": 3.632455517053604,
+    "argmin_accuracy_canonical": 1.0,
+    "argmin_attn_at_min_canonical": 0.056757117453962565,
+    "linear_baseline_sharpness_canonical": 1.0,
+    "linear_baseline_accuracy_canonical": 0.0,
+    "lift_over_baseline_canonical": 2.632455517053604,
+    "argmin_sharpness_gap_0p05": 2.3559198391437532,
+    "argmin_accuracy_gap_0p05": 1.0,
+    "linear_baseline_sharpness_gap_0p05": 1.0,
+    "lift_over_baseline_gap_0p05": 1.3559198391437532,
+    "argmin_sharpness_gap_0p10": 2.4705796897411347,
+    "argmin_accuracy_gap_0p10": 1.0,
+    "linear_baseline_sharpness_gap_0p10": 1.0,
+    "lift_over_baseline_gap_0p10": 1.4705796897411347,
+    "argmin_sharpness_gap_0p20": 2.7296203577518465,
+    "argmin_accuracy_gap_0p20": 1.0,
+    "linear_baseline_sharpness_gap_0p20": 1.0,
+    "lift_over_baseline_gap_0p20": 1.7296203577518465,
+    "argmin_sharpness_gap_0p50": 3.632455517053604,
+    "argmin_accuracy_gap_0p50": 1.0,
+    "linear_baseline_sharpness_gap_0p50": 1.0,
+    "lift_over_baseline_gap_0p50": 2.632455517053604,
+    "argmin_sharpness_gap_1p00": 5.822860608100891,
+    "argmin_accuracy_gap_1p00": 1.0,
+    "linear_baseline_sharpness_gap_1p00": 1.0,
+    "lift_over_baseline_gap_1p00": 4.822860608100891,
+    "argmin_sharpness_gap_2p00": 13.763683919906617,
+    "argmin_accuracy_gap_2p00": 1.0,
+    "linear_baseline_sharpness_gap_2p00": 1.0,
+    "lift_over_baseline_gap_2p00": 12.763683919906617,
+    "argmin_robustness": 0.1711692779965945,
+    "worst_slice_sharpness": 2.3559198391437532
+  },
+  "payload": {
+    "version": 1,
+    "canonical": {
+      "gap": 0.5,
+      "sequences": 200,
+      "seq_len": 64,
+      "attn_at_min": 0.056757117453962565,
+      "attn_at_others": 0.014972109214757525,
+      "argmax_correct": 1.0
+    },
+    "sweep": [
+      {
+        "gap": 0.05,
+        "sequences": 200,
+        "seq_len": 64,
+        "attn_at_min": 0.036811247486621144,
+        "attn_at_others": 0.015288710311232578,
+        "argmax_correct": 1.0
+      },
+      {
+        "gap": 0.1,
+        "sequences": 200,
+        "seq_len": 64,
+        "attn_at_min": 0.03860280765220523,
+        "attn_at_others": 0.015260272888274539,
+        "argmax_correct": 1.0
+      },
+      {
+        "gap": 0.2,
+        "sequences": 200,
+        "seq_len": 64,
+        "attn_at_min": 0.0426503180898726,
+        "attn_at_others": 0.015196026739597851,
+        "argmax_correct": 1.0
+      },
+      {
+        "gap": 0.5,
+        "sequences": 200,
+        "seq_len": 64,
+        "attn_at_min": 0.056757117453962565,
+        "attn_at_others": 0.014972109214757525,
+        "argmax_correct": 1.0
+      },
+      {
+        "gap": 1.0,
+        "sequences": 200,
+        "seq_len": 64,
+        "attn_at_min": 0.09098219700157642,
+        "attn_at_others": 0.014428854010600066,
+        "argmax_correct": 1.0
+      },
+      {
+        "gap": 2.0,
+        "sequences": 200,
+        "seq_len": 64,
+        "attn_at_min": 0.2150575612485409,
+        "attn_at_others": 0.012459403783995807,
+        "argmax_correct": 1.0
+      }
+    ],
+    "linear_baseline": {
+      "canonical": {
+        "gap": 0.5,
+        "sequences": 200,
+        "seq_len": 64,
+        "attn_at_min": 0.015625,
+        "attn_at_others": 0.015625,
+        "argmax_correct": 0.0
+      },
+      "sweep": [
+        {
+          "gap": 0.05,
+          "sequences": 200,
+          "seq_len": 64,
+          "attn_at_min": 0.015625,
+          "attn_at_others": 0.015625,
+          "argmax_correct": 0.005
+        },
+        {
+          "gap": 0.1,
+          "sequences": 200,
+          "seq_len": 64,
+          "attn_at_min": 0.015625,
+          "attn_at_others": 0.015625,
+          "argmax_correct": 0.02
+        },
+        {
+          "gap": 0.2,
+          "sequences": 200,
+          "seq_len": 64,
+          "attn_at_min": 0.015625,
+          "attn_at_others": 0.015625,
+          "argmax_correct": 0.025
+        },
+        {
+          "gap": 0.5,
+          "sequences": 200,
+          "seq_len": 64,
+          "attn_at_min": 0.015625,
+          "attn_at_others": 0.015625,
+          "argmax_correct": 0.0
+        },
+        {
+          "gap": 1.0,
+          "sequences": 200,
+          "seq_len": 64,
+          "attn_at_min": 0.015625,
+          "attn_at_others": 0.015625,
+          "argmax_correct": 0.01
+        },
+        {
+          "gap": 2.0,
+          "sequences": 200,
+          "seq_len": 64,
+          "attn_at_min": 0.015625,
+          "attn_at_others": 0.015625,
+          "argmax_correct": 0.005
+        }
+      ]
+    },
+    "model_config": {
+      "seq_len": 64,
+      "key_dim": 32,
+      "n_seq_per_gap": 200,
+      "gaps": [
+        0.05,
+        0.1,
+        0.2,
+        0.5,
+        1.0,
+        2.0
+      ],
+      "canonical_gap": 0.5,
+      "seed": 0
+    }
+  }
+}

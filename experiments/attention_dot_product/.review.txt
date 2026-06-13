@@ -1,0 +1,1 @@
+APPROVED: README/task/benchmark payload contracts match (no shape drift); generate is seed-deterministic; canonical seq_len=32 unambiguous; metric formulae (attention_fidelity headline + per-slice + baseline) match README; zero-denominator/empty-sweep edge cases handled; VERSION=1 set with documented bump procedure.

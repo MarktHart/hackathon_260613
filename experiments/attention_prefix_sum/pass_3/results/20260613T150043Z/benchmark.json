@@ -1,0 +1,55 @@
+{
+  "goal": "attention_prefix_sum",
+  "attempt": "pass_3",
+  "run_id": "20260613T150043Z",
+  "metrics": {
+    "version": 1,
+    "prefix_acc_canonical": 0.0810546875,
+    "prefix_acc_len_4": 0.07568359375,
+    "prefix_acc_len_8": 0.07763671875,
+    "prefix_acc_len_16": 0.0810546875,
+    "prefix_acc_len_32": 0.0914306640625,
+    "prefix_acc_len_64": 0.09661865234375,
+    "linear_baseline_acc_canonical": 0.0999755859375,
+    "lift_over_baseline_canonical": -0.0189208984375,
+    "prefix_acc_robustness": 0.9337349397590361
+  },
+  "payload": {
+    "version": 1,
+    "config": {
+      "seq_len": 16,
+      "vocab_size": 10,
+      "num_sequences": 512,
+      "seed": 0
+    },
+    "sweep": [
+      {
+        "seq_len": 4,
+        "correct": 155,
+        "total": 2048
+      },
+      {
+        "seq_len": 8,
+        "correct": 318,
+        "total": 4096
+      },
+      {
+        "seq_len": 16,
+        "correct": 664,
+        "total": 8192
+      },
+      {
+        "seq_len": 32,
+        "correct": 1498,
+        "total": 16384
+      },
+      {
+        "seq_len": 64,
+        "correct": 3166,
+        "total": 32768
+      }
+    ],
+    "random_baseline_correct": 819,
+    "random_baseline_total": 8192
+  }
+}

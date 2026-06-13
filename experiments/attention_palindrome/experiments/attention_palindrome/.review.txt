@@ -1,0 +1,1 @@
+APPROVED: payload contract consistent across README/task/benchmark, generate deterministic (seed 0), metrics match README formulae (headline mirror_routing_robustness + per-slice + uniform baseline + lift), edge cases handled, VERSION=1 set in both files with documented bump procedure; end-to-end run verified.

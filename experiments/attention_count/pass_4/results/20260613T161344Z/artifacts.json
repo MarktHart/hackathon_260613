@@ -1,0 +1,52 @@
+{
+  "per_head_scores": [
+    1.0,
+    0.015625,
+    0.015625,
+    0.015625,
+    1.0,
+    0.015625,
+    0.015625,
+    0.015625
+  ],
+  "predicted_count_thr0p5": 2,
+  "induction_heads_layer_major_idx": [
+    0,
+    4
+  ],
+  "n_layers": 2,
+  "n_heads": 4,
+  "causal_copy_accuracy": {
+    "full": 1.0,
+    "ablate_layer0_head0": 0.015625,
+    "ablate_layer1_head0": 0.015625,
+    "ablate_both_induction": 0.015625,
+    "ablate_all_distractors": 1.0
+  },
+  "strawman_uniform_scores": [
+    0.015625,
+    0.015625,
+    0.015625,
+    0.015625,
+    0.015625,
+    0.015625,
+    0.015625,
+    0.015625
+  ],
+  "strawman_uniform_count": 0,
+  "strawman_alleight_scores": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ],
+  "strawman_alleight_count": 8,
+  "threshold": 0.5,
+  "tau": 30.0,
+  "alpha": 0.7,
+  "delay": 5
+}

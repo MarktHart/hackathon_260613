@@ -1,0 +1,31 @@
+{
+  "goal": "attention_range_sum",
+  "attempt": "pass_3",
+  "run_id": "20260613T163836Z",
+  "verdict_version": 1,
+  "architecture_fit":         {"score": 5, "note": "Single attention head, no MLP/unembed — minimal delta from base_model; selects window via real Q·K softmax and aggregates token values."},
+  "baseline_comparison":      {"score": 5, "note": "Constant-predictor baseline plotted alongside; ablating selection collapses exactly onto it, making the win explicit."},
+  "faithfulness":             {"score": 5, "note": "Hand-built circuit, declared as such; two ablations (no-selection, no-scaling) show both pieces are load-bearing."},
+  "operating_range":          {"score": 5, "note": "Exact (MSE=0) across the full k=2..32 sweep; robustness=1.0, no degradation as window grows."},
+  "hardcoded_weights_bonus":  {"score": 5, "note": "Entire mechanism written by hand as float32 CUDA tensors; reproduces target exactly to fp precision."},
+  "visual_judgement":         {"score": 5, "note": "MSE-vs-k log-log chart with ablations + baseline, plus interactive attention/values inspector — claim is legible."},
+  "visualisation_rationale":  {"score": 5, "note": "README ties chart grain to the goal's question (degradation vs window length) and justifies baseline + ablation curves."},
+  "automated_metrics": {
+    "version": 1,
+    "range_sum_mse_k_2": 0.0,
+    "linear_baseline_mse_k_2": 14.27560000000002,
+    "range_sum_mse_k_4": 0.0,
+    "linear_baseline_mse_k_4": 28.10777499999999,
+    "range_sum_mse_k_8": 0.0,
+    "linear_baseline_mse_k_8": 33.09909999999999,
+    "range_sum_mse_k_16": 0.0,
+    "linear_baseline_mse_k_16": 26.84677500000001,
+    "range_sum_mse_k_32": 0.0,
+    "linear_baseline_mse_k_32": 24.567975,
+    "range_sum_mse_canonical": 0.0,
+    "lift_over_linear_k_8": 33.09909999999999,
+    "range_sum_robustness": 1.0
+  },
+  "overall": "perfect",
+  "notes": "A clean hand-built single-head range-sum circuit that selects the window with a genuine Q·K softmax over one-hot positional keys and recovers the sum via a length-scaled readout, achieving exact MSE (0.0) and robustness 1.0 across the full k=2..32 sweep. The two ablations and constant baseline make the claim falsifiable, and the visualisation (MSE-vs-k plus an interactive attention inspector) is well matched to the goal. All scored rubric items are 5, so the mean is 5 → perfect."
+}

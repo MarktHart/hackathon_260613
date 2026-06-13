@@ -1,0 +1,1 @@
+APPROVED: payload contract, determinism, metric formulae (purity/headline/coverage/min), edge-case handling, and VERSION=1 are consistent across README.md, task.py, and benchmark.py — no changes needed.

@@ -1,0 +1,69 @@
+{
+  "goal": "attention_equality",
+  "attempt": "first_pass",
+  "run_id": "20260613T132750Z",
+  "metrics": {
+    "version": 1,
+    "equivariance_fro_perm_0": 0.0,
+    "output_equivariance_fro_perm_0": 0.0,
+    "equivariance_fro_perm_1": 0.0,
+    "output_equivariance_fro_perm_1": 0.0,
+    "equivariance_fro_perm_2": 0.0,
+    "output_equivariance_fro_perm_2": 0.0,
+    "equivariance_fro_perm_3": 0.0,
+    "output_equivariance_fro_perm_3": 0.0,
+    "equivariance_fro_canonical": 0.0,
+    "output_equivariance_fro_canonical": 0.0,
+    "max_attn_abs_error_canonical": 0.0,
+    "max_output_abs_error_canonical": 0.0,
+    "attn_rowsum_max_dev_canonical": 1.1920928955078125e-07,
+    "linear_baseline_equivariance_fro_canonical": 0.0,
+    "lift_over_linear_fro": 0.0
+  },
+  "payload": {
+    "version": 1,
+    "config": {
+      "batch_size": 32,
+      "seq_len": 8,
+      "d_model": 64,
+      "num_heads": 4,
+      "num_permutations": 4,
+      "seed": 0
+    },
+    "sweep": [
+      {
+        "perm_id": 0,
+        "attn_fro_error": 0.0,
+        "output_fro_error": 0.0,
+        "attn_max_abs_error": 0.0,
+        "output_max_abs_error": 0.0,
+        "attn_rowsum_dev": 1.1920928955078125e-07
+      },
+      {
+        "perm_id": 1,
+        "attn_fro_error": 0.0,
+        "output_fro_error": 0.0,
+        "attn_max_abs_error": 0.0,
+        "output_max_abs_error": 0.0,
+        "attn_rowsum_dev": 1.1920928955078125e-07
+      },
+      {
+        "perm_id": 2,
+        "attn_fro_error": 0.0,
+        "output_fro_error": 0.0,
+        "attn_max_abs_error": 0.0,
+        "output_max_abs_error": 0.0,
+        "attn_rowsum_dev": 1.1920928955078125e-07
+      },
+      {
+        "perm_id": 3,
+        "attn_fro_error": 0.0,
+        "output_fro_error": 0.0,
+        "attn_max_abs_error": 0.0,
+        "output_max_abs_error": 0.0,
+        "attn_rowsum_dev": 1.1920928955078125e-07
+      }
+    ],
+    "linear_baseline_fro": 0.0
+  }
+}

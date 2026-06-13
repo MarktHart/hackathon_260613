@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "config": {
+    "seq_len": 64,
+    "d_model": 64,
+    "k_sweep": [
+      1,
+      2,
+      4,
+      8,
+      16
+    ],
+    "canonical_k": 4
+  },
+  "sweep": [
+    {
+      "k": 1,
+      "n_valid": 63,
+      "mean_target_mass": 0.9971479618119686,
+      "shift_accuracy": 1.0,
+      "uniform_baseline_mass": 0.015625
+    },
+    {
+      "k": 2,
+      "n_valid": 62,
+      "mean_target_mass": 0.9971479618119686,
+      "shift_accuracy": 1.0,
+      "uniform_baseline_mass": 0.015625
+    },
+    {
+      "k": 4,
+      "n_valid": 60,
+      "mean_target_mass": 0.9971479618119686,
+      "shift_accuracy": 1.0,
+      "uniform_baseline_mass": 0.015625
+    },
+    {
+      "k": 8,
+      "n_valid": 56,
+      "mean_target_mass": 0.9971479618119686,
+      "shift_accuracy": 1.0,
+      "uniform_baseline_mass": 0.015625
+    },
+    {
+      "k": 16,
+      "n_valid": 48,
+      "mean_target_mass": 0.9971479618119686,
+      "shift_accuracy": 1.0,
+      "uniform_baseline_mass": 0.015625
+    }
+  ]
+}

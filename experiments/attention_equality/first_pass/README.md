@@ -1,0 +1,7 @@
+# What I did
+
+This attempt implements a standard multi-head self-attention mechanism with fixed random weights (no training) to test permutation equivariance. The model uses 4 attention heads with d_model=64, d_head=16, following the canonical configuration from the task. Each head has independent Q, K, V projections and an output projection, with a final shared output projection after head concatenation. The model_fn is deterministic (seeded) and computes attention weights via scaled dot-product attention with softmax, returning both the post-softmax attention matrices and the output embeddings.
+
+# Why this visualisation
+
+The Demo tab shows three complementary views: (1) a bar chart of Frobenius equivariance errors per permutation (identity vs 3 random permutations) for both attention weights and outputs on a log scale — this directly tests the core claim; (2) a grouped bar chart comparing attention vs output equivariance across permutations, making it easy to see if outputs degrade differently than attention; (3) a heatmap of average attention weights for head 0, showing that the attention pattern is non-trivial (not uniform) yet should still permute correctly. The Benchmark tab uses the shared panel to compare this attempt against the linear baseline and future attempts.

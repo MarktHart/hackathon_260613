@@ -1,0 +1,96 @@
+{
+  "goal": "attention_span",
+  "attempt": "pass_3",
+  "run_id": "20260613T151334Z",
+  "metrics": {
+    "version": 1,
+    "attention_on_target_dist_1": 0.982504665851593,
+    "attention_on_target_dist_2": 0.970552384853363,
+    "attention_on_target_dist_4": 0.9747728705406189,
+    "attention_on_target_dist_8": 0.8823561072349548,
+    "attention_on_target_dist_16": 0.9423828721046448,
+    "attention_on_target_dist_32": 0.9894228577613831,
+    "attention_on_target_dist_64": 0.9911825656890869,
+    "attention_on_target_dist_128": 0.8496965169906616,
+    "attention_on_target_dist_256": 0.9964924454689026,
+    "attention_span_auc_canonical": 0.9487330913543701,
+    "attention_span_robustness": 1.0142368582088976,
+    "linear_baseline_attention_span_auc": 0.001953125,
+    "linear_baseline_attention_on_target_dist_1": 0.001953125,
+    "lift_over_baseline_auc": 0.9467799663543701
+  },
+  "payload": {
+    "version": 1,
+    "canonical_seq_len": 512,
+    "canonical_distances": [
+      1,
+      2,
+      4,
+      8,
+      16,
+      32,
+      64,
+      128,
+      256
+    ],
+    "samples_per_distance": 100,
+    "sweep": [
+      {
+        "distance": 1,
+        "mean_attention_on_target": 0.982504665851593,
+        "std_attention_on_target": 0.00455634668469429,
+        "n_samples": 100
+      },
+      {
+        "distance": 2,
+        "mean_attention_on_target": 0.970552384853363,
+        "std_attention_on_target": 0.007820908911526203,
+        "n_samples": 100
+      },
+      {
+        "distance": 4,
+        "mean_attention_on_target": 0.9747728705406189,
+        "std_attention_on_target": 0.004920621402561665,
+        "n_samples": 100
+      },
+      {
+        "distance": 8,
+        "mean_attention_on_target": 0.8823561072349548,
+        "std_attention_on_target": 0.029168246313929558,
+        "n_samples": 100
+      },
+      {
+        "distance": 16,
+        "mean_attention_on_target": 0.9423828721046448,
+        "std_attention_on_target": 0.015075290575623512,
+        "n_samples": 100
+      },
+      {
+        "distance": 32,
+        "mean_attention_on_target": 0.9894228577613831,
+        "std_attention_on_target": 0.002619644394144416,
+        "n_samples": 100
+      },
+      {
+        "distance": 64,
+        "mean_attention_on_target": 0.9911825656890869,
+        "std_attention_on_target": 0.0019896209705621004,
+        "n_samples": 100
+      },
+      {
+        "distance": 128,
+        "mean_attention_on_target": 0.8496965169906616,
+        "std_attention_on_target": 0.03513103350996971,
+        "n_samples": 100
+      },
+      {
+        "distance": 256,
+        "mean_attention_on_target": 0.9964924454689026,
+        "std_attention_on_target": 0.0008592457743361592,
+        "n_samples": 100
+      }
+    ],
+    "attention_span_auc": 0.9487330913543701,
+    "model_name": "attention_span_model"
+  }
+}

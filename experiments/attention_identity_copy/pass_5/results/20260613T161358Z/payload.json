@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "sweep": [
+    {
+      "token": 0,
+      "copy_fidelity": 1.0,
+      "diag_attn_mass": 0.9999077320098877,
+      "best_head": 0
+    },
+    {
+      "token": 64,
+      "copy_fidelity": 1.0,
+      "diag_attn_mass": 0.9999077320098877,
+      "best_head": 0
+    },
+    {
+      "token": 128,
+      "copy_fidelity": 1.0,
+      "diag_attn_mass": 0.9999077320098877,
+      "best_head": 0
+    },
+    {
+      "token": 192,
+      "copy_fidelity": 1.0,
+      "diag_attn_mass": 0.9999077320098877,
+      "best_head": 0
+    },
+    {
+      "token": 255,
+      "copy_fidelity": 1.0,
+      "diag_attn_mass": 0.9999077320098877,
+      "best_head": 0
+    }
+  ],
+  "canonical_token": 128,
+  "config": {
+    "B": 32,
+    "L": 16,
+    "H": 8,
+    "D": 64,
+    "sweep_tokens": [
+      0,
+      64,
+      128,
+      192,
+      255
+    ]
+  }
+}

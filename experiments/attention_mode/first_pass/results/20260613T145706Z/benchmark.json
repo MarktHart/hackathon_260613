@@ -1,0 +1,2797 @@
+{
+  "goal": "attention_mode",
+  "attempt": "first_pass",
+  "run_id": "20260613T145706Z",
+  "metrics": {
+    "version": 1,
+    "accuracy_canonical": 0.2,
+    "macro_f1_canonical": 0.1,
+    "cross_entropy_canonical": 2.07699394571744,
+    "accuracy_mode_positional": 0.0,
+    "accuracy_mode_uniform": 0.0,
+    "accuracy_mode_diagonal": 1.0,
+    "accuracy_mode_induction": 0.0,
+    "accuracy_mode_previous_token": 0.0,
+    "accuracy_noise_0p0": 0.2,
+    "accuracy_noise_0p1": 0.2,
+    "accuracy_noise_0p2": 0.2,
+    "accuracy_noise_0p3": 0.2,
+    "accuracy_noise_0p5": 0.2,
+    "mode_robustness": 1.0,
+    "linear_baseline_accuracy_canonical": 0.2,
+    "lift_over_baseline_accuracy": 0.0
+  },
+  "payload": {
+    "version": 1,
+    "L": 16,
+    "seed": 0,
+    "modes": [
+      "positional",
+      "uniform",
+      "diagonal",
+      "induction",
+      "previous_token"
+    ],
+    "noise_levels": [
+      0.0,
+      0.1,
+      0.2,
+      0.3,
+      0.5
+    ],
+    "canonical_noise": 0.0,
+    "n_per_mode": 10,
+    "sweep": [
+      {
+        "noise": 0.0,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.29300490414700514,
+          "uniform": 0.02083590491585648,
+          "diagonal": 0.23688500457839723,
+          "induction": 0.15626928221173605,
+          "previous_token": 0.29300490414700514
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.29300490414700514,
+          "uniform": 0.02083590491585648,
+          "diagonal": 0.23688500457839723,
+          "induction": 0.15626928221173605,
+          "previous_token": 0.29300490414700514
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.29300490414700514,
+          "uniform": 0.02083590491585648,
+          "diagonal": 0.23688500457839723,
+          "induction": 0.15626928221173605,
+          "previous_token": 0.29300490414700514
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.29300490414700514,
+          "uniform": 0.02083590491585648,
+          "diagonal": 0.23688500457839723,
+          "induction": 0.15626928221173605,
+          "previous_token": 0.29300490414700514
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.29300490414700514,
+          "uniform": 0.02083590491585648,
+          "diagonal": 0.23688500457839723,
+          "induction": 0.15626928221173605,
+          "previous_token": 0.29300490414700514
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.29300490414700514,
+          "uniform": 0.02083590491585648,
+          "diagonal": 0.23688500457839723,
+          "induction": 0.15626928221173605,
+          "previous_token": 0.29300490414700514
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.29300490414700514,
+          "uniform": 0.02083590491585648,
+          "diagonal": 0.23688500457839723,
+          "induction": 0.15626928221173605,
+          "previous_token": 0.29300490414700514
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.29300490414700514,
+          "uniform": 0.02083590491585648,
+          "diagonal": 0.23688500457839723,
+          "induction": 0.15626928221173605,
+          "previous_token": 0.29300490414700514
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.29300490414700514,
+          "uniform": 0.02083590491585648,
+          "diagonal": 0.23688500457839723,
+          "induction": 0.15626928221173605,
+          "previous_token": 0.29300490414700514
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.29300490414700514,
+          "uniform": 0.02083590491585648,
+          "diagonal": 0.23688500457839723,
+          "induction": 0.15626928221173605,
+          "previous_token": 0.29300490414700514
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.27239709427374204,
+          "uniform": 0.019370460614528576,
+          "diagonal": 0.2905569005586582,
+          "induction": 0.1452784502793291,
+          "previous_token": 0.27239709427374204
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.27239709427374204,
+          "uniform": 0.019370460614528576,
+          "diagonal": 0.2905569005586582,
+          "induction": 0.1452784502793291,
+          "previous_token": 0.27239709427374204
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.27239709427374204,
+          "uniform": 0.019370460614528576,
+          "diagonal": 0.2905569005586582,
+          "induction": 0.1452784502793291,
+          "previous_token": 0.27239709427374204
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.27239709427374204,
+          "uniform": 0.019370460614528576,
+          "diagonal": 0.2905569005586582,
+          "induction": 0.1452784502793291,
+          "previous_token": 0.27239709427374204
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.27239709427374204,
+          "uniform": 0.019370460614528576,
+          "diagonal": 0.2905569005586582,
+          "induction": 0.1452784502793291,
+          "previous_token": 0.27239709427374204
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.27239709427374204,
+          "uniform": 0.019370460614528576,
+          "diagonal": 0.2905569005586582,
+          "induction": 0.1452784502793291,
+          "previous_token": 0.27239709427374204
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.27239709427374204,
+          "uniform": 0.019370460614528576,
+          "diagonal": 0.2905569005586582,
+          "induction": 0.1452784502793291,
+          "previous_token": 0.27239709427374204
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.27239709427374204,
+          "uniform": 0.019370460614528576,
+          "diagonal": 0.2905569005586582,
+          "induction": 0.1452784502793291,
+          "previous_token": 0.27239709427374204
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.27239709427374204,
+          "uniform": 0.019370460614528576,
+          "diagonal": 0.2905569005586582,
+          "induction": 0.1452784502793291,
+          "previous_token": 0.27239709427374204
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.27239709427374204,
+          "uniform": 0.019370460614528576,
+          "diagonal": 0.2905569005586582,
+          "induction": 0.1452784502793291,
+          "previous_token": 0.27239709427374204
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04733276175210087,
+          "uniform": 0.0,
+          "diagonal": 0.5740051442310922,
+          "induction": 0.37866209401680695,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04733276175210087,
+          "uniform": 0.0,
+          "diagonal": 0.5740051442310922,
+          "induction": 0.37866209401680695,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04733276175210087,
+          "uniform": 0.0,
+          "diagonal": 0.5740051442310922,
+          "induction": 0.37866209401680695,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04733276175210087,
+          "uniform": 0.0,
+          "diagonal": 0.5740051442310922,
+          "induction": 0.37866209401680695,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04733276175210087,
+          "uniform": 0.0,
+          "diagonal": 0.5740051442310922,
+          "induction": 0.37866209401680695,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04733276175210087,
+          "uniform": 0.0,
+          "diagonal": 0.5740051442310922,
+          "induction": 0.37866209401680695,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04733276175210087,
+          "uniform": 0.0,
+          "diagonal": 0.5740051442310922,
+          "induction": 0.37866209401680695,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04733276175210087,
+          "uniform": 0.0,
+          "diagonal": 0.5740051442310922,
+          "induction": 0.37866209401680695,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04733276175210087,
+          "uniform": 0.0,
+          "diagonal": 0.5740051442310922,
+          "induction": 0.37866209401680695,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04733276175210087,
+          "uniform": 0.0,
+          "diagonal": 0.5740051442310922,
+          "induction": 0.37866209401680695,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04519362277268696,
+          "uniform": 0.0,
+          "diagonal": 0.5480637722731304,
+          "induction": 0.36154898218149567,
+          "previous_token": 0.04519362277268696
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04519362277268696,
+          "uniform": 0.0,
+          "diagonal": 0.5480637722731304,
+          "induction": 0.36154898218149567,
+          "previous_token": 0.04519362277268696
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04519362277268696,
+          "uniform": 0.0,
+          "diagonal": 0.5480637722731304,
+          "induction": 0.36154898218149567,
+          "previous_token": 0.04519362277268696
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04519362277268696,
+          "uniform": 0.0,
+          "diagonal": 0.5480637722731304,
+          "induction": 0.36154898218149567,
+          "previous_token": 0.04519362277268696
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04519362277268696,
+          "uniform": 0.0,
+          "diagonal": 0.5480637722731304,
+          "induction": 0.36154898218149567,
+          "previous_token": 0.04519362277268696
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04519362277268696,
+          "uniform": 0.0,
+          "diagonal": 0.5480637722731304,
+          "induction": 0.36154898218149567,
+          "previous_token": 0.04519362277268696
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04519362277268696,
+          "uniform": 0.0,
+          "diagonal": 0.5480637722731304,
+          "induction": 0.36154898218149567,
+          "previous_token": 0.04519362277268696
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04519362277268696,
+          "uniform": 0.0,
+          "diagonal": 0.5480637722731304,
+          "induction": 0.36154898218149567,
+          "previous_token": 0.04519362277268696
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04519362277268696,
+          "uniform": 0.0,
+          "diagonal": 0.5480637722731304,
+          "induction": 0.36154898218149567,
+          "previous_token": 0.04519362277268696
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04519362277268696,
+          "uniform": 0.0,
+          "diagonal": 0.5480637722731304,
+          "induction": 0.36154898218149567,
+          "previous_token": 0.04519362277268696
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.02622812150404606,
+          "uniform": 0.41964994406473694,
+          "diagonal": 0.31806884089480253,
+          "induction": 0.20982497203236847,
+          "previous_token": 0.02622812150404606
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.02622812150404606,
+          "uniform": 0.41964994406473694,
+          "diagonal": 0.31806884089480253,
+          "induction": 0.20982497203236847,
+          "previous_token": 0.02622812150404606
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.02622812150404606,
+          "uniform": 0.41964994406473694,
+          "diagonal": 0.31806884089480253,
+          "induction": 0.20982497203236847,
+          "previous_token": 0.02622812150404606
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.02622812150404606,
+          "uniform": 0.41964994406473694,
+          "diagonal": 0.31806884089480253,
+          "induction": 0.20982497203236847,
+          "previous_token": 0.02622812150404606
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.02622812150404606,
+          "uniform": 0.41964994406473694,
+          "diagonal": 0.31806884089480253,
+          "induction": 0.20982497203236847,
+          "previous_token": 0.02622812150404606
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.02622812150404606,
+          "uniform": 0.41964994406473694,
+          "diagonal": 0.31806884089480253,
+          "induction": 0.20982497203236847,
+          "previous_token": 0.02622812150404606
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.02622812150404606,
+          "uniform": 0.41964994406473694,
+          "diagonal": 0.31806884089480253,
+          "induction": 0.20982497203236847,
+          "previous_token": 0.02622812150404606
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.02622812150404606,
+          "uniform": 0.41964994406473694,
+          "diagonal": 0.31806884089480253,
+          "induction": 0.20982497203236847,
+          "previous_token": 0.02622812150404606
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.02622812150404606,
+          "uniform": 0.41964994406473694,
+          "diagonal": 0.31806884089480253,
+          "induction": 0.20982497203236847,
+          "previous_token": 0.02622812150404606
+        }
+      },
+      {
+        "noise": 0.0,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.02622812150404606,
+          "uniform": 0.41964994406473694,
+          "diagonal": 0.31806884089480253,
+          "induction": 0.20982497203236847,
+          "previous_token": 0.02622812150404606
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.29079409947093765,
+          "uniform": 0.020678692134206377,
+          "diagonal": 0.2426429225394182,
+          "induction": 0.1550901863845001,
+          "previous_token": 0.29079409947093765
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.2908066288396896,
+          "uniform": 0.020679583111566403,
+          "diagonal": 0.2426102904945532,
+          "induction": 0.15509686871450112,
+          "previous_token": 0.2908066288396896
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.2907627012205885,
+          "uniform": 0.020676459369670563,
+          "diagonal": 0.24272469753817183,
+          "induction": 0.15507344065098055,
+          "previous_token": 0.2907627012205885
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.29084096217540306,
+          "uniform": 0.020682024593289897,
+          "diagonal": 0.24252087122902236,
+          "induction": 0.15511517982688164,
+          "previous_token": 0.29084096217540306
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.29084185707565713,
+          "uniform": 0.020682088230643193,
+          "diagonal": 0.24251854051102545,
+          "induction": 0.15511565710701714,
+          "previous_token": 0.29084185707565713
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.29084432668473453,
+          "uniform": 0.020682263847293932,
+          "diagonal": 0.24251210855137859,
+          "induction": 0.1551169742318584,
+          "previous_token": 0.29084432668473453
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.29087934457519365,
+          "uniform": 0.02068475400846746,
+          "diagonal": 0.242420906401042,
+          "induction": 0.15513565044010327,
+          "previous_token": 0.29087934457519365
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.29081152818961636,
+          "uniform": 0.0206799315097938,
+          "diagonal": 0.2425975304098447,
+          "induction": 0.15509948170112875,
+          "previous_token": 0.29081152818961636
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.290817838657918,
+          "uniform": 0.020680380254219734,
+          "diagonal": 0.24258109514572132,
+          "induction": 0.15510284728422294,
+          "previous_token": 0.290817838657918
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.2908060739632305,
+          "uniform": 0.020679543653683685,
+          "diagonal": 0.24261173563946578,
+          "induction": 0.15509657278038957,
+          "previous_token": 0.2908060739632305
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.09683937377236976,
+          "uniform": 0.034431778367433954,
+          "diagonal": 0.5136511440281738,
+          "induction": 0.2582383300596527,
+          "previous_token": 0.09683937377236976
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.10751036522344158,
+          "uniform": 0.0,
+          "diagonal": 0.5699585391062337,
+          "induction": 0.2866943072625109,
+          "previous_token": 0.03583678840781386
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.10353000472570097,
+          "uniform": 0.036810669443959304,
+          "diagonal": 0.5490693116532368,
+          "induction": 0.27608001260186926,
+          "previous_token": 0.03451000157523366
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.17298669758268934,
+          "uniform": 0.0,
+          "diagonal": 0.5502345862850078,
+          "induction": 0.2767787161323029,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.09988293761674669,
+          "uniform": 0.07102786886648192,
+          "diagonal": 0.5294403806665313,
+          "induction": 0.2663545003113245,
+          "previous_token": 0.033294312538915564
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.20061596595259065,
+          "uniform": 0.0,
+          "diagonal": 0.5318960794439551,
+          "induction": 0.2674879546034542,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.0771963550353848,
+          "uniform": 0.0,
+          "diagonal": 0.614018224823076,
+          "induction": 0.3087854201415392,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.10007618568649179,
+          "uniform": 0.03558264486008695,
+          "diagonal": 0.530753883831782,
+          "induction": 0.26686982849731145,
+          "previous_token": 0.06671745712432786
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.11147797047360164,
+          "uniform": 0.0,
+          "diagonal": 0.591247441596794,
+          "induction": 0.2972745879296044,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.10746964543347479,
+          "uniform": 0.0,
+          "diagonal": 0.5701214182661009,
+          "induction": 0.2865857211559328,
+          "previous_token": 0.0358232151444916
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04648282817822862,
+          "uniform": 0.0,
+          "diagonal": 0.5816545463959424,
+          "induction": 0.371862625425829,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04649853494777908,
+          "uniform": 0.0,
+          "diagonal": 0.5815131854699883,
+          "induction": 0.37198827958223263,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04647357563518413,
+          "uniform": 0.0,
+          "diagonal": 0.5817378192833428,
+          "induction": 0.37178860508147304,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04648233364919229,
+          "uniform": 0.0,
+          "diagonal": 0.5816589971572694,
+          "induction": 0.3718586691935383,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.046466735012056636,
+          "uniform": 0.0,
+          "diagonal": 0.5817993848914903,
+          "induction": 0.3717338800964531,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04651249608143434,
+          "uniform": 0.0,
+          "diagonal": 0.581387535267091,
+          "induction": 0.3720999686514747,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.046486174767900734,
+          "uniform": 0.0,
+          "diagonal": 0.5816244270888934,
+          "induction": 0.3718893981432059,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04647025722013469,
+          "uniform": 0.0,
+          "diagonal": 0.5817676850187877,
+          "induction": 0.3717620577610775,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04650604826641744,
+          "uniform": 0.0,
+          "diagonal": 0.581445565602243,
+          "induction": 0.3720483861313395,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.046463737107812444,
+          "uniform": 0.0,
+          "diagonal": 0.581826366029688,
+          "induction": 0.37170989686249956,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04440609022588996,
+          "uniform": 0.0,
+          "diagonal": 0.5559390977411004,
+          "induction": 0.3552487218071197,
+          "previous_token": 0.04440609022588996
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04443941149785689,
+          "uniform": 0.0,
+          "diagonal": 0.555605885021431,
+          "induction": 0.35551529198285514,
+          "previous_token": 0.04443941149785689
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04440785199614264,
+          "uniform": 0.0,
+          "diagonal": 0.5559214800385737,
+          "induction": 0.3552628159691411,
+          "previous_token": 0.04440785199614264
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04441032412638158,
+          "uniform": 0.0,
+          "diagonal": 0.5558967587361842,
+          "induction": 0.35528259301105264,
+          "previous_token": 0.04441032412638158
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04440921968360599,
+          "uniform": 0.0,
+          "diagonal": 0.5559078031639401,
+          "induction": 0.35527375746884793,
+          "previous_token": 0.04440921968360599
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04441815460582666,
+          "uniform": 0.0,
+          "diagonal": 0.5558184539417333,
+          "induction": 0.3553452368466133,
+          "previous_token": 0.04441815460582666
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04439986421782247,
+          "uniform": 0.0,
+          "diagonal": 0.5560013578217753,
+          "induction": 0.3551989137425798,
+          "previous_token": 0.04439986421782247
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04440785350070302,
+          "uniform": 0.0,
+          "diagonal": 0.5559214649929698,
+          "induction": 0.35526282800562414,
+          "previous_token": 0.04440785350070302
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.044405829959130116,
+          "uniform": 0.0,
+          "diagonal": 0.5559417004086988,
+          "induction": 0.35524663967304093,
+          "previous_token": 0.044405829959130116
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04444287717718288,
+          "uniform": 0.0,
+          "diagonal": 0.5555712282281712,
+          "induction": 0.355543017417463,
+          "previous_token": 0.04444287717718288
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.025960241448150175,
+          "uniform": 0.4153638631704028,
+          "diagonal": 0.32503372234809547,
+          "induction": 0.2076819315852014,
+          "previous_token": 0.025960241448150175
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.02597130906656315,
+          "uniform": 0.4155409450650104,
+          "diagonal": 0.3247459642693581,
+          "induction": 0.2077704725325052,
+          "previous_token": 0.02597130906656315
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.025961118139210235,
+          "uniform": 0.41537789022736377,
+          "diagonal": 0.32501092838053386,
+          "induction": 0.20768894511368188,
+          "previous_token": 0.025961118139210235
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.025958290830177123,
+          "uniform": 0.415332653282834,
+          "diagonal": 0.3250844384153948,
+          "induction": 0.207666326641417,
+          "previous_token": 0.025958290830177123
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.025962181560092747,
+          "uniform": 0.41539490496148396,
+          "diagonal": 0.32498327943758853,
+          "induction": 0.20769745248074198,
+          "previous_token": 0.025962181560092747
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.025957908864196518,
+          "uniform": 0.4153265418271443,
+          "diagonal": 0.3250943695308905,
+          "induction": 0.20766327091357215,
+          "previous_token": 0.025957908864196518
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.025971998661532162,
+          "uniform": 0.4155519785845146,
+          "diagonal": 0.3247280348001638,
+          "induction": 0.2077759892922573,
+          "previous_token": 0.025971998661532162
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.025971441836479266,
+          "uniform": 0.41554306938366825,
+          "diagonal": 0.32474251225153905,
+          "induction": 0.20777153469183413,
+          "previous_token": 0.025971441836479266
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.025966821418530732,
+          "uniform": 0.4154691426964917,
+          "diagonal": 0.32486264311820096,
+          "induction": 0.20773457134824586,
+          "previous_token": 0.025966821418530732
+        }
+      },
+      {
+        "noise": 0.1,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.02596580957096191,
+          "uniform": 0.41545295313539055,
+          "diagonal": 0.3248889511549904,
+          "induction": 0.20772647656769527,
+          "previous_token": 0.02596580957096191
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.2886334148725642,
+          "uniform": 0.020525043447076285,
+          "diagonal": 0.24827030554242774,
+          "induction": 0.15393782126536756,
+          "previous_token": 0.2886334148725642
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.2886886378132071,
+          "uniform": 0.020528970411861257,
+          "diagonal": 0.24812648046134753,
+          "induction": 0.1539672735003771,
+          "previous_token": 0.2886886378132071
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.2887619817829483,
+          "uniform": 0.020534185983198294,
+          "diagonal": 0.2479354601666659,
+          "induction": 0.15400639028423913,
+          "previous_token": 0.2887619817829483
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.2886496532249888,
+          "uniform": 0.020526198174394227,
+          "diagonal": 0.24822801365563413,
+          "induction": 0.15394648171999403,
+          "previous_token": 0.2886496532249888
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.28864855987562704,
+          "uniform": 0.020526120425103964,
+          "diagonal": 0.24823086122330754,
+          "induction": 0.15394589860033442,
+          "previous_token": 0.28864855987562704
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.2887379960956641,
+          "uniform": 0.020532480334273913,
+          "diagonal": 0.24799792955671043,
+          "induction": 0.15399359791768752,
+          "previous_token": 0.2887379960956641
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.2885946908953972,
+          "uniform": 0.020522289741951232,
+          "diagonal": 0.2483711599897093,
+          "induction": 0.15391716847754516,
+          "previous_token": 0.2885946908953972
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.2886250082596921,
+          "uniform": 0.02052444564347646,
+          "diagonal": 0.2482922000986368,
+          "induction": 0.15393333773850246,
+          "previous_token": 0.2886250082596921
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.28858944658676877,
+          "uniform": 0.020521916813326543,
+          "diagonal": 0.24838481850019256,
+          "induction": 0.15391437151294335,
+          "previous_token": 0.28858944658676877
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.2887522530199548,
+          "uniform": 0.02053349416003147,
+          "diagonal": 0.2479607981894164,
+          "induction": 0.15400120161064257,
+          "previous_token": 0.2887522530199548
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.07170633089382507,
+          "uniform": 0.03824337761644814,
+          "diagonal": 0.567371802467514,
+          "induction": 0.2868253235753003,
+          "previous_token": 0.035853165446912534
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.10412477262691239,
+          "uniform": 0.0,
+          "diagonal": 0.5487926519500463,
+          "induction": 0.27766606033843305,
+          "previous_token": 0.06941651508460826
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.11184666866647502,
+          "uniform": 0.0,
+          "diagonal": 0.5898955482229249,
+          "induction": 0.2982577831106001,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.09704572753855953,
+          "uniform": 0.06901029719519829,
+          "diagonal": 0.5104582168043771,
+          "induction": 0.25878860676949206,
+          "previous_token": 0.06469715169237301
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.1211196974151407,
+          "uniform": 0.09689575793211255,
+          "diagonal": 0.47918530111489505,
+          "induction": 0.2422393948302814,
+          "previous_token": 0.06055984870757035
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.10787486278886764,
+          "uniform": 0.0,
+          "diagonal": 0.5685005488445295,
+          "induction": 0.2876663007703137,
+          "previous_token": 0.03595828759628921
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.10754714656971572,
+          "uniform": 0.0382389865866206,
+          "diagonal": 0.5674214759910885,
+          "induction": 0.28679239085257524,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.07188718222889534,
+          "uniform": 0.0,
+          "diagonal": 0.568676906626628,
+          "induction": 0.28754872891558136,
+          "previous_token": 0.07188718222889534
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.1119532762709938,
+          "uniform": 0.0,
+          "diagonal": 0.5895046536730227,
+          "induction": 0.2985420700559835,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.111858269164422,
+          "uniform": 0.0,
+          "diagonal": 0.589853013063786,
+          "induction": 0.298288717771792,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04566924404007515,
+          "uniform": 0.0,
+          "diagonal": 0.5889768036393236,
+          "induction": 0.3653539523206012,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04566710232145749,
+          "uniform": 0.0,
+          "diagonal": 0.5889960791068826,
+          "induction": 0.3653368185716599,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04570470226457817,
+          "uniform": 0.0,
+          "diagonal": 0.5886576796187964,
+          "induction": 0.3656376181166254,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.045666313150387494,
+          "uniform": 0.0,
+          "diagonal": 0.5890031816465126,
+          "induction": 0.36533050520309995,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.045637762239904935,
+          "uniform": 0.0,
+          "diagonal": 0.5892601398408556,
+          "induction": 0.3651020979192395,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04568361115785397,
+          "uniform": 0.0,
+          "diagonal": 0.5888474995793143,
+          "induction": 0.3654688892628318,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.045645317855046164,
+          "uniform": 0.0,
+          "diagonal": 0.5891921393045845,
+          "induction": 0.3651625428403693,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04568346785591277,
+          "uniform": 0.0,
+          "diagonal": 0.5888487892967851,
+          "induction": 0.36546774284730216,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04563903987538403,
+          "uniform": 0.0,
+          "diagonal": 0.5892486411215437,
+          "induction": 0.3651123190030722,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04566778968622627,
+          "uniform": 0.0,
+          "diagonal": 0.5889898928239635,
+          "induction": 0.36534231748981016,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04368749204224493,
+          "uniform": 0.0,
+          "diagonal": 0.5631250795775506,
+          "induction": 0.34949993633795945,
+          "previous_token": 0.04368749204224493
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04368003203486724,
+          "uniform": 0.0,
+          "diagonal": 0.5631996796513276,
+          "induction": 0.34944025627893793,
+          "previous_token": 0.04368003203486724
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04369482058761053,
+          "uniform": 0.0,
+          "diagonal": 0.5630517941238947,
+          "induction": 0.34955856470088426,
+          "previous_token": 0.04369482058761053
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04365739391152023,
+          "uniform": 0.0,
+          "diagonal": 0.5634260608847976,
+          "induction": 0.34925915129216184,
+          "previous_token": 0.04365739391152023
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04367724028300367,
+          "uniform": 0.0,
+          "diagonal": 0.5632275971699633,
+          "induction": 0.34941792226402935,
+          "previous_token": 0.04367724028300367
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.043718080817878195,
+          "uniform": 0.0,
+          "diagonal": 0.562819191821218,
+          "induction": 0.34974464654302556,
+          "previous_token": 0.043718080817878195
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04367577613872177,
+          "uniform": 0.0,
+          "diagonal": 0.5632422386127823,
+          "induction": 0.34940620910977416,
+          "previous_token": 0.04367577613872177
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04369717171896323,
+          "uniform": 0.0,
+          "diagonal": 0.5630282828103677,
+          "induction": 0.34957737375170583,
+          "previous_token": 0.04369717171896323
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04365082801096866,
+          "uniform": 0.0,
+          "diagonal": 0.5634917198903134,
+          "induction": 0.3492066240877493,
+          "previous_token": 0.04365082801096866
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04367229227756242,
+          "uniform": 0.0,
+          "diagonal": 0.5632770772243758,
+          "induction": 0.34937833822049935,
+          "previous_token": 0.04367229227756242
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.02570816711312849,
+          "uniform": 0.41133067381005584,
+          "diagonal": 0.33158765505865934,
+          "induction": 0.20566533690502792,
+          "previous_token": 0.02570816711312849
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.02571585394010234,
+          "uniform": 0.41145366304163744,
+          "diagonal": 0.33138779755733916,
+          "induction": 0.20572683152081872,
+          "previous_token": 0.02571585394010234
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.025719814146714082,
+          "uniform": 0.4115170263474253,
+          "diagonal": 0.3312848321854338,
+          "induction": 0.20575851317371266,
+          "previous_token": 0.025719814146714082
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.02571028910579853,
+          "uniform": 0.4113646256927765,
+          "diagonal": 0.33153248324923823,
+          "induction": 0.20568231284638824,
+          "previous_token": 0.02571028910579853
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.025709857417311126,
+          "uniform": 0.411357718676978,
+          "diagonal": 0.3315437071499107,
+          "induction": 0.205678859338489,
+          "previous_token": 0.025709857417311126
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.025701592572421716,
+          "uniform": 0.41122548115874746,
+          "diagonal": 0.33175859311703537,
+          "induction": 0.20561274057937373,
+          "previous_token": 0.025701592572421716
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.025707353304885106,
+          "uniform": 0.4113176528781617,
+          "diagonal": 0.3316088140729872,
+          "induction": 0.20565882643908084,
+          "previous_token": 0.025707353304885106
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.025714250625346827,
+          "uniform": 0.41142801000554924,
+          "diagonal": 0.33142948374098247,
+          "induction": 0.20571400500277462,
+          "previous_token": 0.025714250625346827
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.025721821965005748,
+          "uniform": 0.41154915144009196,
+          "diagonal": 0.33123262890985056,
+          "induction": 0.20577457572004598,
+          "previous_token": 0.025721821965005748
+        }
+      },
+      {
+        "noise": 0.2,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.025718208319606504,
+          "uniform": 0.41149133311370406,
+          "diagonal": 0.3313265836902309,
+          "induction": 0.20574566655685203,
+          "previous_token": 0.025718208319606504
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.2866687510179967,
+          "uniform": 0.02038533401325449,
+          "diagonal": 0.25338716340782047,
+          "induction": 0.1528900005429316,
+          "previous_token": 0.2866687510179967
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.2864603621002682,
+          "uniform": 0.02037051524532994,
+          "diagonal": 0.2539299007673239,
+          "induction": 0.15277885978680972,
+          "previous_token": 0.2864603621002682
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.2867384960517535,
+          "uniform": 0.020390293660247225,
+          "diagonal": 0.2532055163419772,
+          "induction": 0.15292719789426854,
+          "previous_token": 0.2867384960517535
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.28666725464355125,
+          "uniform": 0.020385227604401864,
+          "diagonal": 0.2533910606319349,
+          "induction": 0.15288920247656068,
+          "previous_token": 0.28666725464355125
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.28664991790214217,
+          "uniform": 0.020383994769420474,
+          "diagonal": 0.2534362132118194,
+          "induction": 0.1528799562144758,
+          "previous_token": 0.28664991790214217
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.28679735544576906,
+          "uniform": 0.020394479217279736,
+          "diagonal": 0.2530522203201053,
+          "induction": 0.15295858957107683,
+          "previous_token": 0.28679735544576906
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.2865282435845666,
+          "uniform": 0.020375342373246126,
+          "diagonal": 0.25375310721251854,
+          "induction": 0.1528150632451022,
+          "previous_token": 0.2865282435845666
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.28657667367682643,
+          "uniform": 0.02037878629102058,
+          "diagonal": 0.2536269737276857,
+          "induction": 0.15284089262764078,
+          "previous_token": 0.28657667367682643
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.2868339748991568,
+          "uniform": 0.020397083267376027,
+          "diagonal": 0.25295684698809345,
+          "induction": 0.15297811994621696,
+          "previous_token": 0.2868339748991568
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.2866262650753144,
+          "uniform": 0.020382312790573707,
+          "diagonal": 0.25349781568529645,
+          "induction": 0.15286734137350103,
+          "previous_token": 0.2866262650753144
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.07481296046411981,
+          "uniform": 0.0,
+          "diagonal": 0.588528717447341,
+          "induction": 0.29925184185647924,
+          "previous_token": 0.037406480232059905
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.06945810952008075,
+          "uniform": 0.037044326181383314,
+          "diagonal": 0.5462070166981322,
+          "induction": 0.277832438080323,
+          "previous_token": 0.06945810952008075
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.07767215821245947,
+          "uniform": 0.0,
+          "diagonal": 0.6116392089377026,
+          "induction": 0.3106886328498379,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.14421451380799616,
+          "uniform": 0.0,
+          "diagonal": 0.5673564585760115,
+          "induction": 0.2884290276159923,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.10415032934728095,
+          "uniform": 0.03703122931598316,
+          "diagonal": 0.546367453294893,
+          "induction": 0.27773421159274925,
+          "previous_token": 0.034716776449093656
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.13911078077772426,
+          "uniform": 0.0,
+          "diagonal": 0.5478899624723961,
+          "induction": 0.2782215615554485,
+          "previous_token": 0.034777695194431066
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.10833300364559335,
+          "uniform": 0.0,
+          "diagonal": 0.5666679854176265,
+          "induction": 0.2888880097215823,
+          "previous_token": 0.03611100121519779
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.06936029656299958,
+          "uniform": 0.07398431853877066,
+          "diagonal": 0.5445340503647317,
+          "induction": 0.2774411862519983,
+          "previous_token": 0.03468014828149979
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.10797182004857292,
+          "uniform": 0.038389981605825386,
+          "diagonal": 0.5657133448827406,
+          "induction": 0.2879248534628611,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.10050832149542628,
+          "uniform": 0.07147258630457436,
+          "diagonal": 0.5264941277137205,
+          "induction": 0.2680221906544701,
+          "previous_token": 0.03350277383180876
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04489031238207782,
+          "uniform": 0.0,
+          "diagonal": 0.5959871885612996,
+          "induction": 0.3591224990566226,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04488521791754122,
+          "uniform": 0.0,
+          "diagonal": 0.596033038742129,
+          "induction": 0.3590817433403298,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04488886416981493,
+          "uniform": 0.0,
+          "diagonal": 0.5960002224716657,
+          "induction": 0.3591109133585194,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04490836906955267,
+          "uniform": 0.0,
+          "diagonal": 0.595824678374026,
+          "induction": 0.3592669525564214,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.044896841258947544,
+          "uniform": 0.0,
+          "diagonal": 0.595928428669472,
+          "induction": 0.35917473007158035,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04489709654800819,
+          "uniform": 0.0,
+          "diagonal": 0.5959261310679262,
+          "induction": 0.35917677238406553,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.044854672326338545,
+          "uniform": 0.0,
+          "diagonal": 0.596307949062953,
+          "induction": 0.35883737861070836,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04488216240855917,
+          "uniform": 0.0,
+          "diagonal": 0.5960605383229675,
+          "induction": 0.35905729926847335,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04489256021717434,
+          "uniform": 0.0,
+          "diagonal": 0.595966958045431,
+          "induction": 0.3591404817373947,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04490459349817993,
+          "uniform": 0.0,
+          "diagonal": 0.5958586585163806,
+          "induction": 0.3592367479854394,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04292888501627585,
+          "uniform": 0.0,
+          "diagonal": 0.5707111498372415,
+          "induction": 0.3434310801302068,
+          "previous_token": 0.04292888501627585
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04295311303564978,
+          "uniform": 0.0,
+          "diagonal": 0.5704688696435022,
+          "induction": 0.34362490428519826,
+          "previous_token": 0.04295311303564978
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04301480655545232,
+          "uniform": 0.0,
+          "diagonal": 0.5698519344454768,
+          "induction": 0.34411845244361855,
+          "previous_token": 0.04301480655545232
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04298525851465389,
+          "uniform": 0.0,
+          "diagonal": 0.5701474148534611,
+          "induction": 0.3438820681172311,
+          "previous_token": 0.04298525851465389
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04299685508079788,
+          "uniform": 0.0,
+          "diagonal": 0.5700314491920212,
+          "induction": 0.34397484064638306,
+          "previous_token": 0.04299685508079788
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04299063581350345,
+          "uniform": 0.0,
+          "diagonal": 0.5700936418649655,
+          "induction": 0.3439250865080276,
+          "previous_token": 0.04299063581350345
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04300879378105022,
+          "uniform": 0.0,
+          "diagonal": 0.5699120621894977,
+          "induction": 0.34407035024840177,
+          "previous_token": 0.04300879378105022
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.042929295575955824,
+          "uniform": 0.0,
+          "diagonal": 0.5707070442404418,
+          "induction": 0.3434343646076466,
+          "previous_token": 0.042929295575955824
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04291061462829243,
+          "uniform": 0.0,
+          "diagonal": 0.5708938537170757,
+          "induction": 0.34328491702633945,
+          "previous_token": 0.04291061462829243
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04300149038063432,
+          "uniform": 0.0,
+          "diagonal": 0.5699850961936568,
+          "induction": 0.34401192304507455,
+          "previous_token": 0.04300149038063432
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.025444973517014753,
+          "uniform": 0.40711957627223605,
+          "diagonal": 0.33843068855761643,
+          "induction": 0.20355978813611803,
+          "previous_token": 0.025444973517014753
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.025461481583472913,
+          "uniform": 0.4073837053355666,
+          "diagonal": 0.33800147882970427,
+          "induction": 0.2036918526677833,
+          "previous_token": 0.025461481583472913
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.025472120997549762,
+          "uniform": 0.4075539359607962,
+          "diagonal": 0.33772485406370617,
+          "induction": 0.2037769679803981,
+          "previous_token": 0.025472120997549762
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.025454859572574626,
+          "uniform": 0.407277753161194,
+          "diagonal": 0.33817365111305975,
+          "induction": 0.203638876580597,
+          "previous_token": 0.025454859572574626
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.02548166355261266,
+          "uniform": 0.40770661684180254,
+          "diagonal": 0.33747674763207086,
+          "induction": 0.20385330842090127,
+          "previous_token": 0.02548166355261266
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.025455539811569346,
+          "uniform": 0.40728863698510953,
+          "diagonal": 0.3381559648991971,
+          "induction": 0.20364431849255477,
+          "previous_token": 0.025455539811569346
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.02546346114162609,
+          "uniform": 0.4074153782660174,
+          "diagonal": 0.3379500103177217,
+          "induction": 0.2037076891330087,
+          "previous_token": 0.02546346114162609
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.025472581371868905,
+          "uniform": 0.4075613019499025,
+          "diagonal": 0.3377128843314085,
+          "induction": 0.20378065097495124,
+          "previous_token": 0.025472581371868905
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.025473378403312503,
+          "uniform": 0.40757405445300005,
+          "diagonal": 0.33769216151387493,
+          "induction": 0.20378702722650002,
+          "previous_token": 0.025473378403312503
+        }
+      },
+      {
+        "noise": 0.3,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.025445657179640726,
+          "uniform": 0.4071305148742516,
+          "diagonal": 0.33841291332934115,
+          "induction": 0.2035652574371258,
+          "previous_token": 0.025445657179640726
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.28270891204137766,
+          "uniform": 0.020103745455414032,
+          "diagonal": 0.26370034403976256,
+          "induction": 0.15077808642206808,
+          "previous_token": 0.28270891204137766
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.2827886930197205,
+          "uniform": 0.020109418769598597,
+          "diagonal": 0.26349255891377615,
+          "induction": 0.15082063627718426,
+          "previous_token": 0.2827886930197205
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.28249746239036916,
+          "uniform": 0.020088709035338638,
+          "diagonal": 0.26425105290905954,
+          "induction": 0.15066531327486354,
+          "previous_token": 0.28249746239036916
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.2823313163662623,
+          "uniform": 0.020076894206605595,
+          "diagonal": 0.2646837709988633,
+          "induction": 0.15057670206200655,
+          "previous_token": 0.2823313163662623
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.28240559463943454,
+          "uniform": 0.020082176217299706,
+          "diagonal": 0.2644903173627995,
+          "induction": 0.15061631714103174,
+          "previous_token": 0.28240559463943454
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.28248465250576116,
+          "uniform": 0.02008779811018381,
+          "diagonal": 0.264284415541888,
+          "induction": 0.15065848133640594,
+          "previous_token": 0.28248465250576116
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.28258060875407837,
+          "uniform": 0.02009462166582306,
+          "diagonal": 0.2640345028238451,
+          "induction": 0.15070965800217512,
+          "previous_token": 0.28258060875407837
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.28259701805619597,
+          "uniform": 0.020095788549563974,
+          "diagonal": 0.263991765708073,
+          "induction": 0.15071840962997116,
+          "previous_token": 0.28259701805619597
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.2824135941721586,
+          "uniform": 0.020082745072977037,
+          "diagonal": 0.2644694830242212,
+          "induction": 0.1506205835584846,
+          "previous_token": 0.2824135941721586
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "positional",
+        "pred_probs": {
+          "positional": 0.2826460054710011,
+          "uniform": 0.02009927209916505,
+          "diagonal": 0.2638641807076322,
+          "induction": 0.1507445362512006,
+          "previous_token": 0.2826460054710011
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.07220864420884196,
+          "uniform": 0.07702255611821573,
+          "diagonal": 0.5619342228375744,
+          "induction": 0.28883457683536784,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.11295584749374904,
+          "uniform": 0.0,
+          "diagonal": 0.5858285591895869,
+          "induction": 0.30121559331666414,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.0752001490497339,
+          "uniform": 0.040106747355132255,
+          "diagonal": 0.5838925073961982,
+          "induction": 0.3008005961989356,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.10903740196738505,
+          "uniform": 0.0,
+          "diagonal": 0.5638503921304597,
+          "induction": 0.29076640524636016,
+          "previous_token": 0.03634580065579502
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.1013847966063336,
+          "uniform": 0.03604792875656391,
+          "diagonal": 0.5246179526159905,
+          "induction": 0.27035945761688956,
+          "previous_token": 0.06758986440422239
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.13486652098579652,
+          "uniform": 0.07192881333607043,
+          "diagonal": 0.52347162370654,
+          "induction": 0.26973304197159303,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.10488526348824502,
+          "uniform": 0.03729253924055803,
+          "diagonal": 0.5431664068064619,
+          "induction": 0.2796940359686534,
+          "previous_token": 0.03496175449608167
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.14542194687359233,
+          "uniform": 0.0,
+          "diagonal": 0.563734159379223,
+          "induction": 0.29084389374718467,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.10880991863330562,
+          "uniform": 0.0,
+          "diagonal": 0.5647603254667775,
+          "induction": 0.29015978302214834,
+          "previous_token": 0.03626997287776854
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "uniform",
+        "pred_probs": {
+          "positional": 0.10466270025945784,
+          "uniform": 0.037213405645742,
+          "diagonal": 0.5441357933164266,
+          "induction": 0.27910053402522095,
+          "previous_token": 0.03488756675315262
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04345568439884833,
+          "uniform": 0.0,
+          "diagonal": 0.608898840410365,
+          "induction": 0.34764547519078665,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04335547680439652,
+          "uniform": 0.0,
+          "diagonal": 0.6098007087604314,
+          "induction": 0.34684381443517215,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.043481609984634545,
+          "uniform": 0.0,
+          "diagonal": 0.6086655101382891,
+          "induction": 0.34785287987707636,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04340573119112026,
+          "uniform": 0.0,
+          "diagonal": 0.6093484192799177,
+          "induction": 0.3472458495289621,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04345824905351188,
+          "uniform": 0.0,
+          "diagonal": 0.608875758518393,
+          "induction": 0.34766599242809504,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04345303073219842,
+          "uniform": 0.0,
+          "diagonal": 0.6089227234102143,
+          "induction": 0.34762424585758733,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04343893226234872,
+          "uniform": 0.0,
+          "diagonal": 0.6090496096388616,
+          "induction": 0.34751145809878975,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.043440147336974336,
+          "uniform": 0.0,
+          "diagonal": 0.609038673967231,
+          "induction": 0.3475211786957947,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.043480003152724836,
+          "uniform": 0.0,
+          "diagonal": 0.6086799716254765,
+          "induction": 0.3478400252217987,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "diagonal",
+        "pred_probs": {
+          "positional": 0.04349545038624313,
+          "uniform": 0.0,
+          "diagonal": 0.6085409465238119,
+          "induction": 0.34796360308994506,
+          "previous_token": 0.0
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04160907028971687,
+          "uniform": 0.0,
+          "diagonal": 0.5839092971028313,
+          "induction": 0.33287256231773493,
+          "previous_token": 0.04160907028971687
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.041672543188781275,
+          "uniform": 0.0,
+          "diagonal": 0.5832745681121873,
+          "induction": 0.3333803455102502,
+          "previous_token": 0.041672543188781275
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.041565020437488075,
+          "uniform": 0.0,
+          "diagonal": 0.5843497956251192,
+          "induction": 0.3325201634999046,
+          "previous_token": 0.041565020437488075
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04167037837982878,
+          "uniform": 0.0,
+          "diagonal": 0.5832962162017122,
+          "induction": 0.33336302703863024,
+          "previous_token": 0.04167037837982878
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04161279024375129,
+          "uniform": 0.0,
+          "diagonal": 0.5838720975624871,
+          "induction": 0.3329023219500103,
+          "previous_token": 0.04161279024375129
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04159206948089244,
+          "uniform": 0.0,
+          "diagonal": 0.5840793051910756,
+          "induction": 0.3327365558471395,
+          "previous_token": 0.04159206948089244
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04165575260439029,
+          "uniform": 0.0,
+          "diagonal": 0.583442473956097,
+          "induction": 0.33324602083512234,
+          "previous_token": 0.04165575260439029
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.0416229997559247,
+          "uniform": 0.0,
+          "diagonal": 0.5837700024407529,
+          "induction": 0.3329839980473976,
+          "previous_token": 0.0416229997559247
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04160759887217098,
+          "uniform": 0.0,
+          "diagonal": 0.5839240112782902,
+          "induction": 0.3328607909773678,
+          "previous_token": 0.04160759887217098
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "induction",
+        "pred_probs": {
+          "positional": 0.04165276885153879,
+          "uniform": 0.0,
+          "diagonal": 0.5834723114846121,
+          "induction": 0.3332221508123103,
+          "previous_token": 0.04165276885153879
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.025032419228852062,
+          "uniform": 0.400518707661633,
+          "diagonal": 0.34915710004984635,
+          "induction": 0.2002593538308165,
+          "previous_token": 0.025032419228852062
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.02498785990204954,
+          "uniform": 0.39980575843279265,
+          "diagonal": 0.35031564254671194,
+          "induction": 0.19990287921639632,
+          "previous_token": 0.02498785990204954
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.024973060105639367,
+          "uniform": 0.3995689616902299,
+          "diagonal": 0.35070043725337646,
+          "induction": 0.19978448084511494,
+          "previous_token": 0.024973060105639367
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.02498978174322107,
+          "uniform": 0.39983650789153713,
+          "diagonal": 0.3502656746762522,
+          "induction": 0.19991825394576856,
+          "previous_token": 0.02498978174322107
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.02500283654922094,
+          "uniform": 0.40004538478753504,
+          "diagonal": 0.3499262497202556,
+          "induction": 0.20002269239376752,
+          "previous_token": 0.02500283654922094
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.02501680644906519,
+          "uniform": 0.40026890318504305,
+          "diagonal": 0.3495630323243051,
+          "induction": 0.20013445159252152,
+          "previous_token": 0.02501680644906519
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.02499683420221133,
+          "uniform": 0.3999493472353813,
+          "diagonal": 0.35008231074250545,
+          "induction": 0.19997467361769064,
+          "previous_token": 0.02499683420221133
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.024992201377591373,
+          "uniform": 0.399875222041462,
+          "diagonal": 0.3502027641826243,
+          "induction": 0.199937611020731,
+          "previous_token": 0.024992201377591373
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.025039016485038028,
+          "uniform": 0.40062426376060845,
+          "diagonal": 0.3489855713890113,
+          "induction": 0.20031213188030422,
+          "previous_token": 0.025039016485038028
+        }
+      },
+      {
+        "noise": 0.5,
+        "true_mode": "previous_token",
+        "pred_probs": {
+          "positional": 0.025006401747212432,
+          "uniform": 0.4001024279553989,
+          "diagonal": 0.3498335545724768,
+          "induction": 0.20005121397769945,
+          "previous_token": 0.025006401747212432
+        }
+      }
+    ]
+  }
+}

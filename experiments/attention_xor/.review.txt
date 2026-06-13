@@ -1,0 +1,1 @@
+APPROVED: payload contract is consistent across README/task/benchmark, generate() is deterministic, metric formulae (incl. best-linear-probe baseline = 1-min(p,1-p)^2) match the README, edge cases and VERSION=1 bump procedure are handled; fixed misleading "majority" comments to read "best-linear-probe".

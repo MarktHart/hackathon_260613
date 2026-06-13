@@ -1,0 +1,77 @@
+{
+  "goal": "attention_previous_token",
+  "attempt": "first_pass",
+  "run_id": "20260613T151325Z",
+  "metrics": {
+    "version": 1,
+    "uniform_baseline": 0.059426839741361405,
+    "prev_token_attn_noise_0p00": 0.7861065924091293,
+    "prev_token_attn_noise_0p25": 0.7473884653496135,
+    "prev_token_attn_noise_0p50": 0.6616914204729788,
+    "prev_token_attn_noise_1p00": 0.4573857319581357,
+    "prev_token_attn_noise_2p00": 0.237640536855039,
+    "prev_token_attn_canonical": 0.7861065924091293,
+    "self_attn_canonical": 0.12560181424689368,
+    "two_back_attn_canonical": 0.10249252306301249,
+    "lift_over_uniform_canonical": 0.7266797526677679,
+    "prev_token_lift_ratio_canonical": 13.228140615089696,
+    "prev_token_robustness": 0.30230065381687954
+  },
+  "payload": {
+    "version": 1,
+    "model_name": "synthetic_previous_token",
+    "seq_len": 64,
+    "d": 64,
+    "canonical_noise": 0.0,
+    "noise_sweep": [
+      0.0,
+      0.25,
+      0.5,
+      1.0,
+      2.0
+    ],
+    "uniform_baseline": 0.059426839741361405,
+    "sweep": [
+      {
+        "noise": 0.0,
+        "prev_token_attention": 0.7861065924091293,
+        "self_attention": 0.12560181424689368,
+        "two_back_attention": 0.10249252306301249,
+        "uniform_baseline": 0.059426839741361405,
+        "n_seeds": 16
+      },
+      {
+        "noise": 0.25,
+        "prev_token_attention": 0.7473884653496135,
+        "self_attention": 0.1467000608305707,
+        "two_back_attention": 0.1156317369528414,
+        "uniform_baseline": 0.059426839741361405,
+        "n_seeds": 16
+      },
+      {
+        "noise": 0.5,
+        "prev_token_attention": 0.6616914204729788,
+        "self_attention": 0.18245232137763162,
+        "two_back_attention": 0.15908131135084075,
+        "uniform_baseline": 0.059426839741361405,
+        "n_seeds": 16
+      },
+      {
+        "noise": 1.0,
+        "prev_token_attention": 0.4573857319581357,
+        "self_attention": 0.24708350570796844,
+        "two_back_attention": 0.1803812867557727,
+        "uniform_baseline": 0.059426839741361405,
+        "n_seeds": 16
+      },
+      {
+        "noise": 2.0,
+        "prev_token_attention": 0.237640536855039,
+        "self_attention": 0.2344153624922077,
+        "two_back_attention": 0.15679757274830913,
+        "uniform_baseline": 0.059426839741361405,
+        "n_seeds": 16
+      }
+    ]
+  }
+}

@@ -1,0 +1,1 @@
+APPROVED 2026-06-13: contract consistent across README/task/benchmark; deterministic generator; edge cases guarded; VERSION=1. Fixed a sharpness formula that returned 0.0 (and tripped is_obviously_broken) for a perfect argmin head — redefined as attn_at_min*seq_len (uniform=1, perfect=seq_len, bounded, no zero-division), added seq_len to each record, README updated to match.

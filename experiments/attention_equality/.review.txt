@@ -1,0 +1,1 @@
+APPROVED — payload contract consistent across README/task/benchmark; generate() deterministic per (seed,L); metric formulae (equality_robustness headline, per-slice match_mass/uniform_baseline/lift, canonical) match README; edge cases (empty sweep, p2+1 denominator, non-finite attn) handled; VERSION=1 wired and bump procedure documented.

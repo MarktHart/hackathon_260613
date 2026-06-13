@@ -1,0 +1,1 @@
+APPROVED: payload contract consistent across README/task/benchmark, generate is deterministic, metric formulae + headline + baselines match the README, score() edge cases (zero max, empty sweep, <2 positive points, zero normaliser) handled, VERSION=1 set with bump procedure documented; smoke test runs clean.

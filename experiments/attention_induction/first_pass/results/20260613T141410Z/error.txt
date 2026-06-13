@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/home/mark/hackathon_260613/experiments/attention_induction/first_pass/main.py", line 83, in main
+    payload = task.evaluate(model_forward)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mark/hackathon_260613/experiments/attention_induction/task.py", line 95, in evaluate
+    attn, logits = model_fn(tokens)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/mark/hackathon_260613/experiments/attention_induction/first_pass/main.py", line 58, in model_forward
+    head_out = np.einsum("bhsk,b1kd->bhkd", attn, v)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mark/hackathon_260613/.venv/lib/python3.12/site-packages/numpy/_core/einsumfunc.py", line 1610, in einsum
+    return c_einsum(*operands, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: operand has more dimensions than subscripts given in einstein sum, but no '...' ellipsis provided to broadcast the extra dimensions.

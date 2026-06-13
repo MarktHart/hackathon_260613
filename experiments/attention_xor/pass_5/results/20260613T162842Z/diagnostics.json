@@ -1,0 +1,150 @@
+{
+  "truth_table": [
+    {
+      "cell": "A=0,B=0",
+      "A": 0,
+      "B": 0,
+      "s (=A+B)": 0.0,
+      "attn_A": 0.5,
+      "attn_B": 0.5,
+      "xor": 0,
+      "logit": -0.5,
+      "pred": 0,
+      "ablation_logit": 0.5,
+      "ablation_pred": 1
+    },
+    {
+      "cell": "A=0,B=1",
+      "A": 0,
+      "B": 1,
+      "s (=A+B)": 1.0,
+      "attn_A": 0.5,
+      "attn_B": 0.5,
+      "xor": 1,
+      "logit": 0.5,
+      "pred": 1,
+      "ablation_logit": 0.5,
+      "ablation_pred": 1
+    },
+    {
+      "cell": "A=1,B=0",
+      "A": 1,
+      "B": 0,
+      "s (=A+B)": 1.0,
+      "attn_A": 0.5,
+      "attn_B": 0.5,
+      "xor": 1,
+      "logit": 0.5,
+      "pred": 1,
+      "ablation_logit": 0.5,
+      "ablation_pred": 1
+    },
+    {
+      "cell": "A=1,B=1",
+      "A": 1,
+      "B": 1,
+      "s (=A+B)": 2.0,
+      "attn_A": 0.5,
+      "attn_B": 0.5,
+      "xor": 0,
+      "logit": -0.5,
+      "pred": 0,
+      "ablation_logit": -0.5,
+      "ablation_pred": 0
+    }
+  ],
+  "model_sweep": [
+    {
+      "p": 0.1,
+      "accuracy": 1.0,
+      "baseline": 0.991
+    },
+    {
+      "p": 0.2,
+      "accuracy": 1.0,
+      "baseline": 0.969
+    },
+    {
+      "p": 0.3,
+      "accuracy": 1.0,
+      "baseline": 0.911
+    },
+    {
+      "p": 0.4,
+      "accuracy": 1.0,
+      "baseline": 0.832
+    },
+    {
+      "p": 0.5,
+      "accuracy": 1.0,
+      "baseline": 0.76
+    },
+    {
+      "p": 0.6,
+      "accuracy": 1.0,
+      "baseline": 0.831
+    },
+    {
+      "p": 0.7,
+      "accuracy": 1.0,
+      "baseline": 0.925
+    },
+    {
+      "p": 0.8,
+      "accuracy": 1.0,
+      "baseline": 0.962
+    },
+    {
+      "p": 0.9,
+      "accuracy": 1.0,
+      "baseline": 0.986
+    }
+  ],
+  "ablation_sweep": [
+    {
+      "p": 0.1,
+      "accuracy": 0.2,
+      "baseline": 0.991
+    },
+    {
+      "p": 0.2,
+      "accuracy": 0.36,
+      "baseline": 0.969
+    },
+    {
+      "p": 0.3,
+      "accuracy": 0.47,
+      "baseline": 0.911
+    },
+    {
+      "p": 0.4,
+      "accuracy": 0.625,
+      "baseline": 0.832
+    },
+    {
+      "p": 0.5,
+      "accuracy": 0.76,
+      "baseline": 0.76
+    },
+    {
+      "p": 0.6,
+      "accuracy": 0.831,
+      "baseline": 0.831
+    },
+    {
+      "p": 0.7,
+      "accuracy": 0.925,
+      "baseline": 0.925
+    },
+    {
+      "p": 0.8,
+      "accuracy": 0.962,
+      "baseline": 0.962
+    },
+    {
+      "p": 0.9,
+      "accuracy": 0.986,
+      "baseline": 0.986
+    }
+  ]
+}

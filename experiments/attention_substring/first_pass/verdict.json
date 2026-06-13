@@ -1,0 +1,16 @@
+{
+  "goal": "attention_substring",
+  "attempt": "first_pass",
+  "run_id": "20260613T135556Z",
+  "verdict_version": 1,
+  "architecture_fit":         {"score": 1, "note": "main.py is an unfinished stub with syntax errors (self.d_models typo, undefined inputs/sources); no working mechanism solves the task."},
+  "baseline_comparison":      {"score": 1, "note": "No baseline or strawman comparison; no results produced at all."},
+  "faithfulness":             {"score": 1, "note": "No ablation/causal evidence; the model never runs and produces no attention tensors."},
+  "operating_range":          {"score": 1, "note": "No sweep over pattern length or distance was executed; nothing to evaluate."},
+  "hardcoded_weights_bonus":  {"score": 0, "note": "N/A — no hand-set circuit attempted."},
+  "visual_judgement":         {"score": 1, "note": "app.py has a syntax error (with open<Path(...)) and would not boot; only renders a top-metric string."},
+  "visualisation_rationale":  {"score": 1, "note": "README 'Why this visualisation' is generic boilerplate, not tied to the substring-matching claim or axes."},
+  "automated_metrics":        {},
+  "overall":                  "fail",
+  "notes":                    "The attempt is a non-functional stub: main.py is elided with placeholder comments and contains syntax/reference errors, the training/eval logic is omitted or a no-op, and the results run directory is empty with no benchmark.json. app.py also has a syntax error and would fail the boot-check. There is no evidence of substring-matching behavior, no baseline, and no causal check."
+}

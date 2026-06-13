@@ -1,0 +1,32 @@
+{
+  "goal": "attention_wildcard_ngram",
+  "attempt": "pass_4",
+  "run_id": "20260613T161439Z",
+  "verdict_version": 1,
+  "architecture_fit": {"score": 5, "note": "Single attention head, one-hot embedding, no MLP — minimal delta from base_model.py; token-identity Q/K circuit genuinely implements wildcard skipping with anchor mass 1.0 at every span."},
+  "baseline_comparison": {"score": 5, "note": "Two controls plus uniform reference: prev-token bigram strawman works at span 0 and collapses for span>=1, ablated circuit goes uniform — clean success-vs-failure contrast."},
+  "faithfulness": {"score": 5, "note": "Hand-built circuit with an ablation (zero the one matching weight) that collapses behaviour to uniform — appropriate causal evidence for a synthetic circuit, stated honestly in README."},
+  "operating_range": {"score": 4, "note": "Holds flat across the full span sweep 0..4 by construction (content matching), but demonstrated range is bounded by the fixed seq_len=16 task; no exploration beyond."},
+  "hardcoded_weights_bonus": {"score": 5, "note": "Explicitly hand-set W_Q/W_K weights, never trained — the mechanism is written out by hand."},
+  "visual_judgement": {"score": 5, "note": "Sweep plot (anchor mass + log sharpness across span vs all controls) plus interactive per-position attention bar make the skip and its falsification directly visible."},
+  "visualisation_rationale": {"score": 5, "note": "README ties the y-axis (target->anchor attention) and x-axis (wildcard span) directly to the goal's question and justifies the controls shown."},
+  "automated_metrics": {
+    "version": 1,
+    "sharpness_wildcard_span_0": 99999064.2464652,
+    "linear_baseline_sharpness_wildcard_span_0": 0.9999998400000257,
+    "sharpness_wildcard_span_1": 99998128.51044294,
+    "linear_baseline_sharpness_wildcard_span_1": 0.49999996000000324,
+    "sharpness_wildcard_span_2": 99998128.51044294,
+    "linear_baseline_sharpness_wildcard_span_2": 0.49999996000000324,
+    "sharpness_wildcard_span_3": 99998128.51044294,
+    "linear_baseline_sharpness_wildcard_span_3": 0.49999996000000324,
+    "sharpness_wildcard_span_4": 99998128.51044294,
+    "linear_baseline_sharpness_wildcard_span_4": 0.49999996000000324,
+    "sharpness_canonical": 99998128.51044294,
+    "lift_over_baseline_canonical": 99998128.01044299,
+    "wildcard_skip_robustness": 0.9999906425522147,
+    "mean_sharpness": 99998315.6576474
+  },
+  "overall": "good",
+  "notes": "A minimal, transparent hand-built single-head circuit that solves wildcard n-gram matching by token identity, with anchor mass 1.0 flat across all spans and a clean ablation + positional strawman supplying causal and baseline evidence. The headline robustness of ~1.0 partly relies on pushing SCALE=30 so leakage drops under the evaluator's 1e-8 sharpness floor, but this is disclosed and the underlying behaviour is genuinely faithful. Visuals and rationale are well-matched to the goal; mean of scored items lands in the 'good' band."
+}

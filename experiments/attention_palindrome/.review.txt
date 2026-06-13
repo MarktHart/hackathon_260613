@@ -1,0 +1,1 @@
+APPROVED: contract consistent across README/task/benchmark, generate deterministic with exactly-k negatives, metrics match README, edge cases handled, VERSION=1 set and bump documented; smoke + perfect/random sanity verified.

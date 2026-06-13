@@ -1,0 +1,883 @@
+{
+  "goal": "attention_hierarchical_pool",
+  "attempt": "first_pass",
+  "run_id": "20260613T151309Z",
+  "metrics": {
+    "version": 1,
+    "local_concentration_layer_0": 0.9999794065952301,
+    "chunk_concentration_layer_0": 1.0,
+    "superchunk_concentration_layer_0": 1.0,
+    "entropy_layer_0": 0.9228881299495697,
+    "linear_baseline_local_concentration_layer_0": 0.2890625,
+    "linear_baseline_chunk_concentration_layer_0": 1.0,
+    "linear_baseline_superchunk_concentration_layer_0": 1.0,
+    "linear_baseline_entropy_layer_0": 2.772588722239781,
+    "local_concentration_layer_1": 0.8724861741065979,
+    "chunk_concentration_layer_1": 1.0,
+    "superchunk_concentration_layer_1": 1.0,
+    "entropy_layer_1": 1.8280474543571472,
+    "linear_baseline_local_concentration_layer_1": 0.2890625,
+    "linear_baseline_chunk_concentration_layer_1": 1.0,
+    "linear_baseline_superchunk_concentration_layer_1": 1.0,
+    "linear_baseline_entropy_layer_1": 2.772588722239781,
+    "local_concentration_layer_2": 0.6737833619117737,
+    "chunk_concentration_layer_2": 1.0,
+    "superchunk_concentration_layer_2": 1.0,
+    "entropy_layer_2": 2.218177318572998,
+    "linear_baseline_local_concentration_layer_2": 0.2890625,
+    "linear_baseline_chunk_concentration_layer_2": 1.0,
+    "linear_baseline_superchunk_concentration_layer_2": 1.0,
+    "linear_baseline_entropy_layer_2": 2.772588722239781,
+    "local_concentration_layer_3": 0.5476004183292389,
+    "chunk_concentration_layer_3": 1.0,
+    "superchunk_concentration_layer_3": 1.0,
+    "entropy_layer_3": 2.444161891937256,
+    "linear_baseline_local_concentration_layer_3": 0.2890625,
+    "linear_baseline_chunk_concentration_layer_3": 1.0,
+    "linear_baseline_superchunk_concentration_layer_3": 1.0,
+    "linear_baseline_entropy_layer_3": 2.772588722239781,
+    "local_concentration_layer_4": 0.4690021425485611,
+    "chunk_concentration_layer_4": 1.0,
+    "superchunk_concentration_layer_4": 1.0,
+    "entropy_layer_4": 2.581257462501526,
+    "linear_baseline_local_concentration_layer_4": 0.2890625,
+    "linear_baseline_chunk_concentration_layer_4": 1.0,
+    "linear_baseline_superchunk_concentration_layer_4": 1.0,
+    "linear_baseline_entropy_layer_4": 2.772588722239781,
+    "local_concentration_layer_5": 0.41870683431625366,
+    "chunk_concentration_layer_5": 1.0,
+    "superchunk_concentration_layer_5": 1.0,
+    "entropy_layer_5": 2.6608179807662964,
+    "linear_baseline_local_concentration_layer_5": 0.2890625,
+    "linear_baseline_chunk_concentration_layer_5": 1.0,
+    "linear_baseline_superchunk_concentration_layer_5": 1.0,
+    "linear_baseline_entropy_layer_5": 2.772588722239781,
+    "local_concentration_layer_6": 0.3856910765171051,
+    "chunk_concentration_layer_6": 1.0,
+    "superchunk_concentration_layer_6": 1.0,
+    "entropy_layer_6": 2.705578923225403,
+    "linear_baseline_local_concentration_layer_6": 0.2890625,
+    "linear_baseline_chunk_concentration_layer_6": 1.0,
+    "linear_baseline_superchunk_concentration_layer_6": 1.0,
+    "linear_baseline_entropy_layer_6": 2.772588722239781,
+    "local_concentration_layer_7": 0.3633522093296051,
+    "chunk_concentration_layer_7": 1.0,
+    "superchunk_concentration_layer_7": 1.0,
+    "entropy_layer_7": 2.730911612510681,
+    "linear_baseline_local_concentration_layer_7": 0.2890625,
+    "linear_baseline_chunk_concentration_layer_7": 1.0,
+    "linear_baseline_superchunk_concentration_layer_7": 1.0,
+    "linear_baseline_entropy_layer_7": 2.772588722239781,
+    "local_concentration_layer_8": 0.3477387875318527,
+    "chunk_concentration_layer_8": 1.0,
+    "superchunk_concentration_layer_8": 1.0,
+    "entropy_layer_8": 2.7456588745117188,
+    "linear_baseline_local_concentration_layer_8": 0.2890625,
+    "linear_baseline_chunk_concentration_layer_8": 1.0,
+    "linear_baseline_superchunk_concentration_layer_8": 1.0,
+    "linear_baseline_entropy_layer_8": 2.772588722239781,
+    "local_concentration_layer_9": 0.33648063242435455,
+    "chunk_concentration_layer_9": 1.0,
+    "superchunk_concentration_layer_9": 1.0,
+    "entropy_layer_9": 2.7545552253723145,
+    "linear_baseline_local_concentration_layer_9": 0.2890625,
+    "linear_baseline_chunk_concentration_layer_9": 1.0,
+    "linear_baseline_superchunk_concentration_layer_9": 1.0,
+    "linear_baseline_entropy_layer_9": 2.772588722239781,
+    "local_concentration_layer_10": 0.3281309902667999,
+    "chunk_concentration_layer_10": 1.0,
+    "superchunk_concentration_layer_10": 1.0,
+    "entropy_layer_10": 2.7601161003112793,
+    "linear_baseline_local_concentration_layer_10": 0.2890625,
+    "linear_baseline_chunk_concentration_layer_10": 1.0,
+    "linear_baseline_superchunk_concentration_layer_10": 1.0,
+    "linear_baseline_entropy_layer_10": 2.772588722239781,
+    "local_concentration_layer_11": 0.3217843174934387,
+    "chunk_concentration_layer_11": 1.0,
+    "superchunk_concentration_layer_11": 1.0,
+    "entropy_layer_11": 2.763714075088501,
+    "linear_baseline_local_concentration_layer_11": 0.2890625,
+    "linear_baseline_chunk_concentration_layer_11": 1.0,
+    "linear_baseline_superchunk_concentration_layer_11": 1.0,
+    "linear_baseline_entropy_layer_11": 2.772588722239781,
+    "hierarchical_robustness_canonical": 1.7665018423647956
+  },
+  "payload": {
+    "version": 1,
+    "seq_len": 256,
+    "num_layers": 12,
+    "num_heads": 8,
+    "chunk_size": 16,
+    "num_chunks": 16,
+    "sweep": [
+      {
+        "layer": 0,
+        "head": 0,
+        "local_concentration": 0.9999977946281433,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 0.8487983345985413
+      },
+      {
+        "layer": 0,
+        "head": 1,
+        "local_concentration": 0.9999917149543762,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 0.8710435032844543
+      },
+      {
+        "layer": 0,
+        "head": 2,
+        "local_concentration": 0.9999885559082031,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 0.8924013376235962
+      },
+      {
+        "layer": 0,
+        "head": 3,
+        "local_concentration": 0.9999837279319763,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 0.9129624366760254
+      },
+      {
+        "layer": 0,
+        "head": 4,
+        "local_concentration": 0.9999750852584839,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 0.932813823223114
+      },
+      {
+        "layer": 0,
+        "head": 5,
+        "local_concentration": 0.9999630451202393,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 0.9520303010940552
+      },
+      {
+        "layer": 0,
+        "head": 6,
+        "local_concentration": 0.999948263168335,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 0.9706711769104004
+      },
+      {
+        "layer": 0,
+        "head": 7,
+        "local_concentration": 0.9999238848686218,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 0.9887956976890564
+      },
+      {
+        "layer": 1,
+        "head": 0,
+        "local_concentration": 0.8973070383071899,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 1.7669003009796143
+      },
+      {
+        "layer": 1,
+        "head": 1,
+        "local_concentration": 0.8902624249458313,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 1.7849234342575073
+      },
+      {
+        "layer": 1,
+        "head": 2,
+        "local_concentration": 0.8831713199615479,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 1.8025084733963013
+      },
+      {
+        "layer": 1,
+        "head": 3,
+        "local_concentration": 0.8760527968406677,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 1.819667935371399
+      },
+      {
+        "layer": 1,
+        "head": 4,
+        "local_concentration": 0.8689195513725281,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 1.8364269733428955
+      },
+      {
+        "layer": 1,
+        "head": 5,
+        "local_concentration": 0.8617818355560303,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 1.8527960777282715
+      },
+      {
+        "layer": 1,
+        "head": 6,
+        "local_concentration": 0.8546578288078308,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 1.868795394897461
+      },
+      {
+        "layer": 1,
+        "head": 7,
+        "local_concentration": 0.8475489020347595,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 1.8844279050827026
+      },
+      {
+        "layer": 2,
+        "head": 0,
+        "local_concentration": 0.7037668228149414,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.1639575958251953
+      },
+      {
+        "layer": 2,
+        "head": 1,
+        "local_concentration": 0.6949257254600525,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.180001735687256
+      },
+      {
+        "layer": 2,
+        "head": 2,
+        "local_concentration": 0.6862995624542236,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.1956076622009277
+      },
+      {
+        "layer": 2,
+        "head": 3,
+        "local_concentration": 0.6778858304023743,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.2107887268066406
+      },
+      {
+        "layer": 2,
+        "head": 4,
+        "local_concentration": 0.6696808934211731,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.2255659103393555
+      },
+      {
+        "layer": 2,
+        "head": 5,
+        "local_concentration": 0.6616805195808411,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.2399518489837646
+      },
+      {
+        "layer": 2,
+        "head": 6,
+        "local_concentration": 0.653878927230835,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.2539560794830322
+      },
+      {
+        "layer": 2,
+        "head": 7,
+        "local_concentration": 0.6462730169296265,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.267599105834961
+      },
+      {
+        "layer": 3,
+        "head": 0,
+        "local_concentration": 0.5735957026481628,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.3977303504943848
+      },
+      {
+        "layer": 3,
+        "head": 1,
+        "local_concentration": 0.5658406019210815,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.4115946292877197
+      },
+      {
+        "layer": 3,
+        "head": 2,
+        "local_concentration": 0.558346688747406,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.4249863624572754
+      },
+      {
+        "layer": 3,
+        "head": 3,
+        "local_concentration": 0.5511024594306946,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.4379193782806396
+      },
+      {
+        "layer": 3,
+        "head": 4,
+        "local_concentration": 0.5440983772277832,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.450404405593872
+      },
+      {
+        "layer": 3,
+        "head": 5,
+        "local_concentration": 0.537325382232666,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.4624600410461426
+      },
+      {
+        "layer": 3,
+        "head": 6,
+        "local_concentration": 0.5307756662368774,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.4740896224975586
+      },
+      {
+        "layer": 3,
+        "head": 7,
+        "local_concentration": 0.5244397521018982,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.4853153228759766
+      },
+      {
+        "layer": 4,
+        "head": 0,
+        "local_concentration": 0.4903043806552887,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.5450336933135986
+      },
+      {
+        "layer": 4,
+        "head": 1,
+        "local_concentration": 0.48389387130737305,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.5560452938079834
+      },
+      {
+        "layer": 4,
+        "head": 2,
+        "local_concentration": 0.47774258255958557,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.56653094291687
+      },
+      {
+        "layer": 4,
+        "head": 3,
+        "local_concentration": 0.47183677554130554,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.576510190963745
+      },
+      {
+        "layer": 4,
+        "head": 4,
+        "local_concentration": 0.46616750955581665,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.5860047340393066
+      },
+      {
+        "layer": 4,
+        "head": 5,
+        "local_concentration": 0.46072399616241455,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.59503436088562
+      },
+      {
+        "layer": 4,
+        "head": 6,
+        "local_concentration": 0.45549479126930237,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.6036157608032227
+      },
+      {
+        "layer": 4,
+        "head": 7,
+        "local_concentration": 0.45047345757484436,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.611769914627075
+      },
+      {
+        "layer": 5,
+        "head": 0,
+        "local_concentration": 0.43571871519088745,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.6351470947265625
+      },
+      {
+        "layer": 5,
+        "head": 1,
+        "local_concentration": 0.4305587708950043,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.643095016479492
+      },
+      {
+        "layer": 5,
+        "head": 2,
+        "local_concentration": 0.42563825845718384,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.650550127029419
+      },
+      {
+        "layer": 5,
+        "head": 3,
+        "local_concentration": 0.42094579339027405,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.657541513442993
+      },
+      {
+        "layer": 5,
+        "head": 4,
+        "local_concentration": 0.4164678752422333,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.6640944480895996
+      },
+      {
+        "layer": 5,
+        "head": 5,
+        "local_concentration": 0.4121941328048706,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.670241117477417
+      },
+      {
+        "layer": 5,
+        "head": 6,
+        "local_concentration": 0.4081132709980011,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.676006555557251
+      },
+      {
+        "layer": 5,
+        "head": 7,
+        "local_concentration": 0.404215544462204,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.6814098358154297
+      },
+      {
+        "layer": 6,
+        "head": 0,
+        "local_concentration": 0.39917394518852234,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.688242197036743
+      },
+      {
+        "layer": 6,
+        "head": 1,
+        "local_concentration": 0.39506033062934875,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.6936817169189453
+      },
+      {
+        "layer": 6,
+        "head": 2,
+        "local_concentration": 0.3911571502685547,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.6987271308898926
+      },
+      {
+        "layer": 6,
+        "head": 3,
+        "local_concentration": 0.38745102286338806,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.7034072875976562
+      },
+      {
+        "layer": 6,
+        "head": 4,
+        "local_concentration": 0.38393113017082214,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.7077505588531494
+      },
+      {
+        "layer": 6,
+        "head": 5,
+        "local_concentration": 0.3805852234363556,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.7117793560028076
+      },
+      {
+        "layer": 6,
+        "head": 6,
+        "local_concentration": 0.3774038851261139,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.7155237197875977
+      },
+      {
+        "layer": 6,
+        "head": 7,
+        "local_concentration": 0.3743773102760315,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.7189924716949463
+      },
+      {
+        "layer": 7,
+        "head": 0,
+        "local_concentration": 0.3741023540496826,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.7193057537078857
+      },
+      {
+        "layer": 7,
+        "head": 1,
+        "local_concentration": 0.3708096444606781,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.7229816913604736
+      },
+      {
+        "layer": 7,
+        "head": 2,
+        "local_concentration": 0.36769524216651917,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.7263665199279785
+      },
+      {
+        "layer": 7,
+        "head": 3,
+        "local_concentration": 0.3647480309009552,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.729477882385254
+      },
+      {
+        "layer": 7,
+        "head": 4,
+        "local_concentration": 0.361956387758255,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.7323453426361084
+      },
+      {
+        "layer": 7,
+        "head": 5,
+        "local_concentration": 0.35931119322776794,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.7349889278411865
+      },
+      {
+        "layer": 7,
+        "head": 6,
+        "local_concentration": 0.35680171847343445,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.7374298572540283
+      },
+      {
+        "layer": 7,
+        "head": 7,
+        "local_concentration": 0.35441920161247253,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.7396843433380127
+      },
+      {
+        "layer": 8,
+        "head": 0,
+        "local_concentration": 0.35641831159591675,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.737800121307373
+      },
+      {
+        "layer": 8,
+        "head": 1,
+        "local_concentration": 0.35375291109085083,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.7403032779693604
+      },
+      {
+        "layer": 8,
+        "head": 2,
+        "local_concentration": 0.35123807191848755,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.742595911026001
+      },
+      {
+        "layer": 8,
+        "head": 3,
+        "local_concentration": 0.3488619327545166,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.744697332382202
+      },
+      {
+        "layer": 8,
+        "head": 4,
+        "local_concentration": 0.34661564230918884,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.7466204166412354
+      },
+      {
+        "layer": 8,
+        "head": 5,
+        "local_concentration": 0.34449103474617004,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.7483880519866943
+      },
+      {
+        "layer": 8,
+        "head": 6,
+        "local_concentration": 0.34247827529907227,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.7500102519989014
+      },
+      {
+        "layer": 8,
+        "head": 7,
+        "local_concentration": 0.3405710458755493,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.7515058517456055
+      },
+      {
+        "layer": 9,
+        "head": 0,
+        "local_concentration": 0.34359246492385864,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.749115228652954
+      },
+      {
+        "layer": 9,
+        "head": 1,
+        "local_concentration": 0.34140458703041077,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.7508544921875
+      },
+      {
+        "layer": 9,
+        "head": 2,
+        "local_concentration": 0.3393435776233673,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.7524476051330566
+      },
+      {
+        "layer": 9,
+        "head": 3,
+        "local_concentration": 0.3373986780643463,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.7538952827453613
+      },
+      {
+        "layer": 9,
+        "head": 4,
+        "local_concentration": 0.3355625867843628,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.7552151679992676
+      },
+      {
+        "layer": 9,
+        "head": 5,
+        "local_concentration": 0.33382663130760193,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.756422758102417
+      },
+      {
+        "layer": 9,
+        "head": 6,
+        "local_concentration": 0.33218470215797424,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.757535457611084
+      },
+      {
+        "layer": 9,
+        "head": 7,
+        "local_concentration": 0.330630362033844,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.7585506439208984
+      },
+      {
+        "layer": 10,
+        "head": 0,
+        "local_concentration": 0.3340439200401306,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.7562735080718994
+      },
+      {
+        "layer": 10,
+        "head": 1,
+        "local_concentration": 0.33222314715385437,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.757509708404541
+      },
+      {
+        "layer": 10,
+        "head": 2,
+        "local_concentration": 0.33050891757011414,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.7586305141448975
+      },
+      {
+        "layer": 10,
+        "head": 3,
+        "local_concentration": 0.32889324426651,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.7596495151519775
+      },
+      {
+        "layer": 10,
+        "head": 4,
+        "local_concentration": 0.32736873626708984,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.760582685470581
+      },
+      {
+        "layer": 10,
+        "head": 5,
+        "local_concentration": 0.32592931389808655,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.761430263519287
+      },
+      {
+        "layer": 10,
+        "head": 6,
+        "local_concentration": 0.3245682716369629,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.762206792831421
+      },
+      {
+        "layer": 10,
+        "head": 7,
+        "local_concentration": 0.3232802450656891,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.7629168033599854
+      },
+      {
+        "layer": 11,
+        "head": 0,
+        "local_concentration": 0.32676687836647034,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.760939121246338
+      },
+      {
+        "layer": 11,
+        "head": 1,
+        "local_concentration": 0.32523113489151,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.761831283569336
+      },
+      {
+        "layer": 11,
+        "head": 2,
+        "local_concentration": 0.3237867057323456,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.7626399993896484
+      },
+      {
+        "layer": 11,
+        "head": 3,
+        "local_concentration": 0.3224262595176697,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.763380289077759
+      },
+      {
+        "layer": 11,
+        "head": 4,
+        "local_concentration": 0.32114237546920776,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.764047861099243
+      },
+      {
+        "layer": 11,
+        "head": 5,
+        "local_concentration": 0.3199310302734375,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.7646636962890625
+      },
+      {
+        "layer": 11,
+        "head": 6,
+        "local_concentration": 0.3187866806983948,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.7652153968811035
+      },
+      {
+        "layer": 11,
+        "head": 7,
+        "local_concentration": 0.31770452857017517,
+        "chunk_concentration": 1.0,
+        "superchunk_concentration": 1.0,
+        "entropy": 2.7657289505004883
+      }
+    ]
+  }
+}

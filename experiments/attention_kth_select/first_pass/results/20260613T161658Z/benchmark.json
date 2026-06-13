@@ -1,0 +1,93 @@
+{
+  "goal": "attention_kth_select",
+  "attempt": "first_pass",
+  "run_id": "20260613T161658Z",
+  "metrics": {
+    "version": 1,
+    "kth_select_accuracy_k_0": 1.0,
+    "kth_select_sharpness_k_0": 0.999999996903047,
+    "kth_select_accuracy_k_4": 1.0,
+    "kth_select_sharpness_k_4": 0.999999996903047,
+    "kth_select_accuracy_k_8": 1.0,
+    "kth_select_sharpness_k_8": 0.999999996903047,
+    "kth_select_accuracy_canonical": 1.0,
+    "kth_select_sharpness_canonical": 0.999999996903047,
+    "kth_select_accuracy_k_12": 1.0,
+    "kth_select_sharpness_k_12": 0.999999996903047,
+    "kth_select_accuracy_k_16": 1.0,
+    "kth_select_sharpness_k_16": 0.999999996903047,
+    "kth_select_accuracy_k_20": 1.0,
+    "kth_select_sharpness_k_20": 0.999999996903047,
+    "kth_select_accuracy_k_24": 1.0,
+    "kth_select_sharpness_k_24": 0.999999996903047,
+    "kth_select_accuracy_k_28": 1.0,
+    "kth_select_sharpness_k_28": 0.999999996903047,
+    "kth_select_position_bias": 0.0,
+    "linear_baseline_accuracy_canonical": 0.03125,
+    "lift_over_linear_baseline_canonical": 0.96875
+  },
+  "payload": {
+    "version": 1,
+    "canonical_k": 8,
+    "sweep": [
+      {
+        "k": 0,
+        "attn_at_k": 1.0,
+        "attn_entropy": 1.0733221422754013e-08,
+        "attn_max_pos": 0.0,
+        "batch_size": 128
+      },
+      {
+        "k": 4,
+        "attn_at_k": 1.0,
+        "attn_entropy": 1.0733221422754013e-08,
+        "attn_max_pos": 4.0,
+        "batch_size": 128
+      },
+      {
+        "k": 8,
+        "attn_at_k": 1.0,
+        "attn_entropy": 1.0733221422754013e-08,
+        "attn_max_pos": 8.0,
+        "batch_size": 128
+      },
+      {
+        "k": 12,
+        "attn_at_k": 1.0,
+        "attn_entropy": 1.0733221422754013e-08,
+        "attn_max_pos": 12.0,
+        "batch_size": 128
+      },
+      {
+        "k": 16,
+        "attn_at_k": 1.0,
+        "attn_entropy": 1.0733221422754013e-08,
+        "attn_max_pos": 16.0,
+        "batch_size": 128
+      },
+      {
+        "k": 20,
+        "attn_at_k": 1.0,
+        "attn_entropy": 1.0733221422754013e-08,
+        "attn_max_pos": 20.0,
+        "batch_size": 128
+      },
+      {
+        "k": 24,
+        "attn_at_k": 1.0,
+        "attn_entropy": 1.0733221422754013e-08,
+        "attn_max_pos": 24.0,
+        "batch_size": 128
+      },
+      {
+        "k": 28,
+        "attn_at_k": 1.0,
+        "attn_entropy": 1.0733221422754013e-08,
+        "attn_max_pos": 28.0,
+        "batch_size": 128
+      }
+    ],
+    "model_name": "handbuilt-positional-kth-head",
+    "dataset": "synthetic_kth_select"
+  }
+}

@@ -1,0 +1,1 @@
+APPROVED (v1): payload contract matches across README/task/benchmark, generator deterministic, metric formulae + headline/per-slice/baseline all present, edge cases handled; fixed generator noise to span full vocab (0..V) so the marker position is not content-identifiable, matching the README's positional-only claim.

@@ -1,0 +1,175 @@
+{
+  "goal": "attention_sign_threshold",
+  "attempt": "pass_3",
+  "run_id": "20260613T152810Z",
+  "metrics": {
+    "version": 1,
+    "sign_sharpness_canonical": 50.0001083227881,
+    "sign_threshold_canonical": -2.9757915994138624e-10,
+    "linear_baseline_sharpness_canonical": 5.2331491237473005,
+    "lift_over_linear_sharpness": 9.554497137468257,
+    "sign_sharpness_cos_m0p9": 2.1240786866523558e-17,
+    "sign_sharpness_cos_m0p8": 3.1524133712161274e-15,
+    "sign_sharpness_cos_m0p7": 4.678592880025625e-13,
+    "sign_sharpness_cos_m0p6": 6.943650526232147e-11,
+    "sign_sharpness_cos_m0p5": 1.0305286336296191e-08,
+    "sign_sharpness_cos_m0p4": 1.529439402271865e-06,
+    "sign_sharpness_cos_m0p3": 0.00022697888651561745,
+    "sign_sharpness_cos_m0p2": 0.03346270958760045,
+    "sign_sharpness_cos_m0p1": 2.499772973554827,
+    "sign_sharpness_cos_0p0": 4.9330721479569055,
+    "sign_sharpness_cos_0p1": 2.4997725710306677,
+    "sign_sharpness_cos_0p2": 0.03346204583172261,
+    "sign_sharpness_cos_0p3": 0.00022739171642971462,
+    "sign_sharpness_cos_0p4": 1.4901162082026129e-06,
+    "sign_sharpness_cos_0p5": 0.0,
+    "sign_sharpness_cos_0p6": 0.0,
+    "sign_sharpness_cos_0p7": 0.0,
+    "sign_sharpness_cos_0p8": 0.0,
+    "sign_sharpness_cos_0p9": 0.0
+  },
+  "payload": {
+    "version": 1,
+    "config": {
+      "d_model": 64,
+      "pairs_per_bin": 100,
+      "cosine_sweep": [
+        -1.0,
+        -0.8999999761581421,
+        -0.800000011920929,
+        -0.699999988079071,
+        -0.6000000238418579,
+        -0.5,
+        -0.4000000059604645,
+        -0.30000001192092896,
+        -0.20000000298023224,
+        -0.10000000149011612,
+        0.0,
+        0.10000000149011612,
+        0.20000000298023224,
+        0.30000001192092896,
+        0.4000000059604645,
+        0.5,
+        0.6000000238418579,
+        0.699999988079071,
+        0.800000011920929,
+        0.8999999761581421,
+        1.0
+      ],
+      "seed": 42,
+      "normalisation": "sigmoid_per_pair"
+    },
+    "sweep": [
+      {
+        "cosine": -1.0,
+        "mean_attention": 1.9287514079666765e-22,
+        "std_attention": 0.0
+      },
+      {
+        "cosine": -0.8999999761581421,
+        "mean_attention": 2.8625179633462795e-20,
+        "std_attention": 0.0
+      },
+      {
+        "cosine": -0.800000011920929,
+        "mean_attention": 4.248349995235597e-18,
+        "std_attention": 0.0
+      },
+      {
+        "cosine": -0.699999988079071,
+        "mean_attention": 6.305112618431631e-16,
+        "std_attention": 2.2149370429789457e-21
+      },
+      {
+        "cosine": -0.6000000238418579,
+        "mean_attention": 9.357610037319039e-14,
+        "std_attention": 2.557475725421744e-19
+      },
+      {
+        "cosine": -0.5,
+        "mean_attention": 1.3887930735978493e-11,
+        "std_attention": 4.080829377581358e-17
+      },
+      {
+        "cosine": -0.4000000059604645,
+        "mean_attention": 2.0611510276324907e-09,
+        "std_attention": 4.583872530546573e-15
+      },
+      {
+        "cosine": -0.30000001192092896,
+        "mean_attention": 3.0590175015277055e-07,
+        "std_attention": 5.064532235428409e-13
+      },
+      {
+        "cosine": -0.20000000298023224,
+        "mean_attention": 4.5397839130600914e-05,
+        "std_attention": 6.330691526557075e-11
+      },
+      {
+        "cosine": -0.10000000149011612,
+        "mean_attention": 0.006692848168313503,
+        "std_attention": 7.435278170930815e-09
+      },
+      {
+        "cosine": 0.0,
+        "mean_attention": 0.5,
+        "std_attention": 1.926294856957611e-07
+      },
+      {
+        "cosine": 0.10000000149011612,
+        "mean_attention": 0.9933072924613953,
+        "std_attention": 1.1980984027104569e-07
+      },
+      {
+        "cosine": 0.20000000298023224,
+        "mean_attention": 0.9999545216560364,
+        "std_attention": 5.990492013552284e-08
+      },
+      {
+        "cosine": 0.30000001192092896,
+        "mean_attention": 0.9999997019767761,
+        "std_attention": 5.990492013552284e-08
+      },
+      {
+        "cosine": 0.4000000059604645,
+        "mean_attention": 1.0,
+        "std_attention": 0.0
+      },
+      {
+        "cosine": 0.5,
+        "mean_attention": 1.0,
+        "std_attention": 0.0
+      },
+      {
+        "cosine": 0.6000000238418579,
+        "mean_attention": 1.0,
+        "std_attention": 0.0
+      },
+      {
+        "cosine": 0.699999988079071,
+        "mean_attention": 1.0,
+        "std_attention": 0.0
+      },
+      {
+        "cosine": 0.800000011920929,
+        "mean_attention": 1.0,
+        "std_attention": 0.0
+      },
+      {
+        "cosine": 0.8999999761581421,
+        "mean_attention": 1.0,
+        "std_attention": 0.0
+      },
+      {
+        "cosine": 1.0,
+        "mean_attention": 1.0,
+        "std_attention": 0.0
+      }
+    ],
+    "model_info": {
+      "name": "hand_coded_sign_threshold",
+      "type": "heuristic",
+      "notes": "Direct dot-product with sharp sigmoid (\u03b2=50.0). Implements sign detector at dot=0."
+    }
+  }
+}

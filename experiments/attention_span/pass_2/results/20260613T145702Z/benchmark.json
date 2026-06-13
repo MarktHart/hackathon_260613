@@ -1,0 +1,96 @@
+{
+  "goal": "attention_span",
+  "attempt": "pass_2",
+  "run_id": "20260613T145702Z",
+  "metrics": {
+    "version": 1,
+    "attention_on_target_dist_1": 0.9801989197731018,
+    "attention_on_target_dist_2": 0.9607897400856018,
+    "attention_on_target_dist_4": 0.9231165051460266,
+    "attention_on_target_dist_8": 0.8521437048912048,
+    "attention_on_target_dist_16": 0.7261491417884827,
+    "attention_on_target_dist_32": 0.5272924304008484,
+    "attention_on_target_dist_64": 0.27803733944892883,
+    "attention_on_target_dist_128": 0.07730474323034286,
+    "attention_on_target_dist_256": 0.005976023618131876,
+    "attention_span_auc_canonical": 0.6047401345858816,
+    "attention_span_robustness": 0.0060967457702516305,
+    "linear_baseline_attention_span_auc": 0.001953125,
+    "linear_baseline_attention_on_target_dist_1": 0.001953125,
+    "lift_over_baseline_auc": 0.6027870095858816
+  },
+  "payload": {
+    "version": 1,
+    "canonical_seq_len": 512,
+    "canonical_distances": [
+      1,
+      2,
+      4,
+      8,
+      16,
+      32,
+      64,
+      128,
+      256
+    ],
+    "samples_per_distance": 100,
+    "sweep": [
+      {
+        "distance": 1,
+        "mean_attention_on_target": 0.9801989197731018,
+        "std_attention_on_target": 2.384185791015625e-07,
+        "n_samples": 100
+      },
+      {
+        "distance": 2,
+        "mean_attention_on_target": 0.9607897400856018,
+        "std_attention_on_target": 2.384185791015625e-07,
+        "n_samples": 100
+      },
+      {
+        "distance": 4,
+        "mean_attention_on_target": 0.9231165051460266,
+        "std_attention_on_target": 1.1920928955078125e-07,
+        "n_samples": 100
+      },
+      {
+        "distance": 8,
+        "mean_attention_on_target": 0.8521437048912048,
+        "std_attention_on_target": 5.960464477539063e-08,
+        "n_samples": 100
+      },
+      {
+        "distance": 16,
+        "mean_attention_on_target": 0.7261491417884827,
+        "std_attention_on_target": 5.960464477539063e-08,
+        "n_samples": 100
+      },
+      {
+        "distance": 32,
+        "mean_attention_on_target": 0.5272924304008484,
+        "std_attention_on_target": 0.0,
+        "n_samples": 100
+      },
+      {
+        "distance": 64,
+        "mean_attention_on_target": 0.27803733944892883,
+        "std_attention_on_target": 2.9802322387695312e-08,
+        "n_samples": 100
+      },
+      {
+        "distance": 128,
+        "mean_attention_on_target": 0.07730474323034286,
+        "std_attention_on_target": 0.0,
+        "n_samples": 100
+      },
+      {
+        "distance": 256,
+        "mean_attention_on_target": 0.005976023618131876,
+        "std_attention_on_target": 0.0,
+        "n_samples": 100
+      }
+    ],
+    "attention_span_auc": 0.6047401345858816,
+    "model_name": "diff_model_pass2"
+  }
+}

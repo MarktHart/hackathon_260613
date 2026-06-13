@@ -1,0 +1,40 @@
+{
+  "sweep": [
+    {
+      "cos": 0.0,
+      "attn_target_absent": 0.7310585786300049,
+      "attn_target_present": 0.07498920903162552,
+      "negation_sharpness": 0.6560693695983794,
+      "baseline_attn_target_absent": 0.7310585786300049,
+      "baseline_attn_target_present": 0.609976537442338,
+      "baseline_negation_sharpness": 0.12108204118766686
+    },
+    {
+      "cos": 0.3,
+      "attn_target_absent": 0.7310585786300049,
+      "attn_target_present": 0.137666971571074,
+      "negation_sharpness": 0.5933916070589309,
+      "baseline_attn_target_absent": 0.7310585786300049,
+      "baseline_attn_target_present": 0.6553354152976351,
+      "baseline_negation_sharpness": 0.07572316333236984
+    },
+    {
+      "cos": 0.5,
+      "attn_target_absent": 0.7310585786300049,
+      "attn_target_present": 0.209148184742203,
+      "negation_sharpness": 0.5219103938878019,
+      "baseline_attn_target_absent": 0.7310585786300049,
+      "baseline_attn_target_present": 0.6804692120861515,
+      "baseline_negation_sharpness": 0.050589366543853376
+    },
+    {
+      "cos": 0.7,
+      "attn_target_absent": 0.7310585786300049,
+      "attn_target_present": 0.3218641307683409,
+      "negation_sharpness": 0.409194447861664,
+      "baseline_attn_target_absent": 0.7310585786300049,
+      "baseline_attn_target_present": 0.7025222934303565,
+      "baseline_negation_sharpness": 0.028536285199648348
+    }
+  ]
+}

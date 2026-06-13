@@ -1,0 +1,175 @@
+{
+  "goal": "attention_sign_threshold",
+  "attempt": "pass_3",
+  "run_id": "20260613T152458Z",
+  "metrics": {
+    "version": 1,
+    "sign_sharpness_canonical": 20.000006003819717,
+    "sign_threshold_canonical": -3.923030119422584e-09,
+    "linear_baseline_sharpness_canonical": 5.2331491237473005,
+    "lift_over_linear_sharpness": 3.8217917225141704,
+    "sign_sharpness_cos_m0p9": 5.523696096688875e-07,
+    "sign_sharpness_cos_m0p8": 4.08149057120983e-06,
+    "sign_sharpness_cos_m0p7": 3.0158188465529327e-05,
+    "sign_sharpness_cos_m0p6": 0.0002228316232990376,
+    "sign_sharpness_cos_m0p5": 0.0016460286616973448,
+    "sign_sharpness_cos_m0p4": 0.012136123073426427,
+    "sign_sharpness_cos_m0p3": 0.0882542713898529,
+    "sign_sharpness_cos_m0p2": 0.5836513427230761,
+    "sign_sharpness_cos_m0p1": 2.4100689417113523,
+    "sign_sharpness_cos_0p0": 3.807971197247934,
+    "sign_sharpness_cos_0p1": 2.4100696681429494,
+    "sign_sharpness_cos_0p2": 0.5836510353866424,
+    "sign_sharpness_cos_0p3": 0.08825331794838133,
+    "sign_sharpness_cos_0p4": 0.01213580442284372,
+    "sign_sharpness_cos_0p5": 0.0016465781647046062,
+    "sign_sharpness_cos_0p6": 0.0002232194079887514,
+    "sign_sharpness_cos_0p7": 3.0100347405692782e-05,
+    "sign_sharpness_cos_0p8": 4.1723253829673165e-06,
+    "sign_sharpness_cos_0p9": 2.980232416405226e-07
+  },
+  "payload": {
+    "version": 1,
+    "config": {
+      "d_model": 64,
+      "pairs_per_bin": 100,
+      "cosine_sweep": [
+        -1.0,
+        -0.8999999761581421,
+        -0.800000011920929,
+        -0.699999988079071,
+        -0.6000000238418579,
+        -0.5,
+        -0.4000000059604645,
+        -0.30000001192092896,
+        -0.20000000298023224,
+        -0.10000000149011612,
+        0.0,
+        0.10000000149011612,
+        0.20000000298023224,
+        0.30000001192092896,
+        0.4000000059604645,
+        0.5,
+        0.6000000238418579,
+        0.699999988079071,
+        0.800000011920929,
+        0.8999999761581421,
+        1.0
+      ],
+      "seed": 42,
+      "normalisation": "sigmoid_per_pair"
+    },
+    "sweep": [
+      {
+        "cosine": -1.0,
+        "mean_attention": 2.0611539142123547e-09,
+        "std_attention": 2.670509594235597e-15
+      },
+      {
+        "cosine": -0.8999999761581421,
+        "mean_attention": 1.522997550296168e-08,
+        "std_attention": 2.443326506287695e-14
+      },
+      {
+        "cosine": -0.800000011920929,
+        "mean_attention": 1.1253506926323098e-07,
+        "std_attention": 1.7254589684129185e-13
+      },
+      {
+        "cosine": -0.699999988079071,
+        "mean_attention": 8.315280410897685e-07,
+        "std_attention": 1.2176554252743554e-12
+      },
+      {
+        "cosine": -0.6000000238418579,
+        "mean_attention": 6.1441724028554745e-06,
+        "std_attention": 7.84855947594254e-12
+      },
+      {
+        "cosine": -0.5,
+        "mean_attention": 4.5397850044537336e-05,
+        "std_attention": 4.2770970792860297e-11
+      },
+      {
+        "cosine": -0.4000000059604645,
+        "mean_attention": 0.00033534993417561054,
+        "std_attention": 2.8481289549020516e-10
+      },
+      {
+        "cosine": -0.30000001192092896,
+        "mean_attention": 0.0024726223200559616,
+        "std_attention": 1.8358473630186722e-09
+      },
+      {
+        "cosine": -0.20000000298023224,
+        "mean_attention": 0.017986204475164413,
+        "std_attention": 1.0056820265447186e-08
+      },
+      {
+        "cosine": -0.10000000149011612,
+        "mean_attention": 0.11920289695262909,
+        "std_attention": 4.8395474294693486e-08
+      },
+      {
+        "cosine": 0.0,
+        "mean_attention": 0.5,
+        "std_attention": 8.597974243684803e-08
+      },
+      {
+        "cosine": 0.10000000149011612,
+        "mean_attention": 0.8807971477508545,
+        "std_attention": 8.597974243684803e-08
+      },
+      {
+        "cosine": 0.20000000298023224,
+        "mean_attention": 0.9820139408111572,
+        "std_attention": 1.773023825535347e-07
+      },
+      {
+        "cosine": 0.30000001192092896,
+        "mean_attention": 0.9975273609161377,
+        "std_attention": 5.990492013552284e-08
+      },
+      {
+        "cosine": 0.4000000059604645,
+        "mean_attention": 0.9996646046638489,
+        "std_attention": 5.990492013552284e-08
+      },
+      {
+        "cosine": 0.5,
+        "mean_attention": 0.9999545216560364,
+        "std_attention": 5.990492013552284e-08
+      },
+      {
+        "cosine": 0.6000000238418579,
+        "mean_attention": 0.9999939203262329,
+        "std_attention": 1.1980984027104569e-07
+      },
+      {
+        "cosine": 0.699999988079071,
+        "mean_attention": 0.9999991655349731,
+        "std_attention": 0.0
+      },
+      {
+        "cosine": 0.800000011920929,
+        "mean_attention": 0.9999999403953552,
+        "std_attention": 5.990492013552284e-08
+      },
+      {
+        "cosine": 0.8999999761581421,
+        "mean_attention": 1.0,
+        "std_attention": 0.0
+      },
+      {
+        "cosine": 1.0,
+        "mean_attention": 1.0,
+        "std_attention": 0.0
+      }
+    ],
+    "model_info": {
+      "name": "hand_built_scaled_dot_product",
+      "type": "heuristic",
+      "notes": "Hand-built sign detector: attention = sigmoid(20.0 * (q\u00b7k)). Temperature 20.0 hand-set to create a sharp threshold at dot=0. No training, no learned parameters, no extra projections \u2014 pure mechanistic circuit. Architecture-faithful: this is exactly scaled dot-product attention with amplified temperature."
+    }
+  }
+}

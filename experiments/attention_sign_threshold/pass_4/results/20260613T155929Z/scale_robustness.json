@@ -1,0 +1,37 @@
+[
+  {
+    "factor": 0.1,
+    "sign_sharpness_canonical": 2.5472887491961123,
+    "sign_threshold_canonical": -0.005130106111682949
+  },
+  {
+    "factor": 0.2,
+    "sign_sharpness_canonical": 3.1442744898056088,
+    "sign_threshold_canonical": -0.001525283923550993
+  },
+  {
+    "factor": 0.5,
+    "sign_sharpness_canonical": 10.324826294230155,
+    "sign_threshold_canonical": 0.0034625130581368855
+  },
+  {
+    "factor": 1.0,
+    "sign_sharpness_canonical": 15.117180018292498,
+    "sign_threshold_canonical": 0.006622424582102311
+  },
+  {
+    "factor": 2.0,
+    "sign_sharpness_canonical": 16.206625062399905,
+    "sign_threshold_canonical": 0.0071345986667583
+  },
+  {
+    "factor": 5.0,
+    "sign_sharpness_canonical": 16.019180510575442,
+    "sign_threshold_canonical": 0.006563309413929198
+  },
+  {
+    "factor": 10.0,
+    "sign_sharpness_canonical": 15.890560798010222,
+    "sign_threshold_canonical": 0.006182599301375471
+  }
+]

@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "config": {
+    "d_model": 16,
+    "n_candidates": 8,
+    "n_trials": 256,
+    "canonical_cos": 0.7
+  },
+  "uniform_baseline_mass": 0.125,
+  "sweep": [
+    {
+      "cos": 0.0,
+      "copy_mass": 1.0,
+      "copy_accuracy": 1.0
+    },
+    {
+      "cos": 0.3,
+      "copy_mass": 1.0,
+      "copy_accuracy": 1.0
+    },
+    {
+      "cos": 0.5,
+      "copy_mass": 1.0,
+      "copy_accuracy": 1.0
+    },
+    {
+      "cos": 0.7,
+      "copy_mass": 1.0,
+      "copy_accuracy": 1.0
+    },
+    {
+      "cos": 0.9,
+      "copy_mass": 1.0,
+      "copy_accuracy": 1.0
+    }
+  ]
+}

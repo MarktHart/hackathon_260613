@@ -1,0 +1,153 @@
+{
+  "beta": 40.0,
+  "gamma": 20.0,
+  "main_sweep": [
+    {
+      "cos": 0.0,
+      "or_sharpness": 0.982646047034624,
+      "plain_linear_sharpness": 0.7071067094802856,
+      "linear_ideal": 0.7071067811865476,
+      "or_noise_leakage": 0.8269842544607064
+    },
+    {
+      "cos": 0.1,
+      "or_sharpness": 0.9826628565788269,
+      "plain_linear_sharpness": 0.7416198253631592,
+      "linear_ideal": 0.7416198487095663,
+      "or_noise_leakage": 0.790543497532413
+    },
+    {
+      "cos": 0.2,
+      "or_sharpness": 0.9826635091299133,
+      "plain_linear_sharpness": 0.774596631526947,
+      "linear_ideal": 0.7745966692414834,
+      "or_noise_leakage": 0.7865742912851263
+    },
+    {
+      "cos": 0.30000000000000004,
+      "or_sharpness": 0.9826686371963403,
+      "plain_linear_sharpness": 0.8062257766723633,
+      "linear_ideal": 0.806225774829855,
+      "or_noise_leakage": 0.7400418343675668
+    },
+    {
+      "cos": 0.4,
+      "or_sharpness": 0.9826026496658264,
+      "plain_linear_sharpness": 0.8366600275039673,
+      "linear_ideal": 0.8366600265340756,
+      "or_noise_leakage": 0.8668242694065409
+    },
+    {
+      "cos": 0.5,
+      "or_sharpness": 0.9826690275707093,
+      "plain_linear_sharpness": 0.866025447845459,
+      "linear_ideal": 0.8660254037844386,
+      "or_noise_leakage": 0.7834718695246623
+    },
+    {
+      "cos": 0.6000000000000001,
+      "or_sharpness": 0.9826789203741869,
+      "plain_linear_sharpness": 0.8944271802902222,
+      "linear_ideal": 0.8944271909999159,
+      "or_noise_leakage": 0.7209914187235295
+    },
+    {
+      "cos": 0.7000000000000001,
+      "or_sharpness": 0.9827314043438743,
+      "plain_linear_sharpness": 0.9219544529914856,
+      "linear_ideal": 0.9219544457292888,
+      "or_noise_leakage": 0.7415770513008935
+    },
+    {
+      "cos": 0.8,
+      "or_sharpness": 0.9831255993358936,
+      "plain_linear_sharpness": 0.9486832618713379,
+      "linear_ideal": 0.9486832980505138,
+      "or_noise_leakage": 0.6935201902438983
+    },
+    {
+      "cos": 0.9,
+      "or_sharpness": 0.9861933166461545,
+      "plain_linear_sharpness": 0.9746794700622559,
+      "linear_ideal": 0.9746794344808963,
+      "or_noise_leakage": 0.6995438792988935
+    },
+    {
+      "cos": 1.0,
+      "or_sharpness": 1.0,
+      "plain_linear_sharpness": 1.0,
+      "linear_ideal": 1.0,
+      "or_noise_leakage": 0.6308770115751645
+    }
+  ],
+  "beta_curve": [
+    {
+      "beta": 0.25,
+      "sharpness": 0.5308216793887306,
+      "noise_leakage": 0.49130245974117775
+    },
+    {
+      "beta": 0.5,
+      "sharpness": 0.5615016340067964,
+      "noise_leakage": 0.46614759040716164
+    },
+    {
+      "beta": 1.0,
+      "sharpness": 0.6197503654967275,
+      "noise_leakage": 0.42542224330169104
+    },
+    {
+      "beta": 2.0,
+      "sharpness": 0.7165568856225745,
+      "noise_leakage": 0.37339171421945716
+    },
+    {
+      "beta": 4.0,
+      "sharpness": 0.8310174615005667,
+      "noise_leakage": 0.3321086910820974
+    },
+    {
+      "beta": 8.0,
+      "sharpness": 0.913273098826652,
+      "noise_leakage": 0.355050129942345
+    },
+    {
+      "beta": 16.0,
+      "sharpness": 0.9566153728778504,
+      "noise_leakage": 0.5574067291747485
+    },
+    {
+      "beta": 32.0,
+      "sharpness": 0.9783076605154861,
+      "noise_leakage": 0.7827713502915963
+    },
+    {
+      "beta": 64.0,
+      "sharpness": 0.9891538017483832,
+      "noise_leakage": 0.8925766516159718
+    },
+    {
+      "beta": 128.0,
+      "sharpness": 0.9945768710718674,
+      "noise_leakage": 0.9465812860915086
+    }
+  ],
+  "ablation": {
+    "full": {
+      "sharpness": 0.982646047034624,
+      "noise_leakage": 0.8269842544607064
+    },
+    "no_softmax": {
+      "sharpness": 0.49966674913994635,
+      "noise_leakage": 0.5200433607852648
+    },
+    "no_gate": {
+      "sharpness": 0.9999998669580729,
+      "noise_leakage": 1.0000000665209636
+    },
+    "plain_linear": {
+      "sharpness": 0.7071067094802856,
+      "noise_leakage": 0.519129782129431
+    }
+  }
+}

@@ -1,0 +1,1 @@
+APPROVED 2026-06-13: contract/metrics/determinism/edge-cases/VERSION verified; fixed param "extra keys ignored" mismatch in evaluate and made noise seed-driven (rng was dead, README wording corrected).

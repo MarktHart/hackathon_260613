@@ -1,0 +1,70 @@
+{
+  "goal": "attention_identity_copy",
+  "attempt": "pass_5",
+  "run_id": "20260613T161358Z",
+  "metrics": {
+    "version": 1,
+    "identity_copy_fidelity_token_0": 1.0,
+    "diag_attn_mass_token_0": 0.9999077320098877,
+    "identity_copy_fidelity_token_64": 1.0,
+    "diag_attn_mass_token_64": 0.9999077320098877,
+    "identity_copy_fidelity_token_128": 1.0,
+    "diag_attn_mass_token_128": 0.9999077320098877,
+    "identity_copy_fidelity_token_192": 1.0,
+    "diag_attn_mass_token_192": 0.9999077320098877,
+    "identity_copy_fidelity_token_255": 1.0,
+    "diag_attn_mass_token_255": 0.9999077320098877,
+    "identity_copy_fidelity_canonical": 1.0,
+    "linear_baseline_fidelity_canonical": 0.25,
+    "lift_over_linear_baseline": 0.75
+  },
+  "payload": {
+    "version": 1,
+    "sweep": [
+      {
+        "token": 0,
+        "copy_fidelity": 1.0,
+        "diag_attn_mass": 0.9999077320098877,
+        "best_head": 0
+      },
+      {
+        "token": 64,
+        "copy_fidelity": 1.0,
+        "diag_attn_mass": 0.9999077320098877,
+        "best_head": 0
+      },
+      {
+        "token": 128,
+        "copy_fidelity": 1.0,
+        "diag_attn_mass": 0.9999077320098877,
+        "best_head": 0
+      },
+      {
+        "token": 192,
+        "copy_fidelity": 1.0,
+        "diag_attn_mass": 0.9999077320098877,
+        "best_head": 0
+      },
+      {
+        "token": 255,
+        "copy_fidelity": 1.0,
+        "diag_attn_mass": 0.9999077320098877,
+        "best_head": 0
+      }
+    ],
+    "canonical_token": 128,
+    "config": {
+      "B": 32,
+      "L": 16,
+      "H": 8,
+      "D": 64,
+      "sweep_tokens": [
+        0,
+        64,
+        128,
+        192,
+        255
+      ]
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "goal": "attention_anagram",
+  "attempt": "first_pass",
+  "run_id": "20260613T161949Z",
+  "verdict_version": 1,
+  "architecture_fit": {"score": 5, "note": "Minimal delta: single attention layer, no MLP, W_Q=W_K=identity over one-hot embedding; directly produces token-match attention reaching 0.94 alignment."},
+  "baseline_comparison": {"score": 4, "note": "Beats the uniform baseline (0.125) by a clear lift and the temperature-collapse strawman shows alignment falling to ~baseline, though the only baseline is the framework's trivial uniform attention."},
+  "faithfulness": {"score": 3, "note": "Honestly labeled hand-built; the temperature knob is a genuine causal manipulation of the matching logits, but it is a self-ablation of the synthetic circuit and no real-model patch/ablation is proposed."},
+  "operating_range": {"score": 2, "note": "Only the canonical seq_len=8 / vocab=50 condition; varies across swap/rotation/random structure but no sweep over input scale or sequence length across orders of magnitude."},
+  "hardcoded_weights_bonus": {"score": 5, "note": "Entire mechanism is hand-set (identity QK over one-hot tokens with a temperature) — the explicit point of the attempt, reproducing target behaviour without learning."},
+  "visual_judgement": {"score": 4, "note": "Demo tab leads with alignment-vs-baseline bars plus per-position lines and an interactive temperature heatmap with red true-source boxes — makes the claim legible at a glance."},
+  "visualisation_rationale": {"score": 5, "note": "README explicitly ties each panel to the benchmarked quantity, justifies the baseline line and per-position grain, and frames the temperature heatmap as the causal knob."},
+  "automated_metrics": {
+    "version": 1,
+    "random_baseline_alignment": 0.125,
+    "anagram_alignment_swap": 0.9389534760266542,
+    "anagram_alignment_rotation": 0.92955800332129,
+    "anagram_alignment_random": 0.9404761744663119,
+    "anagram_alignment_canonical": 0.9404761744663119,
+    "anagram_alignment_max_canonical": 0.9523809552192688,
+    "lift_over_random_canonical": 0.8154761744663119,
+    "alignment_robustness": 0.9883908051671616
+  },
+  "overall": "good",
+  "notes": "A clean, honest hand-built circuit that solves the anagram-alignment task with a single MLP-free attention head, hitting 0.94 alignment vs 0.125 uniform baseline with strong robustness across permutation types. Architecture fit, hardcoded-weights bonus, and visualisation rationale are excellent; the temperature slider gives a credible causal demonstration. Weakest on operating range (no input-scale sweep) and on faithfulness to an actual trained model, since the circuit is synthetic."
+}

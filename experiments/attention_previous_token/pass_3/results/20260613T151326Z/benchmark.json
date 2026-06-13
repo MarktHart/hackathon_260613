@@ -1,0 +1,77 @@
+{
+  "goal": "attention_previous_token",
+  "attempt": "pass_3",
+  "run_id": "20260613T151326Z",
+  "metrics": {
+    "version": 1,
+    "uniform_baseline": 0.059426839741361405,
+    "prev_token_attn_noise_0p00": 0.9991107329134209,
+    "prev_token_attn_noise_0p25": 0.9999999568502074,
+    "prev_token_attn_noise_0p50": 0.9999999981474244,
+    "prev_token_attn_noise_1p00": 1.0,
+    "prev_token_attn_noise_2p00": 1.0,
+    "prev_token_attn_canonical": 0.9991107329134209,
+    "self_attn_canonical": 0.01650037063360209,
+    "two_back_attn_canonical": 1.5583827917706777e-09,
+    "lift_over_uniform_canonical": 0.9396838931720595,
+    "prev_token_lift_ratio_canonical": 16.812449345477045,
+    "prev_token_robustness": 1.0
+  },
+  "payload": {
+    "version": 1,
+    "model_name": "synthetic_previous_token",
+    "seq_len": 64,
+    "d": 64,
+    "canonical_noise": 0.0,
+    "noise_sweep": [
+      0.0,
+      0.25,
+      0.5,
+      1.0,
+      2.0
+    ],
+    "uniform_baseline": 0.059426839741361405,
+    "sweep": [
+      {
+        "noise": 0.0,
+        "prev_token_attention": 0.9991107329134209,
+        "self_attention": 0.01650037063360209,
+        "two_back_attention": 1.5583827917706777e-09,
+        "uniform_baseline": 0.059426839741361405,
+        "n_seeds": 16
+      },
+      {
+        "noise": 0.25,
+        "prev_token_attention": 0.9999999568502074,
+        "self_attention": 0.015625000000152538,
+        "two_back_attention": 5.442622941823586e-12,
+        "uniform_baseline": 0.059426839741361405,
+        "n_seeds": 16
+      },
+      {
+        "noise": 0.5,
+        "prev_token_attention": 0.9999999981474244,
+        "self_attention": 0.015625001823628977,
+        "two_back_attention": 1.4386414825324648e-16,
+        "uniform_baseline": 0.059426839741361405,
+        "n_seeds": 16
+      },
+      {
+        "noise": 1.0,
+        "prev_token_attention": 1.0,
+        "self_attention": 0.015625,
+        "two_back_attention": 1.2346544388999368e-56,
+        "uniform_baseline": 0.059426839741361405,
+        "n_seeds": 16
+      },
+      {
+        "noise": 2.0,
+        "prev_token_attention": 1.0,
+        "self_attention": 0.015625,
+        "two_back_attention": 3.2143097074941415e-175,
+        "uniform_baseline": 0.059426839741361405,
+        "n_seeds": 16
+      }
+    ]
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "goal": "attention_dedupe",
+  "attempt": "first_pass",
+  "run_id": "20260613T161948Z",
+  "metrics": {
+    "version": 1,
+    "dedup_mass_rate_0p1": 0.9991530263594133,
+    "dedup_accuracy_rate_0p1": 1.0,
+    "baseline_dedup_mass_rate_0p1": 0.12058634743324316,
+    "dedup_mass_rate_0p3": 0.9972009825980892,
+    "dedup_accuracy_rate_0p3": 1.0,
+    "baseline_dedup_mass_rate_0p3": 0.12310136497972429,
+    "dedup_mass_rate_0p5": 0.99537519005337,
+    "dedup_accuracy_rate_0p5": 1.0,
+    "baseline_dedup_mass_rate_0p5": 0.12276375955698747,
+    "dedup_mass_rate_0p7": 0.9934926196536621,
+    "dedup_accuracy_rate_0p7": 1.0,
+    "baseline_dedup_mass_rate_0p7": 0.11876821038265298,
+    "dedup_mass_canonical": 0.99537519005337,
+    "dedup_accuracy_canonical": 1.0,
+    "first_seen_self_mass_canonical": 1.0,
+    "uniform_baseline_dedup_mass_canonical": 0.12276375955698747,
+    "lift_over_uniform_canonical": 0.8726114304963826,
+    "dedup_robustness": 0.9963054546661336,
+    "dedup_accuracy_mean": 1.0
+  },
+  "payload": {
+    "version": 1,
+    "task": "attention_dedupe",
+    "seed": 0,
+    "seq_len": 24,
+    "vocab_size": 64,
+    "n_seqs": 64,
+    "dup_rates": [
+      0.1,
+      0.3,
+      0.5,
+      0.7
+    ],
+    "canonical_dup_rate": 0.5,
+    "sweep": [
+      {
+        "dup_rate": 0.1,
+        "n_dup_positions": 153,
+        "n_first_seen": 1383,
+        "dedup_mass": 0.9991530263594133,
+        "dedup_accuracy": 1.0,
+        "first_seen_self_mass": 1.0,
+        "baseline_dedup_mass": 0.12058634743324316,
+        "baseline_dedup_accuracy": 0.12058634743324316
+      },
+      {
+        "dup_rate": 0.3,
+        "n_dup_positions": 430,
+        "n_first_seen": 1106,
+        "dedup_mass": 0.9972009825980892,
+        "dedup_accuracy": 1.0,
+        "first_seen_self_mass": 1.0,
+        "baseline_dedup_mass": 0.12310136497972429,
+        "baseline_dedup_accuracy": 0.12310136497972429
+      },
+      {
+        "dup_rate": 0.5,
+        "n_dup_positions": 738,
+        "n_first_seen": 798,
+        "dedup_mass": 0.99537519005337,
+        "dedup_accuracy": 1.0,
+        "first_seen_self_mass": 1.0,
+        "baseline_dedup_mass": 0.12276375955698747,
+        "baseline_dedup_accuracy": 0.12276375955698747
+      },
+      {
+        "dup_rate": 0.7,
+        "n_dup_positions": 1005,
+        "n_first_seen": 531,
+        "dedup_mass": 0.9934926196536621,
+        "dedup_accuracy": 1.0,
+        "first_seen_self_mass": 1.0,
+        "baseline_dedup_mass": 0.11876821038265298,
+        "baseline_dedup_accuracy": 0.11876821038265298
+      }
+    ]
+  }
+}

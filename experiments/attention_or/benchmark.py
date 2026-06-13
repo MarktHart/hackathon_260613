@@ -1,165 +1,113 @@
 import math
-from typing import Any
 
 VERSION = 1
 
-def score(payload: dict[str, Any]) -> dict[str, float | int]:
+
+def _safe_div(num: float, den: float) -> float:
+    """Return num/den if den > 0 else 0.0. Never returns inf or NaN."""
+    if den <= 0.0:
+        return 0.0
+    return num / den
+
+
+def score(payload: dict) -> dict[str, float | int]:
     """
-    Compute metrics from the attention_or payload.
-
-    Args:
-        payload: Dict with keys version, config, sweep (see README.md).
-
-    Returns:
-        Flat dict of metrics. First key is 'version'.
+    Compute all metrics from the payload produced by task.evaluate().
+    Returns a flat dict of scalar metrics.
     """
-    _validate_payload(payload)
+    # --- validate payload contract ---
+    if not isinstance(payload, dict):
+        raise ValueError("payload must be a dict")
+    if payload.get("version") != 1:
+        raise ValueError(f"Unsupported payload version: {payload.get('version')}")
+    sweep = payload.get("sweep")
+    if not isinstance(sweep, list) or len(sweep) == 0:
+        raise ValueError("payload['sweep'] must be a non-empty list")
 
-    sweep = payload["sweep"]
-    canonical_rho = payload["config"]["canonical_rho"]
-
-    # Helper to format float for metric keys
-    def fmt(rho: float) -> str:
-        return f"{rho:.2f}".replace(".", "p").replace("-", "m")
-
-    # Extract per-slice measurements
-    sharpness_by_rho: dict[float, float] = {}
-    gap_by_rho: dict[float, float] = {}
-    out00_by_rho: dict[float, float] = {}
-    out01_by_rho: dict[float, float] = {}
-    out10_by_rho: dict[float, float] = {}
-    out11_by_rho: dict[float, float] = {}
-
-    for record in sweep:
-        rho = record["rho"]
-        # Use first component (index 0) — the only non-zero in value basis
-        out00 = record["out_00"][0]
-        out01 = record["out_01"][0]
-        out10 = record["out_10"][0]
-        out11 = record["out_11"][0]
-
-        out00_by_rho[rho] = out00
-        out01_by_rho[rho] = out01
-        out10_by_rho[rho] = out10
-        out11_by_rho[rho] = out11
-
-        or1_vals = [out01, out10, out11]
-        mean_or1 = sum(or1_vals) / 3.0
-        max_or1 = max(or1_vals)
-        min_or1 = min(or1_vals)
-
-        gap = mean_or1 - out00
-        gap_by_rho[rho] = gap
-
-        denom = max_or1 - min_or1 + 1e-8
-        sharpness = gap / denom if denom > 0 else 0.0
-        sharpness_by_rho[rho] = sharpness
-
-    # Headline: superposition robustness = worst-case relative sharpness
-    sharpness_at_zero = sharpness_by_rho.get(0.0, 0.0)
-    if sharpness_at_zero <= 0:
-        robustness = 0.0
-    else:
-        ratios = [sharpness_by_rho[rho] / sharpness_at_zero for rho in sharpness_by_rho]
-        robustness = min(ratios)
-
-    # Linear baseline: optimal linear classifier on 4 points
-    # Features: one-hot [A, B] -> 2D. Labels: OR(A,B).
-    # With 4 points in 2D, perfect separation is possible iff not all same label.
-    # But we compute the "sharpness" of the linear probe's output on the same scale.
-    # Since the linear probe sees clean one-hot features (no interference),
-    # its sharpness is 1.0 at all rho (rho doesn't affect the linear probe's input).
-    # We report it as a constant baseline for comparison.
-    linear_sharpness = 1.0  # Perfect separation achievable with linear probe on one-hot
-
-    metrics: dict[str, float | int] = {
-        "version": VERSION,
+    required_keys = {
+        "cos", "s_A_at_A", "s_A_at_B", "s_A_noise_max",
+        "s_B_at_A", "s_B_at_B", "s_B_noise_max",
+        "s_AB_at_A", "s_AB_at_B", "s_AB_noise_max",
     }
+    for i, rec in enumerate(sweep):
+        missing = required_keys - set(rec.keys())
+        if missing:
+            raise KeyError(f"sweep[{i}] missing keys: {missing}")
 
-    # Per-slice metrics
-    for rho in sorted(sharpness_by_rho.keys()):
-        tag = fmt(rho)
-        metrics[f"or_sharpness_rho_{tag}"] = sharpness_by_rho[rho]
-        metrics[f"or_gap_rho_{tag}"] = gap_by_rho[rho]
+    # --- helpers ---
+    def fmt_cos(c: float) -> str:
+        """Format 0.0 -> '0p0', 0.1 -> '0p1', 1.0 -> '1p0'."""
+        return f"{c:.1f}".replace(".", "p")
 
-    # Canonical slice
-    canon_tag = fmt(canonical_rho)
-    metrics["or_sharpness_canonical"] = sharpness_by_rho[canonical_rho]
-    metrics["or_gap_canonical"] = gap_by_rho[canonical_rho]
+    # --- per-slice metrics ---
+    metrics: dict[str, float | int] = {"version": 1}
 
-    # Headline
-    metrics["or_superposition_robustness"] = robustness
+    or_sharpness_vals = []
+    linear_sharpness_vals = []
 
-    # Baselines
-    for rho in sorted(sharpness_by_rho.keys()):
-        tag = fmt(rho)
-        metrics[f"linear_baseline_sharpness_rho_{tag}"] = linear_sharpness
-    metrics["linear_baseline_sharpness_canonical"] = linear_sharpness
-    metrics["lift_over_linear_canonical"] = (
-        metrics["or_sharpness_canonical"] - linear_sharpness
-    )
+    for rec in sweep:
+        cos = rec["cos"]
+        tag = fmt_cos(cos)
+
+        # Ideal OR denominator: max of the two single-query signal scores
+        denom_or = max(rec["s_A_at_A"], rec["s_B_at_B"])
+
+        # OR sharpness: min(s_AB_at_A, s_AB_at_B) / denom_or
+        num_or = min(rec["s_AB_at_A"], rec["s_AB_at_B"])
+        sharp_or = _safe_div(num_or, denom_or)
+        metrics[f"or_sharpness_cos_{tag}"] = sharp_or
+        or_sharpness_vals.append(sharp_or)
+
+        # Linear baseline: s_lin = s_A + s_B
+        s_lin_at_A = rec["s_A_at_A"] + rec["s_B_at_A"]
+        s_lin_at_B = rec["s_A_at_B"] + rec["s_B_at_B"]
+        num_lin = min(s_lin_at_A, s_lin_at_B)
+        sharp_lin = _safe_div(num_lin, denom_or)
+        metrics[f"linear_baseline_sharpness_cos_{tag}"] = sharp_lin
+        linear_sharpness_vals.append(sharp_lin)
+
+        # Noise leakage for the combined query
+        denom_noise = max(rec["s_AB_at_A"], rec["s_AB_at_B"])
+        leakage = _safe_div(rec["s_AB_noise_max"], denom_noise)
+        metrics[f"or_noise_leakage_cos_{tag}"] = leakage
+
+    # --- headline summary (canonical condition = first sweep entry, cos=0.0) ---
+    metrics["or_sharpness_canonical"] = or_sharpness_vals[0] if or_sharpness_vals else 0.0
+
+    # --- lift over linear at canonical ---
+    if linear_sharpness_vals:
+        metrics["lift_over_linear_canonical"] = or_sharpness_vals[0] - linear_sharpness_vals[0]
+    else:
+        metrics["lift_over_linear_canonical"] = 0.0
+
+    # --- superposition robustness: worst-case sharpness relative to canonical ---
+    if or_sharpness_vals and or_sharpness_vals[0] > 0:
+        metrics["superposition_robustness"] = min(or_sharpness_vals) / or_sharpness_vals[0]
+    else:
+        metrics["superposition_robustness"] = 0.0
 
     return metrics
 
 
-def _validate_payload(payload: dict[str, Any]) -> None:
-    if not isinstance(payload, dict):
-        raise ValueError("payload must be a dict")
-    if payload.get("version") != VERSION:
-        raise ValueError(f"payload version {payload.get('version')} != benchmark VERSION {VERSION}")
-    if "config" not in payload or "sweep" not in payload:
-        raise KeyError("payload missing 'config' or 'sweep'")
-    config = payload["config"]
-    required_config = {"d", "canonical_rho", "rho_sweep"}
-    if not required_config.issubset(config.keys()):
-        raise KeyError(f"config missing keys: {required_config - config.keys()}")
-    sweep = payload["sweep"]
-    if not isinstance(sweep, list) or len(sweep) == 0:
-        raise ValueError("sweep must be a non-empty list")
-    expected_rhos = set(config["rho_sweep"])
-    seen_rhos = set()
-    for i, rec in enumerate(sweep):
-        if not isinstance(rec, dict):
-            raise ValueError(f"sweep[{i}] must be a dict")
-        if "rho" not in rec:
-            raise KeyError(f"sweep[{i}] missing 'rho'")
-        rho = rec["rho"]
-        if rho in seen_rhos:
-            raise ValueError(f"duplicate rho {rho} in sweep")
-        seen_rhos.add(rho)
-        for key in ("out_00", "out_01", "out_10", "out_11"):
-            if key not in rec:
-                raise KeyError(f"sweep[{i}] missing '{key}'")
-            val = rec[key]
-            if not isinstance(val, list) or len(val) != config["d"]:
-                raise ValueError(f"sweep[{i}]['{key}'] must be list of length d={config['d']}")
-        if "sharpness" not in rec:
-            raise KeyError(f"sweep[{i}] missing 'sharpness'")
-        if not isinstance(rec["sharpness"], (int, float)) or isinstance(rec["sharpness"], bool):
-            raise ValueError(f"sweep[{i}]['sharpness'] must be a number")
-    if seen_rhos != expected_rhos:
-        raise ValueError(f"sweep rhos {sorted(seen_rhos)} != config.rho_sweep {sorted(expected_rhos)}")
-
-
-def is_obviously_broken(metrics: dict[str, float | int]) -> bool:
+def is_obviously_broken(metrics: dict) -> bool:
     """
-    Return True if the metrics indicate a fundamentally broken attempt
-    (NaN/inf, or sharpness at canonical slice no better than linear baseline).
+    Pipeline hook: return True if the metrics indicate a degenerate/broken run.
+    Used to short-circuit the jury stage.
     """
+    # NaN / inf math failures.
     for v in metrics.values():
         if isinstance(v, float) and (math.isnan(v) or math.isinf(v)):
             return True
 
+    # The combined query attends to at most one signal key (or none) -> there is
+    # no OR behaviour at all. Note: the linear-superposition reference
+    # (linear_baseline_sharpness_*) is an *upper* oracle here, not a beatable
+    # strawman, so it must NOT be used as a "broken" threshold -- doing so would
+    # flag even a perfect max-pooling attempt. Only the degenerate floor is safe.
     sharp = metrics.get("or_sharpness_canonical")
-    baseline = metrics.get("linear_baseline_sharpness_canonical")
-    if isinstance(sharp, (int, float)) and isinstance(baseline, (int, float)):
-        # If the method doesn't meaningfully beat the linear baseline at canonical condition,
-        # something is wrong — the attention mechanism should exploit the known structure.
-        if sharp <= baseline * 1.01:  # allow tiny numerical slop
-            return True
-
-    robustness = metrics.get("or_superposition_robustness")
-    if isinstance(robustness, (int, float)) and robustness < 0:
+    if isinstance(sharp, (int, float)) and sharp <= 0.0:
         return True
 
     return False
+
+GPU_REQUIREMENT = 1  # GPU slots; attempts must run on the GPU

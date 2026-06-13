@@ -1,0 +1,1 @@
+APPROVED: README/task.py/benchmark.py contracts agree; generate is deterministic, metrics match the README formulae, edge cases and validation handled, VERSION=1 consistent. Verified by running random (robustness 0, broken) and perfect (robustness 1.0) heads plus payload-validation rejections.

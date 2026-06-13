@@ -1,0 +1,31 @@
+{
+  "goal": "attention_boundary",
+  "attempt": "first_pass",
+  "run_id": "20260613T132449Z",
+  "verdict_version": 1,
+  "architecture_fit": {"score": 2, "note": "No transformer at all — model_fn hand-writes the softmax output array directly, not a delta from base_model.py, so it never tests whether a model's attention respects boundaries."},
+  "baseline_comparison": {"score": 3, "note": "Leans on the framework's built-in uniform baseline (sharpness 0, lift +0.94) but constructs no additional strawman of its own."},
+  "faithfulness": {"score": 1, "note": "No model exists to ablate; attention is the answer written by hand, and the README neither flags the faithfulness gap nor proposes a causal check."},
+  "operating_range": {"score": 1, "note": "Only the canonical seed=0 config is run; fixed eps values, no variation across input scale or any other axis."},
+  "hardcoded_weights_bonus": {"score": 2, "note": "Hand-set and reproduces the target masses, but it hardcodes the distribution itself rather than QK weights that yield it through softmax — the degenerate form of a hand-built circuit."},
+  "visual_judgement": {"score": 2, "note": "App boots structurally, but all three Demo plots render empty: charts read benchmark.get('sweep') while sweep is nested under payload, and the heatmap needs attention_weights.npy that main.py never saves."},
+  "visualisation_rationale": {"score": 3, "note": "The 'Why this visualisation' section is articulate and maps charts to payload fields and the goal, though it describes views that do not actually render."},
+  "automated_metrics": {
+    "version": 1,
+    "boundary_sharpness_canonical": 0.9399999789893627,
+    "boundary_sharpness_segA": 0.9399999789893627,
+    "boundary_sharpness_segB": 0.9399999789893627,
+    "boundary_crossing_rate_canonical": 0.019999999552965164,
+    "boundary_crossing_rate_segA": 0.019999999552965164,
+    "boundary_crossing_rate_segB": 0.019999999552965164,
+    "delim_leakage_canonical": 0.009999999776482582,
+    "delim_leakage_segA": 0.009999999776482582,
+    "delim_leakage_segB": 0.009999999776482582,
+    "linear_baseline_sharpness_canonical": 0.0,
+    "linear_baseline_sharpness_segA": 0.0,
+    "linear_baseline_sharpness_segB": 0.0,
+    "lift_over_linear_sharpness": 0.9399999789893627
+  },
+  "overall": "fail",
+  "notes": "A pure hand-written attention array that hardcodes the desired region masses directly, so it scores the headline metric trivially while never engaging the goal's real question of whether a model's attention respects boundaries. There is no transformer, no ablation, and no operating-range exploration, making faithfulness and architecture fit the binding failures. The Demo visualisation is also non-functional because the plotting code reads keys at the wrong nesting level and the heatmap artefact is never saved."
+}

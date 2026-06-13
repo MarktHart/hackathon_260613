@@ -1,0 +1,90 @@
+{
+  "goal": "attention_quantile",
+  "attempt": "first_pass",
+  "run_id": "20260613T135834Z",
+  "metrics": {
+    "version": 1,
+    "quantile_accuracy_alpha_0p1": 1.0,
+    "uniform_baseline_accuracy_alpha_0p1": 0.0,
+    "lift_over_uniform_alpha_0p1": 1.0,
+    "quantile_accuracy_alpha_0p3": 1.0,
+    "uniform_baseline_accuracy_alpha_0p3": 0.0913774260655047,
+    "lift_over_uniform_alpha_0p3": 0.9086225739344953,
+    "quantile_accuracy_alpha_1p0": 1.0,
+    "uniform_baseline_accuracy_alpha_1p0": 0.2695182885419465,
+    "lift_over_uniform_alpha_1p0": 0.7304817114580535,
+    "quantile_accuracy_alpha_3p0": 1.0,
+    "uniform_baseline_accuracy_alpha_3p0": 0.487710159260755,
+    "lift_over_uniform_alpha_3p0": 0.512289840739245,
+    "quantile_accuracy_alpha_10p0": 1.0,
+    "uniform_baseline_accuracy_alpha_10p0": 0.6864854411877587,
+    "lift_over_uniform_alpha_10p0": 0.31351455881224133,
+    "quantile_accuracy_canonical": 1.0,
+    "uniform_baseline_accuracy_canonical": 0.2695182885419465,
+    "lift_over_uniform_canonical": 0.7304817114580535,
+    "mean_quantile_accuracy": 1.0,
+    "mean_uniform_baseline_accuracy": 0.30701826301119295,
+    "mean_lift_over_uniform": 0.692981736988807,
+    "quantile_accuracy_robustness": 1.0
+  },
+  "payload": {
+    "version": 1,
+    "config": {
+      "seq_len": 128,
+      "num_heads": 8,
+      "quantiles": [
+        0.1,
+        0.25,
+        0.5,
+        0.75,
+        0.9,
+        0.95,
+        0.99
+      ],
+      "samples_per_alpha": 32,
+      "canonical_alpha": 1.0
+    },
+    "sweep": [
+      {
+        "alpha": 0.1,
+        "n_samples": 256,
+        "model_mae": 0.0,
+        "model_relative_mae": 0.0,
+        "baseline_mae": 0.025089187480533633,
+        "baseline_relative_mae": 1.0072872890189306
+      },
+      {
+        "alpha": 0.3,
+        "n_samples": 256,
+        "model_mae": 0.0,
+        "model_relative_mae": 0.0,
+        "baseline_mae": 0.017157654935318286,
+        "baseline_relative_mae": 0.9086225739344953
+      },
+      {
+        "alpha": 1.0,
+        "n_samples": 256,
+        "model_mae": 0.0,
+        "model_relative_mae": 0.0,
+        "baseline_mae": 0.00977965754358731,
+        "baseline_relative_mae": 0.7304817114580535
+      },
+      {
+        "alpha": 3.0,
+        "n_samples": 256,
+        "model_mae": 0.0,
+        "model_relative_mae": 0.0,
+        "baseline_mae": 0.0055233246319234056,
+        "baseline_relative_mae": 0.512289840739245
+      },
+      {
+        "alpha": 10.0,
+        "n_samples": 256,
+        "model_mae": 0.0,
+        "model_relative_mae": 0.0,
+        "baseline_mae": 0.0029261403826609605,
+        "baseline_relative_mae": 0.31351455881224133
+      }
+    ]
+  }
+}

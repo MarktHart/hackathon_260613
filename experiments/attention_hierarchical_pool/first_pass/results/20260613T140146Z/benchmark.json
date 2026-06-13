@@ -1,0 +1,91 @@
+{
+  "goal": "attention_hierarchical_pool",
+  "attempt": "first_pass",
+  "run_id": "20260613T140146Z",
+  "metrics": {
+    "version": 1,
+    "pool_purity_level_0": 1.0,
+    "mean_head_purity_level_0": 0.22983870967741934,
+    "block_mass_level_0": 1.0,
+    "uniform_baseline_mass_level_0": 0.03125,
+    "pool_purity_level_1": 1.0,
+    "mean_head_purity_level_1": 0.3416666666666667,
+    "block_mass_level_1": 1.0,
+    "uniform_baseline_mass_level_1": 0.0625,
+    "pool_purity_level_2": 1.0,
+    "mean_head_purity_level_2": 0.44642857142857145,
+    "block_mass_level_2": 1.0,
+    "uniform_baseline_mass_level_2": 0.125,
+    "pool_purity_level_3": 1.0,
+    "mean_head_purity_level_3": 0.5416666666666666,
+    "block_mass_level_3": 1.0,
+    "uniform_baseline_mass_level_3": 0.25,
+    "pool_purity_level_4": 1.0,
+    "mean_head_purity_level_4": 0.625,
+    "block_mass_level_4": 1.0,
+    "uniform_baseline_mass_level_4": 0.5,
+    "pool_purity_canonical": 1.0,
+    "block_mass_canonical": 1.0,
+    "uniform_baseline_canonical": 0.125,
+    "hierarchical_pooling_score": 1.0,
+    "multilevel_coverage": 1.0,
+    "min_pool_purity": 1.0
+  },
+  "payload": {
+    "version": 1,
+    "config": {
+      "batch_size": 8,
+      "seq_len": 64,
+      "hierarchy_levels": 5,
+      "n_layers": 1,
+      "n_heads": 8
+    },
+    "sweep": [
+      {
+        "level": 0,
+        "block_size": 2,
+        "uniform_mass": 0.03125,
+        "best_head_mass": 1.0,
+        "best_layer": 0,
+        "best_head": 0,
+        "mean_head_mass": 0.25390625
+      },
+      {
+        "level": 1,
+        "block_size": 4,
+        "uniform_mass": 0.0625,
+        "best_head_mass": 1.0,
+        "best_layer": 0,
+        "best_head": 0,
+        "mean_head_mass": 0.3828125
+      },
+      {
+        "level": 2,
+        "block_size": 8,
+        "uniform_mass": 0.125,
+        "best_head_mass": 1.0,
+        "best_layer": 0,
+        "best_head": 0,
+        "mean_head_mass": 0.515625
+      },
+      {
+        "level": 3,
+        "block_size": 16,
+        "uniform_mass": 0.25,
+        "best_head_mass": 1.0,
+        "best_layer": 0,
+        "best_head": 0,
+        "mean_head_mass": 0.65625
+      },
+      {
+        "level": 4,
+        "block_size": 32,
+        "uniform_mass": 0.5,
+        "best_head_mass": 1.0,
+        "best_layer": 0,
+        "best_head": 0,
+        "mean_head_mass": 0.8125
+      }
+    ]
+  }
+}

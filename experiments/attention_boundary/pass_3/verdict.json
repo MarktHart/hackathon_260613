@@ -1,0 +1,31 @@
+{
+  "goal": "attention_boundary",
+  "attempt": "pass_3",
+  "run_id": "20260613T163842Z",
+  "verdict_version": 1,
+  "architecture_fit": {"score": 5, "note": "Genuine softmax(Q·Kᵀ) with a hand-set 2-D Q/K projection — a small delta from base_model.py, single attention layer, no MLP, and sharpness ≈ 1.0 solves the segment-boundary task."},
+  "baseline_comparison": {"score": 5, "note": "Uniform-attention strawman (sharpness 0) is measured under identical conditions; lift_over_linear_sharpness ≈ 0.999, plus an ablation reference line in the demo."},
+  "faithfulness": {"score": 4, "note": "Segment-sign feature ablation (α→0) collapses sharpness to ~0, a real causal check, though somewhat self-evident for a hand-constructed circuit; README is honest about this."},
+  "operating_range": {"score": 4, "note": "α swept over 4 orders of magnitude shows clear turn-on and saturation, but the axis is the internal feature strength rather than an input-scale axis (seg_len/spacing)."},
+  "hardcoded_weights_bonus": {"score": 5, "note": "Entire mechanism is hand-set torch QK projections on the GPU reproducing the target behaviour — exactly the hand-built-circuit bonus."},
+  "visual_judgement": {"score": 5, "note": "Four purposeful panels (per-head sharpness bar, attention heatmap, α operating curve, ablation bar) make the claim legible at a glance."},
+  "visualisation_rationale": {"score": 5, "note": "Why-this-visualisation section ties each chart to the benchmark's headline/lift, faithfulness, and scaling axis with justified y-axes and baselines."},
+  "automated_metrics": {
+    "version": 1,
+    "boundary_sharpness_canonical": 0.998740937192397,
+    "boundary_sharpness_segA": 0.9987409372198837,
+    "boundary_sharpness_segB": 0.9987409371649104,
+    "boundary_crossing_rate_canonical": 0.0006295334231599089,
+    "boundary_crossing_rate_segA": 0.0006295334231599089,
+    "boundary_crossing_rate_segB": 0.0006295334231599089,
+    "delim_leakage_canonical": 3.654889968352639e-12,
+    "delim_leakage_segA": 3.654889968352639e-12,
+    "delim_leakage_segB": 3.654889968352639e-12,
+    "linear_baseline_sharpness_canonical": 0.0,
+    "linear_baseline_sharpness_segA": 0.0,
+    "linear_baseline_sharpness_segB": 0.0,
+    "lift_over_linear_sharpness": 0.998740937192397
+  },
+  "overall": "good",
+  "notes": "A clean hand-built boundary circuit expressed as real GPU dot-product attention, a minimal delta from base_model.py, achieving near-perfect boundary sharpness (≈0.999) against a uniform baseline of 0. Faithfulness ablation and a clear four-panel demo back the claim well; the main softness is that the operating-range sweep varies the internal feature strength rather than a realistic input axis. Mean of scored items ≈ 4.7 → good."
+}

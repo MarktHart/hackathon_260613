@@ -1,0 +1,1 @@
+APPROVED: payload contract, determinism, metric formulae, edge cases, and VERSION=1 all consistent across README/task.py/benchmark.py; verified by round-trip + perfect/unscaled/zero model checks.

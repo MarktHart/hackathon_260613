@@ -1,0 +1,562 @@
+{
+  "full": {
+    "sweep": [
+      {
+        "cosine": -1.0,
+        "mean_attention": 9.35762223459348e-14,
+        "std_attention": 1.3620805099521376e-20
+      },
+      {
+        "cosine": -0.8999999761581421,
+        "mean_attention": 9.69850827252372e-14,
+        "std_attention": 3.4088647838737343e-14
+      },
+      {
+        "cosine": -0.800000011920929,
+        "mean_attention": 9.570793999989433e-14,
+        "std_attention": 2.1317118941354893e-14
+      },
+      {
+        "cosine": -0.699999988079071,
+        "mean_attention": 5.912559504495096e-12,
+        "std_attention": 5.441817482743083e-11
+      },
+      {
+        "cosine": -0.6000000238418579,
+        "mean_attention": 2.432342105507246e-10,
+        "std_attention": 1.662730619855779e-09
+      },
+      {
+        "cosine": -0.5,
+        "mean_attention": 1.0236735903390581e-08,
+        "std_attention": 5.9748906267032e-08
+      },
+      {
+        "cosine": -0.4000000059604645,
+        "mean_attention": 4.4287270384302246e-07,
+        "std_attention": 2.6889349555858644e-06
+      },
+      {
+        "cosine": -0.30000001192092896,
+        "mean_attention": 0.0008872561156749725,
+        "std_attention": 0.006536560133099556
+      },
+      {
+        "cosine": -0.20000000298023224,
+        "mean_attention": 0.03375102952122688,
+        "std_attention": 0.13755038380622864
+      },
+      {
+        "cosine": -0.10000000149011612,
+        "mean_attention": 0.17708715796470642,
+        "std_attention": 0.3119109272956848
+      },
+      {
+        "cosine": 0.0,
+        "mean_attention": 0.4727233946323395,
+        "std_attention": 0.43583714962005615
+      },
+      {
+        "cosine": 0.10000000149011612,
+        "mean_attention": 0.7947474718093872,
+        "std_attention": 0.3480311632156372
+      },
+      {
+        "cosine": 0.20000000298023224,
+        "mean_attention": 0.9671236276626587,
+        "std_attention": 0.13495458662509918
+      },
+      {
+        "cosine": 0.30000001192092896,
+        "mean_attention": 0.9959737658500671,
+        "std_attention": 0.03974242880940437
+      },
+      {
+        "cosine": 0.4000000059604645,
+        "mean_attention": 0.9955540299415588,
+        "std_attention": 0.044235292822122574
+      },
+      {
+        "cosine": 0.5,
+        "mean_attention": 0.9999999403953552,
+        "std_attention": 6.67825702294067e-07
+      },
+      {
+        "cosine": 0.6000000238418579,
+        "mean_attention": 1.0,
+        "std_attention": 0.0
+      },
+      {
+        "cosine": 0.699999988079071,
+        "mean_attention": 1.0,
+        "std_attention": 0.0
+      },
+      {
+        "cosine": 0.800000011920929,
+        "mean_attention": 1.0,
+        "std_attention": 0.0
+      },
+      {
+        "cosine": 0.8999999761581421,
+        "mean_attention": 1.0,
+        "std_attention": 0.0
+      },
+      {
+        "cosine": 1.0,
+        "mean_attention": 1.0,
+        "std_attention": 0.0
+      }
+    ],
+    "sign_sharpness_canonical": 15.117180018292498,
+    "sign_threshold_canonical": 0.006622424582102311,
+    "slope_at_0": 3.088301569223404
+  },
+  "temp_ablated": {
+    "sweep": [
+      {
+        "cosine": -1.0,
+        "mean_attention": 0.266226589679718,
+        "std_attention": 0.028309596702456474
+      },
+      {
+        "cosine": -0.8999999761581421,
+        "mean_attention": 0.28627482056617737,
+        "std_attention": 0.03166051581501961
+      },
+      {
+        "cosine": -0.800000011920929,
+        "mean_attention": 0.309938907623291,
+        "std_attention": 0.028611617162823677
+      },
+      {
+        "cosine": -0.699999988079071,
+        "mean_attention": 0.3313968777656555,
+        "std_attention": 0.02922920696437359
+      },
+      {
+        "cosine": -0.6000000238418579,
+        "mean_attention": 0.3525540232658386,
+        "std_attention": 0.028893161565065384
+      },
+      {
+        "cosine": -0.5,
+        "mean_attention": 0.3771117329597473,
+        "std_attention": 0.026213889941573143
+      },
+      {
+        "cosine": -0.4000000059604645,
+        "mean_attention": 0.4006481170654297,
+        "std_attention": 0.02651972882449627
+      },
+      {
+        "cosine": -0.30000001192092896,
+        "mean_attention": 0.42251622676849365,
+        "std_attention": 0.029475174844264984
+      },
+      {
+        "cosine": -0.20000000298023224,
+        "mean_attention": 0.4498913586139679,
+        "std_attention": 0.027077851817011833
+      },
+      {
+        "cosine": -0.10000000149011612,
+        "mean_attention": 0.4761713445186615,
+        "std_attention": 0.024735594168305397
+      },
+      {
+        "cosine": 0.0,
+        "mean_attention": 0.49874618649482727,
+        "std_attention": 0.025995520874857903
+      },
+      {
+        "cosine": 0.10000000149011612,
+        "mean_attention": 0.523486852645874,
+        "std_attention": 0.027355991303920746
+      },
+      {
+        "cosine": 0.20000000298023224,
+        "mean_attention": 0.5491394996643066,
+        "std_attention": 0.025502348318696022
+      },
+      {
+        "cosine": 0.30000001192092896,
+        "mean_attention": 0.5786694288253784,
+        "std_attention": 0.028205230832099915
+      },
+      {
+        "cosine": 0.4000000059604645,
+        "mean_attention": 0.5993163585662842,
+        "std_attention": 0.031116517260670662
+      },
+      {
+        "cosine": 0.5,
+        "mean_attention": 0.6222522258758545,
+        "std_attention": 0.027321984991431236
+      },
+      {
+        "cosine": 0.6000000238418579,
+        "mean_attention": 0.6435939073562622,
+        "std_attention": 0.02704322151839733
+      },
+      {
+        "cosine": 0.699999988079071,
+        "mean_attention": 0.6696112751960754,
+        "std_attention": 0.029463142156600952
+      },
+      {
+        "cosine": 0.800000011920929,
+        "mean_attention": 0.689363956451416,
+        "std_attention": 0.02729625813663006
+      },
+      {
+        "cosine": 0.8999999761581421,
+        "mean_attention": 0.7102336287498474,
+        "std_attention": 0.03117172047495842
+      },
+      {
+        "cosine": 1.0,
+        "mean_attention": 0.7309447526931763,
+        "std_attention": 0.028536638244986534
+      }
+    ],
+    "sign_sharpness_canonical": 2.6378651846242334,
+    "sign_threshold_canonical": -0.0043917787378993855,
+    "slope_at_0": 0.23657754063606262
+  },
+  "W_ablated": {
+    "sweep": [
+      {
+        "cosine": -1.0,
+        "mean_attention": 0.4881003499031067,
+        "std_attention": 0.4402725398540497
+      },
+      {
+        "cosine": -0.8999999761581421,
+        "mean_attention": 0.46954426169395447,
+        "std_attention": 0.4363003075122833
+      },
+      {
+        "cosine": -0.800000011920929,
+        "mean_attention": 0.4680944085121155,
+        "std_attention": 0.44465380907058716
+      },
+      {
+        "cosine": -0.699999988079071,
+        "mean_attention": 0.5746343731880188,
+        "std_attention": 0.436799019575119
+      },
+      {
+        "cosine": -0.6000000238418579,
+        "mean_attention": 0.5292001962661743,
+        "std_attention": 0.444101482629776
+      },
+      {
+        "cosine": -0.5,
+        "mean_attention": 0.4231543242931366,
+        "std_attention": 0.43556174635887146
+      },
+      {
+        "cosine": -0.4000000059604645,
+        "mean_attention": 0.48953792452812195,
+        "std_attention": 0.4497736096382141
+      },
+      {
+        "cosine": -0.30000001192092896,
+        "mean_attention": 0.44892963767051697,
+        "std_attention": 0.43712571263313293
+      },
+      {
+        "cosine": -0.20000000298023224,
+        "mean_attention": 0.5252134799957275,
+        "std_attention": 0.4527035057544708
+      },
+      {
+        "cosine": -0.10000000149011612,
+        "mean_attention": 0.5810752511024475,
+        "std_attention": 0.4406738877296448
+      },
+      {
+        "cosine": 0.0,
+        "mean_attention": 0.5014100670814514,
+        "std_attention": 0.4306609034538269
+      },
+      {
+        "cosine": 0.10000000149011612,
+        "mean_attention": 0.49563300609588623,
+        "std_attention": 0.4513704478740692
+      },
+      {
+        "cosine": 0.20000000298023224,
+        "mean_attention": 0.42442241311073303,
+        "std_attention": 0.42314034700393677
+      },
+      {
+        "cosine": 0.30000001192092896,
+        "mean_attention": 0.5024729371070862,
+        "std_attention": 0.44968461990356445
+      },
+      {
+        "cosine": 0.4000000059604645,
+        "mean_attention": 0.5284608602523804,
+        "std_attention": 0.4449891746044159
+      },
+      {
+        "cosine": 0.5,
+        "mean_attention": 0.5172377228736877,
+        "std_attention": 0.45378464460372925
+      },
+      {
+        "cosine": 0.6000000238418579,
+        "mean_attention": 0.46579739451408386,
+        "std_attention": 0.45722195506095886
+      },
+      {
+        "cosine": 0.699999988079071,
+        "mean_attention": 0.40062785148620605,
+        "std_attention": 0.41751888394355774
+      },
+      {
+        "cosine": 0.800000011920929,
+        "mean_attention": 0.45383960008621216,
+        "std_attention": 0.4295746684074402
+      },
+      {
+        "cosine": 0.8999999761581421,
+        "mean_attention": 0.4801900088787079,
+        "std_attention": 0.44861242175102234
+      },
+      {
+        "cosine": 1.0,
+        "mean_attention": 0.5245983600616455,
+        "std_attention": 0.43338602781295776
+      }
+    ],
+    "sign_sharpness_canonical": 9.503622258865015,
+    "sign_threshold_canonical": -0.9724701428091514,
+    "slope_at_0": -0.4272112250328064
+  },
+  "hand_ideal": {
+    "sweep": [
+      {
+        "cosine": -1.0,
+        "mean_attention": 9.35762223459348e-14,
+        "std_attention": 1.3620805099521376e-20
+      },
+      {
+        "cosine": -0.8999999761581421,
+        "mean_attention": 9.35762223459348e-14,
+        "std_attention": 1.3620805099521376e-20
+      },
+      {
+        "cosine": -0.800000011920929,
+        "mean_attention": 9.35762223459348e-14,
+        "std_attention": 1.3620805099521376e-20
+      },
+      {
+        "cosine": -0.699999988079071,
+        "mean_attention": 9.35762223459348e-14,
+        "std_attention": 1.3620805099521376e-20
+      },
+      {
+        "cosine": -0.6000000238418579,
+        "mean_attention": 9.35762223459348e-14,
+        "std_attention": 1.3620805099521376e-20
+      },
+      {
+        "cosine": -0.5,
+        "mean_attention": 4.2474620283623754e-13,
+        "std_attention": 1.1279833947418642e-18
+      },
+      {
+        "cosine": -0.4000000059604645,
+        "mean_attention": 1.266202281913209e-10,
+        "std_attention": 2.768364134258334e-16
+      },
+      {
+        "cosine": -0.30000001192092896,
+        "mean_attention": 3.774655965571583e-08,
+        "std_attention": 7.422063858690889e-14
+      },
+      {
+        "cosine": -0.20000000298023224,
+        "mean_attention": 1.1252443073317409e-05,
+        "std_attention": 1.654251388649719e-11
+      },
+      {
+        "cosine": -0.10000000149011612,
+        "mean_attention": 0.0033432694617658854,
+        "std_attention": 3.823507288558403e-09
+      },
+      {
+        "cosine": 0.0,
+        "mean_attention": 0.5,
+        "std_attention": 1.9786769200891285e-07
+      },
+      {
+        "cosine": 0.10000000149011612,
+        "mean_attention": 0.9966567754745483,
+        "std_attention": 4.3198053134574366e-08
+      },
+      {
+        "cosine": 0.20000000298023224,
+        "mean_attention": 0.9999887943267822,
+        "std_attention": 0.0
+      },
+      {
+        "cosine": 0.30000001192092896,
+        "mean_attention": 1.0,
+        "std_attention": 0.0
+      },
+      {
+        "cosine": 0.4000000059604645,
+        "mean_attention": 1.0,
+        "std_attention": 0.0
+      },
+      {
+        "cosine": 0.5,
+        "mean_attention": 1.0,
+        "std_attention": 0.0
+      },
+      {
+        "cosine": 0.6000000238418579,
+        "mean_attention": 1.0,
+        "std_attention": 0.0
+      },
+      {
+        "cosine": 0.699999988079071,
+        "mean_attention": 1.0,
+        "std_attention": 0.0
+      },
+      {
+        "cosine": 0.800000011920929,
+        "mean_attention": 1.0,
+        "std_attention": 0.0
+      },
+      {
+        "cosine": 0.8999999761581421,
+        "mean_attention": 1.0,
+        "std_attention": 0.0
+      },
+      {
+        "cosine": 1.0,
+        "mean_attention": 1.0,
+        "std_attention": 0.0
+      }
+    ],
+    "sign_sharpness_canonical": 56.97463904698571,
+    "sign_threshold_canonical": -4.2178490117578164e-11,
+    "slope_at_0": 4.966567530063912
+  },
+  "linear_baseline": {
+    "sweep": [
+      {
+        "cosine": -1.0,
+        "mean_attention": 0.0,
+        "std_attention": 0.0
+      },
+      {
+        "cosine": -0.8999999761581421,
+        "mean_attention": 0.0,
+        "std_attention": 0.0
+      },
+      {
+        "cosine": -0.800000011920929,
+        "mean_attention": 0.0,
+        "std_attention": 0.0
+      },
+      {
+        "cosine": -0.699999988079071,
+        "mean_attention": 0.0,
+        "std_attention": 0.0
+      },
+      {
+        "cosine": -0.6000000238418579,
+        "mean_attention": 0.0,
+        "std_attention": 0.0
+      },
+      {
+        "cosine": -0.5,
+        "mean_attention": 0.0,
+        "std_attention": 0.0
+      },
+      {
+        "cosine": -0.4000000059604645,
+        "mean_attention": 0.0,
+        "std_attention": 0.0
+      },
+      {
+        "cosine": -0.30000001192092896,
+        "mean_attention": 0.0,
+        "std_attention": 0.0
+      },
+      {
+        "cosine": -0.20000000298023224,
+        "mean_attention": 0.0,
+        "std_attention": 0.0
+      },
+      {
+        "cosine": -0.10000000149011612,
+        "mean_attention": 0.0,
+        "std_attention": 0.0
+      },
+      {
+        "cosine": 0.0,
+        "mean_attention": 5.559995575055154e-09,
+        "std_attention": 8.054571232207763e-09
+      },
+      {
+        "cosine": 0.10000000149011612,
+        "mean_attention": 0.10000001639127731,
+        "std_attention": 2.3006922589274836e-08
+      },
+      {
+        "cosine": 0.20000000298023224,
+        "mean_attention": 0.20000006258487701,
+        "std_attention": 5.341289011084882e-08
+      },
+      {
+        "cosine": 0.30000001192092896,
+        "mean_attention": 0.2999999523162842,
+        "std_attention": 7.890640318919395e-08
+      },
+      {
+        "cosine": 0.4000000059604645,
+        "mean_attention": 0.40000012516975403,
+        "std_attention": 1.0753726087386895e-07
+      },
+      {
+        "cosine": 0.5,
+        "mean_attention": 0.5,
+        "std_attention": 4.9216914987937344e-08
+      },
+      {
+        "cosine": 0.6000000238418579,
+        "mean_attention": 0.5999999046325684,
+        "std_attention": 1.2834200902034354e-07
+      },
+      {
+        "cosine": 0.699999988079071,
+        "mean_attention": 0.6999998688697815,
+        "std_attention": 1.4513814505789924e-07
+      },
+      {
+        "cosine": 0.800000011920929,
+        "mean_attention": 0.8000002503395081,
+        "std_attention": 2.2374307206973754e-07
+      },
+      {
+        "cosine": 0.8999999761581421,
+        "mean_attention": 0.8999999761581421,
+        "std_attention": 5.807997638385132e-08
+      },
+      {
+        "cosine": 1.0,
+        "mean_attention": 1.0,
+        "std_attention": 3.882282584299901e-08
+      }
+    ],
+    "sign_sharpness_canonical": 5.2331490714625515,
+    "sign_threshold_canonical": 0.5015974484255292,
+    "slope_at_0": 0.5000000819563866
+  }
+}

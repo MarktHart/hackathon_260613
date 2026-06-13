@@ -1,0 +1,33 @@
+{
+  "goal": "attention_modular_add",
+  "attempt": "first_pass",
+  "run_id": "20260613T132310Z",
+  "verdict_version": 1,
+  "architecture_fit": {"score": 2, "note": "Hand-built Fourier function solves the task perfectly but has no attention/transformer at all, so it never addresses the goal's 'does attention implement it' question or stay close to base_model.py."},
+  "baseline_comparison": {"score": 2, "note": "Only baseline is random 1/p from the benchmark metrics; no in-attempt ablation/strawman (e.g. no-exp or single-frequency) showing where the mechanism is necessary."},
+  "faithfulness": {"score": 2, "note": "No model exists to ablate/patch and the README proposes no causal check; the Fourier mechanism is faithfully implemented but there is no evidence any learned model uses it."},
+  "operating_range": {"score": 3, "note": "Sweeps moduli 11->113 (~1 order of magnitude) with constant 1.0 accuracy, but perfection is by construction so no degradation edge is revealed."},
+  "hardcoded_weights_bonus": {"score": 5, "note": "Entire attempt is a clean hand-set Fourier/circular circuit reproducing modular addition exactly — exactly the kind of by-hand mechanism this bonus rewards."},
+  "visual_judgement": {"score": 2, "note": "Demo tab is text-only (Textboxes for prediction and an embedding table); the bar chart of the logit vector promised in the README is absent."},
+  "visualisation_rationale": {"score": 2, "note": "The 'Why this visualisation' section argues for a logit bar chart with a sharp peak and sinusoidal wrap, but that chart is not implemented — rationale describes a viz that doesn't exist."},
+  "automated_metrics": {
+    "version": 1,
+    "modular_add_accuracy_modulus_11": 1.0,
+    "linear_baseline_accuracy_modulus_11": 0.09090909090909091,
+    "modular_add_accuracy_modulus_13": 1.0,
+    "linear_baseline_accuracy_modulus_13": 0.07692307692307693,
+    "modular_add_accuracy_modulus_17": 1.0,
+    "linear_baseline_accuracy_modulus_17": 0.058823529411764705,
+    "modular_add_accuracy_modulus_37": 1.0,
+    "linear_baseline_accuracy_modulus_37": 0.02702702702702703,
+    "modular_add_accuracy_modulus_53": 1.0,
+    "linear_baseline_accuracy_modulus_53": 0.018867924528301886,
+    "modular_add_accuracy_modulus_113": 1.0,
+    "linear_baseline_accuracy_modulus_113": 0.008849557522123894,
+    "modular_add_accuracy_canonical": 1.0,
+    "lift_over_baseline_canonical": 0.9911504424778761,
+    "modular_add_robustness": 1.0
+  },
+  "overall": "fail",
+  "notes": "A correct, deterministic hand-built Fourier/circular circuit that hits 1.0 accuracy across the full modulus sweep and earns the hardcoded-weights bonus. But it is pure NumPy with no attention, transformer, or delta from base_model.py, so it sidesteps the goal's core question of whether attention implements modular addition, and offers no causal/faithfulness evidence. The visualisation is text-only and does not match the bar chart its README claims, weakening the demo further."
+}

@@ -1,178 +1,126 @@
-"""Task definition for the `attention_or` goal.
-
-The goal owns this file just like it owns `benchmark.py`. Every attempt
-imports it so the cosine-similarity sweep, the canonical ``d`` / canonical
-``rho``, the query/key/value geometry, and the Boolean truth table are
-byte-identical across attempts — no drift in what the question actually is.
-
-An attempt only contributes a **model function**:
-
-    model_fn(batch: Batch) -> np.ndarray   # shape (4, d)
-
-returning the attention-output vector for each of the four Boolean input
-pairs, in the exact order of ``batch.inputs`` — i.e.
-``(0,0), (0,1), (1,0), (1,1)``. The attempt implements the forward pass of
-the 1-head block; the framework only supplies the geometry (``q_A``, ``q_B``,
-``k_A``, ``k_B``, ``v_A``, ``v_B``) and the input pairs.
-
-`evaluate` builds one batch per ``rho`` in the canonical sweep, runs the
-model, computes per-slice sharpness, and assembles the payload that
-`benchmark.score()` consumes. Hand-built attempts can call `evaluate`
-directly with no training; trained attempts call it after training. Both
-paths produce the same payload shape.
-"""
-
-from __future__ import annotations
-
-import math
-from collections.abc import Callable
-from dataclasses import dataclass
-from typing import Any
-
 import numpy as np
-
-# Keep in sync with `benchmark.VERSION`. The benchmark validates this on the
-# payload and raises if they drift, so a missed bump fails loudly rather than
-# silently producing wrong numbers.
-VERSION: int = 1
-
-D: int = 32
-CANONICAL_RHO: float = 0.7
-
-# Cosine similarity sweep between the two feature query vectors. Exact
-# two-decimal values so the sweep keys never carry float dust. Must match the
-# README "Payload contract" and the per-slice metric tags in `benchmark.py`.
-RHO_SWEEP: list[float] = [0.0, 0.2, 0.4, 0.6, 0.7, 0.8, 0.9, 0.95]
+from dataclasses import dataclass
 
 
 @dataclass(frozen=True)
 class Batch:
-    """One synthetic 1-head attention configuration at a single ``rho``.
-
-    Vectors are plain ``np.ndarray`` of shape ``(d,)``. ``inputs`` is the
-    fixed truth table in canonical order; ``model_fn`` must return outputs in
-    the same order.
-    """
-
-    rho: float
-    d: int
-    q_A: np.ndarray
-    q_B: np.ndarray
-    k_A: np.ndarray
-    k_B: np.ndarray
-    v_A: np.ndarray
-    v_B: np.ndarray
-    inputs: list[tuple[int, int]]
-
-
-# model_fn(batch) -> np.ndarray of shape (4, d), rows aligned to batch.inputs.
-ModelFn = Callable[[Batch], np.ndarray]
-
-# Canonical truth table order: (0,0), (0,1), (1,0), (1,1).
-_INPUTS: list[tuple[int, int]] = [(0, 0), (0, 1), (1, 0), (1, 1)]
+    """Container for the canonical (orthogonal-anchor) synthetic problem instance."""
+    K: np.ndarray          # (d, n) key matrix at the canonical condition
+    q_A: np.ndarray        # (d,) unit query direction for feature A
+    q_B: np.ndarray        # (d,) unit query direction for feature B
+    cos_values: np.ndarray # (11,) sweep values cos(q_A, q_B) in [0, 1]
 
 
 def _unit(v: np.ndarray) -> np.ndarray:
-    n = float(np.linalg.norm(v))
-    return v / n if n > 0 else v
+    """Normalize to unit norm; leave a zero vector unchanged."""
+    norm = np.linalg.norm(v)
+    return v / norm if norm > 0 else v
 
 
-def _make_batch(rho: float, d: int, seed: int) -> Batch:
-    """Build a deterministic batch whose two query vectors have ``cos = rho``.
+def _make_directions(d: int, cos_AB: float, rng: np.random.Generator):
+    """Two unit query vectors q_A, q_B with exactly cos(q_A, q_B) == cos_AB."""
+    A = _unit(rng.standard_normal(d))
+    ortho = rng.standard_normal(d)
+    ortho = ortho - np.dot(ortho, A) * A      # component orthogonal to A
+    ortho = _unit(ortho)
+    sin_AB = np.sqrt(max(0.0, 1.0 - cos_AB * cos_AB))
+    B = cos_AB * A + sin_AB * ortho           # unit norm by construction
+    return A, B
 
-    Construction (matches README "Setup"):
-      - ``q_A`` is a fixed unit vector.
-      - ``q_B = rho * q_A + sqrt(1 - rho^2) * u`` with ``u`` a unit vector
-        orthogonal to ``q_A``, so ``cos(q_A, q_B) == rho`` exactly.
-      - ``k_A = q_A``, ``k_B = q_B`` (matched queries/keys).
-      - ``v_A = v_B = [1, 0, ..., 0]`` (scalar 1 in the first component).
+
+def _build_keys(A: np.ndarray, B: np.ndarray, d: int, n: int,
+                rng: np.random.Generator) -> np.ndarray:
+    """Key matrix: column 0 = k_A (=q_A dir), column 1 = k_B (=q_B dir),
+    remaining n-2 columns = random unit noise keys."""
+    K = rng.standard_normal((d, n))
+    K = K / np.linalg.norm(K, axis=0, keepdims=True)
+    K[:, 0] = A
+    K[:, 1] = B
+    return K
+
+
+def _balanced_superposition(q_A: np.ndarray, q_B: np.ndarray) -> np.ndarray:
+    """q_AB = normalize(q_A + q_B): the single combined query an OR mechanism
+    must make attend to *both* signal keys at once."""
+    return _unit(q_A + q_B)
+
+
+def _build_problem(seed: int = 0) -> Batch:
+    """Deterministic construction of the canonical (orthogonal) problem instance.
+
+    Same seed -> identical Batch. The canonical anchor is cos(q_A, q_B) = 0.0,
+    i.e. the first sweep value.
     """
-    rho = float(np.clip(rho, -1.0, 1.0))
     rng = np.random.default_rng(seed)
-
-    q_A = _unit(rng.standard_normal(d))
-    u = rng.standard_normal(d)
-    u = u - (u @ q_A) * q_A  # orthogonalise against q_A
-    u = _unit(u)
-    q_B = _unit(rho * q_A + math.sqrt(max(0.0, 1.0 - rho * rho)) * u)
-
-    e0 = np.zeros(d, dtype=float)
-    e0[0] = 1.0
-
-    return Batch(
-        rho=rho,
-        d=d,
-        q_A=q_A,
-        q_B=q_B,
-        k_A=q_A.copy(),
-        k_B=q_B.copy(),
-        v_A=e0.copy(),
-        v_B=e0.copy(),
-        inputs=list(_INPUTS),
-    )
+    d, n = 32, 64
+    cos_values = np.linspace(0.0, 1.0, 11)
+    A, B = _make_directions(d, float(cos_values[0]), rng)  # canonical: cos = 0.0
+    K = _build_keys(A, B, d, n, rng)
+    return Batch(K=K, q_A=A, q_B=B, cos_values=cos_values)
 
 
 def generate(seed: int = 0) -> Batch:
-    """Return the canonical batch (at ``rho = CANONICAL_RHO``).
+    """Deterministic for a given seed. Same seed -> identical Batch."""
+    return _build_problem(seed)
 
-    Deterministic for a given seed: same seed → byte-identical batch. The
-    geometry is the single source of truth for the question; attempts may not
-    change it — they only provide ``model_fn``. ``seed`` controls the fixed
-    random query directions; the canonical condition uses ``seed = 0``.
+
+def evaluate(model_fn) -> dict:
     """
-    return _make_batch(CANONICAL_RHO, D, seed)
+    Run `model_fn` over (q_A, q_B, q_AB) at each sweep value and return the
+    payload dict exactly as benchmark.score expects it.
 
-
-def evaluate(model_fn: ModelFn, *, seed: int = 0) -> dict[str, Any]:
-    """Run `model_fn` across the canonical cosine sweep, return a benchmark payload.
-
-    Builds one batch per ``rho`` in ``RHO_SWEEP`` (same ``seed`` so the query
-    directions are shared and only their relative cosine changes), runs the
-    model, and assembles the dict that `benchmark.score` consumes — pass it
-    straight to `record_benchmark`.
-
-    Raises:
-        ValueError: if `model_fn` returns the wrong shape or a non-finite value.
+    The problem instance is rebuilt at each sweep point so that the swept
+    quantity is the *actual* cosine similarity cos(q_A, q_B); the combined
+    query is always the balanced superposition normalize(q_A + q_B).
     """
-    sweep: list[dict[str, Any]] = []
-    for rho in RHO_SWEEP:
-        batch = _make_batch(rho, D, seed)
-        out = np.asarray(model_fn(batch), dtype=float)
-        if out.shape != (4, D):
-            raise ValueError(
-                f"model_fn(rho={rho}) returned shape {out.shape}, expected (4, {D})"
-            )
-        if not np.all(np.isfinite(out)):
-            raise ValueError(f"model_fn(rho={rho}) returned non-finite values")
+    d, n = 32, 64
+    cos_values = np.linspace(0.0, 1.0, 11)
 
-        out_00, out_01, out_10, out_11 = (out[0], out[1], out[2], out[3])
+    # Deterministic, independent per-slice seeds derived from the canonical seed.
+    master_rng = np.random.default_rng(0)
+    slice_seeds = master_rng.integers(0, 2**31 - 1, size=len(cos_values))
 
-        # Sharpness uses the first component only (the value basis). Identical
-        # formula to benchmark.score so the precomputed value matches its
-        # recomputation exactly.
-        or1 = [float(out_01[0]), float(out_10[0]), float(out_11[0])]
-        mean_or1 = sum(or1) / 3.0
-        gap = mean_or1 - float(out_00[0])
-        denom = (max(or1) - min(or1)) + 1e-8
-        sharpness = gap / denom
+    sweep_records = []
+    for cos, sseed in zip(cos_values, slice_seeds):
+        rng = np.random.default_rng(int(sseed))
+        q_A, q_B = _make_directions(d, float(cos), rng)
+        K = _build_keys(q_A, q_B, d, n, rng)
+        q_AB = _balanced_superposition(q_A, q_B)
 
-        sweep.append(
-            {
-                "rho": rho,
-                "out_00": out_00.tolist(),
-                "out_01": out_01.tolist(),
-                "out_10": out_10.tolist(),
-                "out_11": out_11.tolist(),
-                "sharpness": sharpness,
-            }
-        )
+        s_A  = np.asarray(model_fn(q_A,  K), dtype=float).reshape(-1)
+        s_B  = np.asarray(model_fn(q_B,  K), dtype=float).reshape(-1)
+        s_AB = np.asarray(model_fn(q_AB, K), dtype=float).reshape(-1)
+
+        # Indices 0 and 1 are the signal keys k_A, k_B; the rest are noise.
+        sweep_records.append({
+            "cos": float(cos),
+            "s_A_at_A": float(s_A[0]),
+            "s_A_at_B": float(s_A[1]),
+            "s_A_noise_max": float(np.max(s_A[2:])) if len(s_A) > 2 else 0.0,
+            "s_B_at_A": float(s_B[0]),
+            "s_B_at_B": float(s_B[1]),
+            "s_B_noise_max": float(np.max(s_B[2:])) if len(s_B) > 2 else 0.0,
+            "s_AB_at_A": float(s_AB[0]),
+            "s_AB_at_B": float(s_AB[1]),
+            "s_AB_noise_max": float(np.max(s_AB[2:])) if len(s_AB) > 2 else 0.0,
+        })
 
     return {
-        "version": VERSION,
-        "config": {
-            "d": D,
-            "canonical_rho": CANONICAL_RHO,
-            "rho_sweep": list(RHO_SWEEP),
+        "version": 1,
+        "canonical_cos": 0.0,
+        "sweep": sweep_records,
+        "model_config": {
+            "d": d,
+            "n": n,
+            "seed": 0,
         },
-        "sweep": sweep,
     }
+
+
+def random_model_fn():
+    """Returns a compliant model_fn that emits zeros (for smoke testing)."""
+    def _fn(query: np.ndarray, keys: np.ndarray) -> np.ndarray:
+        # query: (d,), keys: (d, n) -> returns (n,) zeros
+        n = keys.shape[1]
+        return np.zeros(n, dtype=np.float32)
+    return _fn

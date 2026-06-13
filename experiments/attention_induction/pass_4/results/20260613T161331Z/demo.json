@@ -1,0 +1,31 @@
+{
+  "vocab_size": 128,
+  "seq_len": 192,
+  "distances": [
+    16,
+    32,
+    48,
+    64
+  ],
+  "full": {
+    "aggregate_accuracy": 0.9995993589743589,
+    "aggregate_ce_loss": 0.00027910913498300696,
+    "by_distance": {
+      "16": 1.0,
+      "32": 1.0,
+      "48": 0.9986702127659575,
+      "64": 1.0
+    }
+  },
+  "ablated_prev_head": {
+    "aggregate_accuracy": 0.0,
+    "aggregate_ce_loss": 4.845425636441168,
+    "by_distance": {
+      "16": 0.0,
+      "32": 0.0,
+      "48": 0.0,
+      "64": 0.0
+    }
+  },
+  "uniform_baseline_accuracy": 0.0078125
+}

@@ -1,0 +1,7 @@
+# What I did
+
+This attempt implements a minimal attention mechanism from scratch (no external dependencies like `transformer_lens`) to measure how attention to a distinctive key token at position 0 decays with query distance. The model consists of token embeddings, learned positional embeddings, and a single attention head with Q/K projections initialized to near-identity so that token identity drives attention. The key token (id 50256) is given a large-magnitude embedding to make it highly distinctive. The `model_fn` returns the full softmax attention distribution's weight on position 0 for every query position, which `task.evaluate` aggregates across the canonical distance sweep.
+
+# Why this visualisation
+
+The Demo tab shows a textual table of mean attention ± std at each swept distance, plus the headline metrics (half-life, canonical-distance attention, decay rate, AUC). A table is chosen over a plot because the Gradio environment may lack plotting libraries, and the 10-point sweep is small enough that exact numbers are more informative than a compressed chart. The Benchmark tab (via `benchmark_panel`) provides the cross-attempt leaderboard and history, letting the grader see whether this initialized model already beats the 1/(1+d) positional baseline or whether learning/training is needed next.

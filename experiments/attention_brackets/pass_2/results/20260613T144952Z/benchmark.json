@@ -1,0 +1,86 @@
+{
+  "goal": "attention_brackets",
+  "attempt": "pass_2",
+  "run_id": "20260613T144952Z",
+  "metrics": {
+    "version": 1,
+    "match_accuracy_depth_1": 0.08333333333333333,
+    "match_mass_depth_1": 0.05315829623646643,
+    "uniform_baseline_mass_depth_1": 0.12930044492544485,
+    "match_lift_depth_1": 0.0,
+    "match_accuracy_depth_2": 0.049479166666666664,
+    "match_mass_depth_2": 0.038714236363332925,
+    "uniform_baseline_mass_depth_2": 0.11828340531756358,
+    "match_lift_depth_2": 0.0,
+    "match_accuracy_depth_3": 0.037760416666666664,
+    "match_mass_depth_3": 0.032411027449837336,
+    "uniform_baseline_mass_depth_3": 0.11185408126505231,
+    "match_lift_depth_3": 0.0,
+    "match_accuracy_depth_4": 0.046875,
+    "match_mass_depth_4": 0.03564809979631,
+    "uniform_baseline_mass_depth_4": 0.11147179615671614,
+    "match_lift_depth_4": 0.0,
+    "match_accuracy_depth_5": 0.04296875,
+    "match_mass_depth_5": 0.03262413001803805,
+    "uniform_baseline_mass_depth_5": 0.10880606774039252,
+    "match_lift_depth_5": 0.0,
+    "bracket_match_accuracy_canonical": 0.037760416666666664,
+    "bracket_match_mass_canonical": 0.032411027449837336,
+    "uniform_baseline_mass_canonical": 0.11185408126505231,
+    "lift_over_uniform_canonical": 0.0,
+    "bracket_match_robustness": 0.0
+  },
+  "payload": {
+    "version": 1,
+    "config": {
+      "depths": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "canonical_depth": 3,
+      "n_per_depth": 64,
+      "seq_len": 24,
+      "bracket_types": 1
+    },
+    "sweep": [
+      {
+        "n_closers": 768,
+        "match_accuracy": 0.08333333333333333,
+        "match_mass": 0.05315829623646643,
+        "uniform_baseline_mass": 0.12930044492544485,
+        "depth": 1
+      },
+      {
+        "n_closers": 768,
+        "match_accuracy": 0.049479166666666664,
+        "match_mass": 0.038714236363332925,
+        "uniform_baseline_mass": 0.11828340531756358,
+        "depth": 2
+      },
+      {
+        "n_closers": 768,
+        "match_accuracy": 0.037760416666666664,
+        "match_mass": 0.032411027449837336,
+        "uniform_baseline_mass": 0.11185408126505231,
+        "depth": 3
+      },
+      {
+        "n_closers": 768,
+        "match_accuracy": 0.046875,
+        "match_mass": 0.03564809979631,
+        "uniform_baseline_mass": 0.11147179615671614,
+        "depth": 4
+      },
+      {
+        "n_closers": 768,
+        "match_accuracy": 0.04296875,
+        "match_mass": 0.03262413001803805,
+        "uniform_baseline_mass": 0.10880606774039252,
+        "depth": 5
+      }
+    ]
+  }
+}

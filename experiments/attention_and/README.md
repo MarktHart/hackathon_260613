@@ -2,178 +2,140 @@
 
 ## Question
 
-Can a transformer attention head implement a logical **AND** over two features that are stored in **superposition** in the residual stream? Concretely: when two query-direction features `A` and `B` are both present (each at cosine similarity ≥ threshold with their respective query vectors), does the attention head output a sharp "both present" signal, while suppressing the signal when only one or neither is present?
-
-This is a minimal test of **non-linear feature binding** in attention — a prerequisite for compositional reasoning.
-
----
+Can a single attention head implement a clean **logical AND** over two
+independent query directions (q_A and q_B) in superposition? Specifically,
+does the head attend sharply **only when both** query features are present,
+and suppress attention when either is absent — and does it keep doing so as
+the two feature directions overlap (cosine grows from 0 toward 1)?
 
 ## Setup
 
-**Synthetic generator.**  
-We construct a controlled residual-stream vector `x ∈ ℝ^d` as a linear combination of two orthogonal feature directions `v_A, v_B ∈ ℝ^d` plus isotropic noise:
+**Synthetic generator** — fully controlled, no trained models. We construct a
+minimal residual stream where two binary features (A, B) are encoded as
+orthogonal (or near-orthogonal) directions q_A, q_B ∈ ℝ^d. The ground-truth
+attention pattern is:
 
 ```
-x = α·v_A + β·v_B + ε·η,   η ~ N(0, I_d)
+Attend to position i  ⇔  feature A present at i  AND  feature B present at i
 ```
 
-- `d = 128` (fixed).
-- `v_A, v_B` are fixed random unit vectors with `v_A ⋅ v_B = 0`.
-- `α, β ∈ {0, 1}` control presence/absence of each feature.
-- `ε = 0.1` (fixed noise scale).
-- The **canonical measurement condition** uses `α = β = 1` (both features present) and sweeps the cosine similarity between the *query* vectors `q_A, q_B` and their target features `v_A, v_B`.
+We sweep the cosine similarity cos(q_A, q_B) ∈ [0, 1] to test robustness to
+superposition (non-orthogonal features).
 
-**Query vectors.**  
-For each sweep value `c = cos(q_A, v_A) = cos(q_B, v_B) ∈ {0.0, 0.3, 0.5, 0.7, 0.9, 1.0}`, we construct query vectors `q_A, q_B` that have cosine `c` with their target features and are orthogonal to the other feature and to each other. The attention head computes:
+### Canonical measurement condition
 
-```
-attn_A = softmax((x ⋅ q_A) / √d)   # scalar in this 1-head, 1-query setup
-attn_B = softmax((x ⋅ q_B) / √d)
-```
+- `d = 64` (residual dimension)
+- `n_positions = 100`
+- feature density = `0.3` (each feature independently present at a position
+  with probability 0.3)
+- canonical cosine = `0.0` (orthogonal features)
+- sweep: `cos ∈ {0.0, 0.2, 0.4, 0.6, 0.8, 1.0}`
+- `10` random seeds per cosine value, averaged
+- evaluation batch uses a fixed seed (`generate(seed=42)`); `generate` is
+  deterministic for any given seed.
 
-The **model function** provided by an attempt must implement the *entire* attention computation (QKV projections, softmax, output projection) for a single head. The goal infrastructure handles the residual-stream construction and the sweep.
+## Model function signature
 
-**Model function signature (contract with attempts):**
+The goal's contract with attempts. An attempt provides a `model_fn` and hands
+it to `task.evaluate`; it never builds the payload itself.
 
 ```python
-def model_fn(q_A: np.ndarray, q_B: np.ndarray, x: np.ndarray) -> tuple[float, float]:
+def model_fn(q_A: np.ndarray, q_B: np.ndarray, residual: np.ndarray) -> np.ndarray:
     """
-    Compute attention weights for the two query vectors on a single residual stream vector.
-
     Args:
-        q_A: (d,) query vector for feature A.
-        q_B: (d,) query vector for feature B.
-        x:   (d,) residual stream vector (α·v_A + β·v_B + noise).
+        q_A:      (d,)              query direction for feature A
+        q_B:      (d,)              query direction for feature B
+        residual: (n_positions, d) residual stream at each position
 
     Returns:
-        (attn_A, attn_B) where each is the softmax attention weight (scalar in [0,1])
-        that the head assigns to the token position (here only one position, so
-        effectively the pre-softmax logit passed through softmax over a 1-element
-        sequence — i.e. σ(logit) = 1.0 always. The meaningful signal is the *logit*
-        x⋅q; see payload contract below).
+        attn_logits: (n_positions,) unnormalised attention logits
+                     (higher = more attention)
     """
-    ...
 ```
 
-*Clarification:* Because we use a single-token sequence, softmax is degenerate. The payload therefore records the **pre-softmax logits** `logit_A = x ⋅ q_A / √d` and `logit_B = x ⋅ q_B / √d`. The attempt's `model_fn` returns these logits (or any monotonic transform; the benchmark only uses their difference). The infrastructure calls `model_fn` for each `(c, α, β)` combination.
+The attempt returns raw logits; `task.evaluate` applies softmax and computes
+all metrics. `task.random_model_fn()` returns a reference `model_fn` that
+emits random logits of the correct shape (used by the smoke test).
 
----
+## Payload contract
 
-## Canonical Measurement Condition
-
-| Parameter          | Value                     |
-|--------------------|---------------------------|
-| Residual dimension | `d = 128`                 |
-| Feature directions | Fixed orthogonal `v_A, v_B` (seeded) |
-| Noise scale        | `ε = 0.1`                 |
-| Sweep axis         | `c = cos(q, v) ∈ {0.0, 0.3, 0.5, 0.7, 0.9, 1.0}` |
-| Presence pairs     | `(α, β) ∈ {(1,1), (1,0), (0,1), (0,0)}` |
-| Seeds              | `generate(seed)` fixes `v_A, v_B, η` for each `(α,β)`; `seed=0` is canonical |
-
----
-
-## Payload Contract
-
-`task.evaluate(model_fn)` returns a dict with the following exact structure:
+`task.evaluate(model_fn)` returns a dict with exactly these keys:
 
 ```python
 {
-    "version": 2,                   # payload schema version (matches benchmark.VERSION)
-    "d": 128,                       # residual dimension
-    "noise_scale": 0.1,             # ε
-    "sweep": [                      # one record per cosine value c
+    "version": 2,                       # int, matches benchmark.VERSION
+    "model_name": "synthetic_attention_and",
+    "d": 64,                            # int, residual dimension
+    "canonical_cosine": 0.0,           # float, the canonical condition
+    "cos_AB_sweep": [0.0, 0.2, 0.4, 0.6, 0.8, 1.0],   # list[float], the sweep axis
+    "sweep": [                          # one record per cos_AB_sweep value
         {
-            "cos_sim": 0.0,         # c = cos(q_A, v_A) = cos(q_B, v_B)
-            "logit_AA": float,      # x(1,1) ⋅ q_A / √d  (both features present)
-            "logit_AB": float,      # x(1,1) ⋅ q_B / √d
-            "logit_A0": float,      # x(1,0) ⋅ q_A / √d  (only A present)
-            "logit_B0": float,      # x(0,1) ⋅ q_B / √d  (only B present)
-            "logit_00_A": float,    # x(0,0) ⋅ q_A / √d  (neither present)
-            "logit_00_B": float,    # x(0,0) ⋅ q_B / √d
+            "cosine": 0.0,              # float, cos(q_A, q_B)
+            "and_sharpness": 0.87,      # float in [0,1], AND-boundary sharpness
+            "false_positive_rate": 0.03,# float in [0,1], attends when ¬(A∧B)
+            "false_negative_rate": 0.08,# float in [0,1], misses when A∧B
+            "n_seeds": 10,              # int
         },
-        ...                         # repeated for each c in the sweep
+        ...
     ],
-    "canonical_cos_sim": 0.7        # the c value used for headline metrics
+    "linear_baseline": [                # same axis, no-mechanism reference
+        {
+            "cosine": 0.0,             # float
+            "and_sharpness": 0.42,     # float in [0,1]
+            "n_seeds": 10,             # int
+        },
+        ...
+    ],
 }
 ```
 
-**Notes:**
-
-- All logits are **pre-softmax** scalars (`x ⋅ q / √d`). Each reported value is the **mean over independent noise draws** of the same residual configuration (the infrastructure averages internally for stability; the payload still carries one float per quantity).
-- `logit_AA` and `logit_AB` are the two logits when *both* features are present (`α=β=1`).
-- `logit_A0` is the logit for `q_A` when only `A` is present (`α=1, β=0`).
-- `logit_B0` is the logit for `q_B` when only `B` is present (`α=0, β=1`).
-- `logit_00_A`, `logit_00_B` are the noise-floor logits when neither feature is present.
-- The sweep contains exactly 6 records (one per `c` value). Order is fixed: ascending `cos_sim`.
-
----
+`sweep` and `linear_baseline` are both lists of the same length as
+`cos_AB_sweep`, each indexed by its `cosine` field. All sharpness and rate
+values are in `[0, 1]`; higher sharpness is better, lower FPR/FNR is better.
 
 ## Metrics
 
-All metrics are **bigger-is-better** unless noted.
+`benchmark.score(payload)` returns a flat dict of scalars (floats `0.7` named
+`0p7`):
+
+| metric | meaning | direction |
+|--------|---------|-----------|
+| `version` | `benchmark.VERSION` (= 2) | — |
+| `and_sharpness_cos_0p0` … `and_sharpness_cos_1p0` | per-cosine AND sharpness | **bigger = better** |
+| `false_positive_rate_cos_0p0` … `_cos_1p0` | per-cosine FPR | smaller = better |
+| `false_negative_rate_cos_0p0` … `_cos_1p0` | per-cosine FNR | smaller = better |
+| `linear_baseline_sharpness_cos_0p0` … `_cos_1p0` | baseline sharpness per cosine | reference |
+| `and_sharpness_canonical` | sharpness at `canonical_cosine` (0.0) | **bigger = better** |
+| `lift_over_baseline_canonical` | `and_sharpness_canonical − linear_baseline_sharpness_cos_0p0` | bigger = better |
+| `superposition_robustness` | sharpness at max cos (1.0) ÷ sharpness at min cos (0.0), clipped to `[0,1]` | **bigger = better** (headline) |
 
 ### Headline summary
 
-| Metric | Formula | Interpretation |
-|--------|---------|----------------|
-| `superposition_robustness` | `mean_c( and_sharpness_c ) / and_sharpness_c=1.0` | Average AND sharpness across the sweep, normalised by the perfect-alignment (`c=1.0`) sharpness. Range `[0, 1]`. Measures how gracefully the AND degrades as query alignment worsens. |
+**`superposition_robustness`** — the fraction of orthogonal-case sharpness
+that survives at maximum superposition (cos = 1.0). A head that degrades
+gracefully scores near 1.0; one that collapses when features overlap scores
+near 0.0.
 
-### Per-slice values (one per `cos_sim` value `c`)
+## Pipeline hooks
 
-For each `c`, define the **AND sharpness** as the logit gap between the "both present" case and the maximum of the single-feature cases:
+- `GPU_REQUIREMENT = 1` — attempts run on the GPU (the smoke test runs
+  `task`/`benchmark` on CPU/NumPy).
+- `is_obviously_broken(metrics)` — short-circuits the jury when metrics are
+  NaN/inf or fail to beat the linear baseline at the canonical condition.
+  (The gate is additive, not multiplicative: `and_sharpness` is clipped to
+  `[0, 1]`, so requiring a multiple of a baseline that already sits near `0.77`
+  would be unsatisfiable even for a perfect attempt.)
 
-```
-and_sharpness(c) = logit_AA(c) - max(logit_A0(c), logit_B0(c))
-```
+## Bump procedure
 
-(Using the `logit_AB` symmetric counterpart gives the same value in expectation; we average the two heads for stability.)
+Bump `VERSION` (in `benchmark.py` and this README, same commit) when:
 
-| Metric key | Formula | Units |
-|------------|---------|-------|
-| `and_sharpness_cos_<c>` | `(logit_AA - max(logit_A0, logit_B0) + logit_AB - max(logit_A0, logit_B0)) / 2` | logits (`x⋅q/√d`) |
-| `and_sharpness_cos_0p0` … `and_sharpness_cos_1p0` | as above for each `c ∈ {0.0, 0.3, 0.5, 0.7, 0.9, 1.0}` | logits |
+- any metric formula changes;
+- a payload key is added/removed/renamed or retyped;
+- `canonical_cosine` or the sweep values change;
+- a sweep record's schema changes.
 
-*Float formatting in keys:* `0.0 → 0p0`, `0.3 → 0p3`, `0.7 → 0p7`, `1.0 → 1p0`.
-
-### Reference baselines (linear no-mechanism strawman)
-
-A linear baseline has no AND non-linearity: it is an **additive** probe that reads both features with weight `c` and sums them — no interaction term. Reported in the same `x·q/√d` units as the model logits, its expected logits are `(α·c + β·c)/√d` (noise has mean 0), giving:
-
-```
-linear_baseline_sharpness(c) = (2c − max(c, c)) / √d = c / √d
-```
-
-The benchmark computes this analytically from `payload["d"]`. A genuine AND mechanism must **beat** this additive floor (`lift_over_linear > 0`) by suppressing the single-feature responses below what mere additivity predicts.
-
-| Metric key | Meaning |
-|------------|---------|
-| `linear_baseline_sharpness_cos_<c>` | Expected sharpness of a linear probe under identical conditions. |
-| `lift_over_linear_cos_<c>` | `and_sharpness_cos_<c> - linear_baseline_sharpness_cos_<c>` (positive = mechanism beats linear). |
-
-### Canonical single-number views (convenience, not additional information)
-
-| Metric key | Source |
-|------------|--------|
-| `and_sharpness_canonical` | `and_sharpness_cos_0p7` |
-| `linear_baseline_sharpness_canonical` | `linear_baseline_sharpness_cos_0p7` |
-| `lift_over_linear_canonical` | `lift_over_linear_cos_0p7` |
-
----
-
-## Bump Procedure
-
-- **VERSION 1** (historical): Only measured at `c = 0.0` (orthogonal queries). Payload had no sweep, only a single record.
-- **VERSION 2** (current): Added the `cos_sim` sweep, per-slice metrics, and `superposition_robustness`. Payload structure changed incompatibly.
-- Future bumps required when: any metric formula changes, payload keys are renamed/removed/retyped, or the canonical `cos_sim` (currently `0.7`) changes.
-- Not required when: new metrics are added without touching existing ones, or a new `cos_sim` value is appended to the sweep (the sweep is extensible by design).
-
----
-
-## Directionality Cheat Sheet
-
-| Metric | Better |
-|--------|--------|
-| `superposition_robustness` | **Higher** (closer to 1) |
-| `and_sharpness_cos_*` | **Higher** |
-| `lift_over_linear_cos_*` | **Higher** (positive = non-linear AND works) |
-| `linear_baseline_sharpness_cos_*` | Reference only (not optimised) |
+Do **not** bump when adding a new metric that leaves existing ones unchanged,
+or adding an optional payload key with a default. This goal is at `VERSION = 2`
+(v1 measured only at the orthogonal anchor); old v1 `benchmark.json` files stay
+on disk but the dashboard filters to the highest version present.

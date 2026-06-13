@@ -1,0 +1,51 @@
+{
+  "separation": 2.0,
+  "N": 32,
+  "tau": 0.25,
+  "noise_levels": [
+    0.0,
+    0.1,
+    0.3,
+    1.0,
+    3.0,
+    10.0
+  ],
+  "rows": [
+    {
+      "noise": 0.0,
+      "softmax_winner_mass": 0.9897077286243439,
+      "linear_winner_mass": 1.0,
+      "uniform_winner_mass": 0.03125
+    },
+    {
+      "noise": 0.1,
+      "softmax_winner_mass": 0.9889078825712204,
+      "linear_winner_mass": 0.6268259155750274,
+      "uniform_winner_mass": 0.03125
+    },
+    {
+      "noise": 0.3,
+      "softmax_winner_mass": 0.9796859860420227,
+      "linear_winner_mass": 0.3632513402402401,
+      "uniform_winner_mass": 0.03125
+    },
+    {
+      "noise": 1.0,
+      "softmax_winner_mass": 0.41137180471792817,
+      "linear_winner_mass": 0.14977674633264543,
+      "uniform_winner_mass": 0.03125
+    },
+    {
+      "noise": 3.0,
+      "softmax_winner_mass": 0.00014660120592795224,
+      "linear_winner_mass": 0.053127369359135625,
+      "uniform_winner_mass": 0.03125
+    },
+    {
+      "noise": 10.0,
+      "softmax_winner_mass": 1.88626682575244e-18,
+      "linear_winner_mass": 0.016231230748817323,
+      "uniform_winner_mass": 0.03125
+    }
+  ]
+}

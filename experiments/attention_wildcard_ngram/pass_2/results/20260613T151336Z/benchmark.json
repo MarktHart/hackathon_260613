@@ -1,0 +1,86 @@
+{
+  "goal": "attention_wildcard_ngram",
+  "attempt": "pass_2",
+  "run_id": "20260613T151336Z",
+  "metrics": {
+    "version": 1,
+    "sharpness_wildcard_span_0": 11.915829514055801,
+    "linear_baseline_sharpness_wildcard_span_0": 0.9999998400000257,
+    "sharpness_wildcard_span_1": 9.404327854520163,
+    "linear_baseline_sharpness_wildcard_span_1": 0.49999996000000324,
+    "sharpness_wildcard_span_2": 9.310660582686754,
+    "linear_baseline_sharpness_wildcard_span_2": 0.49999996000000324,
+    "sharpness_wildcard_span_3": 9.404565053744982,
+    "linear_baseline_sharpness_wildcard_span_3": 0.49999996000000324,
+    "sharpness_wildcard_span_4": 9.369459222169562,
+    "linear_baseline_sharpness_wildcard_span_4": 0.49999996000000324,
+    "sharpness_canonical": 9.404327854520163,
+    "lift_over_baseline_canonical": 8.90432789452016,
+    "wildcard_skip_robustness": 0.7892298092572495,
+    "mean_sharpness": 9.880968445435453
+  },
+  "payload": {
+    "version": 1,
+    "canonical_span": 1,
+    "seq_len": 16,
+    "vocab_size": 32,
+    "anchor_token": 1,
+    "target_token": 2,
+    "wildcard_token_range": [
+      10,
+      31
+    ],
+    "sweep": [
+      {
+        "wildcard_span": 0,
+        "wildcard_pos": 1,
+        "target_pos": 1,
+        "n_sequences": 1024,
+        "mean_attn_on_anchor": 0.4101380705833435,
+        "mean_attn_on_wildcards": 0.0,
+        "mean_attn_on_others": 0.03441958874464035,
+        "sharpness": 11.915829514055801
+      },
+      {
+        "wildcard_span": 1,
+        "wildcard_pos": 1,
+        "target_pos": 2,
+        "n_sequences": 1024,
+        "mean_attn_on_anchor": 0.4207526293466799,
+        "mean_attn_on_wildcards": 0.009429926644600073,
+        "mean_attn_on_others": 0.03531038247820106,
+        "sharpness": 9.404327854520163
+      },
+      {
+        "wildcard_span": 2,
+        "wildcard_pos": 1,
+        "target_pos": 3,
+        "n_sequences": 1024,
+        "mean_attn_on_anchor": 0.4315324211202096,
+        "mean_attn_on_wildcards": 0.010133152700916526,
+        "mean_attn_on_others": 0.036215043990523554,
+        "sharpness": 9.310660582686754
+      },
+      {
+        "wildcard_span": 3,
+        "wildcard_pos": 1,
+        "target_pos": 4,
+        "n_sequences": 1024,
+        "mean_attn_on_anchor": 0.443721572693903,
+        "mean_attn_on_wildcards": 0.009943517805974503,
+        "mean_attn_on_others": 0.03723798140345025,
+        "sharpness": 9.404565053744982
+      },
+      {
+        "wildcard_span": 4,
+        "wildcard_pos": 1,
+        "target_pos": 5,
+        "n_sequences": 1024,
+        "mean_attn_on_anchor": 0.45584117659018375,
+        "mean_attn_on_wildcards": 0.010396720592979136,
+        "mean_attn_on_others": 0.038255082257819595,
+        "sharpness": 9.369459222169562
+      }
+    ]
+  }
+}

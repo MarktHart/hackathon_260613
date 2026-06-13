@@ -1,0 +1,1 @@
+APPROVED — fixed fatal per-slice correlation degeneracy (true L constant within a slice → corr always 0.0 → is_obviously_broken rejected even a perfect attempt); correlation now computed across run lengths per difficulty. Also corrected README n_samples drift (256, not 128/1024). Determinism, payload contract, metric formulae, edge cases, and VERSION=1 verified.

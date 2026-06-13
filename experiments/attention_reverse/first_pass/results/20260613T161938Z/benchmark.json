@@ -1,0 +1,75 @@
+{
+  "goal": "attention_reverse",
+  "attempt": "first_pass",
+  "run_id": "20260613T161938Z",
+  "metrics": {
+    "version": 1,
+    "reverse_accuracy_len_8": 1.0,
+    "mirror_attn_mass_len_8": 0.9976572628923666,
+    "identity_baseline_accuracy_len_8": 0.0654296875,
+    "reverse_accuracy_len_16": 1.0,
+    "mirror_attn_mass_len_16": 0.9999983119751786,
+    "identity_baseline_accuracy_len_16": 0.0595703125,
+    "reverse_accuracy_len_32": 1.0,
+    "mirror_attn_mass_len_32": 0.9999999999996074,
+    "identity_baseline_accuracy_len_32": 0.058349609375,
+    "reverse_accuracy_len_64": 1.0,
+    "mirror_attn_mass_len_64": 1.0,
+    "identity_baseline_accuracy_len_64": 0.059814453125,
+    "reverse_accuracy_canonical": 1.0,
+    "mirror_attn_mass_canonical": 0.9999983119751786,
+    "random_baseline_accuracy": 0.0625,
+    "lift_over_random_canonical": 0.9375,
+    "length_generalization_robustness": 1.0
+  },
+  "payload": {
+    "version": 1,
+    "model_name": "synthetic_attention_reverse",
+    "config": {
+      "vocab_size": 16,
+      "batch_size": 32,
+      "canonical_seq_len": 16,
+      "mask_type": "bidirectional",
+      "num_sequences": 256,
+      "eval_seed": 42
+    },
+    "vocab_size": 16,
+    "seq_len_sweep": [
+      8,
+      16,
+      32,
+      64
+    ],
+    "canonical_idx": 1,
+    "sweep": [
+      {
+        "seq_len": 8,
+        "accuracy": 1.0,
+        "mirror_attn_mass": 0.9976572628923666,
+        "identity_baseline_accuracy": 0.0654296875,
+        "num_sequences": 256
+      },
+      {
+        "seq_len": 16,
+        "accuracy": 1.0,
+        "mirror_attn_mass": 0.9999983119751786,
+        "identity_baseline_accuracy": 0.0595703125,
+        "num_sequences": 256
+      },
+      {
+        "seq_len": 32,
+        "accuracy": 1.0,
+        "mirror_attn_mass": 0.9999999999996074,
+        "identity_baseline_accuracy": 0.058349609375,
+        "num_sequences": 256
+      },
+      {
+        "seq_len": 64,
+        "accuracy": 1.0,
+        "mirror_attn_mass": 1.0,
+        "identity_baseline_accuracy": 0.059814453125,
+        "num_sequences": 256
+      }
+    ]
+  }
+}
