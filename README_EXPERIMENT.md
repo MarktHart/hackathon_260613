@@ -52,6 +52,37 @@ You inherit the shared workspace venv. Do not create a separate one. If you abso
 a dependency that is not already in `experiments/pyproject.toml`, add it there —
 it is the single source of truth for every attempt.
 
+## Hard requirement: your attempt runs on the GPU
+
+Every attempt **must** execute its model on the GPU. The pipeline reserves a
+CUDA device for your `main.py` (it sets `CUDA_VISIBLE_DEVICES` for you) and,
+after `main.py` exits, asserts that it actually allocated CUDA memory. An
+attempt that runs entirely on the CPU is **rejected** and retried — a reserved
+GPU that nothing touches is wasted, and a CPU-only "result" isn't the thing
+this benchmark measures.
+
+Concretely, the model function you hand to `task.evaluate(...)` must do its
+real compute in torch on `cuda`. `task.py` hands you NumPy arrays and expects
+NumPy back, so convert at the boundary:
+
+```python
+import torch
+
+DEVICE = "cuda"  # the pipeline guarantees a visible GPU; do not fall back to CPU
+
+def my_model_fn(q, k):                       # NumPy in
+    qt = torch.as_tensor(q, dtype=torch.float32, device=DEVICE)
+    kt = torch.as_tensor(k, dtype=torch.float32, device=DEVICE)
+    scores = qt @ kt                         # real work on the GPU
+    return scores.detach().cpu().numpy()     # NumPy out
+```
+
+This applies to **hand-built circuits too** — express the hand-set weights as
+torch tensors on `cuda` rather than NumPy. Do **not** write
+`device = "cuda" if torch.cuda.is_available() else "cpu"`: a silent CPU
+fallback fails the guard. (`task.py` and `benchmark.py` themselves stay pure
+CPU/NumPy — only the attempt's model runs on the GPU.)
+
 ## Model: stay close to `base_model.py`
 
 Whatever you train should still *look like* a transformer — even loosely.

@@ -194,11 +194,18 @@ omit them and the pipeline uses sensible defaults.
 
 ### `GPU_REQUIREMENT: int = 1`
 
-How many GPU slots the experiment subprocess needs. Defaults to 1. Set to 2
-for goals doing big-model activation patching or model-parallel training; the
-pipeline acquires that many slots from the file-locked pool before launching
-`main.py` and boot-checking `app.py`, and passes `CUDA_VISIBLE_DEVICES`
-accordingly. The pool size itself is `AGENTIC_GPU_COUNT` (default 2).
+How many GPU slots the experiment subprocess needs. **The minimum is 1** —
+every attempt runs on the GPU and the pipeline clamps anything lower (or
+missing) up to 1, so `0` is meaningless. Set it to `2` only for goals doing
+big-model activation patching or model-parallel training. The pipeline
+acquires that many slots from the file-locked pool before launching `main.py`
+and boot-checking `app.py`, and passes `CUDA_VISIBLE_DEVICES` accordingly. The
+pool size itself is `AGENTIC_GPU_COUNT` (default 2).
+
+Attempts are launched through a GPU guard that runs `main.py` and then asserts
+it actually allocated CUDA memory; a pure-CPU/NumPy attempt is rejected and
+retried. This only constrains *attempts* — your `task.py` and `benchmark.py`
+stay pure CPU/NumPy (the smoke test runs them without a GPU).
 
 ### `is_obviously_broken(metrics: dict) -> bool`
 

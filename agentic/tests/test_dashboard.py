@@ -127,6 +127,38 @@ def test_running_block_is_not_startable() -> None:
     assert p["is_running"] and not p["is_startable"]
 
 
+def _att(name: str, overall: str | None, avg: float | None) -> dict:
+    verdict = None if overall is None else {"overall": overall, "score_avg": avg, "criteria": [], "notes": ""}
+    return {"name": name, "verdict": verdict, "has_app": True}
+
+
+def test_row_verdict_is_best_over_attempts(monkeypatch: pytest.MonkeyPatch) -> None:
+    # first_pass failed; pass_2 passed — the row should headline pass_2.
+    monkeypatch.setattr(
+        aggregate,
+        "_load_attempts",
+        lambda slug: [_att("first_pass", "fail", 2.0), _att("pass_2", "pass", 4.5)],
+    )
+    states = {"a": BlockState(slug="a", status="graded")}
+    v = build_view(events=[], states=states, now_iso="2026-06-13T10:00:00+00:00")
+    p = next(p for p in v["problems"] if p["slug"] == "a")
+    assert p["best_attempt"] == "pass_2"
+    assert p["verdict"]["overall"] == "pass"
+    assert [a["name"] for a in p["attempts"]] == ["first_pass", "pass_2"]
+
+
+def test_best_breaks_ties_on_mean_score(monkeypatch: pytest.MonkeyPatch) -> None:
+    # Both borderline; the higher mean score wins.
+    monkeypatch.setattr(
+        aggregate,
+        "_load_attempts",
+        lambda slug: [_att("first_pass", "borderline", 2.5), _att("pass_2", "borderline", 3.8)],
+    )
+    v = build_view(events=[], states={"a": BlockState(slug="a", status="graded")}, now_iso="2026-06-13T10:00:00+00:00")
+    p = next(p for p in v["problems"] if p["slug"] == "a")
+    assert p["best_attempt"] == "pass_2"
+
+
 def test_launch_rejects_unknown_slug(monkeypatch: pytest.MonkeyPatch) -> None:
     # Validation happens before any subprocess spawn, so this never launches.
     monkeypatch.setattr(launcher, "known_slugs", lambda: {"real_task"})

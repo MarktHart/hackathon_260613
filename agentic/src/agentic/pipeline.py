@@ -4,7 +4,7 @@ Tier wiring (each loop escalates one rung on the tier ladder after `_base`
 retries are exhausted):
     task_picker        STANDARD → EXPERT   (completion → agentic)
     benchmark_reviewer EXPERT              (agentic — Opus audits + edits)
-    solver             QUICK → STANDARD    (completion → completion)
+    solver             QUICK → STANDARD → EXPERT  (completion → completion → agentic)
     jury               EXPERT              (agentic — Opus writes verdict.json)
 
 Smoke test + feedback loops
@@ -18,9 +18,9 @@ After `picker_retries_base` failures the picker escalates to EXPERT (agentic
 Opus); after `picker_retries_escalated` more failures the slug is marked
 failed.
 
-The solver works the same way one tier down: it iterates QUICK → STANDARD,
-each retry's prompt carries either the `main.py` traceback or the degenerate
-metrics dict (when `is_obviously_broken` returns True) from the prior round.
+The solver works the same way one tier down: it iterates QUICK → STANDARD →
+EXPERT, each retry's prompt carries either the `main.py` traceback or the
+degenerate metrics dict (when `is_obviously_broken` returns True) from the prior round.
 By the time the jury runs, the solver has already converged on a non-broken
 benchmark.
 
@@ -51,7 +51,7 @@ import typer
 from agentic import usage
 from agentic.blocks import list_pending, load_state, next_pending, update_state
 from agentic.config import TIER, Tier, settings
-from agentic.events import emit
+from agentic.events import emit, read_events
 from agentic.file_blocks import OUTPUT_CONTRACT, apply_blocks
 from agentic.gpu import acquire_gpus
 from agentic.runner import run_at_tier_agentic, run_at_tier_completion
@@ -133,8 +133,7 @@ If not: edit any of the three files to fix the issues, THEN write the approval
 line. The next stage trusts the goal.
 """
 
-SOLVER_SYSTEM = (
-    """\
+_SOLVER_SYSTEM_BASE = """\
 You make a first-pass attempt at one mech-interp goal. You cannot execute
 code; you only emit files. The pipeline runs them after you.
 
@@ -154,6 +153,27 @@ Your main.py loads it via:
 For hand-built attempts, `my_model_fn` directly constructs the answer (no
 training). For trained attempts, train first, then wrap the trained model in
 the function. Either way the same payload shape lands in benchmark.json.
+
+HARD REQUIREMENT — your attempt MUST run on the GPU. The pipeline reserves a
+CUDA device for `main.py` and verifies, after it exits, that it actually
+allocated CUDA memory; an attempt that runs entirely on the CPU is REJECTED
+and you are retried. So `my_model_fn` must do its real compute in torch on
+`cuda`, even for hand-built circuits:
+
+    import torch
+
+    DEVICE = "cuda"  # the pipeline guarantees a GPU is visible
+
+    def my_model_fn(q, k):                 # task hands you NumPy arrays
+        qt = torch.as_tensor(q, dtype=torch.float32, device=DEVICE)
+        kt = torch.as_tensor(k, dtype=torch.float32, device=DEVICE)
+        scores = qt @ kt                   # real work on the GPU
+        return scores.detach().cpu().numpy()   # task.evaluate expects NumPy back
+
+Hand-set weights are still encouraged (see the rubric) — just express the
+circuit as torch tensors on `cuda` instead of NumPy. Do NOT guard the device
+behind `torch.cuda.is_available()` fallbacks to CPU; the GPU is guaranteed and
+a silent CPU fallback fails the guard.
 
 Emit these files exactly (no others):
 - `experiments/<slug>/<attempt_name>/main.py`
@@ -185,7 +205,17 @@ Do NOT emit the `pyproject.toml` symlink — the pipeline creates it. Do NOT
 emit any `results/` files — `main.py` produces those at run time.
 
 """
-    + OUTPUT_CONTRACT
+
+SOLVER_SYSTEM = _SOLVER_SYSTEM_BASE + OUTPUT_CONTRACT
+
+SOLVER_SYSTEM_AGENTIC = (
+    _SOLVER_SYSTEM_BASE
+    + """\
+Use the Write tool to create the files at the paths above. Do not emit
+`<<FILE: ...>>` blocks; the file system is your output channel. Read any
+existing files at those paths first — you may be retrying after a
+completion-tier solver left the attempt in a broken state.
+"""
 )
 
 JURY_SYSTEM = (
@@ -222,11 +252,83 @@ def _read_if_exists(path: str | Path) -> str:
 
 
 def _suggest_attempt_name(slug: str) -> str:
+    """Pick the next free attempt folder: first_pass, then pass_2, pass_3, …
+
+    Returns a name that doesn't collide with any existing attempt directory,
+    even an empty one a failed solver left behind. A retry that re-enters the
+    solver therefore lands in a fresh folder *beside* the previous attempt
+    rather than overwriting it, so a failed try is preserved for comparison.
+    """
     goal_dir = Path("experiments") / slug
     if not goal_dir.is_dir():
         return "first_pass"
-    n = sum(1 for d in goal_dir.iterdir() if d.is_dir() and (d / "main.py").exists())
-    return "first_pass" if n == 0 else f"pass_{n + 1}"
+    existing = {d.name for d in goal_dir.iterdir() if d.is_dir()}
+    if "first_pass" not in existing:
+        return "first_pass"
+    n = 2
+    while f"pass_{n}" in existing:
+        n += 1
+    return f"pass_{n}"
+
+
+def _attempt_order(name: str) -> int:
+    """Sort key for attempt folders: first_pass=1, pass_2=2, … (0 = not an attempt)."""
+    if name == "first_pass":
+        return 1
+    if name.startswith("pass_"):
+        try:
+            return int(name.split("_", 1)[1])
+        except ValueError:
+            return 0
+    return 0
+
+
+def _prior_attempt_context(slug: str, attempt_name: str, goal_dir: Path) -> str:
+    """Summarise the previous attempt so a retry can learn from it.
+
+    For a second-or-later attempt (pass_2+), returns a prompt block with the
+    jury's `verdict.json` plus the prior `main.py` / `app.py` / `README.md`, so
+    the solver can read why the last try fell short and change approach. Returns
+    "" for a first attempt or when no prior attempt produced code.
+    """
+    if not goal_dir.is_dir():
+        return ""
+    priors = sorted(
+        (
+            d
+            for d in goal_dir.iterdir()
+            if d.is_dir() and d.name != attempt_name and _attempt_order(d.name) > 0
+        ),
+        key=lambda d: _attempt_order(d.name),
+        reverse=True,
+    )
+    prior = next((d for d in priors if (d / "main.py").is_file()), None)
+    if prior is None:
+        return ""
+
+    verdict = _read_if_exists(prior / "verdict.json")
+    main_py = _read_if_exists(prior / "main.py")
+    app_py = _read_if_exists(prior / "app.py")
+    readme = _read_if_exists(prior / "README.md")
+
+    parts = [
+        f"\n\n=== PREVIOUS ATTEMPT ({prior.name}) — LEARN FROM IT, DON'T REPEAT IT ===\n"
+        "An earlier attempt at this exact task was graded by the jury and did not "
+        "pass. Its verdict and full source are below. Read the verdict's notes, "
+        "diagnose why it fell short (e.g. it faked the mechanism, the app didn't "
+        "boot, weak faithfulness evidence), and take a MEANINGFULLY DIFFERENT "
+        "approach. Do not copy the previous code wholesale — fix the root cause.\n"
+    ]
+    if verdict:
+        parts.append(f"--- {prior.name}/verdict.json (jury) ---\n{verdict}\n")
+    if main_py:
+        parts.append(f"--- {prior.name}/main.py ---\n{main_py}\n")
+    if app_py:
+        parts.append(f"--- {prior.name}/app.py ---\n{app_py}\n")
+    if readme:
+        parts.append(f"--- {prior.name}/README.md ---\n{readme}\n")
+    parts.append("=== END PREVIOUS ATTEMPT ===\n")
+    return "\n".join(parts)
 
 
 def _ensure_symlink(attempt_dir: Path) -> None:
@@ -626,10 +728,12 @@ def _build_solver_prompt(
     task_py: str,
     benchmark_py: str,
     feedback: str,
+    prior_context: str = "",
 ) -> str:
     return f"""\
 Slug: {slug}
 Attempt name (already chosen, use it): {attempt_name}
+{prior_context}
 
 Repo conventions:
 === README_EXPERIMENT.md ===
@@ -688,24 +792,38 @@ async def _solver_with_benchmark_retries(
         3. If `is_obviously_broken(metrics)` is True, feedback = the metrics
            dict, retry. The solver sees its own benchmark output before the
            jury ever does.
-        4. Otherwise success — return (True, metrics, log).
+        4. Boot-check app.py (import + module-level `demo: gr.Blocks`). If it's
+           missing or fails to import, feedback = the boot error, retry — so a
+           broken Gradio app is fixed in-loop, not just flagged by the jury.
+        5. Otherwise success — return (True, metrics, log).
 
     Tries QUICK tier `solver_retries_base` times, escalates to STANDARD for
-    `solver_retries_escalated` more. Returns (ok, last_metrics_or_None, last_log).
+    `solver_retries_escalated` more, then to EXPERT (agentic Opus) for
+    `solver_retries_expert` more. Returns (ok, last_metrics_or_None, last_log).
     """
     readme_experiment = _read_if_exists("README_EXPERIMENT.md")
     goal_readme = _read_if_exists(goal_dir / "README.md")
     task_py = _read_if_exists(goal_dir / "task.py")
     benchmark_py = _read_if_exists(goal_dir / "benchmark.py")
+    # On a retry (pass_2+), carry the previous attempt's verdict + code into the
+    # prompt so the solver learns from the prior failure instead of re-deriving
+    # the same dead end. Constant across this attempt's own retry iterations.
+    prior_context = _prior_attempt_context(slug, attempt_name, goal_dir)
 
     feedback = ""
     n_base = settings.solver_retries_base
     n_esc = settings.solver_retries_escalated
+    n_expert = settings.solver_retries_expert
     last_log = ""
     last_metrics: dict[str, Any] | None = None
 
-    for i in range(n_base + n_esc):
-        tier = Tier.QUICK if i < n_base else Tier.STANDARD
+    for i in range(n_base + n_esc + n_expert):
+        if i < n_base:
+            tier = Tier.QUICK
+        elif i < n_base + n_esc:
+            tier = Tier.STANDARD
+        else:
+            tier = Tier.EXPERT
         prompt = _build_solver_prompt(
             slug,
             attempt_name,
@@ -714,15 +832,36 @@ async def _solver_with_benchmark_retries(
             task_py,
             benchmark_py,
             feedback,
+            prior_context,
         )
         cfg = TIER[tier]
 
         emit("solver_attempt", slug=slug, attempt=attempt_name, attempt_idx=i, tier=tier.value)
 
         try:
-            text = await _completion_with_timeout(
-                tier, prompt, system_prompt=SOLVER_SYSTEM, timeout_s=cfg.wall_clock_s
-            )
+            if cfg.mode == "completion":
+                text = await _completion_with_timeout(
+                    tier, prompt, system_prompt=SOLVER_SYSTEM, timeout_s=cfg.wall_clock_s
+                )
+                # Completion tiers emit file blocks; parse and write them. Agentic
+                # tiers (EXPERT) write the files directly via the Write tool.
+                apply_blocks(
+                    text,
+                    root=Path.cwd(),
+                    allowed_prefixes=(f"experiments/{slug}/{attempt_name}/",),
+                )
+            else:
+                await _drain_with_timeout(
+                    "solver",
+                    slug,
+                    run_at_tier_agentic(
+                        tier,
+                        prompt=prompt,
+                        system_prompt=SOLVER_SYSTEM_AGENTIC,
+                        allowed_tools=["Read", "Write", "Edit"],
+                    ),
+                    timeout_s=cfg.wall_clock_s,
+                )
         except Exception as exc:  # noqa: BLE001 — feed any failure into the next retry
             last_log = f"{type(exc).__name__}: {exc}"
             emit(
@@ -741,11 +880,6 @@ async def _solver_with_benchmark_retries(
                 "complete. If the failure was a timeout, reduce verbosity."
             )
             continue
-        apply_blocks(
-            text,
-            root=Path.cwd(),
-            allowed_prefixes=(f"experiments/{slug}/{attempt_name}/",),
-        )
 
         main_path = attempt_dir / "main.py"
         if not main_path.exists():
@@ -755,8 +889,14 @@ async def _solver_with_benchmark_retries(
             )
             continue
 
+        # Launch through the GPU guard, not `python main.py` directly: it runs
+        # the attempt and then asserts it actually allocated CUDA memory, so a
+        # pure-CPU/NumPy attempt fails loudly instead of wasting a reserved slot.
         rc, log = await _run_subprocess_with_gpu(
-            ["uv", "run", "--project", str(Path.cwd()), "python", str(main_path)],
+            [
+                "uv", "run", "--project", str(Path.cwd()),
+                "python", "-m", "agentic.gpu_guard", str(main_path),
+            ],
             n_gpus=gpu_requirement,
             timeout=600,
         )
@@ -809,6 +949,49 @@ async def _solver_with_benchmark_retries(
                 )
                 continue
 
+        # app.py must boot, just as main.py must run. A non-booting Gradio app
+        # feeds its import/Blocks error back as feedback and retries, instead of
+        # being silently committed and only flagged by the jury at grading time.
+        app_path = attempt_dir / "app.py"
+        if not app_path.exists():
+            feedback = (
+                "\n\n=== PREVIOUS ATTEMPT DID NOT EMIT app.py ===\n"
+                "Re-emit ALL THREE files: main.py, app.py, README.md.\n"
+            )
+            continue
+
+        ok_app, log_app = await _boot_check_app_with_gpu(app_path, n_gpus=gpu_requirement)
+        emit(
+            "solver_app_boot",
+            slug=slug,
+            attempt=attempt_name,
+            attempt_idx=i,
+            tier=tier.value,
+            ok=ok_app,
+            log_tail=log_app[-500:],
+        )
+        if not ok_app:
+            last_log = log_app
+            feedback = (
+                "\n\n=== PREVIOUS ATTEMPT'S app.py FAILED ITS BOOT CHECK ===\n"
+                "main.py ran and the benchmark passed, but app.py could not be "
+                "imported as a Gradio app. The check imports app.py and verifies "
+                "it exposes a module-level `demo: gr.Blocks`.\n"
+                "Error tail:\n"
+                f"{log_app}\n"
+                "=== END ===\n\n"
+                "Re-emit ALL THREE files with app.py fixed. Common causes:\n"
+                "- Calling `.load`/`.click`/component constructors outside a "
+                "`with gr.Blocks() as demo:` context.\n"
+                "- Using Gradio APIs that don't exist (e.g. `gr.TabsItem`, "
+                "`gr.Tabs(items=...)`, positional data args to `gr.Plot`).\n"
+                "- Import errors / typos (e.g. missing `import numpy as np`, or "
+                "importing symbols that aren't exported by `agentic`).\n"
+                "- Calling `demo.launch()` at module import time.\n"
+                "- Not exposing a module-level `demo: gr.Blocks`.\n"
+            )
+            continue
+
         return True, metrics, log
 
     return False, last_metrics, last_log
@@ -817,14 +1000,47 @@ async def _solver_with_benchmark_retries(
 # ---------- pipeline ----------
 
 
+def _completed_stages(slug: str) -> tuple[bool, bool]:
+    """Inspect the event log for a slug's already-passed prep stages.
+
+    Returns ``(picker_done, reviewer_done)``:
+
+    - ``picker_done`` — a `benchmark_smoke` event recorded ``ok=True``, i.e. the
+      picker produced a benchmark that passed the smoke test.
+    - ``reviewer_done`` — a `benchmark_reviewed` event was emitted. The reviewer
+      only runs after a successful picker, so this implies ``picker_done`` too.
+
+    Used by resume (see `run_pipeline`) to skip prep stages on a retry. Events
+    accumulate across runs, so a benchmark that passed on an earlier attempt
+    still counts here even after a later solver/jury failure.
+    """
+    picker_done = reviewer_done = False
+    for ev in read_events():
+        if ev.get("slug") != slug:
+            continue
+        etype = ev.get("type")
+        if etype == "benchmark_smoke" and ev.get("ok"):
+            picker_done = True
+        elif etype == "benchmark_reviewed":
+            picker_done = reviewer_done = True
+    return picker_done, reviewer_done
+
+
 async def run_pipeline(
     slug: str | None = None,
     *,
     skip_solver: bool = False,
     skip_jury: bool = False,
     force: bool = False,
+    resume: bool = False,
 ) -> dict[str, Any]:
-    """Pick → benchmark → review → solve → judge. Returns a status dict."""
+    """Pick → benchmark → review → solve → judge. Returns a status dict.
+
+    `resume` (slug runs only) skips the picker and/or reviewer when a prior run
+    already passed them — a benchmark that passed smoke is reused as-is, and a
+    benchmark that was already reviewed isn't re-reviewed. The solver onward
+    always re-runs. Used to retry a failed task without redoing benchmark prep.
+    """
     if slug is None:
         block = next_pending()
         if block is None:
@@ -855,47 +1071,60 @@ async def run_pipeline(
     goal_dir = Path("experiments") / slug
     goal_dir.mkdir(parents=True, exist_ok=True)
 
+    # On resume, skip prep stages a prior run already passed. The picker is only
+    # skippable if its benchmark is still on disk for the solver to consume.
+    picker_done, reviewer_done = _completed_stages(slug) if resume else (False, False)
+    skip_picker = picker_done and (goal_dir / "benchmark.py").exists()
+
     # All model calls inside this block tally into a per-slug usage tracker.
     # On exit (success or exception) the tracker emits one `usage_summary`
     # event with per-model and total token + cost rollups.
     with usage.track(slug):
         # 1. PICKER → smoke test → retry loop with tier escalation.
-        readme_benchmark = _read_if_exists("README_BENCHMARK.md")
-        with usage.stage("picker"):
-            ok, smoke_log = await _picker_with_smoke_retries(
-                slug, block_title, block_spec, readme_benchmark
-            )
-        if not ok:
-            update_state(slug, status="failed")
-            emit(
-                "pipeline_failed",
-                slug=slug,
-                stage="picker",
-                reason="smoke_test_exhausted",
-                log_tail=smoke_log[-500:],
-            )
-            return {
-                "status": "failed",
-                "slug": slug,
-                "stage": "picker",
-                "reason": "smoke_test_exhausted",
-                "log": smoke_log,
-            }
+        if skip_picker:
+            emit("stage_skipped", slug=slug, stage="picker", reason="resume_benchmark_passed")
+        else:
+            readme_benchmark = _read_if_exists("README_BENCHMARK.md")
+            with usage.stage("picker"):
+                ok, smoke_log = await _picker_with_smoke_retries(
+                    slug, block_title, block_spec, readme_benchmark
+                )
+            if not ok:
+                update_state(slug, status="failed")
+                emit(
+                    "pipeline_failed",
+                    slug=slug,
+                    stage="picker",
+                    reason="smoke_test_exhausted",
+                    log_tail=smoke_log[-500:],
+                )
+                return {
+                    "status": "failed",
+                    "slug": slug,
+                    "stage": "picker",
+                    "reason": "smoke_test_exhausted",
+                    "log": smoke_log,
+                }
 
         # 2. REVIEWER (tier 1 agentic) → audit + optionally edit a smoke-tested goal.
-        with usage.stage("reviewer"):
-            await _drain_with_timeout(
-                "reviewer",
-                slug,
-                run_at_tier_agentic(
-                    Tier.EXPERT,
-                    prompt=f"Audit the benchmark at `experiments/{slug}/` per the system prompt.",
-                    system_prompt=REVIEWER_SYSTEM,
-                    allowed_tools=["Read", "Write", "Edit", "Glob", "Grep"],
-                ),
-                timeout_s=TIER[Tier.EXPERT].wall_clock_s,
-            )
-        emit("benchmark_reviewed", slug=slug)
+        # Skip only when we reused an already-reviewed benchmark; a freshly
+        # (re)generated benchmark must always be reviewed.
+        if skip_picker and reviewer_done:
+            emit("stage_skipped", slug=slug, stage="reviewer", reason="resume_already_reviewed")
+        else:
+            with usage.stage("reviewer"):
+                await _drain_with_timeout(
+                    "reviewer",
+                    slug,
+                    run_at_tier_agentic(
+                        Tier.EXPERT,
+                        prompt=f"Audit the benchmark at `experiments/{slug}/` per the system prompt.",
+                        system_prompt=REVIEWER_SYSTEM,
+                        allowed_tools=["Read", "Write", "Edit", "Glob", "Grep"],
+                    ),
+                    timeout_s=TIER[Tier.EXPERT].wall_clock_s,
+                )
+            emit("benchmark_reviewed", slug=slug)
 
         if skip_solver:
             update_state(slug, status="pending_solver")
@@ -909,7 +1138,9 @@ async def run_pipeline(
         attempt_dir.mkdir(parents=True, exist_ok=True)
         _ensure_symlink(attempt_dir)
 
-        gpu_requirement = _load_optional(goal_dir / "benchmark.py", "GPU_REQUIREMENT") or 1
+        # Every attempt must run on the GPU (the guard enforces it at runtime),
+        # so clamp to a minimum of one slot regardless of what benchmark.py says.
+        gpu_requirement = max(1, int(_load_optional(goal_dir / "benchmark.py", "GPU_REQUIREMENT") or 1))
         broken_predicate = _load_optional(goal_dir / "benchmark.py", "is_obviously_broken")
 
         emit("attempt_started", slug=slug, attempt=attempt_name, gpu_requirement=gpu_requirement)
@@ -955,18 +1186,9 @@ async def run_pipeline(
                 "reason": "is_obviously_broken_exhausted",
             }
 
-        # 3a. Boot-check the Gradio app once we've committed to this attempt.
-        app_path = attempt_dir / "app.py"
-        if app_path.exists():
-            ok_app, log_app = await _boot_check_app_with_gpu(app_path, n_gpus=gpu_requirement)
-            emit(
-                "solver_app_boot",
-                slug=slug,
-                attempt=attempt_name,
-                ok=ok_app,
-                log_tail=log_app[-500:],
-            )
-
+        # The Gradio app already passed its boot-check inside the solver loop
+        # (a non-booting app.py is a retry condition there), so on a successful
+        # solve we know app.py imports and exposes `demo: gr.Blocks`.
         emit("attempt_done", slug=slug, attempt=attempt_name, metrics=metrics)
 
         if skip_jury:

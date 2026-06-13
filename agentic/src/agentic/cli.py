@@ -20,12 +20,19 @@ def pipeline(
         False, "--skip-jury", help="Stop after the solver produces an attempt."
     ),
     force: bool = typer.Option(False, "--force", help="Re-run even if the slug is already graded."),
+    resume: bool = typer.Option(
+        False,
+        "--resume",
+        help="Skip picker/reviewer stages a prior run already passed (re-runs solver onward).",
+    ),
 ) -> None:
     """Run the picker → reviewer → solver → jury pipeline for one slug."""
     from agentic.pipeline import run_pipeline
 
     result = asyncio.run(
-        run_pipeline(slug=slug, skip_solver=skip_solver, skip_jury=skip_jury, force=force)
+        run_pipeline(
+            slug=slug, skip_solver=skip_solver, skip_jury=skip_jury, force=force, resume=resume
+        )
     )
     typer.echo(json.dumps(result, indent=2))
 

@@ -108,9 +108,9 @@ class Settings:
     hf_home: str | None = field(default_factory=_hf_home)
 
     # Pipeline retry budgets. Each loop runs at its base tier `_base` times,
-    # then escalates to the next tier up for `_escalated` more attempts.
-    # Picker base = STANDARD, escalated = EXPERT (agentic).
-    # Solver base = QUICK,    escalated = STANDARD.
+    # then escalates up a tier for the next block of attempts.
+    # Picker  base = STANDARD, escalated = EXPERT (agentic).
+    # Solver  base = QUICK, escalated = STANDARD, expert = EXPERT (agentic).
     picker_retries_base: int = field(
         default_factory=lambda: int(os.getenv("AGENTIC_PICKER_RETRIES_BASE", "2"))
     )
@@ -118,10 +118,13 @@ class Settings:
         default_factory=lambda: int(os.getenv("AGENTIC_PICKER_RETRIES_ESCALATED", "1"))
     )
     solver_retries_base: int = field(
-        default_factory=lambda: int(os.getenv("AGENTIC_SOLVER_RETRIES_BASE", "2"))
+        default_factory=lambda: int(os.getenv("AGENTIC_SOLVER_RETRIES_BASE", "64"))
     )
     solver_retries_escalated: int = field(
-        default_factory=lambda: int(os.getenv("AGENTIC_SOLVER_RETRIES_ESCALATED", "1"))
+        default_factory=lambda: int(os.getenv("AGENTIC_SOLVER_RETRIES_ESCALATED", "32"))
+    )
+    solver_retries_expert: int = field(
+        default_factory=lambda: int(os.getenv("AGENTIC_SOLVER_RETRIES_EXPERT", "2"))
     )
     # Sub-second smoke test that runs after the picker; hard cap.
     smoke_test_timeout_s: int = field(

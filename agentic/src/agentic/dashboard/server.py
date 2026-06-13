@@ -6,6 +6,8 @@ Endpoints:
     GET  /api/stream        SSE: pushes a fresh snapshot whenever the log changes
     POST /api/start         launch one task (spawns a detached pipeline run)
     POST /api/start-pending fan out a pipeline-multi run across pending tasks
+    POST /api/retry-failed  re-run every task currently in the failed state
+    POST /api/launch-app    launch an attempt's Gradio app, return its local URL
 
 The GET side polls the two JSONL files' mtime/size and recomputes the view on
 change. The POST side spawns the normal CLI as a detached subprocess (see
@@ -26,11 +28,23 @@ from pydantic import BaseModel
 
 from agentic.config import settings
 from agentic.dashboard.aggregate import build_view
-from agentic.dashboard.launcher import UnknownSlug, launch_pending, launch_slug
+from agentic.dashboard.launcher import (
+    UnknownAttempt,
+    UnknownSlug,
+    launch_app,
+    launch_failed,
+    launch_pending,
+    launch_slug,
+)
 
 _STATIC = Path(__file__).parent / "static"
 
 app = FastAPI(title="agentic dashboard", docs_url=None, redoc_url=None)
+
+# Set by serve() when a shutdown signal arrives. The SSE generator watches this
+# so it can end itself promptly instead of being force-cancelled past the
+# graceful-shutdown timeout (which would log a noisy cancellation traceback).
+_shutdown = asyncio.Event()
 
 
 def _state_files() -> list[Path]:
@@ -79,9 +93,33 @@ def api_start(req: StartRequest) -> dict[str, Any]:
 
 @app.post("/api/start-pending")
 def api_start_pending(req: StartPendingRequest) -> dict[str, Any]:
-    """Fan out a `pipeline-multi` run across pending tasks."""
+    """Fan out a `pipeline-multi` run across (up to `count`) pending tasks."""
     pid = launch_pending(req.count)
-    return {"ok": True, "pid": pid}
+    return {"ok": True, "pid": pid, "count": req.count}
+
+
+class LaunchAppRequest(BaseModel):
+    slug: str
+    attempt: str
+
+
+@app.post("/api/launch-app")
+def api_launch_app(req: LaunchAppRequest) -> dict[str, Any]:
+    """Launch (or reuse) an attempt's Gradio app; return its local URL."""
+    try:
+        url = launch_app(req.slug, req.attempt)
+    except (UnknownSlug, UnknownAttempt) as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from None
+    except (RuntimeError, OSError) as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from None
+    return {"ok": True, "slug": req.slug, "attempt": req.attempt, "url": url}
+
+
+@app.post("/api/retry-failed")
+def api_retry_failed() -> dict[str, Any]:
+    """Re-run every task currently in the `failed` state."""
+    launched = launch_failed()
+    return {"ok": True, "launched": launched, "count": len(launched)}
 
 
 @app.get("/api/stream")
@@ -89,18 +127,28 @@ async def api_stream() -> StreamingResponse:
     async def gen() -> AsyncIterator[str]:
         last_fp: tuple[Any, ...] | None = None
         ticks_since_push = 0
-        while True:
-            fp = _fingerprint()
-            # Push on change, and at least every ~10s so liveness/age refresh.
-            if fp != last_fp or ticks_since_push >= 10:
-                last_fp = fp
-                ticks_since_push = 0
-                payload = json.dumps(build_view())
-                yield f"data: {payload}\n\n"
-            else:
-                ticks_since_push += 1
-                yield ": keep-alive\n\n"
-            await asyncio.sleep(1.0)
+        try:
+            while not _shutdown.is_set():
+                fp = _fingerprint()
+                # Push on change, and at least every ~10s so liveness/age refresh.
+                if fp != last_fp or ticks_since_push >= 10:
+                    last_fp = fp
+                    ticks_since_push = 0
+                    payload = json.dumps(build_view())
+                    yield f"data: {payload}\n\n"
+                else:
+                    ticks_since_push += 1
+                    yield ": keep-alive\n\n"
+                # Tick once a second, but wake immediately on shutdown so the
+                # stream ends itself rather than being force-cancelled.
+                try:
+                    await asyncio.wait_for(_shutdown.wait(), timeout=1.0)
+                except asyncio.TimeoutError:
+                    pass
+        except asyncio.CancelledError:
+            # Raised if the client disconnects or the stream is cancelled. Exit
+            # quietly instead of surfacing an "Exception in ASGI application".
+            return
 
     return StreamingResponse(
         gen(),
@@ -115,6 +163,42 @@ def index() -> FileResponse:
 
 
 def serve(host: str = "127.0.0.1", port: int = 8080) -> None:
+    import asyncio
+    import contextlib
+    import signal
+
     import uvicorn
 
-    uvicorn.run(app, host=host, port=port, log_level="warning")
+    # The /api/stream SSE endpoint is an infinite generator (open as long as a
+    # dashboard tab is). Without a graceful-shutdown timeout, a single Ctrl+C
+    # leaves uvicorn waiting forever for that stream to finish, so the process
+    # appears to hang. Capping the timeout lets uvicorn force-close lingering
+    # streams and exit promptly on the first Ctrl+C.
+    config = uvicorn.Config(
+        app,
+        host=host,
+        port=port,
+        log_level="warning",
+        timeout_graceful_shutdown=2,
+    )
+    server = uvicorn.Server(config)
+
+    # Own the signal handling instead of letting uvicorn.run()/asyncio.run()
+    # do it. On Python 3.12 those install competing SIGINT handlers, so Ctrl+C
+    # races and dumps a KeyboardInterrupt traceback mid-shutdown. Instead we
+    # run on a loop we own, neuter uvicorn's own signal capture, and add a
+    # handler that just flips `should_exit` — uvicorn's main loop notices it
+    # and shuts down gracefully, then serve() returns cleanly with no traceback.
+    server.capture_signals = contextlib.nullcontext  # type: ignore[method-assign]
+    loop = asyncio.new_event_loop()
+
+    def _request_exit() -> None:
+        server.should_exit = True
+        _shutdown.set()
+
+    for sig in (signal.SIGINT, signal.SIGTERM):
+        loop.add_signal_handler(sig, _request_exit)
+    try:
+        loop.run_until_complete(server.serve())
+    finally:
+        loop.close()
