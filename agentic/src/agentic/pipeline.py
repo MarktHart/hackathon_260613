@@ -267,9 +267,41 @@ async def _boot_check_app_with_gpu(
     return await asyncio.to_thread(_go)
 
 
+def _summarise_message(message: Any) -> str:
+    """Compact one-line summary of an SDK message.
+
+    Full message reprs include thinking signatures and usage dicts that can
+    each be many KB; dumping them at every message blows up stdout pipes.
+    """
+    name = type(message).__name__
+    parts: list[str] = [name]
+    if hasattr(message, "subtype") and message.subtype is not None:
+        parts.append(f"subtype={message.subtype}")
+    content = getattr(message, "content", None)
+    if isinstance(content, list):
+        kinds = [type(b).__name__ for b in content]
+        parts.append(f"blocks={','.join(kinds) or '-'}")
+        for b in content:
+            text = getattr(b, "text", None)
+            if isinstance(text, str) and text:
+                snippet = text.strip().splitlines()[0][:120]
+                parts.append(f'text="{snippet}"')
+                break
+            tool_name = getattr(b, "name", None)
+            if tool_name:
+                parts.append(f"tool={tool_name}")
+                break
+    return " ".join(parts)
+
+
 async def _drain(stage: str, slug: str, agen: Any) -> None:
     async for message in agen:
-        typer.echo(f"[{stage}/{slug}] {message}")
+        try:
+            typer.echo(f"[{stage}/{slug}] {_summarise_message(message)}")
+        except BlockingIOError:
+            # Pipe consumer (tee, terminal) fell behind. Don't kill the pipeline
+            # — the event log + state files are the durable record.
+            continue
 
 
 async def _drain_with_timeout(stage: str, slug: str, agen: Any, timeout_s: int) -> None:
@@ -436,10 +468,20 @@ Goal:
 {benchmark_py}
 === END ===
 
-IMPORTANT: write `main.py` against the EXACT signature in `task.py` above.
-`Batch` is a frozen dataclass — access fields as `batch.d`, `batch.canonical_rho`,
-etc., NOT `batch["d"]`. `model_fn` takes ONE argument (a `Batch` instance) and
-returns one numpy array of the shape that `task.evaluate` expects.
+CRITICAL — derive `model_fn`'s signature from `task.py` above, do NOT assume one:
+
+1. Find the `ModelFn = Callable[...]` type alias in `task.py`. That gives the
+   exact argument types and return type your `model_fn` must satisfy.
+2. Find the line where `task.evaluate` invokes `model_fn(...)`. The arguments
+   it passes there are EXACTLY what your function will receive — same order,
+   same count. Some goals pass `model_fn(batch)`; others pass unpacked fields
+   like `model_fn(batch.q_A, batch.q_B, ...)`. Match the goal's choice.
+3. `Batch` is a frozen dataclass — access fields as `batch.foo`, NOT `batch["foo"]`.
+4. Return one numpy array with the exact shape `task.evaluate` validates against
+   (look for `if logits.shape != (...)` or similar in `task.py`).
+
+A signature mismatch crashes immediately on `task.evaluate(model_fn)`; the
+pipeline marks the attempt failed and the jury never runs. Get this right.
 
 Emit:
 - `experiments/{slug}/{attempt_name}/main.py`

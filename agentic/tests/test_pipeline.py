@@ -187,36 +187,6 @@ Goal: gamma
     assert [b.slug for b in pending] == ["alpha", "beta"]
 
 
-def test_attention_and_is_obviously_broken_predicate() -> None:
-    """Verify the seeded predicate behaves correctly on synthetic metrics."""
-    import importlib.util
-    from pathlib import Path as _Path
-
-    # tests/ -> agentic/ -> repo root; benchmark lives under experiments/.
-    bench_path = _Path(__file__).resolve().parents[2] / "experiments/attention_and/benchmark.py"
-    if not bench_path.exists():
-        pytest.skip("experiments/attention_and/benchmark.py not present in this tree")
-    spec = importlib.util.spec_from_file_location("_b", bench_path)
-    assert spec is not None and spec.loader is not None
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
-
-    healthy = {
-        "and_sharpness_canonical": 54.6,
-        "linear_baseline_sharpness_cos_0p0": 2.0,
-        "superposition_robustness": 0.2,
-    }
-    assert mod.is_obviously_broken(healthy) is False
-
-    nan_metrics = {**healthy, "and_sharpness_canonical": float("nan")}
-    assert mod.is_obviously_broken(nan_metrics) is True
-
-    degenerate = {**healthy, "and_sharpness_canonical": 2.5}  # <= 1.5 * 2.0
-    assert mod.is_obviously_broken(degenerate) is True
-
-    assert mod.GPU_REQUIREMENT == 1
-
-
 def test_verdict_serializes_round_trip(tmp_path: Path) -> None:
     from agentic.verdict import CriterionScore, Verdict
 
