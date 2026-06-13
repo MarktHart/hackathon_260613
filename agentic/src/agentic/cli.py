@@ -60,6 +60,18 @@ def pipeline_multi(
     typer.echo(json.dumps(result, indent=2))
 
 
+@app.command()
+def dashboard(
+    host: str = typer.Option("127.0.0.1", "--host", help="Bind address."),
+    port: int = typer.Option(8080, "--port", "-p", help="Port to serve on."),
+) -> None:
+    """Serve the live web dashboard (tails the event log; read-only)."""
+    from agentic.dashboard.server import serve
+
+    typer.echo(f"dashboard → http://{host}:{port}")
+    serve(host=host, port=port)
+
+
 @app.command("events")
 def show_events(
     last: int = typer.Option(20, "--last", "-n", help="How many recent events to print."),

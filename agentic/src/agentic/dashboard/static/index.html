@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>agentic · dashboard</title>
+<style>
+  :root {
+    --bg:#0d1117; --panel:#161b22; --line:#21262d; --fg:#e6edf3; --mut:#8b949e;
+    --acc:#58a6ff; --ok:#3fb950; --warn:#d29922; --bad:#f85149;
+    --picker:#58a6ff; --reviewer:#bc8cff; --solver:#3fb950; --jury:#d29922;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg);
+    font:14px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+  header { display:flex; align-items:baseline; gap:24px; flex-wrap:wrap;
+    padding:16px 24px; border-bottom:1px solid var(--line); position:sticky; top:0;
+    background:var(--bg); z-index:2; }
+  header h1 { font-size:16px; margin:0; letter-spacing:.5px; }
+  header h1 .dot { color:var(--ok); }
+  .stat { color:var(--mut); }
+  .stat b { color:var(--fg); font-size:18px; }
+  main { padding:20px 24px; max-width:1400px; }
+  section { margin-bottom:28px; }
+  h2 { font-size:12px; text-transform:uppercase; letter-spacing:1px;
+    color:var(--mut); margin:0 0 10px; font-weight:600; }
+  table { width:100%; border-collapse:collapse; }
+  th,td { text-align:left; padding:7px 10px; border-bottom:1px solid var(--line);
+    white-space:nowrap; }
+  th { color:var(--mut); font-weight:600; font-size:11px; text-transform:uppercase; }
+  td.num,th.num { text-align:right; font-variant-numeric:tabular-nums; }
+  .badge { display:inline-block; padding:1px 8px; border-radius:10px; font-size:11px;
+    border:1px solid var(--line); }
+  .b-running{ color:var(--ok); border-color:var(--ok); }
+  .b-claimed,.b-solving,.b-awaiting_jury,.b-pending_solver{ color:var(--acc); border-color:var(--acc); }
+  .b-graded{ color:var(--mut); }
+  .b-failed{ color:var(--bad); border-color:var(--bad); }
+  .b-stalled{ color:var(--warn); border-color:var(--warn); }
+  .b-pending{ color:var(--mut); }
+  .pulse{ animation:pulse 1.4s infinite; }
+  @keyframes pulse{ 0%,100%{opacity:1} 50%{opacity:.35} }
+  .panel{ background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:14px; }
+  .timeline-row{ display:flex; align-items:center; gap:12px; padding:6px 0;
+    border-bottom:1px solid var(--line); }
+  .timeline-row .slug{ width:200px; overflow:hidden; text-overflow:ellipsis; }
+  .bars{ display:flex; gap:3px; flex:1; }
+  .stagebar{ height:18px; border-radius:3px; display:flex; align-items:center;
+    justify-content:center; font-size:10px; color:#0d1117; min-width:36px; padding:0 6px; }
+  .empty{ color:var(--mut); padding:18px; text-align:center; }
+  .mut{ color:var(--mut); }
+  .legend{ display:flex; gap:14px; font-size:11px; color:var(--mut); margin-bottom:8px; }
+  .legend i{ display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:4px; vertical-align:middle; }
+  svg text{ fill:var(--mut); font-size:10px; }
+</style>
+</head>
+<body>
+<header>
+  <h1><span class="dot">●</span> agentic dashboard</h1>
+  <span class="stat">running <b id="s-running">–</b></span>
+  <span class="stat">stalled <b id="s-stalled">–</b></span>
+  <span class="stat">total cost <b id="s-cost">–</b></span>
+  <span class="stat">total tokens <b id="s-tokens">–</b></span>
+  <span class="stat" style="margin-left:auto" id="s-conn">connecting…</span>
+</header>
+<main>
+  <section>
+    <h2>Running now</h2>
+    <div id="running"></div>
+  </section>
+
+  <section>
+    <h2>Cumulative cost</h2>
+    <div class="panel"><svg id="chart" width="100%" height="140" preserveAspectRatio="none"></svg></div>
+  </section>
+
+  <section>
+    <h2>Stage timeline</h2>
+    <div class="legend">
+      <span><i style="background:var(--picker)"></i>picker</span>
+      <span><i style="background:var(--reviewer)"></i>reviewer</span>
+      <span><i style="background:var(--solver)"></i>solver</span>
+      <span><i style="background:var(--jury)"></i>jury</span>
+      <span class="mut">bar width ∝ tokens</span>
+    </div>
+    <div class="panel" id="timeline"></div>
+  </section>
+
+  <section>
+    <h2>All problems</h2>
+    <table>
+      <thead><tr>
+        <th>Problem</th><th>Status</th><th>Stage</th>
+        <th class="num">In</th><th class="num">Out</th>
+        <th class="num">Calls</th><th class="num">Cost</th><th class="num">Last seen</th>
+      </tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </section>
+</main>
+
+<script>
+const STAGE_COLORS = {picker:"var(--picker)",reviewer:"var(--reviewer)",solver:"var(--solver)",jury:"var(--jury)"};
+const fmt = n => n>=1e6 ? (n/1e6).toFixed(2)+"M" : n>=1e3 ? (n/1e3).toFixed(1)+"k" : ""+n;
+const usd = n => "$"+(n||0).toFixed(4);
+const ago = s => s==null ? "–" : s<60 ? Math.round(s)+"s" : s<3600 ? Math.round(s/60)+"m" : Math.round(s/3600)+"h";
+const esc = s => (s+"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+
+function render(v){
+  document.getElementById("s-running").textContent = v.running_count;
+  document.getElementById("s-stalled").textContent = v.stalled_count;
+  document.getElementById("s-cost").textContent = usd(v.totals.cost_usd);
+  document.getElementById("s-tokens").textContent = fmt(v.totals.input_tokens + v.totals.output_tokens);
+
+  // Running now
+  const running = v.problems.filter(p=>p.is_running||p.is_stalled);
+  document.getElementById("running").innerHTML = running.length ? `
+    <table><thead><tr>
+      <th>Problem</th><th>State</th><th>Stage</th>
+      <th class="num">Tokens</th><th class="num">Cost</th><th class="num">Active</th>
+    </tr></thead><tbody>${running.map(p=>`
+      <tr>
+        <td>${esc(p.title)} <span class="mut">${esc(p.slug)}</span></td>
+        <td><span class="badge ${p.is_stalled?'b-stalled':'b-running pulse'}">${p.is_stalled?'stalled':'running'}</span></td>
+        <td>${esc(p.current_stage||'–')}</td>
+        <td class="num">${fmt(p.totals.input_tokens+p.totals.output_tokens)}</td>
+        <td class="num">${usd(p.totals.cost_usd)}</td>
+        <td class="num">${ago(p.last_event_age_s)}</td>
+      </tr>`).join("")}</tbody></table>`
+    : `<div class="empty">No agents currently running.</div>`;
+
+  // All problems
+  document.getElementById("rows").innerHTML = v.problems.map(p=>`
+    <tr>
+      <td>${esc(p.title)} <span class="mut">${esc(p.slug)}</span></td>
+      <td><span class="badge b-${p.is_stalled?'stalled':p.status}">${p.is_stalled?'stalled':esc(p.status)}</span></td>
+      <td>${esc(p.current_stage||'–')}</td>
+      <td class="num">${fmt(p.totals.input_tokens)}</td>
+      <td class="num">${fmt(p.totals.output_tokens)}</td>
+      <td class="num">${p.totals.n_calls}</td>
+      <td class="num">${usd(p.totals.cost_usd)}</td>
+      <td class="num">${ago(p.last_event_age_s)}</td>
+    </tr>`).join("");
+
+  // Stage timeline (bar width ∝ tokens within each problem)
+  const withStages = v.problems.filter(p=>p.stage_timeline.length);
+  document.getElementById("timeline").innerHTML = withStages.length ? withStages.map(p=>{
+    const tot = p.stage_timeline.reduce((a,s)=>a+s.input_tokens+s.output_tokens,0)||1;
+    return `<div class="timeline-row">
+      <span class="slug" title="${esc(p.slug)}">${esc(p.slug)}</span>
+      <div class="bars">${p.stage_timeline.map(s=>{
+        const t=s.input_tokens+s.output_tokens;
+        const w=Math.max(4,(t/tot)*100);
+        return `<div class="stagebar" style="flex:0 0 ${w}%;background:${STAGE_COLORS[s.stage]||'#444'}"
+          title="${esc(s.stage)} · ${fmt(t)} tok · ${usd(s.cost_usd)}">${s.stage}</div>`;
+      }).join("")}</div>
+      <span class="num mut" style="width:70px">${usd(p.totals.cost_usd)}</span>
+    </div>`;
+  }).join("") : `<div class="empty">No model usage recorded yet.</div>`;
+
+  drawChart(v.cost_series);
+}
+
+function drawChart(series){
+  const svg=document.getElementById("chart");
+  const W=svg.clientWidth||800, H=140, pad=24;
+  svg.setAttribute("viewBox",`0 0 ${W} ${H}`);
+  if(!series.length){ svg.innerHTML=`<text x="${W/2}" y="${H/2}" text-anchor="middle">no cost yet</text>`; return; }
+  const ys=series.map(p=>p.cumulative_cost_usd), max=Math.max(...ys,1e-9);
+  const X=i=>pad+(series.length<2?0:i/(series.length-1))*(W-2*pad);
+  const Y=val=>H-pad-(val/max)*(H-2*pad);
+  const line=series.map((p,i)=>`${i?'L':'M'}${X(i).toFixed(1)},${Y(p.cumulative_cost_usd).toFixed(1)}`).join(" ");
+  const area=`${line} L${X(series.length-1).toFixed(1)},${H-pad} L${X(0).toFixed(1)},${H-pad} Z`;
+  svg.innerHTML=`
+    <path d="${area}" fill="rgba(88,166,255,.12)"/>
+    <path d="${line}" fill="none" stroke="var(--acc)" stroke-width="1.5"/>
+    <text x="${pad}" y="14">${usd(max)}</text>
+    <text x="${pad}" y="${H-6}">$0</text>
+    <text x="${W-pad}" y="${H-6}" text-anchor="end">${series.length} calls</text>`;
+}
+
+function connect(){
+  const conn=document.getElementById("s-conn");
+  const es=new EventSource("/api/stream");
+  es.onopen=()=>conn.textContent="● live";
+  es.onmessage=e=>{ try{ render(JSON.parse(e.data)); }catch(err){ console.error(err);} };
+  es.onerror=()=>{ conn.textContent="reconnecting…"; };
+}
+connect();
+</script>
+</body>
+</html>
