@@ -1,0 +1,40 @@
+{
+  "goal": "attention_and",
+  "attempt": "superposed_query",
+  "run_id": "20260613T092607Z",
+  "metrics": {
+    "version": 1,
+    "and_sharpness": 54.598150033144236,
+    "linear_baseline_sharpness": 2.0,
+    "softmax_both_mass": 0.9311563684978633,
+    "lift_over_linear": 52.598150033144236
+  },
+  "payload": {
+    "softmax_weights": {
+      "A_only_1": 0.01705472379435196,
+      "A_only_2": 0.01705472379435196,
+      "B_only_1": 0.01705472379435196,
+      "B_only_2": 0.01705472379435196,
+      "both": 0.9311563684978633,
+      "neither_1": 0.0003123681623644529,
+      "neither_2": 0.0003123681623644529
+    },
+    "linear_weights": {
+      "A_only_1": 0.16666666666666666,
+      "A_only_2": 0.16666666666666666,
+      "B_only_1": 0.16666666666666666,
+      "B_only_2": 0.16666666666666666,
+      "both": 0.3333333333333333,
+      "neither_1": 0.0,
+      "neither_2": 0.0
+    },
+    "both_label": "both",
+    "single_feature_labels": [
+      "A_only_1",
+      "A_only_2",
+      "B_only_1",
+      "B_only_2"
+    ],
+    "canonical_scale": 1.0
+  }
+}

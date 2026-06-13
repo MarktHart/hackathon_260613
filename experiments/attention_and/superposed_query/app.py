@@ -12,10 +12,12 @@ import gradio as gr
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from agentic.experiments import benchmark_panel
 from matplotlib.figure import Figure
 
 HERE = Path(__file__).resolve().parent
 RESULTS = HERE / "results"
+GOAL_DIR = HERE.parent
 
 
 def _runs() -> list[str]:
@@ -66,22 +68,30 @@ def build() -> gr.Blocks:
     default_run = runs[0] if runs else None
 
     with gr.Blocks(title="Attention as a soft AND") as demo:
-        gr.Markdown(
-            "# Attention as a soft AND\n"
-            "Same per-token scores, two normalisations. Softmax exponentiates first → the "
-            "score for the `both` token (sum of two positive matches) blows up multiplicatively "
-            "and grabs almost all the mass. The linear baseline (no `exp`) stays diffuse. "
-            "Slide *scale* up to see the AND-spike sharpen."
-        )
-        with gr.Row():
-            run_dd = gr.Dropdown(choices=runs, value=default_run, label="Run", interactive=True)
-            scale_slider = gr.Slider(minimum=0.25, maximum=3.0, value=1.0, step=0.25, label="Scale")
-        plot = gr.Plot()
+        gr.Markdown("# Attention as a soft AND")
+        with gr.Tabs():
+            with gr.Tab("Demo"):
+                gr.Markdown(
+                    "Same per-token scores, two normalisations. Softmax exponentiates first "
+                    "→ the score for the `both` token (sum of two positive matches) blows up "
+                    "multiplicatively and grabs almost all the mass. The linear baseline (no "
+                    "`exp`) stays diffuse. Slide *scale* up to see the AND-spike sharpen."
+                )
+                with gr.Row():
+                    run_dd = gr.Dropdown(
+                        choices=runs, value=default_run, label="Run", interactive=True
+                    )
+                    scale_slider = gr.Slider(
+                        minimum=0.25, maximum=3.0, value=1.0, step=0.25, label="Scale"
+                    )
+                plot = gr.Plot()
 
-        inputs = [run_dd, scale_slider]
-        for ev in (run_dd.change, scale_slider.change):
-            ev(render, inputs=inputs, outputs=plot)
-        demo.load(render, inputs=inputs, outputs=plot)
+                inputs = [run_dd, scale_slider]
+                for ev in (run_dd.change, scale_slider.change):
+                    ev(render, inputs=inputs, outputs=plot)
+                demo.load(render, inputs=inputs, outputs=plot)
+            with gr.Tab("Benchmark"):
+                benchmark_panel(GOAL_DIR)
 
     return demo  # type: ignore[no-any-return]
 
