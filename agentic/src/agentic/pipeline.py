@@ -48,6 +48,7 @@ from typing import Any
 
 import typer
 
+from agentic import usage
 from agentic.blocks import list_pending, load_state, next_pending, update_state
 from agentic.config import TIER, Tier, settings
 from agentic.events import emit
