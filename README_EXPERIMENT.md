@@ -114,18 +114,45 @@ MLP) need in order to express this?* — to stay in the foreground.
 
 ### Boot-check `app.py`
 
-Before declaring done, verify the Gradio app actually starts. A green compute
-step with a broken `app.py` is not a complete attempt.
+Before declaring done, verify the Gradio app loads cleanly. The pipeline's
+boot-check is structural — it imports `app.py` and asserts the module exposes
+a `demo: gr.Blocks`, which catches the bugs an attempt usually has (Gradio
+API misuse, import errors, missing `demo`, wrong type) without binding a port.
 
-```bash
-uv run python app.py &
-APP_PID=$!
-# Watch stdout (or use the Monitor tool) for "Running on local URL".
-kill "$APP_PID"
+Two hard requirements on `app.py`:
+
+1. Expose `demo: gr.Blocks` at the module level. The boot-check looks for
+   exactly that attribute.
+2. Every Gradio event/lifecycle call (`btn.click(...)`, `dd.change(...)`,
+   `demo.load(...)`, etc.) must live INSIDE the `with gr.Blocks() as demo:`
+   block. Calling any of them at module level raises `AttributeError: Cannot
+   call X outside of a gradio.Blocks context` at import time.
+
+The canonical shape:
+
+```python
+import gradio as gr
+
+with gr.Blocks() as demo:
+    ...
+    btn.click(my_fn, inputs=..., outputs=...)
+    demo.load(initial_fn, inputs=..., outputs=...)
+
+if __name__ == "__main__":
+    demo.launch()
 ```
 
-If you only want to check the module constructs without binding a port, run
-`uv run python -c "import importlib.util, sys; m=importlib.util.spec_from_file_location('a','app.py'); ml=importlib.util.module_from_spec(m); m.loader.exec_module(ml); print('ok')"`.
+To run the same check yourself:
+
+```bash
+uv run python -c "
+import importlib.util, sys, gradio as gr
+spec = importlib.util.spec_from_file_location('app', 'app.py')
+m = importlib.util.module_from_spec(spec); sys.modules['app'] = m
+spec.loader.exec_module(m)
+assert isinstance(m.demo, gr.Blocks), 'app.py must expose demo: gr.Blocks'
+print('ok')"
+```
 
 ## Benchmarking — shared per goal
 

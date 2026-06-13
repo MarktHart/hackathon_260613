@@ -13,13 +13,12 @@ and surface in each attempt's Gradio dashboard.
 uv sync
 
 # Configure keys + tier endpoints.
-cp agentic/.env.example .env
+cp .env.example .env
 # then fill in at least ANTHROPIC_API_KEY and NEBIUS_API_KEY
 ```
 
 Tier defaults: tier 1 (review + judge) → Anthropic; tiers 2 & 3 (benchmark +
-solve) → Nebius Token Factory. All overridable via env — see
-`agentic/.env.example`.
+solve) → Nebius Token Factory. All overridable via env — see `.env.example`.
 
 ## Pipeline commands
 
@@ -50,17 +49,6 @@ uv run agentic pipeline-multi -n 3 -c 5
 uv run agentic events -n 50
 ```
 
-## Free-form orchestrator commands
-
-```bash
-# Run a one-off task through the Claude-powered orchestrator
-# (it has Read/Write/Edit/Bash + sub-agents available).
-uv run agentic run "Summarise the latest results in experiments/attention_and/superposed_query"
-
-# Dispatch the experimenter sub-agent at a specific goal directory.
-uv run agentic run-goal experiments/attention_and --attempt baseline_check
-```
-
 ## Direct experiment commands
 
 ```bash
@@ -86,7 +74,7 @@ bash verify.sh
 | `BLOCKS.md` | task queue — append `## Title` + `Goal: slug` blocks |
 | `README_EXPERIMENT.md` | the contract a spawned solver/experimenter follows (layout, loop, grading rubric) |
 | `README_BENCHMARK.md` | how goal authors design `benchmark.py` (payload contract, metrics, hooks) |
-| `agentic/` | the framework — runner, pipeline, gpu pool, events, blocks parser |
+| `agentic/` | the framework — pipeline, tier runner, gpu pool, events, blocks parser, usage tracker |
 | `experiments/<goal>/` | one mech-interp question — `README.md` + `benchmark.py` + attempt subdirs |
 | `experiments/<goal>/<attempt>/` | one attempt — `main.py`, `app.py`, `README.md`, `results/<run-id>/` |
 | `state/blocks.jsonl` | per-slug pipeline state (gitignored) |
@@ -97,9 +85,10 @@ bash verify.sh
 | Stage | Tier | Default model | Notes |
 |-------|------|---------------|-------|
 | picker | STANDARD (#2) | `nvidia/Nemotron-3-Ultra-550b-a55b` | one-shot; writes goal README + benchmark.py |
-| reviewer | EXPERT (#1) | `claude-opus-4-8-high` | full agent loop; may edit |
+| reviewer | EXPERT (#1) | `claude-opus-4-8` (effort=high) | full agent loop; may edit |
 | solver | QUICK (#3) | `nvidia/Cosmos3-Super-Reasoner` | one-shot; pipeline runs the code |
-| jury | EXPERT (#1) | `claude-opus-4-8-high` | full agent loop; writes verdict.json |
+| jury | EXPERT (#1) | `claude-opus-4-8` (effort=high) | full agent loop; writes verdict.json |
 
-GPU slots, wall-clock budgets per tier, the `is_obviously_broken` short-circuit,
-and the shared `HF_HOME` are all configurable via env — see `agentic/.env.example`.
+GPU slots, wall-clock budgets per tier, retry counts with tier escalation, the
+`is_obviously_broken` short-circuit, and the shared `HF_HOME` are all
+configurable via env — see `.env.example`.

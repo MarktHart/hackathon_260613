@@ -1,13 +1,11 @@
 [project]
 name = "agentic"
 version = "0.0.1"
-description = "Agentic framework built on the Claude Agent SDK with pluggable external-LLM dispatch."
+description = "Three-tier pipeline that picks BLOCKS.md tasks, scaffolds goals, runs attempts, and grades them."
 requires-python = ">=3.11"
 dependencies = [
     "claude-agent-sdk>=0.2",
-    "litellm>=1.50",
     "openai>=1.40",
-    "pydantic>=2.7",
     "python-dotenv>=1.0",
     "typer>=0.12",
 ]

@@ -1,16 +1,34 @@
-"""Sequential pipeline: pick → write benchmark → review → solve → judge.
+"""Sequential pipeline: pick → smoke-test → review → solve → judge.
 
-Tier wiring:
-    task_picker        STANDARD  (completion — Nemotron writes goal README + benchmark.py)
-    benchmark_reviewer EXPERT    (agentic   — Opus audits + edits)
-    solver             QUICK     (completion — Cosmos3 writes attempt files)
-    jury               EXPERT    (agentic   — Opus writes verdict.json)
+Tier wiring (each loop escalates one rung on the tier ladder after `_base`
+retries are exhausted):
+    task_picker        STANDARD → EXPERT   (completion → agentic)
+    benchmark_reviewer EXPERT              (agentic — Opus audits + edits)
+    solver             QUICK → STANDARD    (completion → completion)
+    jury               EXPERT              (agentic — Opus writes verdict.json)
+
+Smoke test + feedback loops
+---------------------------
+After the picker writes the goal's three files, the pipeline runs
+`benchmark.score(task.evaluate(task.random_model_fn()))` in a CPU-only
+subprocess with a tight timeout (`settings.smoke_test_timeout_s`). If it
+crashes, the traceback is folded back into the picker's next prompt — cheaper
+than booting the agentic reviewer just to discover the contract is broken.
+After `picker_retries_base` failures the picker escalates to EXPERT (agentic
+Opus); after `picker_retries_escalated` more failures the slug is marked
+failed.
+
+The solver works the same way one tier down: it iterates QUICK → STANDARD,
+each retry's prompt carries either the `main.py` traceback or the degenerate
+metrics dict (when `is_obviously_broken` returns True) from the prior round.
+By the time the jury runs, the solver has already converged on a non-broken
+benchmark.
 
 Cost / time controls
 --------------------
 - Per-tier `wall_clock_s` enforced via `asyncio.wait_for` around each consumer.
 - `is_obviously_broken(metrics)` (optional, declared in the goal's benchmark.py)
-  short-circuits the jury when the solver's run is degenerate.
+  drives the solver loop and, after exhaustion, short-circuits the jury.
 - `--force` and idempotency: re-running a graded slug exits early unless forced.
 - `pipeline-multi` fans out across pending slugs; the GPU semaphore throttles
   the subprocess stages (`main.py`, `app.py` boot-check) to the GPU pool size.
@@ -20,13 +38,10 @@ Cost / time controls
 from __future__ import annotations
 
 import asyncio
-import contextlib
 import importlib.util
 import json
 import os
-import signal
 import subprocess
-import time
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -43,8 +58,7 @@ from agentic.verdict import JURY_OUTPUT_SCHEMA
 
 # ---------- system prompts (kept byte-stable for prompt caching) ----------
 
-PICKER_SYSTEM = (
-    """\
+_PICKER_SYSTEM_BASE = """\
 You scaffold a new mechanistic-interpretability goal. The goal owns THREE
 files; every attempt imports the second and third instead of duplicating
 their content:
@@ -57,6 +71,18 @@ their content:
    payload dict it returns must match `benchmark.score()`'s expected shape
    exactly. Two attempts at the same goal must never disagree on the data —
    that's the whole point of factoring this out.
+
+   task.py MUST also export `random_model_fn() -> ModelFn`: a callable with
+   exactly the same signature as a real `model_fn`, but whose body returns
+   random / zero values of the right shape. Pure NumPy, no torch, no GPU.
+   Between the picker and the reviewer the pipeline runs the smoke test
+       payload = task.evaluate(task.random_model_fn())
+       metrics = benchmark.score(payload)
+   and fails the goal back to the picker (with the traceback) if any of
+   those three calls crashes. The smoke test exists so the reviewer never
+   has to debug shape mismatches by hand — get the contract right and the
+   reviewer focuses on substance.
+
 3. `experiments/<slug>/benchmark.py` — exports `VERSION = 1` and
    `score(payload) -> dict[str, float | int]`. One headline summary metric,
    per-slice values, and a baseline. Handles edge cases (empty sweeps, zero
@@ -65,9 +91,19 @@ their content:
 
 You will receive the slug, the title, the spec from BLOCKS.md, and the full
 text of README_BENCHMARK.md (the construction guide). Follow that guide.
-
 """
-    + OUTPUT_CONTRACT
+
+PICKER_SYSTEM_COMPLETION = _PICKER_SYSTEM_BASE + "\n" + OUTPUT_CONTRACT
+
+PICKER_SYSTEM_AGENTIC = (
+    _PICKER_SYSTEM_BASE
+    + "\n"
+    + """\
+Use the Write tool to create the three files at the paths above. Do not
+emit `<<FILE: ...>>` blocks; the file system is your output channel. Read
+any existing files at those paths first — you may be retrying after the
+completion-tier picker left the goal in a broken state.
+"""
 )
 
 REVIEWER_SYSTEM = """\
@@ -122,6 +158,24 @@ Emit these files exactly (no others):
 - `experiments/<slug>/<attempt_name>/main.py`
 - `experiments/<slug>/<attempt_name>/app.py` — Gradio Blocks app with a Demo
   tab and a Benchmark tab that drops in `agentic.experiments.benchmark_panel(<goal_dir>)`.
+
+  Two contracts for `app.py`:
+  (a) Expose a module-level `demo: gr.Blocks`. The pipeline boot-checks by
+      importing the module and asserting `isinstance(demo, gr.Blocks)` — no
+      port binding, so structural bugs (import error, wrong type, etc.)
+      get caught instantly.
+  (b) Every Gradio call (`.click`, `.change`, `.load`, `.select`, ...) MUST
+      live INSIDE the `with gr.Blocks() as demo:` block. Calling any of
+      them at module level raises `AttributeError: Cannot call X outside of
+      a gradio.Blocks context` and fails the boot-check. The canonical shape:
+
+          with gr.Blocks() as demo:
+              ...
+              btn.click(fn, inputs=..., outputs=...)
+              demo.load(fn, inputs=..., outputs=...)   # inside, not after
+
+          if __name__ == "__main__":
+              demo.launch()
 - `experiments/<slug>/<attempt_name>/README.md` — two sections: *What I did*
   (3-6 sentences, naming the attempt type — hand_built / trained / interp)
   and *Why this visualisation*.
@@ -224,45 +278,53 @@ async def _run_subprocess_with_gpu(
     return await asyncio.to_thread(_go)
 
 
+_APP_IMPORT_CHECK = """
+import importlib.util, sys
+import gradio as gr
+spec = importlib.util.spec_from_file_location("app", {app_path!r})
+assert spec is not None and spec.loader is not None
+m = importlib.util.module_from_spec(spec)
+sys.modules["app"] = m
+spec.loader.exec_module(m)
+demo = getattr(m, "demo", None)
+assert isinstance(demo, gr.Blocks), (
+    f"app.py must expose a module-level `demo: gr.Blocks`; got {{type(demo).__name__}}"
+)
+print("ok")
+"""
+
+
 async def _boot_check_app_with_gpu(
     app_path: Path,
     *,
     n_gpus: int = 1,
-    wait_s: int = 20,
+    wait_s: int = 60,
 ) -> tuple[bool, str]:
-    """Launch app.py with the GPU pool held, wait for the Gradio URL line, kill."""
+    """Verify `app.py` imports cleanly and exposes `demo: gr.Blocks`.
+
+    Cheaper than launching the server: catches Gradio API misuse (calling
+    `.load`/`.click`/etc. outside a Blocks context), import errors, syntax
+    errors, missing `demo`, and wrong type — all the bugs a launch would
+    surface in its first second, but with no port binding and no wait for
+    the "Running on local URL" line.
+    """
 
     def _go() -> tuple[bool, str]:
         with acquire_gpus(n_gpus) as gpu_ids:
             env = _build_subprocess_env(gpu_ids)
-            log_path = Path("/tmp") / f"gradio-{app_path.parent.name}.log"
-            log_path.write_text("")
-            logfile = log_path.open("w")
-            proc = subprocess.Popen(
-                ["uv", "run", "--project", str(Path.cwd()), "python", str(app_path)],
-                env=env,
-                stdout=logfile,
-                stderr=subprocess.STDOUT,
-            )
+            script = _APP_IMPORT_CHECK.format(app_path=str(app_path))
             try:
-                deadline = time.time() + wait_s
-                while time.time() < deadline:
-                    text = log_path.read_text() if log_path.exists() else ""
-                    if "Running on local URL" in text:
-                        return True, text[-1000:]
-                    if "Traceback" in text or "Error " in text:
-                        return False, text[-1000:]
-                    time.sleep(0.5)
-                return False, (log_path.read_text() if log_path.exists() else "")[-1000:]
-            finally:
-                with contextlib.suppress(ProcessLookupError):
-                    proc.send_signal(signal.SIGTERM)
-                try:
-                    proc.wait(timeout=3)
-                except subprocess.TimeoutExpired:
-                    with contextlib.suppress(ProcessLookupError):
-                        proc.kill()
-                logfile.close()
+                proc = subprocess.run(
+                    ["uv", "run", "--project", str(Path.cwd()), "python", "-c", script],
+                    env=env,
+                    capture_output=True,
+                    text=True,
+                    timeout=wait_s,
+                )
+            except subprocess.TimeoutExpired:
+                return False, f"app import check timed out after {wait_s}s"
+            ok = proc.returncode == 0 and "ok" in proc.stdout
+            return ok, (proc.stdout + proc.stderr)[-1500:]
 
     return await asyncio.to_thread(_go)
 
@@ -333,6 +395,387 @@ def _latest_benchmark(attempt_dir: Path) -> dict[str, Any] | None:
     return data if isinstance(data, dict) else None
 
 
+# ---------- smoke test (picker → reviewer) ----------
+
+_SMOKE_TEST_SCRIPT = """\
+import json, sys, traceback
+import importlib.util
+import os.path
+
+SLUG_DIR = sys.argv[1]
+
+
+def _load(name, fname):
+    spec = importlib.util.spec_from_file_location(name, os.path.join(SLUG_DIR, fname))
+    if spec is None or spec.loader is None:
+        raise ImportError(f"Could not load module spec for {fname}")
+    mod = importlib.util.module_from_spec(spec)
+    sys.modules[name] = mod
+    spec.loader.exec_module(mod)
+    return mod
+
+
+try:
+    task = _load("_smoke_task", "task.py")
+    benchmark = _load("_smoke_benchmark", "benchmark.py")
+    if not hasattr(task, "random_model_fn"):
+        raise AttributeError(
+            "task.py is missing `random_model_fn() -> ModelFn`. The pipeline "
+            "needs it for the post-picker smoke test."
+        )
+    model_fn = task.random_model_fn()
+    payload = task.evaluate(model_fn)
+    metrics = benchmark.score(payload)
+    print("SMOKE_OK")
+    print(json.dumps(metrics, default=str))
+except Exception:
+    traceback.print_exc()
+    sys.exit(1)
+"""
+
+
+async def _smoke_test_benchmark(slug: str, *, timeout_s: int) -> tuple[bool, str]:
+    """Sub-second contract check: task.evaluate(random_model_fn) → benchmark.score.
+
+    Runs in a CPU-only subprocess (no GPU acquire, no torch import).
+    Returns (ok, output). On failure `output` is the traceback we feed back
+    to the picker so it can fix the issue without burning a reviewer turn.
+    """
+    slug_dir = (Path("experiments") / slug).resolve()
+    script_path = Path("/tmp") / f"agentic_smoke_{slug}.py"
+    script_path.write_text(_SMOKE_TEST_SCRIPT)
+
+    def _go() -> tuple[bool, str]:
+        env = dict(os.environ)
+        env["PYTHONUNBUFFERED"] = "1"
+        if settings.hf_home:
+            env["HF_HOME"] = settings.hf_home
+        try:
+            proc = subprocess.run(
+                [
+                    "uv",
+                    "run",
+                    "--project",
+                    str(Path.cwd()),
+                    "python",
+                    str(script_path),
+                    str(slug_dir),
+                ],
+                env=env,
+                capture_output=True,
+                text=True,
+                timeout=timeout_s,
+            )
+        except subprocess.TimeoutExpired:
+            return False, f"smoke test timed out after {timeout_s}s"
+        output = (proc.stdout + proc.stderr)[-4000:]
+        ok = proc.returncode == 0 and "SMOKE_OK" in proc.stdout
+        return ok, output
+
+    return await asyncio.to_thread(_go)
+
+
+# ---------- retry loops with tier escalation ----------
+
+
+def _build_picker_prompt(
+    slug: str,
+    block_title: str,
+    block_spec: str,
+    readme_benchmark: str,
+    feedback: str,
+) -> str:
+    return f"""\
+Slug: {slug}
+Title: {block_title}
+Spec from BLOCKS.md:
+---
+{block_spec or "(no spec — infer from title)"}
+---
+
+Below is the full construction guide. Follow it exactly.
+
+=== README_BENCHMARK.md ===
+{readme_benchmark}
+=== END ===
+{feedback}
+Produce three files:
+- `experiments/{slug}/README.md`
+- `experiments/{slug}/task.py`        (must export `generate`, `evaluate`, `random_model_fn`)
+- `experiments/{slug}/benchmark.py`
+"""
+
+
+async def _picker_with_smoke_retries(
+    slug: str,
+    block_title: str,
+    block_spec: str,
+    readme_benchmark: str,
+) -> tuple[bool, str]:
+    """PICKER → smoke test loop with tier escalation.
+
+    Runs the picker at STANDARD for `picker_retries_base` attempts. On each
+    failure the smoke-test traceback is appended to the next prompt as
+    feedback. After exhaustion escalates to EXPERT (agentic Opus) for
+    `picker_retries_escalated` more attempts. Returns (ok, last_smoke_log).
+    """
+    feedback = ""
+    n_base = settings.picker_retries_base
+    n_esc = settings.picker_retries_escalated
+    last_log = ""
+
+    for i in range(n_base + n_esc):
+        tier = Tier.STANDARD if i < n_base else Tier.EXPERT
+        prompt = _build_picker_prompt(slug, block_title, block_spec, readme_benchmark, feedback)
+        cfg = TIER[tier]
+
+        emit("picker_attempt", slug=slug, attempt_idx=i, tier=tier.value)
+
+        if cfg.mode == "completion":
+            text = await _completion_with_timeout(
+                tier,
+                prompt,
+                system_prompt=PICKER_SYSTEM_COMPLETION,
+                timeout_s=cfg.wall_clock_s,
+            )
+            written = apply_blocks(
+                text,
+                root=Path.cwd(),
+                allowed_prefixes=(f"experiments/{slug}/",),
+            )
+            emit(
+                "benchmark_written",
+                slug=slug,
+                tier=tier.value,
+                attempt_idx=i,
+                files=[str(p.relative_to(Path.cwd())) for p in written],
+            )
+        else:
+            await _drain_with_timeout(
+                "picker",
+                slug,
+                run_at_tier_agentic(
+                    tier,
+                    prompt=prompt,
+                    system_prompt=PICKER_SYSTEM_AGENTIC,
+                    allowed_tools=["Read", "Write", "Edit"],
+                ),
+                timeout_s=cfg.wall_clock_s,
+            )
+            emit("benchmark_written", slug=slug, tier=tier.value, attempt_idx=i)
+
+        ok, log = await _smoke_test_benchmark(slug, timeout_s=settings.smoke_test_timeout_s)
+        last_log = log
+        emit(
+            "benchmark_smoke",
+            slug=slug,
+            attempt_idx=i,
+            tier=tier.value,
+            ok=ok,
+            log_tail=log[-500:],
+        )
+        if ok:
+            return True, log
+
+        feedback = (
+            "\n\n=== PREVIOUS ATTEMPT FAILED THE SMOKE TEST ===\n"
+            "The pipeline ran:\n"
+            "    payload = task.evaluate(task.random_model_fn())\n"
+            "    metrics = benchmark.score(payload)\n"
+            "and got:\n\n"
+            f"{log}\n"
+            "=== END ===\n\n"
+            "Re-emit ALL THREE files (README.md, task.py, benchmark.py) with "
+            "the fix. Common causes:\n"
+            "- `random_model_fn` missing, or its return signature doesn't match "
+            "what `task.evaluate` calls.\n"
+            "- payload dict from `task.evaluate` doesn't match what "
+            "`benchmark.score` consumes (key names, sweep length, missing "
+            "`version`).\n"
+            "- import-time error in task.py or benchmark.py (typo, missing "
+            "import, wrong `VERSION`).\n"
+        )
+
+    return False, last_log
+
+
+def _build_solver_prompt(
+    slug: str,
+    attempt_name: str,
+    readme_experiment: str,
+    goal_readme: str,
+    task_py: str,
+    benchmark_py: str,
+    feedback: str,
+) -> str:
+    return f"""\
+Slug: {slug}
+Attempt name (already chosen, use it): {attempt_name}
+
+Repo conventions:
+=== README_EXPERIMENT.md ===
+{readme_experiment}
+=== END ===
+
+Goal:
+=== experiments/{slug}/README.md ===
+{goal_readme}
+=== END ===
+
+=== experiments/{slug}/task.py ===
+{task_py}
+=== END ===
+
+=== experiments/{slug}/benchmark.py ===
+{benchmark_py}
+=== END ===
+
+CRITICAL — derive `model_fn`'s signature from `task.py` above, do NOT assume one:
+
+1. Find the `ModelFn = Callable[...]` type alias in `task.py`. That gives the
+   exact argument types and return type your `model_fn` must satisfy.
+2. Find the line where `task.evaluate` invokes `model_fn(...)`. The arguments
+   it passes there are EXACTLY what your function will receive — same order,
+   same count. Some goals pass `model_fn(batch)`; others pass unpacked fields
+   like `model_fn(batch.q_A, batch.q_B, ...)`. Match the goal's choice.
+3. `Batch` is a frozen dataclass — access fields as `batch.foo`, NOT `batch["foo"]`.
+4. Return one numpy array with the exact shape `task.evaluate` validates against
+   (look for `if logits.shape != (...)` or similar in `task.py`).
+
+A signature mismatch crashes immediately on `task.evaluate(model_fn)`. The
+pipeline will retry you with the traceback, but get it right first.
+{feedback}
+Emit:
+- `experiments/{slug}/{attempt_name}/main.py`
+- `experiments/{slug}/{attempt_name}/app.py`
+- `experiments/{slug}/{attempt_name}/README.md`
+"""
+
+
+async def _solver_with_benchmark_retries(
+    slug: str,
+    attempt_name: str,
+    goal_dir: Path,
+    attempt_dir: Path,
+    gpu_requirement: int,
+    broken_predicate: Any,
+) -> tuple[bool, dict[str, Any] | None, str]:
+    """SOLVER → run main.py → check benchmark loop with tier escalation.
+
+    Each iteration:
+        1. SOLVER emits attempt files (prompt includes benchmark feedback
+           from prior rounds).
+        2. Pipeline runs main.py. If it crashes, feedback = traceback, retry.
+        3. If `is_obviously_broken(metrics)` is True, feedback = the metrics
+           dict, retry. The solver sees its own benchmark output before the
+           jury ever does.
+        4. Otherwise success — return (True, metrics, log).
+
+    Tries QUICK tier `solver_retries_base` times, escalates to STANDARD for
+    `solver_retries_escalated` more. Returns (ok, last_metrics_or_None, last_log).
+    """
+    readme_experiment = _read_if_exists("README_EXPERIMENT.md")
+    goal_readme = _read_if_exists(goal_dir / "README.md")
+    task_py = _read_if_exists(goal_dir / "task.py")
+    benchmark_py = _read_if_exists(goal_dir / "benchmark.py")
+
+    feedback = ""
+    n_base = settings.solver_retries_base
+    n_esc = settings.solver_retries_escalated
+    last_log = ""
+    last_metrics: dict[str, Any] | None = None
+
+    for i in range(n_base + n_esc):
+        tier = Tier.QUICK if i < n_base else Tier.STANDARD
+        prompt = _build_solver_prompt(
+            slug,
+            attempt_name,
+            readme_experiment,
+            goal_readme,
+            task_py,
+            benchmark_py,
+            feedback,
+        )
+        cfg = TIER[tier]
+
+        emit("solver_attempt", slug=slug, attempt=attempt_name, attempt_idx=i, tier=tier.value)
+
+        text = await _completion_with_timeout(
+            tier, prompt, system_prompt=SOLVER_SYSTEM, timeout_s=cfg.wall_clock_s
+        )
+        apply_blocks(
+            text,
+            root=Path.cwd(),
+            allowed_prefixes=(f"experiments/{slug}/{attempt_name}/",),
+        )
+
+        main_path = attempt_dir / "main.py"
+        if not main_path.exists():
+            feedback = (
+                "\n\n=== PREVIOUS ATTEMPT DID NOT EMIT main.py ===\n"
+                "Re-emit ALL THREE files: main.py, app.py, README.md.\n"
+            )
+            continue
+
+        rc, log = await _run_subprocess_with_gpu(
+            ["uv", "run", "--project", str(Path.cwd()), "python", str(main_path)],
+            n_gpus=gpu_requirement,
+            timeout=600,
+        )
+        last_log = log
+        emit(
+            "solver_main_run",
+            slug=slug,
+            attempt=attempt_name,
+            attempt_idx=i,
+            tier=tier.value,
+            returncode=rc,
+            log_tail=log[-500:],
+        )
+
+        if rc != 0:
+            feedback = (
+                "\n\n=== PREVIOUS ATTEMPT'S main.py CRASHED ===\n"
+                f"Exit code: {rc}\n"
+                "Tail of stdout+stderr:\n"
+                f"{log}\n"
+                "=== END ===\n\n"
+                "Re-emit ALL THREE files with the fix. Common causes:\n"
+                "- `model_fn` signature doesn't match what `task.evaluate` "
+                "passes (check the call site in task.py).\n"
+                "- Wrong return shape or dtype from `model_fn`.\n"
+                "- Import errors / typos.\n"
+            )
+            continue
+
+        bench = _latest_benchmark(attempt_dir)
+        metrics = (bench or {}).get("metrics") or {}
+        last_metrics = metrics
+
+        if broken_predicate is not None:
+            try:
+                broken = bool(broken_predicate(metrics))
+            except Exception as exc:  # noqa: BLE001 — predicate is goal-author code
+                emit("predicate_error", slug=slug, attempt=attempt_name, error=str(exc))
+                broken = False
+            if broken:
+                feedback = (
+                    "\n\n=== PREVIOUS ATTEMPT'S BENCHMARK IS DEGENERATE ===\n"
+                    "main.py ran cleanly, but `is_obviously_broken(metrics)` "
+                    "returned True. The metrics it judged:\n\n"
+                    f"{json.dumps(metrics, indent=2, default=str)}\n\n"
+                    "=== END ===\n\n"
+                    "Re-emit ALL THREE files with a substantively different "
+                    "approach — the previous strategy isn't beating the floor "
+                    "predicate.\n"
+                )
+                continue
+
+        return True, metrics, log
+
+    return False, last_metrics, last_log
+
+
 # ---------- pipeline ----------
 
 
@@ -374,234 +817,165 @@ async def run_pipeline(
     goal_dir = Path("experiments") / slug
     goal_dir.mkdir(parents=True, exist_ok=True)
 
-    # 1. PICKER (tier 2 completion) → goal README + benchmark.py
-    readme_benchmark = _read_if_exists("README_BENCHMARK.md")
-    picker_prompt = f"""\
-Slug: {slug}
-Title: {block_title}
-Spec from BLOCKS.md:
----
-{block_spec or "(no spec — infer from title)"}
----
-
-Below is the full construction guide. Follow it exactly.
-
-=== README_BENCHMARK.md ===
-{readme_benchmark}
-=== END ===
-
-Produce two files:
-- `experiments/{slug}/README.md`
-- `experiments/{slug}/benchmark.py`
-"""
-    picker_text = await _completion_with_timeout(
-        Tier.STANDARD,
-        picker_prompt,
-        system_prompt=PICKER_SYSTEM,
-        timeout_s=TIER[Tier.STANDARD].wall_clock_s,
-    )
-    written = apply_blocks(
-        picker_text,
-        root=Path.cwd(),
-        allowed_prefixes=(f"experiments/{slug}/",),
-    )
-    emit(
-        "benchmark_written",
-        slug=slug,
-        files=[str(p.relative_to(Path.cwd())) for p in written],
-    )
-
-    # 2. REVIEWER (tier 1 agentic) → audit + optionally edit
-    await _drain_with_timeout(
-        "reviewer",
-        slug,
-        run_at_tier_agentic(
-            Tier.EXPERT,
-            prompt=f"Audit the benchmark at `experiments/{slug}/` per the system prompt.",
-            system_prompt=REVIEWER_SYSTEM,
-            allowed_tools=["Read", "Write", "Edit", "Glob", "Grep"],
-        ),
-        timeout_s=TIER[Tier.EXPERT].wall_clock_s,
-    )
-    emit("benchmark_reviewed", slug=slug)
-
-    if skip_solver:
-        update_state(slug, status="pending_solver")
-        emit("pipeline_paused", slug=slug, stage="solver")
-        return {"status": "paused", "slug": slug, "stage": "solver"}
-
-    # 3. SOLVER (tier 3 completion) → attempt files; pipeline runs main.py + boot-check.
-    update_state(slug, status="solving")
-    attempt_name = _suggest_attempt_name(slug)
-    attempt_dir = goal_dir / attempt_name
-    attempt_dir.mkdir(parents=True, exist_ok=True)
-    _ensure_symlink(attempt_dir)
-
-    readme_experiment = _read_if_exists("README_EXPERIMENT.md")
-    goal_readme = _read_if_exists(goal_dir / "README.md")
-    task_py = _read_if_exists(goal_dir / "task.py")
-    benchmark_py = _read_if_exists(goal_dir / "benchmark.py")
-
-    gpu_requirement = _load_optional(goal_dir / "benchmark.py", "GPU_REQUIREMENT") or 1
-    broken_predicate = _load_optional(goal_dir / "benchmark.py", "is_obviously_broken")
-
-    emit("attempt_started", slug=slug, attempt=attempt_name, gpu_requirement=gpu_requirement)
-    solver_prompt = f"""\
-Slug: {slug}
-Attempt name (already chosen, use it): {attempt_name}
-
-Repo conventions:
-=== README_EXPERIMENT.md ===
-{readme_experiment}
-=== END ===
-
-Goal:
-=== experiments/{slug}/README.md ===
-{goal_readme}
-=== END ===
-
-=== experiments/{slug}/task.py ===
-{task_py}
-=== END ===
-
-=== experiments/{slug}/benchmark.py ===
-{benchmark_py}
-=== END ===
-
-CRITICAL — derive `model_fn`'s signature from `task.py` above, do NOT assume one:
-
-1. Find the `ModelFn = Callable[...]` type alias in `task.py`. That gives the
-   exact argument types and return type your `model_fn` must satisfy.
-2. Find the line where `task.evaluate` invokes `model_fn(...)`. The arguments
-   it passes there are EXACTLY what your function will receive — same order,
-   same count. Some goals pass `model_fn(batch)`; others pass unpacked fields
-   like `model_fn(batch.q_A, batch.q_B, ...)`. Match the goal's choice.
-3. `Batch` is a frozen dataclass — access fields as `batch.foo`, NOT `batch["foo"]`.
-4. Return one numpy array with the exact shape `task.evaluate` validates against
-   (look for `if logits.shape != (...)` or similar in `task.py`).
-
-A signature mismatch crashes immediately on `task.evaluate(model_fn)`; the
-pipeline marks the attempt failed and the jury never runs. Get this right.
-
-Emit:
-- `experiments/{slug}/{attempt_name}/main.py`
-- `experiments/{slug}/{attempt_name}/app.py`
-- `experiments/{slug}/{attempt_name}/README.md`
-"""
-    solver_text = await _completion_with_timeout(
-        Tier.QUICK,
-        solver_prompt,
-        system_prompt=SOLVER_SYSTEM,
-        timeout_s=TIER[Tier.QUICK].wall_clock_s,
-    )
-    apply_blocks(
-        solver_text,
-        root=Path.cwd(),
-        allowed_prefixes=(f"experiments/{slug}/{attempt_name}/",),
-    )
-
-    # 3a. Pipeline executes main.py and boot-checks app.py with GPU slots held.
-    main_path = attempt_dir / "main.py"
-    if main_path.exists():
-        rc, log = await _run_subprocess_with_gpu(
-            ["uv", "run", "--project", str(Path.cwd()), "python", str(main_path)],
-            n_gpus=gpu_requirement,
-            timeout=600,
-        )
-        emit(
-            "solver_main_run",
-            slug=slug,
-            attempt=attempt_name,
-            returncode=rc,
-            log_tail=log[-500:],
-        )
-        if rc != 0:
+    # All model calls inside this block tally into a per-slug usage tracker.
+    # On exit (success or exception) the tracker emits one `usage_summary`
+    # event with per-model and total token + cost rollups.
+    with usage.track(slug):
+        # 1. PICKER → smoke test → retry loop with tier escalation.
+        readme_benchmark = _read_if_exists("README_BENCHMARK.md")
+        with usage.stage("picker"):
+            ok, smoke_log = await _picker_with_smoke_retries(
+                slug, block_title, block_spec, readme_benchmark
+            )
+        if not ok:
             update_state(slug, status="failed")
-            emit("pipeline_failed", slug=slug, reason=f"main.py exited {rc}")
-            return {"status": "failed", "slug": slug, "stage": "solver_run", "log": log}
+            emit(
+                "pipeline_failed",
+                slug=slug,
+                stage="picker",
+                reason="smoke_test_exhausted",
+                log_tail=smoke_log[-500:],
+            )
+            return {
+                "status": "failed",
+                "slug": slug,
+                "stage": "picker",
+                "reason": "smoke_test_exhausted",
+                "log": smoke_log,
+            }
 
-    app_path = attempt_dir / "app.py"
-    if app_path.exists():
-        ok, log = await _boot_check_app_with_gpu(app_path, n_gpus=gpu_requirement)
-        emit(
-            "solver_app_boot",
-            slug=slug,
-            attempt=attempt_name,
-            ok=ok,
-            log_tail=log[-500:],
-        )
+        # 2. REVIEWER (tier 1 agentic) → audit + optionally edit a smoke-tested goal.
+        with usage.stage("reviewer"):
+            await _drain_with_timeout(
+                "reviewer",
+                slug,
+                run_at_tier_agentic(
+                    Tier.EXPERT,
+                    prompt=f"Audit the benchmark at `experiments/{slug}/` per the system prompt.",
+                    system_prompt=REVIEWER_SYSTEM,
+                    allowed_tools=["Read", "Write", "Edit", "Glob", "Grep"],
+                ),
+                timeout_s=TIER[Tier.EXPERT].wall_clock_s,
+            )
+        emit("benchmark_reviewed", slug=slug)
 
-    emit("attempt_done", slug=slug, attempt=attempt_name)
+        if skip_solver:
+            update_state(slug, status="pending_solver")
+            emit("pipeline_paused", slug=slug, stage="solver")
+            return {"status": "paused", "slug": slug, "stage": "solver"}
 
-    # 3b. Short-circuit on obviously-broken metrics — skip the (expensive) jury.
-    if broken_predicate is not None:
-        bench = _latest_benchmark(attempt_dir)
-        metrics = (bench or {}).get("metrics") or {}
-        try:
-            broken = bool(broken_predicate(metrics))
-        except Exception as exc:  # noqa: BLE001 — predicate is goal-author code
-            emit("predicate_error", slug=slug, attempt=attempt_name, error=str(exc))
-            broken = False
-        if broken:
+        # 3. SOLVER → main.py → benchmark loop with tier escalation.
+        update_state(slug, status="solving")
+        attempt_name = _suggest_attempt_name(slug)
+        attempt_dir = goal_dir / attempt_name
+        attempt_dir.mkdir(parents=True, exist_ok=True)
+        _ensure_symlink(attempt_dir)
+
+        gpu_requirement = _load_optional(goal_dir / "benchmark.py", "GPU_REQUIREMENT") or 1
+        broken_predicate = _load_optional(goal_dir / "benchmark.py", "is_obviously_broken")
+
+        emit("attempt_started", slug=slug, attempt=attempt_name, gpu_requirement=gpu_requirement)
+
+        with usage.stage("solver"):
+            ok, metrics, log = await _solver_with_benchmark_retries(
+                slug,
+                attempt_name,
+                goal_dir,
+                attempt_dir,
+                gpu_requirement,
+                broken_predicate,
+            )
+        if not ok:
             update_state(slug, status="failed", attempt=attempt_name)
+            if metrics is None:
+                emit(
+                    "pipeline_failed",
+                    slug=slug,
+                    attempt=attempt_name,
+                    stage="solver_run",
+                    reason="main_py_exhausted",
+                    log_tail=log[-500:],
+                )
+                return {
+                    "status": "failed",
+                    "slug": slug,
+                    "stage": "solver_run",
+                    "reason": "main_py_exhausted",
+                    "log": log,
+                }
             emit(
                 "short_circuit",
                 slug=slug,
                 attempt=attempt_name,
-                reason="is_obviously_broken returned True",
+                reason="is_obviously_broken_exhausted",
                 metrics=metrics,
             )
             return {
                 "status": "short_circuit",
                 "slug": slug,
                 "attempt": attempt_name,
-                "reason": "is_obviously_broken",
+                "reason": "is_obviously_broken_exhausted",
             }
 
-    if skip_jury:
-        update_state(slug, status="awaiting_jury", attempt=attempt_name)
-        emit("pipeline_paused", slug=slug, stage="jury")
-        return {
-            "status": "paused",
-            "slug": slug,
-            "stage": "jury",
-            "attempt": attempt_name,
-        }
+        # 3a. Boot-check the Gradio app once we've committed to this attempt.
+        app_path = attempt_dir / "app.py"
+        if app_path.exists():
+            ok_app, log_app = await _boot_check_app_with_gpu(app_path, n_gpus=gpu_requirement)
+            emit(
+                "solver_app_boot",
+                slug=slug,
+                attempt=attempt_name,
+                ok=ok_app,
+                log_tail=log_app[-500:],
+            )
 
-    # 4. JURY (tier 1 agentic) → verdict.json
-    await _drain_with_timeout(
-        "jury",
-        slug,
-        run_at_tier_agentic(
-            Tier.EXPERT,
-            prompt=(
-                f"Grade `experiments/{slug}/{attempt_name}` against the rubric. "
-                f"Write `verdict.json` per the system prompt's schema."
-            ),
-            system_prompt=JURY_SYSTEM,
-            allowed_tools=["Read", "Write", "Glob", "Grep"],
-        ),
-        timeout_s=TIER[Tier.EXPERT].wall_clock_s,
-    )
-    verdict_path = attempt_dir / "verdict.json"
-    update_state(
-        slug,
-        status="graded",
-        attempt=attempt_name,
-        verdict_path=str(verdict_path),
-    )
-    emit(
-        "graded",
-        slug=slug,
-        attempt=attempt_name,
-        verdict_path=str(verdict_path),
-    )
-    return {
-        "status": "complete",
-        "slug": slug,
-        "attempt": attempt_name,
-        "verdict": str(verdict_path),
-    }
+        emit("attempt_done", slug=slug, attempt=attempt_name, metrics=metrics)
+
+        if skip_jury:
+            update_state(slug, status="awaiting_jury", attempt=attempt_name)
+            emit("pipeline_paused", slug=slug, stage="jury")
+            return {
+                "status": "paused",
+                "slug": slug,
+                "stage": "jury",
+                "attempt": attempt_name,
+            }
+
+        # 4. JURY (tier 1 agentic) → verdict.json
+        with usage.stage("jury"):
+            await _drain_with_timeout(
+                "jury",
+                slug,
+                run_at_tier_agentic(
+                    Tier.EXPERT,
+                    prompt=(
+                        f"Grade `experiments/{slug}/{attempt_name}` against the rubric. "
+                        f"Write `verdict.json` per the system prompt's schema."
+                    ),
+                    system_prompt=JURY_SYSTEM,
+                    allowed_tools=["Read", "Write", "Glob", "Grep"],
+                ),
+                timeout_s=TIER[Tier.EXPERT].wall_clock_s,
+            )
+        verdict_path = attempt_dir / "verdict.json"
+        update_state(
+            slug,
+            status="graded",
+            attempt=attempt_name,
+            verdict_path=str(verdict_path),
+        )
+        emit(
+            "graded",
+            slug=slug,
+            attempt=attempt_name,
+            verdict_path=str(verdict_path),
+        )
+        return {
+            "status": "complete",
+            "slug": slug,
+            "attempt": attempt_name,
+            "verdict": str(verdict_path),
+        }
 
 
 async def run_pipeline_multi(

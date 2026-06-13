@@ -98,20 +98,6 @@ def _hf_home() -> str | None:
 
 @dataclass(frozen=True)
 class Settings:
-    # Free-form orchestrator (used by `agentic run` / `agentic run-goal`).
-    orchestrator_model: str = field(
-        default_factory=lambda: os.getenv("AGENTIC_ORCHESTRATOR_MODEL", "claude-opus-4-7")
-    )
-
-    # External-LLM dispatch tool (separate from the tier system).
-    external_model: str = field(
-        default_factory=lambda: os.getenv("AGENTIC_EXTERNAL_MODEL", "openai/gpt-4.1")
-    )
-    external_api_base: str | None = field(
-        default_factory=lambda: os.getenv("AGENTIC_EXTERNAL_API_BASE")
-    )
-    max_turns: int = field(default_factory=lambda: int(os.getenv("AGENTIC_MAX_TURNS", "30")))
-
     # Pipeline state + events.
     state_dir: str = field(default_factory=lambda: os.getenv("AGENTIC_STATE_DIR", "state"))
     blocks_file: str = field(default_factory=lambda: os.getenv("AGENTIC_BLOCKS_FILE", "BLOCKS.md"))
@@ -120,6 +106,27 @@ class Settings:
     # Subprocess execution.
     gpu_count: int = field(default_factory=lambda: int(os.getenv("AGENTIC_GPU_COUNT", "2")))
     hf_home: str | None = field(default_factory=_hf_home)
+
+    # Pipeline retry budgets. Each loop runs at its base tier `_base` times,
+    # then escalates to the next tier up for `_escalated` more attempts.
+    # Picker base = STANDARD, escalated = EXPERT (agentic).
+    # Solver base = QUICK,    escalated = STANDARD.
+    picker_retries_base: int = field(
+        default_factory=lambda: int(os.getenv("AGENTIC_PICKER_RETRIES_BASE", "2"))
+    )
+    picker_retries_escalated: int = field(
+        default_factory=lambda: int(os.getenv("AGENTIC_PICKER_RETRIES_ESCALATED", "1"))
+    )
+    solver_retries_base: int = field(
+        default_factory=lambda: int(os.getenv("AGENTIC_SOLVER_RETRIES_BASE", "2"))
+    )
+    solver_retries_escalated: int = field(
+        default_factory=lambda: int(os.getenv("AGENTIC_SOLVER_RETRIES_ESCALATED", "1"))
+    )
+    # Sub-second smoke test that runs after the picker; hard cap.
+    smoke_test_timeout_s: int = field(
+        default_factory=lambda: int(os.getenv("AGENTIC_SMOKE_TIMEOUT_S", "60"))
+    )
 
 
 settings = Settings()
