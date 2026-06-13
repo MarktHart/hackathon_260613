@@ -1,0 +1,20 @@
+[
+  {
+    "key": 0,
+    "label": "n=40, density=0.11, k=4 colours",
+    "n": 40,
+    "color_separation": 0.034561107739591534
+  },
+  {
+    "key": 1,
+    "label": "n=40, density=0.19, k=5 colours",
+    "n": 40,
+    "color_separation": 0.03159900835908047
+  },
+  {
+    "key": 2,
+    "label": "n=40, density=0.30, k=6 colours",
+    "n": 40,
+    "color_separation": 0.02902031025581664
+  }
+]

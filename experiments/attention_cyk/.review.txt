@@ -1,0 +1,1 @@
+APPROVED — contract/determinism/metrics/edge-cases verified; restricted query cells to span>=3 (excluded degenerate single-split span-2 cells that tied every attempt at 1.0) and aligned README; VERSION=1.

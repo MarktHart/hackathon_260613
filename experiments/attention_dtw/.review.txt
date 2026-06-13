@@ -1,0 +1,1 @@
+APPROVED 2026-06-13: payload contract consistent across README/task/benchmark, generate deterministic, canonical warp=0.5 unambiguous, metric formulae match (headline alignment_robustness + per-slice + diagonal/uniform baselines), edge cases (zero denom, empty/mismatched sweep, NaN/inf) handled, VERSION=1 set everywhere with bump procedure documented; smoke test passes.

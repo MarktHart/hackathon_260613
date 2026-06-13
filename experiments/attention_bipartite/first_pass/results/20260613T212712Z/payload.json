@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "config": {
+    "n_per_group": 8,
+    "seq_len": 16,
+    "num_batches": 32,
+    "temperature": 1.0
+  },
+  "sweep": [
+    {
+      "condition": "canonical",
+      "mean_attn_within": 0.7310584187507629,
+      "mean_attn_cross": 0.2689414322376251,
+      "bipartite_score": 0.4621169865131378,
+      "row_entropy_mean": 2.661644697189331
+    }
+  ],
+  "run_dir": 

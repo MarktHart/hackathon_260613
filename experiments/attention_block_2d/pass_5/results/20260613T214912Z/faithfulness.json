@@ -1,0 +1,76 @@
+{
+  "rows": [
+    {
+      "family": "local",
+      "params": {
+        "window_size": 1
+      },
+      "intact_pred": "local",
+      "intact_params": {
+        "window_size": 1
+      },
+      "intact_correct": true,
+      "intact_conf": 1.0,
+      "ablated_pred": "local",
+      "ablated_params": {
+        "window_size": 7
+      },
+      "ablated_correct": false,
+      "ablated_conf": 1.0
+    },
+    {
+      "family": "dilated",
+      "params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "intact_pred": "dilated",
+      "intact_params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "intact_correct": true,
+      "intact_conf": 1.0,
+      "ablated_pred": "local",
+      "ablated_params": {
+        "window_size": 7
+      },
+      "ablated_correct": false,
+      "ablated_conf": 1.0
+    },
+    {
+      "family": "global",
+      "params": {
+        "global_pos": 0
+      },
+      "intact_pred": "global",
+      "intact_params": {
+        "global_pos": 0
+      },
+      "intact_correct": true,
+      "intact_conf": 1.0,
+      "ablated_pred": "local",
+      "ablated_params": {
+        "window_size": 7
+      },
+      "ablated_correct": false,
+      "ablated_conf": 1.0
+    },
+    {
+      "family": "causal_2d",
+      "params": {},
+      "intact_pred": "causal_2d",
+      "intact_params": {},
+      "intact_correct": true,
+      "intact_conf": 1.0,
+      "ablated_pred": "local",
+      "ablated_params": {
+        "window_size": 7
+      },
+      "ablated_correct": false,
+      "ablated_conf": 1.0
+    }
+  ],
+  "intact_acc": 1.0,
+  "ablated_acc": 0.0
+}

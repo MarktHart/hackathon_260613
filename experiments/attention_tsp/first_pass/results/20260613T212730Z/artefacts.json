@@ -1,0 +1,10 @@
+{
+  "n_cities_sweep": [
+    5,
+    10,
+    20,
+    40
+  ],
+  "canonical_n": 10,
+  "model_name": "synthetic_attention_tsp"
+}

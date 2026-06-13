@@ -1,0 +1,93 @@
+{
+  "goal": "attention_connected_components",
+  "attempt": "pass_2",
+  "run_id": "20260613T205339Z",
+  "metrics": {
+    "version": 1,
+    "cc_f1_diam_1": 1.0,
+    "adjacency_baseline_f1_diam_1": 1.0,
+    "lift_over_adjacency_diam_1": 0.0,
+    "cc_f1_diam_2": 1.0,
+    "adjacency_baseline_f1_diam_2": 0.8,
+    "lift_over_adjacency_diam_2": 0.19999999999999996,
+    "cc_f1_diam_3": 1.0,
+    "adjacency_baseline_f1_diam_3": 0.6666666666666666,
+    "lift_over_adjacency_diam_3": 0.33333333333333337,
+    "cc_f1_diam_5": 1.0,
+    "adjacency_baseline_f1_diam_5": 0.5,
+    "lift_over_adjacency_diam_5": 0.5,
+    "cc_f1_canonical": 1.0,
+    "adjacency_baseline_f1_canonical": 0.6666666666666666,
+    "lift_over_adjacency_canonical": 0.33333333333333337,
+    "transitive_closure_robustness": 1.0,
+    "mean_lift_over_adjacency": 0.2583333333333333
+  },
+  "payload": {
+    "version": 1,
+    "canonical_diameter": 3,
+    "num_components": 4,
+    "num_graphs": 8,
+    "sweep": [
+      {
+        "diameter": 1,
+        "model": {
+          "tp": 32,
+          "fp": 0,
+          "fn": 0,
+          "tn": 192
+        },
+        "baseline": {
+          "tp": 32,
+          "fp": 0,
+          "fn": 0,
+          "tn": 192
+        }
+      },
+      {
+        "diameter": 2,
+        "model": {
+          "tp": 96,
+          "fp": 0,
+          "fn": 0,
+          "tn": 432
+        },
+        "baseline": {
+          "tp": 64,
+          "fp": 0,
+          "fn": 32,
+          "tn": 432
+        }
+      },
+      {
+        "diameter": 3,
+        "model": {
+          "tp": 192,
+          "fp": 0,
+          "fn": 0,
+          "tn": 768
+        },
+        "baseline": {
+          "tp": 96,
+          "fp": 0,
+          "fn": 96,
+          "tn": 768
+        }
+      },
+      {
+        "diameter": 5,
+        "model": {
+          "tp": 480,
+          "fp": 0,
+          "fn": 0,
+          "tn": 1728
+        },
+        "baseline": {
+          "tp": 160,
+          "fp": 0,
+          "fn": 320,
+          "tn": 1728
+        }
+      }
+    ]
+  }
+}

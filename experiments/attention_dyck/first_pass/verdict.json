@@ -1,0 +1,27 @@
+{
+  "goal": "attention_dyck",
+  "attempt": "first_pass",
+  "run_id": "20260613T205508Z",
+  "verdict_version": 1,
+  "architecture_fit":         {"score": 5, "note": "Single attention layer, two heads, no MLP — minimal delta from base_model; head 0 solves matching perfectly, head 1 supplies the depth code."},
+  "baseline_comparison":      {"score": 5, "note": "Explicit uniform-prior-open strawman (0.032) computed on the canonical batch; lift of 0.97 is the headline and is plotted in the Benchmark tab."},
+  "faithfulness":             {"score": 4, "note": "Purely synthetic hand-built weights, honestly disclosed; proposes concrete knockouts (ALPHA=0, drop BETA tiebreak) but does not actually run/show them."},
+  "operating_range":          {"score": 2, "note": "Only an ALPHA>>BETA*seq_len dominance argument for len<=64; no demonstration across depth/length scales, so range is asserted not shown."},
+  "hardcoded_weights_bonus":  {"score": 5, "note": "Entire attempt is the hand-set circuit and it reproduces matching_accuracy=1.0 exactly — strongest possible evidence of mechanism understanding."},
+  "visual_judgement":         {"score": 5, "note": "Attention heatmap with cyan rings on ground-truth matching opens and a hit-count caption makes the claim directly checkable by eye."},
+  "visualisation_rationale":  {"score": 5, "note": "README ties the heatmap to exactly what the benchmark scores, justifies axes, head split, and the baseline comparison."},
+  "automated_metrics": {
+    "version": 1,
+    "dyck_matching_canonical": 1.0,
+    "dyck_depth_corr_canonical": 0.4953886946638444,
+    "dyck_head_0_matching": 1.0,
+    "dyck_head_0_depth_corr": -0.0037041280107625776,
+    "dyck_head_1_matching": 0.08990675403225806,
+    "dyck_head_1_depth_corr": 0.4953886946638444,
+    "dyck_diag_frac_mean": 0.015625,
+    "linear_baseline_matching": 0.03225806451612903,
+    "lift_over_baseline_matching": 0.967741935483871
+  },
+  "overall": "good",
+  "notes": "A clean, minimal hand-built two-head attention circuit that achieves perfect bracket matching (1.0 vs 0.032 baseline) and a moderate depth code (corr 0.50), with an excellent directly-checkable visualisation and a clear strawman. It is honestly synthetic with well-specified but unexecuted ablations, and its weakest point is operating range — exactness is argued rather than demonstrated across input scales. Mean of scored items ~4.4 places it in the 'good' tier."
+}

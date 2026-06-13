@@ -1,0 +1,88 @@
+{
+  "goal": "attention_int_add",
+  "attempt": "first_pass",
+  "run_id": "20260613T175747Z",
+  "metrics": {
+    "version": 1,
+    "exact_match_carries_0": 0.9766666666666667,
+    "digit_accuracy_carries_0": 0.9941666666666666,
+    "linear_baseline_exact_match_carries_0": 1.0,
+    "exact_match_carries_1": 0.6666666666666666,
+    "digit_accuracy_carries_1": 0.91,
+    "linear_baseline_exact_match_carries_1": 0.0,
+    "exact_match_carries_2": 0.6233333333333333,
+    "digit_accuracy_carries_2": 0.9016666666666666,
+    "linear_baseline_exact_match_carries_2": 0.0,
+    "exact_match_carries_3": 0.9433333333333334,
+    "digit_accuracy_carries_3": 0.9858333333333333,
+    "linear_baseline_exact_match_carries_3": 0.0,
+    "exact_match_canonical": 0.9433333333333334,
+    "lift_over_baseline_canonical": 0.9433333333333334,
+    "exact_match_mean": 0.8025,
+    "carry_robustness": 0.9658703071672355
+  },
+  "payload": {
+    "version": 1,
+    "max_digits": 3,
+    "sum_digits": 4,
+    "canonical_carries": 3,
+    "carry_sweep": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "sweep": [
+      {
+        "carries": 0,
+        "exact_match_rate": 0.9766666666666667,
+        "digit_accuracy": 0.9941666666666666,
+        "n": 300
+      },
+      {
+        "carries": 1,
+        "exact_match_rate": 0.6666666666666666,
+        "digit_accuracy": 0.91,
+        "n": 300
+      },
+      {
+        "carries": 2,
+        "exact_match_rate": 0.6233333333333333,
+        "digit_accuracy": 0.9016666666666666,
+        "n": 300
+      },
+      {
+        "carries": 3,
+        "exact_match_rate": 0.9433333333333334,
+        "digit_accuracy": 0.9858333333333333,
+        "n": 300
+      }
+    ],
+    "linear_baseline": [
+      {
+        "carries": 0,
+        "exact_match_rate": 1.0,
+        "digit_accuracy": 1.0,
+        "n": 300
+      },
+      {
+        "carries": 1,
+        "exact_match_rate": 0.0,
+        "digit_accuracy": 0.75,
+        "n": 300
+      },
+      {
+        "carries": 2,
+        "exact_match_rate": 0.0,
+        "digit_accuracy": 0.5,
+        "n": 300
+      },
+      {
+        "carries": 3,
+        "exact_match_rate": 0.0,
+        "digit_accuracy": 0.25,
+        "n": 300
+      }
+    ]
+  }
+}

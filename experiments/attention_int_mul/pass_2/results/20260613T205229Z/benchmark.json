@@ -1,0 +1,103 @@
+{
+  "goal": "attention_int_mul",
+  "attempt": "pass_2",
+  "run_id": "20260613T205229Z",
+  "metrics": {
+    "version": 1,
+    "routing_accuracy_k_2": 1.0,
+    "attended_mass_k_2": 0.9999999999935979,
+    "linear_baseline_accuracy_k_2": 0.56,
+    "routing_accuracy_k_4": 1.0,
+    "attended_mass_k_4": 0.9999999996013681,
+    "linear_baseline_accuracy_k_4": 0.315,
+    "routing_accuracy_k_8": 1.0,
+    "attended_mass_k_8": 0.9999999692036252,
+    "linear_baseline_accuracy_k_8": 0.325,
+    "routing_accuracy_k_16": 1.0,
+    "attended_mass_k_16": 0.999996743408022,
+    "linear_baseline_accuracy_k_16": 0.22,
+    "routing_accuracy_k_32": 1.0,
+    "attended_mass_k_32": 0.998960939424083,
+    "linear_baseline_accuracy_k_32": 0.155,
+    "routing_accuracy_canonical": 1.0,
+    "attended_mass_canonical": 0.9999999692036252,
+    "linear_baseline_accuracy_canonical": 0.325,
+    "lift_over_baseline_canonical": 0.675,
+    "mean_routing_accuracy": 1.0,
+    "mean_linear_baseline_accuracy": 0.31500000000000006,
+    "routing_robustness": 1.0
+  },
+  "payload": {
+    "version": 1,
+    "model_name": "synthetic_attention_int_mul",
+    "d": 128,
+    "n_positions": 16,
+    "canonical_k": 8,
+    "k_sweep": [
+      2,
+      4,
+      8,
+      16,
+      32
+    ],
+    "sweep": [
+      {
+        "k": 2,
+        "routing_accuracy": 1.0,
+        "attended_mass": 0.9999999999935979,
+        "n_trials": 200
+      },
+      {
+        "k": 4,
+        "routing_accuracy": 1.0,
+        "attended_mass": 0.9999999996013681,
+        "n_trials": 200
+      },
+      {
+        "k": 8,
+        "routing_accuracy": 1.0,
+        "attended_mass": 0.9999999692036252,
+        "n_trials": 200
+      },
+      {
+        "k": 16,
+        "routing_accuracy": 1.0,
+        "attended_mass": 0.999996743408022,
+        "n_trials": 200
+      },
+      {
+        "k": 32,
+        "routing_accuracy": 1.0,
+        "attended_mass": 0.998960939424083,
+        "n_trials": 200
+      }
+    ],
+    "linear_baseline": [
+      {
+        "k": 2,
+        "routing_accuracy": 0.56,
+        "n_trials": 200
+      },
+      {
+        "k": 4,
+        "routing_accuracy": 0.315,
+        "n_trials": 200
+      },
+      {
+        "k": 8,
+        "routing_accuracy": 0.325,
+        "n_trials": 200
+      },
+      {
+        "k": 16,
+        "routing_accuracy": 0.22,
+        "n_trials": 200
+      },
+      {
+        "k": 32,
+        "routing_accuracy": 0.155,
+        "n_trials": 200
+      }
+    ]
+  }
+}

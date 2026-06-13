@@ -1,0 +1,95 @@
+{
+  "goal": "attention_dtw",
+  "attempt": "first_pass",
+  "run_id": "20260613T205733Z",
+  "metrics": {
+    "version": 1,
+    "path_overlap_warp_0": 1.0,
+    "mean_head_overlap_warp_0": 0.9576388888888889,
+    "monotonicity_warp_0": 1.0,
+    "diagonal_baseline_overlap_warp_0": 1.0,
+    "uniform_baseline_overlap_warp_0": 0.0625,
+    "path_overlap_warp_0p25": 1.0,
+    "mean_head_overlap_warp_0p25": 0.8826388888888889,
+    "monotonicity_warp_0p25": 1.0,
+    "diagonal_baseline_overlap_warp_0p25": 0.7666666666666666,
+    "uniform_baseline_overlap_warp_0p25": 0.0625,
+    "path_overlap_warp_0p5": 1.0,
+    "mean_head_overlap_warp_0p5": 0.7965277777777778,
+    "monotonicity_warp_0p5": 1.0,
+    "diagonal_baseline_overlap_warp_0p5": 0.5041666666666668,
+    "uniform_baseline_overlap_warp_0p5": 0.0625,
+    "path_overlap_warp_0p75": 1.0,
+    "mean_head_overlap_warp_0p75": 0.7631944444444446,
+    "monotonicity_warp_0p75": 1.0,
+    "diagonal_baseline_overlap_warp_0p75": 0.40625,
+    "uniform_baseline_overlap_warp_0p75": 0.0625,
+    "path_overlap_canonical": 1.0,
+    "lift_over_diagonal_canonical": 0.49583333333333324,
+    "alignment_robustness": 1.0
+  },
+  "payload": {
+    "version": 1,
+    "setup": "synthetic_dtw_alignment",
+    "num_heads": 3,
+    "seq_len_q": 16,
+    "seq_len_k": 20,
+    "feature_dim": 8,
+    "n_examples": 24,
+    "canonical_warp": 0.5,
+    "warp_sweep": [
+      0.0,
+      0.25,
+      0.5,
+      0.75
+    ],
+    "sweep": [
+      {
+        "warp": 0.0,
+        "best_head_overlap": 1.0,
+        "mean_head_overlap": 0.9576388888888889,
+        "monotonicity": 1.0
+      },
+      {
+        "warp": 0.25,
+        "best_head_overlap": 1.0,
+        "mean_head_overlap": 0.8826388888888889,
+        "monotonicity": 1.0
+      },
+      {
+        "warp": 0.5,
+        "best_head_overlap": 1.0,
+        "mean_head_overlap": 0.7965277777777778,
+        "monotonicity": 1.0
+      },
+      {
+        "warp": 0.75,
+        "best_head_overlap": 1.0,
+        "mean_head_overlap": 0.7631944444444446,
+        "monotonicity": 1.0
+      }
+    ],
+    "baseline": [
+      {
+        "warp": 0.0,
+        "diagonal_overlap": 1.0,
+        "uniform_overlap": 0.0625
+      },
+      {
+        "warp": 0.25,
+        "diagonal_overlap": 0.7666666666666666,
+        "uniform_overlap": 0.0625
+      },
+      {
+        "warp": 0.5,
+        "diagonal_overlap": 0.5041666666666668,
+        "uniform_overlap": 0.0625
+      },
+      {
+        "warp": 0.75,
+        "diagonal_overlap": 0.40625,
+        "uniform_overlap": 0.0625
+      }
+    ]
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "goal": "attention_polyeval",
+  "attempt": "first_pass",
+  "run_id": "20260613T213354Z",
+  "metrics": {
+    "version": 1,
+    "mse_degree_1": 1.2598855490361298,
+    "coeff_corr_degree_1": -0.0703125,
+    "linear_baseline_mse_degree_1": 0.0006815286427730694,
+    "mse_degree_2": 1.6742720517956893,
+    "coeff_corr_degree_2": -0.03701008971119438,
+    "linear_baseline_mse_degree_2": 0.0010124546785678305,
+    "mse_degree_3": 1.5708165264367844,
+    "coeff_corr_degree_3": 0.013078285062800222,
+    "linear_baseline_mse_degree_3": 0.0015354311839789285,
+    "mse_degree_4": 2.137662347723136,
+    "coeff_corr_degree_4": -0.03519683905386396,
+    "linear_baseline_mse_degree_4": 0.002650681907533204,
+    "polyeval_robustness": -1331.9491496322294,
+    "lift_over_baseline_canonical": -1652.6760481605297,
+    "mse_canonical": 1.6742720517956893,
+    "coeff_corr_canonical": -0.03701008971119438
+  },
+  "payload": {
+    "version": 1,
+    "model_name": "attention_polyeval",
+    "canonical_degree": 2,
+    "n_ctx": 32,
+    "n_query": 16,
+    "noise_std": 0.1,
+    "episodes": 256,
+    "sweep": [
+      {
+        "degree": 1,
+        "mse": 1.2598855490361298,
+        "coeff_corr": -0.0703125,
+        "n_episodes": 256
+      },
+      {
+        "degree": 2,
+        "mse": 1.6742720517956893,
+        "coeff_corr": -0.03701008971119438,
+        "n_episodes": 256
+      },
+      {
+        "degree": 3,
+        "mse": 1.5708165264367844,
+        "coeff_corr": 0.013078285062800222,
+        "n_episodes": 256
+      },
+      {
+        "degree": 4,
+        "mse": 2.137662347723136,
+        "coeff_corr": -0.03519683905386396,
+        "n_episodes": 256
+      }
+    ],
+    "baseline_mse": [
+      0.0006815286427730694,
+      0.0010124546785678305,
+      0.0015354311839789285,
+      0.002650681907533204
+    ]
+  }
+}

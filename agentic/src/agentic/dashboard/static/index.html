@@ -308,15 +308,19 @@ function render(v){
       </tr>`).join("")}</tbody></table>`
     : `<div class="empty">No agents currently running.</div>`;
 
-  // All problems, grouped by BLOCKS.md difficulty tier. Tiers appear in
-  // first-seen order (problems arrive in BLOCKS.md order from the server).
-  const tierOrder = [];
+  // All problems, grouped by BLOCKS.md difficulty tier. Tiers render in a
+  // fixed order — by leading "Tier N" number, then label — so they don't
+  // shuffle when the server reorders problems between updates. Unclassified
+  // always sorts last.
   const byTier = new Map();
   for(const p of v.problems){
     const tier = p.tier || "Unclassified";
-    if(!byTier.has(tier)){ byTier.set(tier, []); tierOrder.push(tier); }
+    if(!byTier.has(tier)){ byTier.set(tier, []); }
     byTier.get(tier).push(p);
   }
+  const tierRank = t => { const m=/^Tier\s+(\d+)/.exec(t); return m?+m[1]:Infinity; };
+  const tierOrder = [...byTier.keys()].sort((a,b)=>
+    tierRank(a)-tierRank(b) || a.localeCompare(b));
   const problemRow = p => {
     const n=(p.attempts||[]).length;
     return `

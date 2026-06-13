@@ -1,0 +1,13 @@
+{
+  "ortho_trained": 0.8290823001499434,
+  "align_trained": 0.9998887777328491,
+  "ortho_untrained": 0.6331262071126977,
+  "align_untrained": 0.004504293203353882,
+  "ortho_handbuilt": 0.8301036087679875,
+  "align_handbuilt": 1.0,
+  "ortho_baseline": 0.5023216374481538,
+  "lift_over_baseline": 0.3267606627017896,
+  "robustness": 0.9276624949507866,
+  "recon_acc_trained": 0.896484375,
+  "recon_acc_ablated": 0.486328125
+}

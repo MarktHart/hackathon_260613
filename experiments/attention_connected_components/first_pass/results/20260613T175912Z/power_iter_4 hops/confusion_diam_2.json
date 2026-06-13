@@ -1,0 +1,1 @@
+{'diameter': 2, 'model': {'tp': 32, 'fp': 0, 'fn': 64, 'tn': 432}, 'baseline': {'tp': 64, 'fp': 0, 'fn': 32, 'tn': 432}}

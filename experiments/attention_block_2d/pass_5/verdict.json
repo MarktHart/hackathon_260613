@@ -1,0 +1,27 @@
+{
+  "goal": "attention_block_2d",
+  "attempt": "pass_5",
+  "run_id": "20260613T214912Z",
+  "verdict_version": 1,
+  "architecture_fit":         {"score": 5, "note": "Single-head 2D attention block (content path off, hand-set additive bias) as a minimal delta from base_model.py with MLP dropped; geometric reader recovers (family,params) from the matrix alone and scores 16/16."},
+  "baseline_comparison":      {"score": 5, "note": "Majority 'local' baseline (0.25) shown explicitly with +0.75 lift, and the ablation provides a second strawman (reader collapses to 0/4)."},
+  "faithfulness":             {"score": 5, "note": "Genuine run causal ablation: zeroing the producer's bias table sends attention to uniform and reader accuracy 4/4 -> 0/4, the check pass_4 only described."},
+  "operating_range":          {"score": 5, "note": "Reader holds at 1.0 across N=16..1024 (64x span, >2 orders of magnitude) while the majority baseline stays ~0.25-0.43."},
+  "hardcoded_weights_bonus":  {"score": 5, "note": "Entire producer circuit is hand-set (Swin relative-position-bias table, global row/col, causal mask) with no learning, reproducing every target pattern."},
+  "visual_judgement":         {"score": 5, "note": "Four legible falsifiable views: matrix + displacement footprint, intact-vs-ablated heatmaps, per-family and ablation accuracy bars, and log-N operating-range curve vs baseline."},
+  "visualisation_rationale":  {"score": 5, "note": "'Why this visualisation' ties each view to a specific claim (footprint = what the reader consumes, ablation bar = causal evidence, log-N axis = range)."},
+  "automated_metrics": {
+    "version": 1,
+    "pattern_acc_canonical": 1.0,
+    "pattern_acc_local": 1.0,
+    "pattern_acc_dilated": 1.0,
+    "pattern_acc_global": 1.0,
+    "pattern_acc_causal_2d": 1.0,
+    "mean_confidence_correct": 0.9898036122322083,
+    "mean_confidence_incorrect": 0.0,
+    "linear_baseline_acc": 0.25,
+    "lift_over_linear_baseline": 0.75
+  },
+  "overall": "perfect",
+  "notes": "Exemplary attempt for this explicitly-synthetic goal: a minimal hand-set attention-block producer plus a matrix-only geometric reader that recovers all 16 canonical patterns, with a real (executed) causal ablation and a 64x operating-range sweep that both stay at 1.0 vs the majority baseline. The hand-built circuit earns the hardcoded-weights bonus and the visualisations make every claim checkable by eye. Mild circularity in the ablation (the producer has no competing pathway) is the only soft spot, but it precisely satisfies the faithfulness criterion and improves directly over pass_4."
+}

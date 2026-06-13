@@ -1,0 +1,30 @@
+{
+  "goal": "attention_lcs",
+  "attempt": "first_pass",
+  "run_id": "20260613T182602Z",
+  "verdict_version": 1,
+  "architecture_fit": {"score": 1, "note": "Randomly-initialized cross-attention model; latest run lift is ~1.5e-7, indistinguishable from uniform — it does not track LCS alignment at all."},
+  "baseline_comparison": {"score": 1, "note": "Only the benchmark's built-in uniform reference exists; no real strawman-vs-working contrast is constructed, and all four heads are identical random projections."},
+  "faithfulness": {"score": 1, "note": "No ablation or causal check; the model uses no actual mechanism (untrained random weights), so there is nothing faithful to verify."},
+  "operating_range": {"score": 1, "note": "Evaluated only on the single canonical condition; no input-scale sweep or breaking-point analysis."},
+  "hardcoded_weights_bonus": {"score": 1, "note": "README claims a hand-built circuit (exact/shifted/random/uniform heads) but main.py implements none of it — it is random init, so the claimed hand-set weights do not exist."},
+  "visual_judgement": {"score": 2, "note": "Bar charts of mass/lift per head load fine but show flat ~baseline bars; the heatmap is an empty 'not saved' placeholder."},
+  "visualisation_rationale": {"score": 2, "note": "README justifies the bar plot but describes heads that do not match the code, so the rationale is disconnected from what is actually computed."},
+  "automated_metrics": {
+    "version": 1,
+    "random_baseline_mass": 0.0625,
+    "lcs_attention_head_0": 0.06250013825307899,
+    "lcs_lift_head_0": 1.3825307898507333e-07,
+    "lcs_attention_head_1": 0.0625001101772178,
+    "lcs_lift_head_1": 1.1017721779360556e-07,
+    "lcs_attention_head_2": 0.06249990229679377,
+    "lcs_lift_head_2": -9.770320622687345e-08,
+    "lcs_attention_head_3": 0.06250015128500548,
+    "lcs_lift_head_3": 1.512850054813386e-07,
+    "lcs_attention_canonical": 0.06250015128500548,
+    "lcs_lift_canonical": 1.512850054813386e-07,
+    "lcs_robustness": 1.6137067251342785e-07
+  },
+  "overall": "fail",
+  "notes": "The README advertises a hand-built four-head LCS circuit, but main.py actually runs a randomly-initialized cross-attention model with no hand-set weights, so the claim is unsupported by the code. The latest benchmark confirms the model performs at chance (lift ~1.5e-7, robustness ~0), failing the goal's core question of whether a head tracks LCS alignment. With no faithfulness check, no operating-range sweep, and a visualisation describing heads that do not exist in the code, this attempt fails across the rubric."
+}

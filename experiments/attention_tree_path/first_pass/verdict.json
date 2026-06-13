@@ -1,0 +1,31 @@
+{
+  "goal": "attention_tree_path",
+  "attempt": "first_pass",
+  "run_id": "20260613T180900Z",
+  "verdict_version": 1,
+  "architecture_fit":         {"score": 2, "note": "No transformer at all — reads ground-truth parent_ids and writes one-hot logits; a huge departure from base_model.py with no QK mechanism."},
+  "baseline_comparison":      {"score": 2, "note": "Relies on benchmark's built-in uniform baseline constant; no strawman/no-circuit ablation run or shown by the attempt itself."},
+  "faithfulness":             {"score": 1, "note": "Circular — model_fn re-derives the exact target from structural labels (the answer key); no causal check, no model, and the README doesn't acknowledge this."},
+  "operating_range":          {"score": 3, "note": "Sweeps depths 2/3/4 and four path rules, but only ~2x node-count range and all trivially 1.0 since it reads the answer, so it can never break."},
+  "hardcoded_weights_bonus":  {"score": 2, "note": "Hand-built and on GPU, but encodes the answer as logits rather than expressing a genuine Q/K attention circuit, so it shows little mechanistic understanding."},
+  "visual_judgement":         {"score": 2, "note": "Demo tab is plain text boxes with ASCII bars (all full at 1.0) — not the heatmap/query-slider/red-✕ the README claims."},
+  "visualisation_rationale":  {"score": 2, "note": "Well-written rationale describes a heatmap with axes and markers that the actual app.py does not implement."},
+  "automated_metrics": {
+    "version": 1,
+    "tree_path_canonical": 1.0,
+    "tree_path_depth_2": 1.0,
+    "tree_path_depth_3": 1.0,
+    "tree_path_depth_4": 1.0,
+    "tree_path_ancestor_2": 1.0,
+    "tree_path_descendant": 1.0,
+    "tree_path_sibling": 1.0,
+    "tree_path_robustness": 1.0,
+    "tree_path_head_best": 1.0,
+    "tree_path_head_worst": 1.0,
+    "tree_path_head_gap": 0.0,
+    "linear_baseline_canonical": 0.07142857142857142,
+    "lift_over_baseline": 0.9285714285714286
+  },
+  "overall": "borderline",
+  "notes": "The attempt scores a perfect 1.0 on every metric but achieves it by reading the ground-truth tree structure and writing one-hot attention directly at the computed target — an answer-key lookup, not an attention circuit, and a wholesale departure from base_model.py. It provides no causal evidence, no genuine baseline contrast, and the Gradio Demo tab is text boxes rather than the heatmap its README describes. Mean of scored items lands at borderline; the headline metric is real but mechanistically empty."
+}

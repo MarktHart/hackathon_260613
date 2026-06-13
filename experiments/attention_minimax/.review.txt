@@ -1,0 +1,1 @@
+APPROVED — payload contract / metrics / determinism verified; fixed noise-vector orthogonalization (was orthogonal only to DISTRACTOR_C, contradicting README's "zero target similarity"; now orthogonal to TARGET only, preserving the spurious-distractor regime), corrected uniform_kl guard placement, and hardened score() against a missing canonical α=0.0.

@@ -118,13 +118,13 @@ class Settings:
         default_factory=lambda: int(os.getenv("AGENTIC_PICKER_RETRIES_ESCALATED", "1"))
     )
     solver_retries_base: int = field(
-        default_factory=lambda: int(os.getenv("AGENTIC_SOLVER_RETRIES_BASE", "64"))
+        default_factory=lambda: int(os.getenv("AGENTIC_SOLVER_RETRIES_BASE", "8"))
     )
     solver_retries_escalated: int = field(
-        default_factory=lambda: int(os.getenv("AGENTIC_SOLVER_RETRIES_ESCALATED", "32"))
+        default_factory=lambda: int(os.getenv("AGENTIC_SOLVER_RETRIES_ESCALATED", "8"))
     )
     solver_retries_expert: int = field(
-        default_factory=lambda: int(os.getenv("AGENTIC_SOLVER_RETRIES_EXPERT", "2"))
+        default_factory=lambda: int(os.getenv("AGENTIC_SOLVER_RETRIES_EXPERT", "4"))
     )
     # When a run is explicitly floored to the EXPERT tier (e.g. the dashboard's
     # "tier: expert"), the QUICK/STANDARD rungs are dropped, leaving no cheaper

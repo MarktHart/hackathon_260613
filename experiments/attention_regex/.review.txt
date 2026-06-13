@@ -1,0 +1,1 @@
+APPROVED: payload contract, metric formulae, determinism, edge cases, and VERSION=1 are consistent across README.md, task.py, and benchmark.py; no shape drift found.

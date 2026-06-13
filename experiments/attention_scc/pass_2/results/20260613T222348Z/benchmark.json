@@ -1,0 +1,66 @@
+{
+  "goal": "attention_scc",
+  "attempt": "pass_2",
+  "run_id": "20260613T222348Z",
+  "metrics": {
+    "version": 1,
+    "scc_rho_0p25": 0.06253959223628044,
+    "linear_baseline_rho_0p25": 0.0625,
+    "scc_rho_0p5": 0.03127356685698032,
+    "linear_baseline_rho_0p5": 0.03125,
+    "scc_rho_1p0": 0.015633005732670426,
+    "linear_baseline_rho_1p0": 0.015625,
+    "scc_rho_2p0": 0.007817062381654978,
+    "linear_baseline_rho_2p0": 0.0078125,
+    "scc_rho_4p0": 0.003907288273330778,
+    "linear_baseline_rho_4p0": 0.00390625,
+    "scc_auc": 0.012507379398991663,
+    "linear_baseline_scc_auc": 0.0125,
+    "lift_over_linear_auc": 7.379398991662692e-06,
+    "scc_auc_canonical": 0.015633005732670426,
+    "capacity_rho_0p5": 0.25,
+    "capacity_rho_0p9": 0.25
+  },
+  "payload": {
+    "version": 1,
+    "d": 64,
+    "snr_db": 10.0,
+    "sweep": [
+      {
+        "rho": 0.25,
+        "K": 16,
+        "target_attention_mean": 0.06253959223628044,
+        "target_attention_std": 0.0002020890669718694,
+        "chance_level": 0.0625
+      },
+      {
+        "rho": 0.5,
+        "K": 32,
+        "target_attention_mean": 0.03127356685698032,
+        "target_attention_std": 8.73377954221347e-05,
+        "chance_level": 0.03125
+      },
+      {
+        "rho": 1.0,
+        "K": 64,
+        "target_attention_mean": 0.015633005732670426,
+        "target_attention_std": 3.237119863503918e-05,
+        "chance_level": 0.015625
+      },
+      {
+        "rho": 2.0,
+        "K": 128,
+        "target_attention_mean": 0.007817062381654978,
+        "target_attention_std": 1.0902305507063627e-05,
+        "chance_level": 0.0078125
+      },
+      {
+        "rho": 4.0,
+        "K": 256,
+        "target_attention_mean": 0.003907288273330778,
+        "target_attention_std": 4.090515580576644e-06,
+        "chance_level": 0.00390625
+      }
+    ]
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "full": [
+    {
+      "depth": 1,
+      "n_pairs": 2070,
+      "mean_attn_to_match": 0.9983612402913651,
+      "mean_attn_uniform": 0.10859761950341609
+    },
+    {
+      "depth": 2,
+      "n_pairs": 1037,
+      "mean_attn_to_match": 0.9991945823225243,
+      "mean_attn_uniform": 0.08784273796874455
+    },
+    {
+      "depth": 3,
+      "n_pairs": 593,
+      "mean_attn_to_match": 0.999114484851316,
+      "mean_attn_uniform": 0.07641197569528105
+    },
+    {
+      "depth": 4,
+      "n_pairs": 280,
+      "mean_attn_to_match": 0.9991063341498375,
+      "mean_attn_uniform": 0.06538768413677613
+    },
+    {
+      "depth": 5,
+      "n_pairs": 116,
+      "mean_attn_to_match": 0.9987831018094359,
+      "mean_attn_uniform": 0.0621830396614879
+    }
+  ],
+  "nodepth": [
+    {
+      "depth": 1,
+      "n_pairs": 2070,
+      "mean_attn_to_match": 0.7229442043531215,
+      "mean_attn_uniform": 0.10859761950341609
+    },
+    {
+      "depth": 2,
+      "n_pairs": 1037,
+      "mean_attn_to_match": 0.677273569606162,
+      "mean_attn_uniform": 0.08784273796874455
+    },
+    {
+      "depth": 3,
+      "n_pairs": 593,
+      "mean_attn_to_match": 0.72344878835729,
+      "mean_attn_uniform": 0.07641197569528105
+    },
+    {
+      "depth": 4,
+      "n_pairs": 280,
+      "mean_attn_to_match": 0.7718588030864407,
+      "mean_attn_uniform": 0.06538768413677613
+    },
+    {
+      "depth": 5,
+      "n_pairs": 116,
+      "mean_attn_to_match": 0.9739765077829361,
+      "mean_attn_uniform": 0.0621830396614879
+    }
+  ],
+  "canonical_depth": 3
+}

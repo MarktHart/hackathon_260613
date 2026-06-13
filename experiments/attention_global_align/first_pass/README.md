@@ -1,0 +1,5 @@
+## What I did
+This is a hand-built attempt that implements the natural "correct" mechanism for the retrieval task: the dot-product attention form `K @ q`. The model function converts the input NumPy arrays to CUDA tensors, performs the matrix-vector multiplication (`K @ q`), and returns the logits as a NumPy array. This is the minimal circuit needed to retrieve the target key across the interference sweep.
+
+## Why this visualisation
+The Gradio app shows the benchmark dashboard for the goal, which plots per-slice attention metrics (target mass, distractor mass, target margin) against interference level. This directly answers the question of how robust global alignment is as the distractor becomes more similar to the target. The dashboard compares each attempt against a uniform-attention baseline and highlights the canonical slice, so a healthy alignment curve should stay clearly above the baseline and only begin to degrade where the distractor is nearly indistinguishable from the target.

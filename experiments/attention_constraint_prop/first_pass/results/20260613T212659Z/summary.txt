@@ -1,0 +1,6 @@
+Run duration: 0.10s
+Payload keys: ['version', 'config', 'model_info', 'sweep']
+Model info: {'n_layers': 1, 'n_heads': 1}
+Canonical distance used: 4
+Best canonical head alignment: 0.100000
+Constraint propagation fidelity (relative to random baseline 1/32):

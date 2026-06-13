@@ -1,0 +1,145 @@
+{
+  "goal": "attention_knapsack",
+  "attempt": "pass_2",
+  "run_id": "20260613T224035Z",
+  "metrics": {
+    "version": 1,
+    "knapsack_optimality_canonical": 0.9966771494689373,
+    "knapsack_feasible_canonical": 1.0,
+    "linear_baseline_optimality_canonical": 0.9918708835222215,
+    "lift_over_linear_baseline": 0.004806265946715738,
+    "knapsack_optimality_cap_0p3": 0.9960486802592066,
+    "knapsack_feasible_cap_0p3": 1.0,
+    "linear_baseline_optimality_cap_0p3": 0.9880670143828039,
+    "knapsack_optimality_cap_0p4": 0.9959074136195908,
+    "knapsack_feasible_cap_0p4": 1.0,
+    "linear_baseline_optimality_cap_0p4": 0.9906742703790674,
+    "knapsack_optimality_cap_0p5": 0.9966771494689373,
+    "knapsack_feasible_cap_0p5": 1.0,
+    "linear_baseline_optimality_cap_0p5": 0.9918708835222215,
+    "knapsack_optimality_cap_0p6": 0.9979208841713629,
+    "knapsack_feasible_cap_0p6": 1.0,
+    "linear_baseline_optimality_cap_0p6": 0.9940909339607157,
+    "knapsack_optimality_cap_0p7": 0.998469700061212,
+    "knapsack_feasible_cap_0p7": 1.0,
+    "linear_baseline_optimality_cap_0p7": 0.995664150173434,
+    "knapsack_optimality_robustness": 0.997004765516062
+  },
+  "payload": {
+    "version": 1,
+    "config": {
+      "batch_size": 256,
+      "n_items": 16,
+      "w_max": 10,
+      "v_max": 10,
+      "capacity_frac": 0.5,
+      "sweep_fracs": [
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7
+      ]
+    },
+    "canonical": {
+      "capacity_frac": 0.5,
+      "optimal_value": 65.83203125,
+      "model_value": 65.61328125,
+      "model_weight": 43.0859375,
+      "feasible_rate": 1.0,
+      "optimality_gap": 0.0033228505310627376
+    },
+    "sweep": [
+      {
+        "capacity_frac": 0.3,
+        "optimal_value": 49.4296875,
+        "model_value": 49.234375,
+        "model_weight": 25.36328125,
+        "feasible_rate": 1.0,
+        "optimality_gap": 0.003951319740793435
+      },
+      {
+        "capacity_frac": 0.4,
+        "optimal_value": 58.22265625,
+        "model_value": 57.984375,
+        "model_weight": 34.24609375,
+        "feasible_rate": 1.0,
+        "optimality_gap": 0.004092586380409213
+      },
+      {
+        "capacity_frac": 0.5,
+        "optimal_value": 65.83203125,
+        "model_value": 65.61328125,
+        "model_weight": 43.0859375,
+        "feasible_rate": 1.0,
+        "optimality_gap": 0.0033228505310627376
+      },
+      {
+        "capacity_frac": 0.6,
+        "optimal_value": 71.39453125,
+        "model_value": 71.24609375,
+        "model_weight": 50.890625,
+        "feasible_rate": 1.0,
+        "optimality_gap": 0.002079115828637068
+      },
+      {
+        "capacity_frac": 0.7,
+        "optimal_value": 76.578125,
+        "model_value": 76.4609375,
+        "model_weight": 59.65625,
+        "feasible_rate": 1.0,
+        "optimality_gap": 0.001530299938787949
+      }
+    ],
+    "baseline_canonical": {
+      "capacity_frac": 0.5,
+      "optimal_value": 65.83203125,
+      "model_value": 65.296875,
+      "model_weight": 42.56640625,
+      "feasible_rate": 1.0,
+      "optimality_gap": 0.008129116477778475
+    },
+    "baseline_sweep": [
+      {
+        "capacity_frac": 0.3,
+        "optimal_value": 49.4296875,
+        "model_value": 48.83984375,
+        "model_weight": 24.80078125,
+        "feasible_rate": 1.0,
+        "optimality_gap": 0.011932985617196135
+      },
+      {
+        "capacity_frac": 0.4,
+        "optimal_value": 58.22265625,
+        "model_value": 57.6796875,
+        "model_weight": 33.69140625,
+        "feasible_rate": 1.0,
+        "optimality_gap": 0.009325729620932588
+      },
+      {
+        "capacity_frac": 0.5,
+        "optimal_value": 65.83203125,
+        "model_value": 65.296875,
+        "model_weight": 42.56640625,
+        "feasible_rate": 1.0,
+        "optimality_gap": 0.008129116477778475
+      },
+      {
+        "capacity_frac": 0.6,
+        "optimal_value": 71.39453125,
+        "model_value": 70.97265625,
+        "model_weight": 50.30078125,
+        "feasible_rate": 1.0,
+        "optimality_gap": 0.005909066039284316
+      },
+      {
+        "capacity_frac": 0.7,
+        "optimal_value": 76.578125,
+        "model_value": 76.24609375,
+        "model_weight": 59.11328125,
+        "feasible_rate": 1.0,
+        "optimality_gap": 0.004335849826565985
+      }
+    ]
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "goal": "attention_lcs",
+  "attempt": "pass_2",
+  "run_id": "20260613T205234Z",
+  "verdict_version": 1,
+  "architecture_fit":         {"score": 5, "note": "Single cross-attention head as a minimal delta from base_model: token-identity match + relative-position bias; best head lift 0.57, mass 0.63 on LCS keys."},
+  "baseline_comparison":      {"score": 5, "note": "Built-in ablation ladder (token+pos / token-only / pos-only / uniform); uniform head reproduces the random baseline exactly (lift 0.0)."},
+  "faithfulness":             {"score": 4, "note": "Hand-built, openly stated; the per-head ablation ladder is the causal test (removing either term collapses lift), though there is no trained-model activation patching."},
+  "operating_range":          {"score": 4, "note": "Vocab swept 2->64 (~1.5 orders); monotone lift curve from 0.27 (dense) to 0.86 (sparse), honestly noting it falls short of 2 full orders."},
+  "hardcoded_weights_bonus":  {"score": 5, "note": "Entirely hand-set weights, no training — every coefficient is interpretable and motivated by the LCS structure."},
+  "visual_judgement":         {"score": 5, "note": "Three coupled views: ablation bar chart with baseline line, heatmap with red LCS-partner boxes, and log-x operating-range curve — claim is legible at a glance."},
+  "visualisation_rationale":  {"score": 5, "note": "'Why this visualisation' ties each chart to the goal: strawman contrast, alignment verification on DP cells, and where-it-breaks coverage."},
+  "automated_metrics": {
+    "version": 1,
+    "random_baseline_mass": 0.0625,
+    "lcs_attention_head_0": 0.6342344677186367,
+    "lcs_lift_head_0": 0.5717344677186367,
+    "lcs_attention_head_1": 0.4733294056869059,
+    "lcs_lift_head_1": 0.4108294056869059,
+    "lcs_attention_head_2": 0.12031040516170104,
+    "lcs_lift_head_2": 0.05781040516170104,
+    "lcs_attention_head_3": 0.0625,
+    "lcs_lift_head_3": 0.0,
+    "lcs_attention_canonical": 0.6342344677186367,
+    "lcs_lift_canonical": 0.5717344677186367,
+    "lcs_robustness": 0.6098500988998791
+  },
+  "overall": "good",
+  "notes": "A strong hand-built LCS-alignment head expressed as a tiny delta from base_model, with a built-in ablation ladder that doubles as causal evidence and a clear leaderboard headline (lcs_lift_canonical 0.57). Visualisations are excellent and well-justified. Minor gaps: operating range covers ~1.5 rather than 2 orders of magnitude, and faithfulness rests on the ablation ladder rather than trained-model patching (appropriate but not maximal)."
+}

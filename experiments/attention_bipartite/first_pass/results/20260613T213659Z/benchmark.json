@@ -1,0 +1,33 @@
+{
+  "goal": "attention_bipartite",
+  "attempt": "first_pass",
+  "run_id": "20260613T213659Z",
+  "metrics": {
+    "version": 1,
+    "bipartite_score_canonical": 0.4621169865131378,
+    "mean_attn_within_canonical": 0.7310584187507629,
+    "mean_attn_cross_canonical": 0.2689414322376251,
+    "row_entropy_mean_canonical": 2.661644697189331,
+    "linear_baseline_bipartite_score": 0.0,
+    "random_baseline_bipartite_score": 0.0,
+    "lift_over_baseline_canonical": 0.4621169865131378
+  },
+  "payload": {
+    "version": 1,
+    "config": {
+      "n_per_group": 8,
+      "seq_len": 16,
+      "num_batches": 32,
+      "temperature": 1.0
+    },
+    "sweep": [
+      {
+        "condition": "canonical",
+        "mean_attn_within": 0.7310584187507629,
+        "mean_attn_cross": 0.2689414322376251,
+        "bipartite_score": 0.4621169865131378,
+        "row_entropy_mean": 2.661644697189331
+      }
+    ]
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "goal": "attention_cfg_generate",
+  "attempt": "first_pass",
+  "run_id": "20260613T211237Z",
+  "metrics": {
+    "version": 1,
+    "cfg_acc_canonical": 0.49472851871375856,
+    "cfg_acc_depth_1": 0.48705882352941177,
+    "cfg_acc_depth_2": 0.49147286821705427,
+    "cfg_acc_depth_3": 0.5061025223759154,
+    "cfg_ce_canonical": 5.3237142860889435,
+    "cfg_ce_depth_1": 5.265461444854736,
+    "cfg_ce_depth_2": 5.240025043487549,
+    "cfg_ce_depth_3": 5.466640949249268,
+    "linear_baseline_acc_struct": 0.125,
+    "linear_baseline_ce": 2.0794415416798357,
+    "lift_over_baseline_acc": 0.36972851871375856,
+    "lift_over_baseline_ce": -3.2442727444091077,
+    "depth_robustness": 1.0
+  },
+  "payload": {
+    "version": 1,
+    "canonical_seed": 42,
+    "vocab_size": 8,
+    "max_depth": 3,
+    "seq_len": 32,
+    "batch_size": 256,
+    "slice_axis": "max_depth",
+    "sweep": [
+      {
+        "max_depth": 1,
+        "n_sequences": 85,
+        "n_positions": 2720,
+        "ce_loss": 5.265461444854736,
+        "acc_any": 0.22830882352941176,
+        "acc_struct": 0.48705882352941177,
+        "struct_positions": 1275
+      },
+      {
+        "max_depth": 2,
+        "n_sequences": 86,
+        "n_positions": 2752,
+        "ce_loss": 5.240025043487549,
+        "acc_any": 0.23037790697674418,
+        "acc_struct": 0.49147286821705427,
+        "struct_positions": 1290
+      },
+      {
+        "max_depth": 3,
+        "n_sequences": 85,
+        "n_positions": 2720,
+        "ce_loss": 5.466640949249268,
+        "acc_any": 0.2286764705882353,
+        "acc_struct": 0.5061025223759154,
+        "struct_positions": 1229
+      }
+    ],
+    "linear_baseline": {
+      "ce_loss": 2.0794415416798357,
+      "acc_any": 0.125,
+      "acc_struct": 0.125
+    }
+  }
+}

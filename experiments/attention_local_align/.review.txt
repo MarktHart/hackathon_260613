@@ -1,0 +1,1 @@
+APPROVED 2026-06-13: payload contract consistent across README/task/benchmark; deterministic generation; metrics, baselines, and edge cases verified. Fixed README robustness-formula drift (eps-in-denominator vs actual 0.0 behavior) and documented the full per-slice entropy/peak metric family.

@@ -1,0 +1,31 @@
+{
+  "goal": "attention_tree_path",
+  "attempt": "pass_2",
+  "run_id": "20260613T210316Z",
+  "verdict_version": 1,
+  "architecture_fit": {"score": 5, "note": "Single attention layer, MLP dropped (base_model delta); traces paths via genuine softmax(QK^T) content-addressing, not answer-key indexing."},
+  "baseline_comparison": {"score": 5, "note": "Ablation bar contrasts full circuit (~1.0) vs addr-ablated (~depth-only) vs scrambled (~0.07 uniform baseline), a clear strawman-fails comparison."},
+  "faithfulness": {"score": 4, "note": "No trained model to patch (synthetic, stated honestly); input ablations zeroing/scrambling address codes give solid causal evidence the head uses the geometry."},
+  "operating_range": {"score": 4, "note": "Near-perfect (~0.999, robustness 0.999) across depths 2/3/4 and all 4 path rules via fixed depth-independent Wq/Wk; no breaking-point probed beyond depth 4."},
+  "hardcoded_weights_bonus": {"score": 5, "note": "Entire mechanism is hand-set Q/K selection matrices reproducing target behavior — exactly the hand-built circuit the bonus rewards."},
+  "visual_judgement": {"score": 5, "note": "Demo heatmap with red ✕ on true target plus query bar, ablation bar, and depth/rule sweep make the claim legible and checkable."},
+  "visualisation_rationale": {"score": 5, "note": "README ties each panel to the claim: target overlay = path tracing, ablation = faithfulness, sweep = operating range, with correct baseline on axis."},
+  "automated_metrics": {
+    "version": 1,
+    "tree_path_canonical": 0.9995209574699402,
+    "tree_path_depth_2": 0.9997763633728027,
+    "tree_path_depth_3": 0.9995209574699402,
+    "tree_path_depth_4": 0.999239981174469,
+    "tree_path_ancestor_2": 0.9997763633728027,
+    "tree_path_descendant": 0.9989941716194153,
+    "tree_path_sibling": 0.9995208382606506,
+    "tree_path_robustness": 0.9994634978201282,
+    "tree_path_head_best": 0.9995209574699402,
+    "tree_path_head_worst": 0.9995209574699402,
+    "tree_path_head_gap": 0.0,
+    "linear_baseline_canonical": 0.07142857142857142,
+    "lift_over_baseline": 0.9280923860413688
+  },
+  "overall": "good",
+  "notes": "A clean, minimal hand-built QK content-addressing circuit (single attention layer, no MLP) that traces tree paths by resolving targets through dot-product geometry rather than indexing the answer key, fixing the prior first_pass flaw. Near-perfect metrics across depths and path rules, with honest input-ablation baselines (addr-ablated, scrambled) standing in for causal evidence on a synthetic task. Strong visualisation and rationale; the only real limits are the absence of a trained model and no probing past depth 4."
+}

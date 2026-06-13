@@ -1,0 +1,33 @@
+{
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "carry_sweep": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "full_em_mean": {
+    "0": 1.0,
+    "1": 1.0,
+    "2": 1.0,
+    "3": 1.0
+  },
+  "ablated_em_mean": {
+    "0": 1.0,
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0
+  },
+  "carry_robustness_full": 1.0,
+  "carry_robustness_ablated": 0.0,
+  "note": "Ablating the carry-lookahead ATTENTION layer (carries forced to 0) reduces the circuit to the task's linear no-carry baseline; exact-match collapses on every carrying slice."
+}

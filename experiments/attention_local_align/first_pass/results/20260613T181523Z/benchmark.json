@@ -1,0 +1,70 @@
+{
+  "goal": "attention_local_align",
+  "attempt": "first_pass",
+  "run_id": "20260613T181523Z",
+  "metrics": {
+    "version": 1,
+    "local_align_shift_m2": 0.08528309820685535,
+    "local_align_entropy_shift_m2": 2.6954964254470046,
+    "local_align_peak_shift_m2": 0.03333333333333333,
+    "local_align_shift_m1": 0.09720931619766258,
+    "local_align_entropy_shift_m1": 2.6468444075735422,
+    "local_align_peak_shift_m1": 0.03225806451612903,
+    "local_align_shift_0": 0.09514808756648563,
+    "local_align_entropy_shift_0": 2.672434766799361,
+    "local_align_peak_shift_0": 0.03125,
+    "local_align_shift_p1": 0.001104855300858686,
+    "local_align_entropy_shift_p1": 2.6468444075735422,
+    "local_align_peak_shift_p1": 0.0,
+    "local_align_shift_p2": 0.0011416838108873088,
+    "local_align_entropy_shift_p2": 2.6206063167601834,
+    "local_align_peak_shift_p2": 0.0,
+    "local_align_canonical": 0.09720931619766258,
+    "local_align_peak_canonical": 0.03225806451612903,
+    "local_align_entropy_canonical": 2.6468444075735422,
+    "local_align_robustness": 1.0216633742610608,
+    "linear_baseline_canonical": 0.03225806451612903,
+    "lift_over_uniform_canonical": 0.06495125168153355,
+    "random_baseline_peak_canonical": 0.03125
+  },
+  "payload": {
+    "version": 1,
+    "canonical_shift": -1,
+    "sequence_length": 32,
+    "vocab_size": 64,
+    "batch_size": 128,
+    "measured_head": 0,
+    "sweep": [
+      {
+        "shift": -2,
+        "mean_max_attn_to_target": 0.08528309820685535,
+        "mean_entropy": 2.6954964254470046,
+        "frac_peak_on_target": 0.03333333333333333
+      },
+      {
+        "shift": -1,
+        "mean_max_attn_to_target": 0.09720931619766258,
+        "mean_entropy": 2.6468444075735422,
+        "frac_peak_on_target": 0.03225806451612903
+      },
+      {
+        "shift": 0,
+        "mean_max_attn_to_target": 0.09514808756648563,
+        "mean_entropy": 2.672434766799361,
+        "frac_peak_on_target": 0.03125
+      },
+      {
+        "shift": 1,
+        "mean_max_attn_to_target": 0.001104855300858686,
+        "mean_entropy": 2.6468444075735422,
+        "frac_peak_on_target": 0.0
+      },
+      {
+        "shift": 2,
+        "mean_max_attn_to_target": 0.0011416838108873088,
+        "mean_entropy": 2.6206063167601834,
+        "frac_peak_on_target": 0.0
+      }
+    ]
+  }
+}

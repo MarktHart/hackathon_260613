@@ -1,0 +1,57 @@
+{
+  "goal": "attention_lcs",
+  "attempt": "pass_2",
+  "run_id": "20260613T205143Z",
+  "metrics": {
+    "version": 1,
+    "random_baseline_mass": 0.0625,
+    "lcs_attention_head_0": 0.6342344677186367,
+    "lcs_lift_head_0": 0.5717344677186367,
+    "lcs_attention_head_1": 0.4733294056869059,
+    "lcs_lift_head_1": 0.4108294056869059,
+    "lcs_attention_head_2": 0.12031040516170104,
+    "lcs_lift_head_2": 0.05781040516170104,
+    "lcs_attention_head_3": 0.0625,
+    "lcs_lift_head_3": 0.0,
+    "lcs_attention_canonical": 0.6342344677186367,
+    "lcs_lift_canonical": 0.5717344677186367,
+    "lcs_robustness": 0.6098500988998791
+  },
+  "payload": {
+    "version": 1,
+    "config": {
+      "seq_len": 16,
+      "vocab_size": 8,
+      "num_examples": 256,
+      "seed": 0,
+      "n_heads": 4
+    },
+    "random_baseline_mass": 0.0625,
+    "sweep": [
+      {
+        "head": 0,
+        "lcs_attention_mass": 0.6342344677186367,
+        "lcs_lift": 0.5717344677186367,
+        "n_query_positions": 1696
+      },
+      {
+        "head": 1,
+        "lcs_attention_mass": 0.4733294056869059,
+        "lcs_lift": 0.4108294056869059,
+        "n_query_positions": 1696
+      },
+      {
+        "head": 2,
+        "lcs_attention_mass": 0.12031040516170104,
+        "lcs_lift": 0.05781040516170104,
+        "n_query_positions": 1696
+      },
+      {
+        "head": 3,
+        "lcs_attention_mass": 0.0625,
+        "lcs_lift": 0.0,
+        "n_query_positions": 1696
+      }
+    ]
+  }
+}

@@ -1,0 +1,175 @@
+{
+  "best_head": {
+    "layer": 0,
+    "head": 0
+  },
+  "headline_full": 0.8128387167115612,
+  "per_head_excess": [
+    {
+      "layer": 0,
+      "head": 0,
+      "excess": 0.8128387167115612
+    },
+    {
+      "layer": 0,
+      "head": 1,
+      "excess": 5.47975235853581e-07
+    },
+    {
+      "layer": 0,
+      "head": 2,
+      "excess": -0.13404501337570082
+    },
+    {
+      "layer": 0,
+      "head": 3,
+      "excess": 0.0
+    },
+    {
+      "layer": 1,
+      "head": 0,
+      "excess": 0.0
+    },
+    {
+      "layer": 1,
+      "head": 1,
+      "excess": 0.0
+    },
+    {
+      "layer": 1,
+      "head": 2,
+      "excess": 0.0
+    },
+    {
+      "layer": 1,
+      "head": 3,
+      "excess": 0.0
+    }
+  ],
+  "ablation": [
+    {
+      "label": "full (no ablation)",
+      "headline": 0.8128387167115612
+    },
+    {
+      "label": "ablate L0H0",
+      "headline": 5.47975235853581e-07
+    },
+    {
+      "label": "ablate L0H1",
+      "headline": 0.8128387167115612
+    },
+    {
+      "label": "ablate L0H2",
+      "headline": 0.8128387167115612
+    },
+    {
+      "label": "ablate L0H3",
+      "headline": 0.8128387167115612
+    },
+    {
+      "label": "ablate L1H0",
+      "headline": 0.8128387167115612
+    },
+    {
+      "label": "ablate L1H1",
+      "headline": 0.8128387167115612
+    },
+    {
+      "label": "ablate L1H2",
+      "headline": 0.8128387167115612
+    },
+    {
+      "label": "ablate L1H3",
+      "headline": 0.8128387167115612
+    },
+    {
+      "label": "zero positional enc.",
+      "headline": 0.0
+    }
+  ],
+  "seed_sweep": [
+    {
+      "seed": 42,
+      "excess": 0.8128387167115612,
+      "robustness": 0.9473684210526315
+    },
+    {
+      "seed": 0,
+      "excess": 0.8128387167115612,
+      "robustness": 0.9473684210526315
+    },
+    {
+      "seed": 1,
+      "excess": 0.8128387167115612,
+      "robustness": 0.9473684210526315
+    },
+    {
+      "seed": 7,
+      "excess": 0.8128387167115612,
+      "robustness": 0.9473684210526315
+    },
+    {
+      "seed": 123,
+      "excess": 0.8128387167115612,
+      "robustness": 0.9473684210526315
+    }
+  ],
+  "temp_sweep": [
+    {
+      "temp": 0.0,
+      "excess": 0.0
+    },
+    {
+      "temp": 0.3,
+      "excess": 0.006714039084842649
+    },
+    {
+      "temp": 1.0,
+      "excess": 0.023784775937457904
+    },
+    {
+      "temp": 3.0,
+      "excess": 0.08420047635328297
+    },
+    {
+      "temp": 10.0,
+      "excess": 0.4135535423623183
+    },
+    {
+      "temp": 30.0,
+      "excess": 0.8079740205577106
+    },
+    {
+      "temp": 100.0,
+      "excess": 0.8132768601391598
+    }
+  ],
+  "seqlen_sweep": [
+    {
+      "T": 8,
+      "excess": 0.6294270669533275,
+      "robustness": 0.8571428571428571
+    },
+    {
+      "T": 12,
+      "excess": 0.7252058139455527,
+      "robustness": 0.9090909090909091
+    },
+    {
+      "T": 16,
+      "excess": 0.7784316936555288,
+      "robustness": 0.9333333333333333
+    },
+    {
+      "T": 20,
+      "excess": 0.8128387167115612,
+      "robustness": 0.9473684210526315
+    },
+    {
+      "T": 28,
+      "excess": 0.8552618527421776,
+      "robustness": 0.9629629629629629
+    }
+  ]
+}

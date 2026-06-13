@@ -1,0 +1,1 @@
+AStarAttentionHead hand-built; logit_scale set to 1.0.

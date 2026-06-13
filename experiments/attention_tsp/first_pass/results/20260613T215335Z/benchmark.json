@@ -1,0 +1,93 @@
+{
+  "goal": "attention_tsp",
+  "attempt": "first_pass",
+  "run_id": "20260613T215335Z",
+  "metrics": {
+    "version": 1,
+    "nn_accuracy_n_5": 0.525,
+    "tour_length_ratio_n_5": 0.7264154836216764,
+    "random_baseline_nn_accuracy_n_5": 0.5208333333333334,
+    "random_baseline_tour_length_ratio_n_5": 0.713163316706687,
+    "nn_accuracy_n_10": 0.4333333333333334,
+    "tour_length_ratio_n_10": 0.5927670979197488,
+    "random_baseline_nn_accuracy_n_10": 0.31432980599647276,
+    "random_baseline_tour_length_ratio_n_10": 0.5390611310156557,
+    "nn_accuracy_n_20": 0.3684210526315789,
+    "tour_length_ratio_n_20": 0.5150607433861951,
+    "random_baseline_nn_accuracy_n_20": 0.1867231398496675,
+    "random_baseline_tour_length_ratio_n_20": 0.38264601440879614,
+    "nn_accuracy_n_40": 0.2692307692307693,
+    "tour_length_ratio_n_40": 0.38934139047676364,
+    "random_baseline_nn_accuracy_n_40": 0.10906520612657375,
+    "random_baseline_tour_length_ratio_n_40": 0.2694493808404617,
+    "nn_accuracy_canonical": 0.4333333333333334,
+    "tour_length_ratio_canonical": 0.5927670979197488,
+    "lift_over_baseline_canonical": 0.11900352733686065,
+    "nn_accuracy_mean": 0.3989962887989204,
+    "tour_length_ratio_mean": 0.555896178851096,
+    "size_robustness": 0.5128205128205129
+  },
+  "payload": {
+    "version": 1,
+    "model_name": "synthetic_attention_tsp",
+    "canonical_n": 10,
+    "n_cities_sweep": [
+      5,
+      10,
+      20,
+      40
+    ],
+    "sweep": [
+      {
+        "n": 5,
+        "nn_accuracy": 0.525,
+        "tour_length_ratio": 0.7264154836216764,
+        "n_instances": 20
+      },
+      {
+        "n": 10,
+        "nn_accuracy": 0.4333333333333334,
+        "tour_length_ratio": 0.5927670979197488,
+        "n_instances": 20
+      },
+      {
+        "n": 20,
+        "nn_accuracy": 0.3684210526315789,
+        "tour_length_ratio": 0.5150607433861951,
+        "n_instances": 20
+      },
+      {
+        "n": 40,
+        "nn_accuracy": 0.2692307692307693,
+        "tour_length_ratio": 0.38934139047676364,
+        "n_instances": 20
+      }
+    ],
+    "random_baseline": [
+      {
+        "n": 5,
+        "nn_accuracy": 0.5208333333333334,
+        "tour_length_ratio": 0.713163316706687,
+        "n_instances": 20
+      },
+      {
+        "n": 10,
+        "nn_accuracy": 0.31432980599647276,
+        "tour_length_ratio": 0.5390611310156557,
+        "n_instances": 20
+      },
+      {
+        "n": 20,
+        "nn_accuracy": 0.1867231398496675,
+        "tour_length_ratio": 0.38264601440879614,
+        "n_instances": 20
+      },
+      {
+        "n": 40,
+        "nn_accuracy": 0.10906520612657375,
+        "tour_length_ratio": 0.2694493808404617,
+        "n_instances": 20
+      }
+    ]
+  }
+}

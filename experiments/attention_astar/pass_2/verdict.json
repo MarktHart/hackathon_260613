@@ -1,0 +1,31 @@
+{
+  "goal": "attention_astar",
+  "attempt": "pass_2",
+  "run_id": "20260613T224253Z",
+  "verdict_version": 1,
+  "architecture_fit": {"score": 5, "note": "Single attention head, MLP dropped — minimal delta from base_model; logits = -beta*f solve the goal directly (canonical alignment 0.86)."},
+  "baseline_comparison": {"score": 5, "note": "Clean g+h vs h-only vs g-only vs uniform ablation: full top1=0.76/align=0.86 while strawmen collapse (uniform 0.0, h-only top1 0.0)."},
+  "faithfulness": {"score": 4, "note": "Synthetic circuit (no model) is stated; component knock-outs of g and h stand in for the ablation, though no model-level patching check is proposed."},
+  "operating_range": {"score": 4, "note": "Density sweep 0.0–0.4 holds (alignment 0.87→0.68, robustness 0.79) and degrades visibly at 0.4; single grid size, one axis only."},
+  "hardcoded_weights_bonus": {"score": 5, "note": "Entirely hand-built: f=g+h computed by hand (Manhattan h, BFS min-plus g) with no training — full mechanism written out."},
+  "visual_judgement": {"score": 5, "note": "Demo pairs attention vs A* f-value heatmaps with agent/goal/optimal-next/argmax overlays plus an ablation bar chart — claim legible at a glance."},
+  "visualisation_rationale": {"score": 5, "note": "README ties side-by-side heatmaps to the low-f claim and the bar chart to the 'aligns where strawmen don't' baseline argument."},
+  "automated_metrics": {
+    "version": 1,
+    "astar_alignment_density_0p0": 0.8661593406593405,
+    "astar_alignment_density_0p1": 0.8699342281077133,
+    "astar_alignment_density_0p2": 0.8635738425580086,
+    "astar_alignment_density_0p3": 0.8338108301019049,
+    "astar_alignment_density_0p4": 0.6846947503899061,
+    "astar_alignment_canonical": 0.8635738425580086,
+    "astar_entropy_density_0p2": 1.9974624667900807,
+    "top1_optimal_canonical": 0.76,
+    "top3_optimal_canonical": 1.0,
+    "path_gap_canonical": 0.8125714285714287,
+    "linear_baseline_alignment_density_0p2": 0.0,
+    "lift_over_baseline_canonical": 0.8635738425580086,
+    "density_robustness": 0.7870649622319824
+  },
+  "overall": "good",
+  "notes": "A hand-built single-head A* attention circuit that cleanly solves the goal: attention mass tracks low-f cells (canonical alignment 0.86, top3 1.0) and the argmax lands on the optimal next neighbour. The g/h component ablation provides a strong baseline-and-faithfulness story for a synthetic attempt, and the visualisation directly checks the claim. Loses some ground on model-level causal evidence and breadth of operating range, but is a solid, well-justified result."
+}

@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "model_name": "iter_denoise_attn(b1=12,b2=45)",
+  "d": 32,
+  "n_positions": 16,
+  "chance_hit_rate": 0.0625,
+  "canonical_similarity": 0.0,
+  "key_sim_sweep": [
+    0.0,
+    0.2,
+    0.4,
+    0.6,
+    0.8
+  ],
+  "sweep": [
+    {
+      "similarity": 0.0,
+      "attention_sharpness": 0.9895208935849195,
+      "attention_entropy": 0.029054252265602834,
+      "target_hit_rate": 0.8125,
+      "n_seeds": 16
+    },
+    {
+      "similarity": 0.2,
+      "attention_sharpness": 0.9801526979661161,
+      "attention_entropy": 0.055028405786032894,
+      "target_hit_rate": 0.625,
+      "n_seeds": 16
+    },
+    {
+      "similarity": 0.4,
+      "attention_sharpness": 0.9941526607364128,
+      "attention_entropy": 0.016212266897331577,
+      "target_hit_rate": 0.625,
+      "n_seeds": 16
+    },
+    {
+      "similarity": 0.6,
+      "attention_sharpness": 0.9336102866794349,
+      "attention_entropy": 0.18407137042533087,
+      "target_hit_rate": 0.375,
+      "n_seeds": 16
+    },
+    {
+      "similarity": 0.8,
+      "attention_sharpness": 0.8531795942970035,
+      "attention_entropy": 0.40707260104679743,
+      "target_hit_rate": 0.875,
+      "n_seeds": 16
+    }
+  ],
+  "linear_baseline": [
+    {
+      "similarity": 0.0,
+      "attention_sharpness": 0.005632795041497524,
+      "target_hit_rate": 0.8125,
+      "n_seeds": 16
+    },
+    {
+      "similarity": 0.2,
+      "attention_sharpness": 0.00537076232907812,
+      "target_hit_rate": 0.5,
+      "n_seeds": 16
+    },
+    {
+      "similarity": 0.4,
+      "attention_sharpness": 0.003731030360191033,
+      "target_hit_rate": 0.5625,
+      "n_seeds": 16
+    },
+    {
+      "similarity": 0.6,
+      "attention_sharpness": 0.0030138141775669716,
+      "target_hit_rate": 0.0625,
+      "n_seeds": 16
+    },
+    {
+      "similarity": 0.8,
+      "attention_sharpness": 0.0016338704558353581,
+      "target_hit_rate": 0.0,
+      "n_seeds": 16
+    }
+  ]
+}

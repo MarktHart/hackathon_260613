@@ -1,0 +1,150 @@
+{
+  "goal": "attention_fsm",
+  "attempt": "first_pass",
+  "run_id": "20260613T180217Z",
+  "metrics": {
+    "version": 1,
+    "state_tracking_accuracy_canonical": 1.0,
+    "random_baseline_accuracy": 0.3333333333333333,
+    "lift_over_random": 0.6666666666666667,
+    "state_tracking_robustness": 1.0,
+    "acc_pos_16": 1.0,
+    "acc_pos_24": 1.0,
+    "acc_pos_32": 1.0,
+    "acc_pos_40": 1.0,
+    "acc_pos_48": 1.0,
+    "acc_pos_56": 1.0,
+    "acc_pos_63": 1.0,
+    "state_recall_0": 1.0,
+    "state_recall_1": 1.0,
+    "state_recall_2": 1.0,
+    "min_state_recall": 1.0,
+    "late_minus_early_accuracy": 0.0
+  },
+  "payload": {
+    "version": 1,
+    "seq_len": 64,
+    "num_sequences": 128,
+    "burnin": 16,
+    "dfa_spec": {
+      "num_states": 3,
+      "alphabet_size": 4,
+      "transition": [
+        [
+          0,
+          1,
+          2,
+          1
+        ],
+        [
+          1,
+          2,
+          0,
+          2
+        ],
+        [
+          2,
+          0,
+          1,
+          0
+        ]
+      ],
+      "token_map": {
+        "A": 0,
+        "B": 1,
+        "C": 2,
+        "D": 3
+      }
+    },
+    "per_position_accuracy": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "overall_accuracy": 1.0,
+    "random_baseline_accuracy": 0.3333333333333333,
+    "per_state_recall": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "transition_confusion": [
+      [
+        2089,
+        0,
+        0
+      ],
+      [
+        0,
+        2024,
+        0
+      ],
+      [
+        0,
+        0,
+        2031
+      ]
+    ]
+  }
+}

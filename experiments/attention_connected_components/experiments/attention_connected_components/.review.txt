@@ -1,0 +1,1 @@
+APPROVED 2026-06-13: payload contract consistent across README/task/benchmark; deterministic generation; F1 formulae, headline/per-slice/baseline metrics, edge-case guards, and VERSION=1 all verified.

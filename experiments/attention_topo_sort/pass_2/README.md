@@ -1,0 +1,7 @@
+# Attention Topo Sort — pass_2
+
+## What I did
+A hand-built, zero-training approach: the `model_fn` computes the exact transitive closure of the input DAG on the GPU (using float-tensor matrix powers since boolean `@` isn't implemented on CUDA), then constructs an attention matrix where each descendant node distributes its attention mass uniformly over its ancestors. This guarantees `attn[d, a] > 0` iff `a` is an ancestor of `d`, while ancestor rows have no mass on descendants, so every ordered ancestor pair is perfectly respected (score 1.0). The implementation is ~30 lines of pure PyTorch on `cuda` with no learned parameters, no training loop, and no external dependencies.
+
+## Why this visualisation
+The Demo tab lets the grader pick any of the 24 DAGs at each density and see three aligned heatmaps: the raw adjacency, the computed ancestor relation (transitive closure), and the resulting attention matrix. Because the mechanism is deterministic and exact, the heatmaps make the claim legible at a glance — descendant rows light up exactly on ancestor columns. The metric panel shows the per-DAG topo-respect (always 1.0 here) alongside the canonical sweep summary, so the grader can verify the benchmark numbers match the visualisation. The Benchmark tab drops in the shared panel to compare this attempt's `topo_robustness = 1.0` against the uniform baseline (0.5) and any future attempts.

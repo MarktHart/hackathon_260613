@@ -1,0 +1,1 @@
+APPROVED: payload contract is consistent across README/task/benchmark, generate(seed=42) is deterministic (85/86/85 depth split), metrics + per-slice + baseline present, edge cases handled, VERSION=1; fixed cfg_ce_canonical weighting (now by n_positions) and corrected README struct_positions example values.

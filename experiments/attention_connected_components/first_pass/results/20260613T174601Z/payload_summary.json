@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "summary": "Hand-built transitive closure via 20 repeated powers on GPU",
+  "key_f1s": {
+    "diam_1": 1.0,
+    "diam_3": 0.3333333333333333,
+    "diam_5": 0.35714285714285715
+  }
+}

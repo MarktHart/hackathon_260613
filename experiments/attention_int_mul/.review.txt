@@ -1,0 +1,1 @@
+APPROVED: payload contract is consistent across README/task/benchmark, generate() is deterministic, metric formulae match the README, edge cases handled, VERSION=1; fixed an inaccurate "additive baseline is near chance" claim in the README headline (empirically ≈0.32 mean / 0.56 at K=2).

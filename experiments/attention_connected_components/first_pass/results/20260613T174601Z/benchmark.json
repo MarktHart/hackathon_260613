@@ -1,0 +1,93 @@
+{
+  "goal": "attention_connected_components",
+  "attempt": "first_pass",
+  "run_id": "20260613T174601Z",
+  "metrics": {
+    "version": 1,
+    "cc_f1_diam_1": 0.25,
+    "adjacency_baseline_f1_diam_1": 1.0,
+    "lift_over_adjacency_diam_1": -0.75,
+    "cc_f1_diam_2": 0.3076923076923077,
+    "adjacency_baseline_f1_diam_2": 0.8,
+    "lift_over_adjacency_diam_2": -0.49230769230769234,
+    "cc_f1_diam_3": 0.3333333333333333,
+    "adjacency_baseline_f1_diam_3": 0.6666666666666666,
+    "lift_over_adjacency_diam_3": -0.3333333333333333,
+    "cc_f1_diam_5": 0.35714285714285715,
+    "adjacency_baseline_f1_diam_5": 0.5,
+    "lift_over_adjacency_diam_5": -0.14285714285714285,
+    "cc_f1_canonical": 0.3333333333333333,
+    "adjacency_baseline_f1_canonical": 0.6666666666666666,
+    "lift_over_adjacency_canonical": -0.3333333333333333,
+    "transitive_closure_robustness": 0.31204212454212454,
+    "mean_lift_over_adjacency": -0.42962454212454215
+  },
+  "payload": {
+    "version": 1,
+    "canonical_diameter": 3,
+    "num_components": 4,
+    "num_graphs": 8,
+    "sweep": [
+      {
+        "diameter": 1,
+        "model": {
+          "tp": 32,
+          "fp": 192,
+          "fn": 0,
+          "tn": 0
+        },
+        "baseline": {
+          "tp": 32,
+          "fp": 0,
+          "fn": 0,
+          "tn": 192
+        }
+      },
+      {
+        "diameter": 2,
+        "model": {
+          "tp": 96,
+          "fp": 432,
+          "fn": 0,
+          "tn": 0
+        },
+        "baseline": {
+          "tp": 64,
+          "fp": 0,
+          "fn": 32,
+          "tn": 432
+        }
+      },
+      {
+        "diameter": 3,
+        "model": {
+          "tp": 192,
+          "fp": 768,
+          "fn": 0,
+          "tn": 0
+        },
+        "baseline": {
+          "tp": 96,
+          "fp": 0,
+          "fn": 96,
+          "tn": 768
+        }
+      },
+      {
+        "diameter": 5,
+        "model": {
+          "tp": 480,
+          "fp": 1728,
+          "fn": 0,
+          "tn": 0
+        },
+        "baseline": {
+          "tp": 160,
+          "fp": 0,
+          "fn": 320,
+          "tn": 1728
+        }
+      }
+    ]
+  }
+}

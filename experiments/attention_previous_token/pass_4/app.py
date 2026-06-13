@@ -65,7 +65,10 @@ def list_runs() -> list[Path]:
 def _load(run_name: str):
     for r in list_runs():
         if r.name == run_name:
-            payload = json.loads((r / "benchmark.json").read_text())
+            record = json.loads((r / "benchmark.json").read_text())
+            # benchmark.json is {goal, attempt, run_id, metrics, payload};
+            # the sweep lives inside record["payload"]. Fall back gracefully.
+            payload = record.get("payload", record) if isinstance(record, dict) else None
             comp_path = r / "comparison.json"
             comp = json.loads(comp_path.read_text()) if comp_path.exists() else None
             return payload, comp
@@ -74,7 +77,7 @@ def _load(run_name: str):
 
 def render(run_name: str):
     payload, comp = _load(run_name)
-    if payload is None:
+    if not isinstance(payload, dict) or not payload.get("sweep"):
         return "No run found.", gr.update(value=None), None, None
     sweep = payload["sweep"]
     base = payload["uniform_baseline"]
@@ -160,7 +163,7 @@ with gr.Blocks(title="Previous-token head (relative-position bias)") as demo:
                       outputs=[summary, sweep_tbl, sweep_plot, ablation_plot])
             demo.load(attention_heatmap, inputs=None, outputs=heat)
         with gr.Tab("Benchmark"):
-            benchmark_panel(str(GOAL_DIR)).render()
+            benchmark_panel(str(GOAL_DIR))
 
 
 if __name__ == "__main__":

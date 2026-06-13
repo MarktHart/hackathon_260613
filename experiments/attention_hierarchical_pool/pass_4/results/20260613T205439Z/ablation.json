@@ -1,0 +1,36 @@
+{
+  "description": "Knock out the only causal knob (the depth-indexed Gaussian width) by freezing sigma at its geometric mean for every layer. The fine->coarse shift vanishes and the headline collapses to ~1.0, confirming the schedule \u2014 not anything else \u2014 produces the hierarchy.",
+  "canonical_robustness": 2.5007818510474733,
+  "flat_sigma_robustness": 1.0,
+  "uniform_baseline_robustness": 1.0,
+  "canonical_spread_per_layer": [
+    1.00000602115066,
+    1.0009254625277706,
+    1.0153600213931324,
+    1.0766377131378402,
+    1.210965533613063,
+    1.4263136331393425,
+    1.7194850184552608,
+    2.0737260531771473,
+    2.448063591730319,
+    2.7835663752171675,
+    3.039319356842605,
+    3.2112123090818843
+  ],
+  "flat_spread_per_layer": [
+    1.563786625419048,
+    1.563786625419048,
+    1.563786625419048,
+    1.563786625419048,
+    1.563786625419048,
+    1.563786625419048,
+    1.563786625419048,
+    1.563786625419048,
+    1.563786625419048,
+    1.563786625419048,
+    1.563786625419048,
+    1.563786625419048
+  ],
+  "sigma_min": 0.6,
+  "sigma_max": 16.0
+}

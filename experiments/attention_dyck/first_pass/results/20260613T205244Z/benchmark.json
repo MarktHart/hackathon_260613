@@ -1,0 +1,44 @@
+{
+  "goal": "attention_dyck",
+  "attempt": "first_pass",
+  "run_id": "20260613T205244Z",
+  "metrics": {
+    "version": 1,
+    "dyck_matching_canonical": 1.0,
+    "dyck_depth_corr_canonical": 0.4447027571536594,
+    "dyck_head_0_matching": 1.0,
+    "dyck_head_0_depth_corr": -0.0037041280107625776,
+    "dyck_head_1_matching": 0.08990675403225806,
+    "dyck_head_1_depth_corr": 0.4447027571536594,
+    "dyck_diag_frac_mean": 0.015625,
+    "linear_baseline_matching": 0.03225806451612903,
+    "lift_over_baseline_matching": 0.967741935483871
+  },
+  "payload": {
+    "version": 1,
+    "canonical_seed": 42,
+    "seq_len": 64,
+    "max_depth": 6,
+    "n_heads": 2,
+    "n_layers": 1,
+    "per_head": [
+      {
+        "head": 0,
+        "matching_accuracy": 1.0,
+        "depth_corr": -0.0037041280107625776,
+        "diag_frac": 0.015625
+      },
+      {
+        "head": 1,
+        "matching_accuracy": 0.08990675403225806,
+        "depth_corr": 0.4447027571536594,
+        "diag_frac": 0.015625
+      }
+    ],
+    "aggregated": {
+      "best_matching_accuracy": 1.0,
+      "best_depth_corr": 0.4447027571536594,
+      "linear_baseline_matching": 0.03225806451612903
+    }
+  }
+}

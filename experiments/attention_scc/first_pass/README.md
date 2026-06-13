@@ -1,0 +1,7 @@
+# What I did
+This is a hand-built first-pass attempt that treats the problem as a pure causal-signal detection exercise. I cast the NumPy inputs to GPU tensors, simulate the forward pass of each head, and score edges based on a simple heuristic: the similarity (dot-product of projected outputs) between a source head's output and a destination head's query. The model_fn returns a dense `[L, H, L, H]` edge-score matrix — not predictions per token, but a single score per head-to-head pair.
+
+The method is deliberately minimal: it does not learn any weights, relies only on the provided activations and weight matrices, and uses the ground-truth architecture (2 layers, 4 heads each) to index over all possible edges. It treats the residual stream and weight projections as signals and computes a coarse similarity estimate for every ordered pair of heads.
+
+# Why this visualisation
+The Demo tab shows a heatmap of edge scores for a single noise level (default = 0.3), making it immediately legible whether the ground‑true edge — layer 1 head 0 → layer 1 head 1 — stands out against randomly correlated pairs. By moving the noise slider, users see how the signal degrades (or, if the method is robust, how it persists). The Benchmark tab drops in the shared leaderboard so the same score can be compared across all attempts at the same goal.

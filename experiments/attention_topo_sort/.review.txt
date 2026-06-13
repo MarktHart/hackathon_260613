@@ -1,0 +1,1 @@
+APPROVED: payload contract consistent across README/task/benchmark; generate() deterministic per seed; metric formulae, headline (topo_robustness), per-slice + uniform baselines, and edge cases (empty sweep, zero pairs, degenerate rows) all verified; VERSION=1 with documented bump procedure; fixed README Metrics table to include the emitted `uniform_baseline_canonical` key.

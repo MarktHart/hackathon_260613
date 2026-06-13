@@ -1,0 +1,31 @@
+{
+  "goal": "attention_cfg_generate",
+  "attempt": "pass_3",
+  "run_id": "20260613T222923Z",
+  "verdict_version": 1,
+  "architecture_fit": {"score": 5, "note": "Single hand-set attention head (x4), no MLP, minimal delta from base_model.py; matching emerges from a genuine softmax(Q·Kᵀ), not written in."},
+  "baseline_comparison": {"score": 5, "note": "Both a recency-only strawman (depth ablated, A=0) and uniform chance plotted on the same axes; strawman collapses with depth while full circuit holds."},
+  "faithfulness": {"score": 5, "note": "Hand-built, so faithfulness is a self-ablation: zeroing the depth term breaks matching — and the README honestly proposes the activation-patching check a trained model would need."},
+  "operating_range": {"score": 4, "note": "Depth-invariant (~0.999) across the full goal axis d=1..5, but does not probe beyond the demo regime or locate a break point."},
+  "hardcoded_weights_bonus": {"score": 5, "note": "Entire circuit is hand-set QK/softmax weights reproducing the target behaviour — exactly the hand-built mechanism this bonus rewards."},
+  "visual_judgement": {"score": 5, "note": "Heatmap with cyan true-match boxes for per-token verification plus a 3-line depth-sweep money plot make the claim and its strawman legible."},
+  "visualisation_rationale": {"score": 5, "note": "README ties heatmap to per-token check and the line plot's y-axis to the exact headline metric, x-axis to the goal's sweep axis, with the right baseline."},
+  "automated_metrics": {
+    "version": 1,
+    "stack_attention_depth_1": 0.9983612402913651,
+    "uniform_baseline_depth_1": 0.10859761950341609,
+    "stack_attention_depth_2": 0.9991945823225243,
+    "uniform_baseline_depth_2": 0.08784273796874455,
+    "stack_attention_depth_3": 0.999114484851316,
+    "uniform_baseline_depth_3": 0.07641197569528105,
+    "stack_attention_depth_4": 0.9991063341498375,
+    "uniform_baseline_depth_4": 0.06538768413677613,
+    "stack_attention_depth_5": 0.9987831018094359,
+    "uniform_baseline_depth_5": 0.0621830396614879,
+    "stack_attention_canonical": 0.999114484851316,
+    "lift_over_uniform_canonical": 0.922702509156035,
+    "stack_attention_robustness": 0.9991659862394147
+  },
+  "overall": "good",
+  "notes": "A strong hand-built attempt: a minimal single-head, no-MLP delta from base_model.py where stack-matching emerges from a real softmax(Q·Kᵀ) over depth-match/is-open/recency features, hitting ~0.99 attention-to-match (chance ~0.07) and depth-invariant robustness ~0.999. The depth-ablation strawman and uniform baseline give clean causal/comparison evidence on shared axes, and the visualisation is well-justified. Only modest weakness is operating range — it covers the full goal axis (d=1..5) but never pushes past the demo regime to find where the circuit breaks."
+}

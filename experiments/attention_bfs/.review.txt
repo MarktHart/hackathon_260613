@@ -1,0 +1,1 @@
+APPROVED — payload/metric/baseline contracts consistent across README+task+benchmark, generate() deterministic, edge cases guarded, VERSION=1 set & bump documented; fixed one doc drift (task.py hops docstring h>=0 -> h>=1).

@@ -1,0 +1,20 @@
+{
+  "full": {
+    "resid_r2": 0.9999898816410627,
+    "resid_acc": 1.0,
+    "baseline_r2": -0.16957918438187813,
+    "baseline_acc": 0.125,
+    "attn_corr": 0.9999999999999997,
+    "baseline_attn_corr": 0.08815975586200579
+  },
+  "ablated": {
+    "resid_r2": -0.06537698952084336,
+    "resid_acc": 0.03125,
+    "baseline_r2": -0.16957918438187813,
+    "baseline_acc": 0.125,
+    "attn_corr": 0.0,
+    "baseline_attn_corr": 0.08815975586200579
+  },
+  "max_n": 100,
+  "d_model": 128
+}

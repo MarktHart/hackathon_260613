@@ -1,0 +1,7 @@
+# What I did
+
+This attempt trains a 2-layer, 4-head attention-only transformer (d_model=64) on synthetic sequences from a 3-state, 4-observation HMM. The model is trained for 30 epochs on 5000 sequences using next-token prediction loss. During evaluation on the canonical 100 sequences (seed=42), I extract per-head attention weights and compute the "excess attention" on the Viterbi predecessor (position t-1) relative to a uniform causal baseline. The strongest head's excess attention is the headline metric. This is a **trained** attempt — the transformer learns from data rather than using hand-set weights.
+
+# Why this visualisation
+
+The Demo tab shows a compact text summary of the key metrics: the best head's excess attention, all 8 heads' excess values, and the per-position breakdown for the best head. This lets a human immediately see (1) whether any head beats the uniform baseline (excess > 0), (2) which layer/head dominates, and (3) where in the sequence the Viterbi structure emerges (early vs late positions). The Benchmark tab uses the shared panel to compare this attempt against future ones on the canonical metrics (viterbi_attention_canonical, robustness, lift_over_uniform). Text is chosen over charts because the payload is small (8 heads × 19 positions) and the claim is a single scalar comparison — a table is the highest-density display.

@@ -1,0 +1,410 @@
+{
+  "goal": "attention_astar",
+  "attempt": "first_pass",
+  "run_id": "20260613T211211Z",
+  "metrics": {
+    "version": 1,
+    "astar_alignment_canonical": 0.3333333333333333,
+    "greedy_alignment_canonical": 0.3333333333333333,
+    "astar_over_greedy_lift_canonical": 0.0,
+    "astar_robustness": 0.7666666666666667,
+    "linear_baseline_astar_alignment_canonical": 0.3333333333333333,
+    "lift_over_linear_baseline_canonical": 0.0,
+    "astar_alignment_seed_0": 0.3333333333333333,
+    "astar_alignment_seed_1": 0.5,
+    "astar_alignment_seed_2": 0.3333333333333333,
+    "astar_alignment_seed_3": 0.5,
+    "astar_alignment_seed_4": 0.3333333333333333,
+    "astar_alignment_seed_5": 0.5,
+    "astar_alignment_seed_6": 0.3333333333333333,
+    "astar_alignment_seed_7": 0.3333333333333333,
+    "astar_alignment_seed_8": 0.3333333333333333,
+    "astar_alignment_seed_9": 0.3333333333333333,
+    "greedy_alignment_seed_0": 0.3333333333333333,
+    "greedy_alignment_seed_1": 0.5,
+    "greedy_alignment_seed_2": 0.3333333333333333,
+    "greedy_alignment_seed_3": 0.5,
+    "greedy_alignment_seed_4": 0.3333333333333333,
+    "greedy_alignment_seed_5": 0.5,
+    "greedy_alignment_seed_6": 0.3333333333333333,
+    "greedy_alignment_seed_7": 0.3333333333333333,
+    "greedy_alignment_seed_8": 0.3333333333333333,
+    "greedy_alignment_seed_9": 0.3333333333333333
+  },
+  "payload": {
+    "version": 1,
+    "canonical": {
+      "seed": 0,
+      "grid_shape": [
+        8,
+        8
+      ],
+      "obstacle_density": 0.2,
+      "start": [
+        0,
+        0
+      ],
+      "goal": [
+        7,
+        7
+      ],
+      "agent_pos": [
+        0,
+        0
+      ],
+      "astar_action": 7,
+      "greedy_action": 7,
+      "model_logits": [
+        -18.0,
+        -16.0,
+        -16.0,
+        -16.0,
+        -14.0,
+        -14.0,
+        -16.0,
+        -14.0,
+        -14.0
+      ],
+      "model_probs": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.3333333333333333,
+        0.0,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "valid_mask": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        true,
+        true
+      ]
+    },
+    "sweep": [
+      {
+        "seed": 0,
+        "agent_pos": [
+          0,
+          0
+        ],
+        "astar_action": 7,
+        "greedy_action": 7,
+        "model_probs": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.3333333333333333,
+          0.0,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "valid_mask": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          true
+        ]
+      },
+      {
+        "seed": 1,
+        "agent_pos": [
+          0,
+          0
+        ],
+        "astar_action": 7,
+        "greedy_action": 7,
+        "model_probs": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.5,
+          0.5
+        ],
+        "valid_mask": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          true,
+          true
+        ]
+      },
+      {
+        "seed": 2,
+        "agent_pos": [
+          0,
+          0
+        ],
+        "astar_action": 5,
+        "greedy_action": 7,
+        "model_probs": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.3333333333333333,
+          0.0,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "valid_mask": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          true
+        ]
+      },
+      {
+        "seed": 3,
+        "agent_pos": [
+          0,
+          0
+        ],
+        "astar_action": 7,
+        "greedy_action": 7,
+        "model_probs": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.5,
+          0.0,
+          0.5,
+          0.0
+        ],
+        "valid_mask": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false
+        ]
+      },
+      {
+        "seed": 4,
+        "agent_pos": [
+          0,
+          0
+        ],
+        "astar_action": 5,
+        "greedy_action": 7,
+        "model_probs": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.3333333333333333,
+          0.0,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "valid_mask": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          true
+        ]
+      },
+      {
+        "seed": 5,
+        "agent_pos": [
+          0,
+          0
+        ],
+        "astar_action": 7,
+        "greedy_action": 7,
+        "model_probs": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.5,
+          0.5
+        ],
+        "valid_mask": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          true,
+          true
+        ]
+      },
+      {
+        "seed": 6,
+        "agent_pos": [
+          0,
+          0
+        ],
+        "astar_action": 5,
+        "greedy_action": 7,
+        "model_probs": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.3333333333333333,
+          0.0,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "valid_mask": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          true
+        ]
+      },
+      {
+        "seed": 7,
+        "agent_pos": [
+          0,
+          0
+        ],
+        "astar_action": 5,
+        "greedy_action": 7,
+        "model_probs": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.3333333333333333,
+          0.0,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "valid_mask": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          true
+        ]
+      },
+      {
+        "seed": 8,
+        "agent_pos": [
+          0,
+          0
+        ],
+        "astar_action": 7,
+        "greedy_action": 7,
+        "model_probs": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.3333333333333333,
+          0.0,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "valid_mask": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          true
+        ]
+      },
+      {
+        "seed": 9,
+        "agent_pos": [
+          0,
+          0
+        ],
+        "astar_action": 5,
+        "greedy_action": 7,
+        "model_probs": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.3333333333333333,
+          0.0,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "valid_mask": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          true
+        ]
+      }
+    ],
+    "config": {
+      "grid_size": 8,
+      "obstacle_density": 0.2,
+      "num_sweep_seeds": 10,
+      "movement": "4-connected"
+    }
+  }
+}

@@ -1,0 +1,2091 @@
+{
+  "records": [
+    {
+      "side": 4,
+      "N": 16,
+      "family": "local",
+      "params": {
+        "window_size": 1
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 1
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 4,
+      "N": 16,
+      "family": "local",
+      "params": {
+        "window_size": 1
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 1
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 4,
+      "N": 16,
+      "family": "local",
+      "params": {
+        "window_size": 1
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 1
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 4,
+      "N": 16,
+      "family": "global",
+      "params": {
+        "global_pos": 0
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 0
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 4,
+      "N": 16,
+      "family": "global",
+      "params": {
+        "global_pos": 0
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 0
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 4,
+      "N": 16,
+      "family": "global",
+      "params": {
+        "global_pos": 0
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 0
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 4,
+      "N": 16,
+      "family": "global",
+      "params": {
+        "global_pos": 15
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 15
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 4,
+      "N": 16,
+      "family": "global",
+      "params": {
+        "global_pos": 15
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 15
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 4,
+      "N": 16,
+      "family": "global",
+      "params": {
+        "global_pos": 15
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 15
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 4,
+      "N": 16,
+      "family": "causal_2d",
+      "params": {},
+      "pred": "causal_2d",
+      "pred_params": {},
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 4,
+      "N": 16,
+      "family": "causal_2d",
+      "params": {},
+      "pred": "causal_2d",
+      "pred_params": {},
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 4,
+      "N": 16,
+      "family": "causal_2d",
+      "params": {},
+      "pred": "causal_2d",
+      "pred_params": {},
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 6,
+      "N": 36,
+      "family": "local",
+      "params": {
+        "window_size": 1
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 1
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 6,
+      "N": 36,
+      "family": "local",
+      "params": {
+        "window_size": 1
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 1
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 6,
+      "N": 36,
+      "family": "local",
+      "params": {
+        "window_size": 1
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 1
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 6,
+      "N": 36,
+      "family": "local",
+      "params": {
+        "window_size": 2
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 6,
+      "N": 36,
+      "family": "local",
+      "params": {
+        "window_size": 2
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 6,
+      "N": 36,
+      "family": "local",
+      "params": {
+        "window_size": 2
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 6,
+      "N": 36,
+      "family": "dilated",
+      "params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "pred": "dilated",
+      "pred_params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 6,
+      "N": 36,
+      "family": "dilated",
+      "params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "pred": "dilated",
+      "pred_params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 6,
+      "N": 36,
+      "family": "dilated",
+      "params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "pred": "dilated",
+      "pred_params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 6,
+      "N": 36,
+      "family": "global",
+      "params": {
+        "global_pos": 0
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 0
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 6,
+      "N": 36,
+      "family": "global",
+      "params": {
+        "global_pos": 0
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 0
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 6,
+      "N": 36,
+      "family": "global",
+      "params": {
+        "global_pos": 0
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 0
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 6,
+      "N": 36,
+      "family": "global",
+      "params": {
+        "global_pos": 35
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 35
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 6,
+      "N": 36,
+      "family": "global",
+      "params": {
+        "global_pos": 35
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 35
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 6,
+      "N": 36,
+      "family": "global",
+      "params": {
+        "global_pos": 35
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 35
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 6,
+      "N": 36,
+      "family": "causal_2d",
+      "params": {},
+      "pred": "causal_2d",
+      "pred_params": {},
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 6,
+      "N": 36,
+      "family": "causal_2d",
+      "params": {},
+      "pred": "causal_2d",
+      "pred_params": {},
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 6,
+      "N": 36,
+      "family": "causal_2d",
+      "params": {},
+      "pred": "causal_2d",
+      "pred_params": {},
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 8,
+      "N": 64,
+      "family": "local",
+      "params": {
+        "window_size": 1
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 1
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 8,
+      "N": 64,
+      "family": "local",
+      "params": {
+        "window_size": 1
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 1
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 8,
+      "N": 64,
+      "family": "local",
+      "params": {
+        "window_size": 1
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 1
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 8,
+      "N": 64,
+      "family": "local",
+      "params": {
+        "window_size": 2
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 8,
+      "N": 64,
+      "family": "local",
+      "params": {
+        "window_size": 2
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 8,
+      "N": 64,
+      "family": "local",
+      "params": {
+        "window_size": 2
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 8,
+      "N": 64,
+      "family": "local",
+      "params": {
+        "window_size": 3
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 3
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 8,
+      "N": 64,
+      "family": "local",
+      "params": {
+        "window_size": 3
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 3
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 8,
+      "N": 64,
+      "family": "local",
+      "params": {
+        "window_size": 3
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 3
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 8,
+      "N": 64,
+      "family": "dilated",
+      "params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "pred": "dilated",
+      "pred_params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 8,
+      "N": 64,
+      "family": "dilated",
+      "params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "pred": "dilated",
+      "pred_params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 8,
+      "N": 64,
+      "family": "dilated",
+      "params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "pred": "dilated",
+      "pred_params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 8,
+      "N": 64,
+      "family": "global",
+      "params": {
+        "global_pos": 0
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 0
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 8,
+      "N": 64,
+      "family": "global",
+      "params": {
+        "global_pos": 0
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 0
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 8,
+      "N": 64,
+      "family": "global",
+      "params": {
+        "global_pos": 0
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 0
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 8,
+      "N": 64,
+      "family": "global",
+      "params": {
+        "global_pos": 63
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 63
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 8,
+      "N": 64,
+      "family": "global",
+      "params": {
+        "global_pos": 63
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 63
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 8,
+      "N": 64,
+      "family": "global",
+      "params": {
+        "global_pos": 63
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 63
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 8,
+      "N": 64,
+      "family": "causal_2d",
+      "params": {},
+      "pred": "causal_2d",
+      "pred_params": {},
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 8,
+      "N": 64,
+      "family": "causal_2d",
+      "params": {},
+      "pred": "causal_2d",
+      "pred_params": {},
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 8,
+      "N": 64,
+      "family": "causal_2d",
+      "params": {},
+      "pred": "causal_2d",
+      "pred_params": {},
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 12,
+      "N": 144,
+      "family": "local",
+      "params": {
+        "window_size": 1
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 1
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 12,
+      "N": 144,
+      "family": "local",
+      "params": {
+        "window_size": 1
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 1
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 12,
+      "N": 144,
+      "family": "local",
+      "params": {
+        "window_size": 1
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 1
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 12,
+      "N": 144,
+      "family": "local",
+      "params": {
+        "window_size": 2
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 12,
+      "N": 144,
+      "family": "local",
+      "params": {
+        "window_size": 2
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 12,
+      "N": 144,
+      "family": "local",
+      "params": {
+        "window_size": 2
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 12,
+      "N": 144,
+      "family": "local",
+      "params": {
+        "window_size": 3
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 3
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 12,
+      "N": 144,
+      "family": "local",
+      "params": {
+        "window_size": 3
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 3
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 12,
+      "N": 144,
+      "family": "local",
+      "params": {
+        "window_size": 3
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 3
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 12,
+      "N": 144,
+      "family": "dilated",
+      "params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "pred": "dilated",
+      "pred_params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 12,
+      "N": 144,
+      "family": "dilated",
+      "params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "pred": "dilated",
+      "pred_params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 12,
+      "N": 144,
+      "family": "dilated",
+      "params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "pred": "dilated",
+      "pred_params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 12,
+      "N": 144,
+      "family": "dilated",
+      "params": {
+        "window_size": 2,
+        "dilation": 2
+      },
+      "pred": "dilated",
+      "pred_params": {
+        "window_size": 2,
+        "dilation": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 12,
+      "N": 144,
+      "family": "dilated",
+      "params": {
+        "window_size": 2,
+        "dilation": 2
+      },
+      "pred": "dilated",
+      "pred_params": {
+        "window_size": 2,
+        "dilation": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 12,
+      "N": 144,
+      "family": "dilated",
+      "params": {
+        "window_size": 2,
+        "dilation": 2
+      },
+      "pred": "dilated",
+      "pred_params": {
+        "window_size": 2,
+        "dilation": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 12,
+      "N": 144,
+      "family": "global",
+      "params": {
+        "global_pos": 0
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 0
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 12,
+      "N": 144,
+      "family": "global",
+      "params": {
+        "global_pos": 0
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 0
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 12,
+      "N": 144,
+      "family": "global",
+      "params": {
+        "global_pos": 0
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 0
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 12,
+      "N": 144,
+      "family": "global",
+      "params": {
+        "global_pos": 143
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 143
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 12,
+      "N": 144,
+      "family": "global",
+      "params": {
+        "global_pos": 143
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 143
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 12,
+      "N": 144,
+      "family": "global",
+      "params": {
+        "global_pos": 143
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 143
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 12,
+      "N": 144,
+      "family": "causal_2d",
+      "params": {},
+      "pred": "causal_2d",
+      "pred_params": {},
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 12,
+      "N": 144,
+      "family": "causal_2d",
+      "params": {},
+      "pred": "causal_2d",
+      "pred_params": {},
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 12,
+      "N": 144,
+      "family": "causal_2d",
+      "params": {},
+      "pred": "causal_2d",
+      "pred_params": {},
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 16,
+      "N": 256,
+      "family": "local",
+      "params": {
+        "window_size": 1
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 1
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 16,
+      "N": 256,
+      "family": "local",
+      "params": {
+        "window_size": 1
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 1
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 16,
+      "N": 256,
+      "family": "local",
+      "params": {
+        "window_size": 1
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 1
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 16,
+      "N": 256,
+      "family": "local",
+      "params": {
+        "window_size": 2
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 16,
+      "N": 256,
+      "family": "local",
+      "params": {
+        "window_size": 2
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 16,
+      "N": 256,
+      "family": "local",
+      "params": {
+        "window_size": 2
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 16,
+      "N": 256,
+      "family": "local",
+      "params": {
+        "window_size": 3
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 3
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 16,
+      "N": 256,
+      "family": "local",
+      "params": {
+        "window_size": 3
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 3
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 16,
+      "N": 256,
+      "family": "local",
+      "params": {
+        "window_size": 3
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 3
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 16,
+      "N": 256,
+      "family": "dilated",
+      "params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "pred": "dilated",
+      "pred_params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 16,
+      "N": 256,
+      "family": "dilated",
+      "params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "pred": "dilated",
+      "pred_params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 16,
+      "N": 256,
+      "family": "dilated",
+      "params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "pred": "dilated",
+      "pred_params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 16,
+      "N": 256,
+      "family": "dilated",
+      "params": {
+        "window_size": 2,
+        "dilation": 2
+      },
+      "pred": "dilated",
+      "pred_params": {
+        "window_size": 2,
+        "dilation": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 16,
+      "N": 256,
+      "family": "dilated",
+      "params": {
+        "window_size": 2,
+        "dilation": 2
+      },
+      "pred": "dilated",
+      "pred_params": {
+        "window_size": 2,
+        "dilation": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 16,
+      "N": 256,
+      "family": "dilated",
+      "params": {
+        "window_size": 2,
+        "dilation": 2
+      },
+      "pred": "dilated",
+      "pred_params": {
+        "window_size": 2,
+        "dilation": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 16,
+      "N": 256,
+      "family": "global",
+      "params": {
+        "global_pos": 0
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 0
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 16,
+      "N": 256,
+      "family": "global",
+      "params": {
+        "global_pos": 0
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 0
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 16,
+      "N": 256,
+      "family": "global",
+      "params": {
+        "global_pos": 0
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 0
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 16,
+      "N": 256,
+      "family": "global",
+      "params": {
+        "global_pos": 255
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 255
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 16,
+      "N": 256,
+      "family": "global",
+      "params": {
+        "global_pos": 255
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 255
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 16,
+      "N": 256,
+      "family": "global",
+      "params": {
+        "global_pos": 255
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 255
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 16,
+      "N": 256,
+      "family": "causal_2d",
+      "params": {},
+      "pred": "causal_2d",
+      "pred_params": {},
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 16,
+      "N": 256,
+      "family": "causal_2d",
+      "params": {},
+      "pred": "causal_2d",
+      "pred_params": {},
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 16,
+      "N": 256,
+      "family": "causal_2d",
+      "params": {},
+      "pred": "causal_2d",
+      "pred_params": {},
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 24,
+      "N": 576,
+      "family": "local",
+      "params": {
+        "window_size": 1
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 1
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 24,
+      "N": 576,
+      "family": "local",
+      "params": {
+        "window_size": 1
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 1
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 24,
+      "N": 576,
+      "family": "local",
+      "params": {
+        "window_size": 1
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 1
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 24,
+      "N": 576,
+      "family": "local",
+      "params": {
+        "window_size": 2
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 24,
+      "N": 576,
+      "family": "local",
+      "params": {
+        "window_size": 2
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 24,
+      "N": 576,
+      "family": "local",
+      "params": {
+        "window_size": 2
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 24,
+      "N": 576,
+      "family": "local",
+      "params": {
+        "window_size": 3
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 3
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 24,
+      "N": 576,
+      "family": "local",
+      "params": {
+        "window_size": 3
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 3
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 24,
+      "N": 576,
+      "family": "local",
+      "params": {
+        "window_size": 3
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 3
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 24,
+      "N": 576,
+      "family": "dilated",
+      "params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "pred": "dilated",
+      "pred_params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 24,
+      "N": 576,
+      "family": "dilated",
+      "params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "pred": "dilated",
+      "pred_params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 24,
+      "N": 576,
+      "family": "dilated",
+      "params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "pred": "dilated",
+      "pred_params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 24,
+      "N": 576,
+      "family": "dilated",
+      "params": {
+        "window_size": 2,
+        "dilation": 2
+      },
+      "pred": "dilated",
+      "pred_params": {
+        "window_size": 2,
+        "dilation": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 24,
+      "N": 576,
+      "family": "dilated",
+      "params": {
+        "window_size": 2,
+        "dilation": 2
+      },
+      "pred": "dilated",
+      "pred_params": {
+        "window_size": 2,
+        "dilation": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 24,
+      "N": 576,
+      "family": "dilated",
+      "params": {
+        "window_size": 2,
+        "dilation": 2
+      },
+      "pred": "dilated",
+      "pred_params": {
+        "window_size": 2,
+        "dilation": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 24,
+      "N": 576,
+      "family": "global",
+      "params": {
+        "global_pos": 0
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 0
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 24,
+      "N": 576,
+      "family": "global",
+      "params": {
+        "global_pos": 0
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 0
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 24,
+      "N": 576,
+      "family": "global",
+      "params": {
+        "global_pos": 0
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 0
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 24,
+      "N": 576,
+      "family": "global",
+      "params": {
+        "global_pos": 575
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 575
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 24,
+      "N": 576,
+      "family": "global",
+      "params": {
+        "global_pos": 575
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 575
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 24,
+      "N": 576,
+      "family": "global",
+      "params": {
+        "global_pos": 575
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 575
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 24,
+      "N": 576,
+      "family": "causal_2d",
+      "params": {},
+      "pred": "causal_2d",
+      "pred_params": {},
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 24,
+      "N": 576,
+      "family": "causal_2d",
+      "params": {},
+      "pred": "causal_2d",
+      "pred_params": {},
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 24,
+      "N": 576,
+      "family": "causal_2d",
+      "params": {},
+      "pred": "causal_2d",
+      "pred_params": {},
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 32,
+      "N": 1024,
+      "family": "local",
+      "params": {
+        "window_size": 1
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 1
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 32,
+      "N": 1024,
+      "family": "local",
+      "params": {
+        "window_size": 1
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 1
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 32,
+      "N": 1024,
+      "family": "local",
+      "params": {
+        "window_size": 1
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 1
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 32,
+      "N": 1024,
+      "family": "local",
+      "params": {
+        "window_size": 2
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 32,
+      "N": 1024,
+      "family": "local",
+      "params": {
+        "window_size": 2
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 32,
+      "N": 1024,
+      "family": "local",
+      "params": {
+        "window_size": 2
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 32,
+      "N": 1024,
+      "family": "local",
+      "params": {
+        "window_size": 3
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 3
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 32,
+      "N": 1024,
+      "family": "local",
+      "params": {
+        "window_size": 3
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 3
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 32,
+      "N": 1024,
+      "family": "local",
+      "params": {
+        "window_size": 3
+      },
+      "pred": "local",
+      "pred_params": {
+        "window_size": 3
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 32,
+      "N": 1024,
+      "family": "dilated",
+      "params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "pred": "dilated",
+      "pred_params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 32,
+      "N": 1024,
+      "family": "dilated",
+      "params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "pred": "dilated",
+      "pred_params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 32,
+      "N": 1024,
+      "family": "dilated",
+      "params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "pred": "dilated",
+      "pred_params": {
+        "window_size": 1,
+        "dilation": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 32,
+      "N": 1024,
+      "family": "dilated",
+      "params": {
+        "window_size": 2,
+        "dilation": 2
+      },
+      "pred": "dilated",
+      "pred_params": {
+        "window_size": 2,
+        "dilation": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 32,
+      "N": 1024,
+      "family": "dilated",
+      "params": {
+        "window_size": 2,
+        "dilation": 2
+      },
+      "pred": "dilated",
+      "pred_params": {
+        "window_size": 2,
+        "dilation": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 32,
+      "N": 1024,
+      "family": "dilated",
+      "params": {
+        "window_size": 2,
+        "dilation": 2
+      },
+      "pred": "dilated",
+      "pred_params": {
+        "window_size": 2,
+        "dilation": 2
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 32,
+      "N": 1024,
+      "family": "global",
+      "params": {
+        "global_pos": 0
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 0
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 32,
+      "N": 1024,
+      "family": "global",
+      "params": {
+        "global_pos": 0
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 0
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 32,
+      "N": 1024,
+      "family": "global",
+      "params": {
+        "global_pos": 0
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 0
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 32,
+      "N": 1024,
+      "family": "global",
+      "params": {
+        "global_pos": 1023
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 1023
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 32,
+      "N": 1024,
+      "family": "global",
+      "params": {
+        "global_pos": 1023
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 1023
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 32,
+      "N": 1024,
+      "family": "global",
+      "params": {
+        "global_pos": 1023
+      },
+      "pred": "global",
+      "pred_params": {
+        "global_pos": 1023
+      },
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 32,
+      "N": 1024,
+      "family": "causal_2d",
+      "params": {},
+      "pred": "causal_2d",
+      "pred_params": {},
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 32,
+      "N": 1024,
+      "family": "causal_2d",
+      "params": {},
+      "pred": "causal_2d",
+      "pred_params": {},
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "side": 32,
+      "N": 1024,
+      "family": "causal_2d",
+      "params": {},
+      "pred": "causal_2d",
+      "pred_params": {},
+      "correct": true,
+      "confidence": 1.0
+    }
+  ],
+  "by_grid": [
+    {
+      "side": 4,
+      "N": 16,
+      "acc": 1.0,
+      "n": 12,
+      "baseline_acc": 0.25
+    },
+    {
+      "side": 6,
+      "N": 36,
+      "acc": 1.0,
+      "n": 18,
+      "baseline_acc": 0.3333333333333333
+    },
+    {
+      "side": 8,
+      "N": 64,
+      "acc": 1.0,
+      "n": 21,
+      "baseline_acc": 0.42857142857142855
+    },
+    {
+      "side": 12,
+      "N": 144,
+      "acc": 1.0,
+      "n": 24,
+      "baseline_acc": 0.375
+    },
+    {
+      "side": 16,
+      "N": 256,
+      "acc": 1.0,
+      "n": 24,
+      "baseline_acc": 0.375
+    },
+    {
+      "side": 24,
+      "N": 576,
+      "acc": 1.0,
+      "n": 24,
+      "baseline_acc": 0.375
+    },
+    {
+      "side": 32,
+      "N": 1024,
+      "acc": 1.0,
+      "n": 24,
+      "baseline_acc": 0.375
+    }
+  ],
+  "overall_acc": 1.0,
+  "baseline_acc": 0.3673469387755102
+}

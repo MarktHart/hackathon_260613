@@ -1,0 +1,1 @@
+APPROVED: payload contract consistent across README/task/benchmark, generate is seed-deterministic with all carry buckets filled, metric formulae match the README (headline carry_robustness + per-slice + linear baseline), edge cases (empty slices, 0/0 robustness) handled, VERSION=1 with documented bump procedure. Verified by running smoke/oracle/edge cases.

@@ -1,0 +1,1 @@
+APPROVED: README/task/benchmark payload contracts agree; generate is deterministic; metric formulae, headline/per-slice/baseline, edge cases, and VERSION=1 all verified.

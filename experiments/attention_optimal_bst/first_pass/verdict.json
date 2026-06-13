@@ -1,0 +1,32 @@
+{
+  "goal": "attention_optimal_bst",
+  "attempt": "first_pass",
+  "run_id": "20260613T181119Z",
+  "verdict_version": 1,
+  "architecture_fit": {"score": 1, "note": "No model at all: model_fn ignores tokens and copies batch.optimal_paths into the attention tensor, so it answers nothing about whether attention can implement BST search."},
+  "baseline_comparison": {"score": 2, "note": "Only the framework's built-in uniform baseline in metrics; no genuine strawman experiment and the demo bar chart is broken."},
+  "faithfulness": {"score": 1, "note": "No model exists to be faithful to and no ablation/causal check is run or even proposed; the mechanism is the leaked label."},
+  "operating_range": {"score": 1, "note": "Only the fixed canonical batch; no scale sweep, and it already collapses to path-length-1 episodes."},
+  "hardcoded_weights_bonus": {"score": 1, "note": "Hand-set, but it reads the answer key rather than expressing a mechanism, and even then reproduces the target behaviour for only path-length-1 (5% accuracy)."},
+  "visual_judgement": {"score": 1, "note": "app.py reads a nonexistent results/latest path, misuses gr.Plot, and leaves the Benchmark panel commented out — the demo is effectively non-functional."},
+  "visualisation_rationale": {"score": 2, "note": "A 'Why this visualisation' section exists but justifies a minimal bar chart for a claim that is fundamentally invalid."},
+  "automated_metrics": {
+    "version": 1,
+    "bst_search_accuracy_canonical": 0.0546875,
+    "bst_mean_path_attention_canonical": 0.36783854372333735,
+    "bst_best_head_canonical": 0,
+    "bst_path_completion_rate_canonical": 0.0546875,
+    "bst_search_accuracy_pathlen_1": 1.0,
+    "bst_search_accuracy_pathlen_2": 0.0,
+    "bst_search_accuracy_pathlen_3": 0.0,
+    "bst_search_accuracy_pathlen_4": 0.0,
+    "bst_search_accuracy_pathlen_5": 0.0,
+    "bst_search_accuracy_pathlen_6": 0.0,
+    "linear_baseline_bst_search_accuracy_canonical": 0.0,
+    "linear_baseline_mean_path_attention_canonical": 0.06666666666666667,
+    "lift_over_linear_baseline_bst_search_accuracy": 0.0546875,
+    "lift_over_linear_baseline_mean_path_attention": 0.3011718770566707
+  },
+  "overall": "fail",
+  "notes": "The attempt does not implement any attention mechanism: model_fn ignores the input tokens and directly writes the precomputed ground-truth optimal_paths into the output attention tensor, so it leaks the label rather than navigating the tree. It answers none of the goal's question, has no model to ablate, and no operating-range analysis; even the hardcoded output spreads uniform mass and so only clears the >0.5 'perfect' threshold for trivial length-1 paths (5% accuracy). The Gradio demo is additionally broken (missing results/latest path, gr.Plot misuse, commented-out benchmark panel)."
+}

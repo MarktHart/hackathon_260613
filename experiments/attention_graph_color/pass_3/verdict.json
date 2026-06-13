@@ -1,0 +1,31 @@
+{
+  "goal": "attention_graph_color",
+  "attempt": "pass_3",
+  "run_id": "20260613T222523Z",
+  "verdict_version": 1,
+  "architecture_fit": {"score": 5, "note": "Single hand-built attention head, no MLP — minimal delta from base_model: additive score w_color·(colours differ)+w_adj·edge then row-softmax, directly producing color_separation>0 and edge_respect>0."},
+  "baseline_comparison": {"score": 4, "note": "Uniform baseline (sep≈0) and edge-only(~pass_2) strawman are both shown; uniform clearly fails, though edge-only still reaches 0.029 vs full 0.033 so its headline 'collapse' is modest."},
+  "faithfulness": {"score": 4, "note": "Synthetic circuit (no trained model, acknowledged); ablation isolates the colour term as load-bearing for edge_respect and proposes the analogous Q/K-subspace patch for a trained model."},
+  "operating_range": {"score": 4, "note": "n=20→320 (~16×, ~1.2 orders); separation stays strictly positive and 1/n decay is explained, slightly short of the 2-orders target."},
+  "hardcoded_weights_bonus": {"score": 5, "note": "Fully hand-set weights (W_COLOR=8, W_ADJ=4) on CUDA, no training — a clean by-hand circuit reproducing the target behaviour."},
+  "visual_judgement": {"score": 4, "note": "Three legible views — ablation bar chart, colour-sorted attention heatmap, log-scale operating-range line — each mapped to a claim; app.py is structurally correct."},
+  "visualisation_rationale": {"score": 5, "note": "'Why this visualisation' ties each chart to a rubric item, justifies axes/baselines, and explains the 1/n decay as expected rather than failure."},
+  "automated_metrics": {
+    "version": 1,
+    "color_separation_n_20": 0.07628717215843762,
+    "edge_respect_n_20": 0.2755161040512812,
+    "color_separation_n_40": 0.032830714413472045,
+    "edge_respect_n_40": 0.1414756680864193,
+    "color_separation_n_60": 0.02027786238901281,
+    "edge_respect_n_60": 0.09184332499531825,
+    "color_separation_canonical": 0.032830714413472045,
+    "edge_respect_canonical": 0.1414756680864193,
+    "invalid_edge_attention_canonical": 0.0,
+    "linear_baseline_color_separation": 0.0,
+    "lift_over_linear_baseline": 0.032830714413472045,
+    "color_separation_overall": 0.043131916320307495,
+    "num_graphs": 45
+  },
+  "overall": "good",
+  "notes": "A clean, minimal hand-built single attention head that directly answers the goal: an additive colour+edge bias makes attention favour differently-coloured pairs (sep 0.033 > baseline 0) and proper edges (edge_respect 0.14). The ablation, uniform/pass_2 baselines, and ~16× operating-range sweep are well presented and clearly visualised, with an excellent rationale section. Minor weaknesses: the edge-only strawman's headline 'collapse' is overstated (0.029 vs 0.033) and operating range is ~1.2 rather than 2 orders of magnitude."
+}

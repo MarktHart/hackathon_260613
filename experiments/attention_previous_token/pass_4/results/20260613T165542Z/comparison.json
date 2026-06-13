@@ -1,0 +1,79 @@
+{
+  "uniform_baseline": 0.059426839741361405,
+  "head_sweep": [
+    {
+      "noise": 0.0,
+      "prev_token_attention": 0.9993348440320649,
+      "self_attention": 0.015955001375856447,
+      "two_back_attention": 0.0003352377084572055,
+      "uniform_baseline": 0.059426839741361405,
+      "n_seeds": 16
+    },
+    {
+      "noise": 0.25,
+      "prev_token_attention": 0.9993348440320649,
+      "self_attention": 0.015955001375856447,
+      "two_back_attention": 0.0003352377084572055,
+      "uniform_baseline": 0.059426839741361405,
+      "n_seeds": 16
+    },
+    {
+      "noise": 0.5,
+      "prev_token_attention": 0.9993348440320649,
+      "self_attention": 0.015955001375856447,
+      "two_back_attention": 0.0003352377084572055,
+      "uniform_baseline": 0.059426839741361405,
+      "n_seeds": 16
+    },
+    {
+      "noise": 1.0,
+      "prev_token_attention": 0.9993348440320649,
+      "self_attention": 0.015955001375856447,
+      "two_back_attention": 0.0003352377084572055,
+      "uniform_baseline": 0.059426839741361405,
+      "n_seeds": 16
+    },
+    {
+      "noise": 2.0,
+      "prev_token_attention": 0.9993348440320649,
+      "self_attention": 0.015955001375856447,
+      "two_back_attention": 0.0003352377084572055,
+      "uniform_baseline": 0.059426839741361405,
+      "n_seeds": 16
+    }
+  ],
+  "strawman_canonical": {
+    "noise": 0.0,
+    "prev_token_attention": 0.059426839741361405,
+    "self_attention": 0.07412329537040264,
+    "two_back_attention": 0.0523208210275124,
+    "uniform_baseline": 0.059426839741361405,
+    "n_seeds": 16
+  },
+  "ablation_center": [
+    {
+      "center": 0.0,
+      "prev_token_attention": 0.00033535013046647377,
+      "self_attention": 0.9996698897153099,
+      "two_back_attention": 1.265991861952488e-14
+    },
+    {
+      "center": 1.0,
+      "prev_token_attention": 0.9993348440320649,
+      "self_attention": 0.015955001375856447,
+      "two_back_attention": 0.0003352377084572055
+    },
+    {
+      "center": 2.0,
+      "prev_token_attention": 0.01620293413188259,
+      "self_attention": 0.015625000000602126,
+      "two_back_attention": 0.9993349298296164
+    },
+    {
+      "center": 3.0,
+      "prev_token_attention": 0.015873015873627355,
+      "self_attention": 0.015625,
+      "two_back_attention": 0.016458864719357195
+    }
+  ]
+}

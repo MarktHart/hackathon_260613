@@ -1,0 +1,1 @@
+APPROVED (2026-06-13): payload contract consistent across README/task/benchmark; fixed best_head/mean_path_attention to documented global-best-head semantics, corrected README depth claim to path length 1-6, and added float32 tolerance to is_obviously_broken; VERSION=1, smoke test + edge cases pass.

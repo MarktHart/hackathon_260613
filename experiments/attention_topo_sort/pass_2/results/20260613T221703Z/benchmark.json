@@ -1,0 +1,56 @@
+{
+  "goal": "attention_topo_sort",
+  "attempt": "pass_2",
+  "run_id": "20260613T221703Z",
+  "metrics": {
+    "version": 1,
+    "topo_respect_density_0p1": 0.2073170731707317,
+    "uniform_baseline_density_0p1": 0.5,
+    "lift_over_uniform_density_0p1": -0.29268292682926833,
+    "topo_respect_density_0p2": 0.21142857142857144,
+    "uniform_baseline_density_0p2": 0.5,
+    "lift_over_uniform_density_0p2": -0.2885714285714286,
+    "topo_respect_density_0p3": 0.24119718309859156,
+    "uniform_baseline_density_0p3": 0.5,
+    "lift_over_uniform_density_0p3": -0.25880281690140844,
+    "topo_respect_density_0p5": 0.23348017621145375,
+    "uniform_baseline_density_0p5": 0.5,
+    "lift_over_uniform_density_0p5": -0.2665198237885462,
+    "topo_respect_canonical": 0.24119718309859156,
+    "uniform_baseline_canonical": 0.5,
+    "lift_over_uniform_canonical": -0.25880281690140844,
+    "topo_robustness": 0.0
+  },
+  "payload": {
+    "canonical_density": 0.3,
+    "n_nodes": 8,
+    "n_dags": 24,
+    "model_name": "attempt",
+    "sweep": [
+      {
+        "density": 0.1,
+        "topo_respect": 0.2073170731707317,
+        "uniform_respect": 0.5,
+        "pairs": 82
+      },
+      {
+        "density": 0.2,
+        "topo_respect": 0.21142857142857144,
+        "uniform_respect": 0.5,
+        "pairs": 175
+      },
+      {
+        "density": 0.3,
+        "topo_respect": 0.24119718309859156,
+        "uniform_respect": 0.5,
+        "pairs": 284
+      },
+      {
+        "density": 0.5,
+        "topo_respect": 0.23348017621145375,
+        "uniform_respect": 0.5,
+        "pairs": 454
+      }
+    ]
+  }
+}

@@ -1,0 +1,1 @@
+APPROVED: payload contract, metrics, determinism, and edge cases verified consistent across README/task/benchmark (VERSION=1); fixed benchmark.py to clamp finite attribution_kl at 1e6 to match the README contract.

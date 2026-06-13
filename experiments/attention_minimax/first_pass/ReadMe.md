@@ -1,0 +1,7 @@
+# attention_minimax - first_pass
+
+## What I did
+I implemented a baseline attention function `model_fn` that computes scaled dot-product attention on the GPU using PyTorch. The function converts the query and three key vectors to CUDA tensors, computes the dot product `qt @ kt.T`, applies a softmax over the query dimension, and returns the resulting attention weights as a NumPy array. This follows the canonical attention head mechanism without any added circuitry. The run generates the full canonical sweep (alpha from 0.0 to 1.0) and records attention weights, maximum weight, entropy, and KL divergence from uniform for each slice.
+
+## Why this visualisation
+The Gradio app provides two views: a **Demo** tab (currently a placeholder) where I can later visualize per-alpha attention weight distributions side-by-side with the uniform [1/3, 1/3, 1/3] optimum, highlighting any collapse onto a single distractor at the canonical α=0.0 regime. The **Benchmark** tab displays every attempt at this goal with metrics including `minimax_regret_canonical`, `entropy`, and `lift_over_linear`, allowing comparison between attention mechanisms and the linear baseline. The key insight is whether the head achieves uniform spreading when the target is absent (α=0.0), which is the minimax-optimal behaviour.

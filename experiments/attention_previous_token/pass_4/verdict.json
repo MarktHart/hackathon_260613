@@ -1,0 +1,30 @@
+{
+  "goal": "attention_previous_token",
+  "attempt": "pass_4",
+  "run_id": "20260613T165949Z",
+  "verdict_version": 1,
+  "architecture_fit": {"score": 5, "note": "Single attention head, one additive relative-position bias, no MLP — minimal delta from base_model that nails prev-token mass at 0.999."},
+  "baseline_comparison": {"score": 5, "note": "Content-blind zero-logit uniform strawman measured under identical conditions lands at 0.0594 baseline, ~17x below the head."},
+  "faithfulness": {"score": 5, "note": "Bias-center sweep c in {0,1,2,3} shows the attention peak walks self->prev->two-back — a clean synthetic activation-patch analogue pinning offset 1 as the cause."},
+  "operating_range": {"score": 4, "note": "Noise sweep is perfectly flat (robustness 1.0) but only because content is ignored by construction; seq_len/scale axis not stressed, though honestly argued."},
+  "hardcoded_weights_bonus": {"score": 5, "note": "Mechanism is fully hand-set (alpha, center=1) with no learning — exactly the hand-built circuit the bonus rewards."},
+  "visual_judgement": {"score": 5, "note": "Heatmap (bright sub-diagonal), robustness line plot vs baseline/distractors, and causal ablation bars together make the claim legible at a glance."},
+  "visualisation_rationale": {"score": 5, "note": "README ties each panel to a specific goal question (hits i-1?, holds under noise?, is it causal?) with the right axes and grain."},
+  "automated_metrics": {
+    "version": 1,
+    "uniform_baseline": 0.059426839741361405,
+    "prev_token_attn_noise_0p00": 0.9993348440320649,
+    "prev_token_attn_noise_0p25": 0.9993348440320649,
+    "prev_token_attn_noise_0p50": 0.9993348440320649,
+    "prev_token_attn_noise_1p00": 0.9993348440320649,
+    "prev_token_attn_noise_2p00": 0.9993348440320649,
+    "prev_token_attn_canonical": 0.9993348440320649,
+    "self_attn_canonical": 0.015955001375856447,
+    "two_back_attn_canonical": 0.0003352377084572055,
+    "lift_over_uniform_canonical": 0.9399080042907034,
+    "prev_token_lift_ratio_canonical": 16.81622055592033,
+    "prev_token_robustness": 1.0
+  },
+  "overall": "good",
+  "notes": "An exemplary hand-built previous-token head: a content-blind relative-position bias peaked at offset 1 that hits 0.999 prev-token mass with robustness 1.0, plus a uniform strawman and a bias-center ablation that causally locates the mechanism. The only soft spot is operating range — robustness is flat by construction (content ignored) rather than demonstrated under genuine mechanism stress, and seq_len is fixed. Strong, legible, well-justified throughout; lands at 'good'."
+}

@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "experiments/attention_dijkstra/first_pass/main.py", line 131, in <module>
+    payload = task.evaluate(model_fn)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mark/hackathon_260613/experiments/attention_dijkstra/task.py", line 210, in evaluate
+    raise ValueError(
+ValueError: model_fn returned shape (4096,), expected (8,)

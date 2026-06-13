@@ -1,0 +1,22 @@
+{
+  "full (color+edge)": {
+    "color_separation_canonical": 0.032830714413472045,
+    "edge_respect_canonical": 0.1414756680864193,
+    "color_separation_overall": 0.043131916320307495
+  },
+  "color-only": {
+    "color_separation_canonical": 0.03276250818468992,
+    "edge_respect_canonical": 0.03294609421336682,
+    "color_separation_overall": 0.043448295390570796
+  },
+  "edge-only (~pass_2)": {
+    "color_separation_canonical": 0.029012762463197995,
+    "edge_respect_canonical": 0.13671089098359085,
+    "color_separation_overall": 0.03580119598521196
+  },
+  "uniform baseline": {
+    "color_separation_canonical": 0.0,
+    "edge_respect_canonical": 0.0,
+    "color_separation_overall": 0.0
+  }
+}

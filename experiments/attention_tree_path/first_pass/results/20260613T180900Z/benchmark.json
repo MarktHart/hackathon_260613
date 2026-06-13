@@ -1,0 +1,98 @@
+{
+  "goal": "attention_tree_path",
+  "attempt": "first_pass",
+  "run_id": "20260613T180900Z",
+  "metrics": {
+    "version": 1,
+    "tree_path_canonical": 1.0,
+    "tree_path_depth_2": 1.0,
+    "tree_path_depth_3": 1.0,
+    "tree_path_depth_4": 1.0,
+    "tree_path_ancestor_2": 1.0,
+    "tree_path_descendant": 1.0,
+    "tree_path_sibling": 1.0,
+    "tree_path_robustness": 1.0,
+    "tree_path_head_best": 1.0,
+    "tree_path_head_worst": 1.0,
+    "tree_path_head_gap": 0.0,
+    "linear_baseline_canonical": 0.07142857142857142,
+    "lift_over_baseline": 0.9285714285714286
+  },
+  "payload": {
+    "version": 1,
+    "config": {
+      "tree_type": "binary",
+      "depth": 3,
+      "path_rule": "ancestor_1",
+      "batch_size": 32,
+      "seq_len": 15,
+      "n_heads": 4
+    },
+    "sweep": [
+      {
+        "depth": 2,
+        "path_rule": "ancestor_1",
+        "correct_attn_mean": 1.0,
+        "correct_attn_std": 0.0,
+        "n_valid_queries": 192
+      },
+      {
+        "depth": 3,
+        "path_rule": "ancestor_1",
+        "correct_attn_mean": 1.0,
+        "correct_attn_std": 0.0,
+        "n_valid_queries": 448
+      },
+      {
+        "depth": 4,
+        "path_rule": "ancestor_1",
+        "correct_attn_mean": 1.0,
+        "correct_attn_std": 0.0,
+        "n_valid_queries": 960
+      },
+      {
+        "depth": 3,
+        "path_rule": "ancestor_2",
+        "correct_attn_mean": 1.0,
+        "correct_attn_std": 0.0,
+        "n_valid_queries": 384
+      },
+      {
+        "depth": 3,
+        "path_rule": "descendant_leftmost",
+        "correct_attn_mean": 1.0,
+        "correct_attn_std": 0.0,
+        "n_valid_queries": 224
+      },
+      {
+        "depth": 3,
+        "path_rule": "sibling_next",
+        "correct_attn_mean": 1.0,
+        "correct_attn_std": 0.0,
+        "n_valid_queries": 224
+      }
+    ],
+    "head_slice": [
+      {
+        "head": 0,
+        "correct_attn_mean": 1.0,
+        "correct_attn_std": 0.0
+      },
+      {
+        "head": 1,
+        "correct_attn_mean": 1.0,
+        "correct_attn_std": 0.0
+      },
+      {
+        "head": 2,
+        "correct_attn_mean": 1.0,
+        "correct_attn_std": 0.0
+      },
+      {
+        "head": 3,
+        "correct_attn_mean": 1.0,
+        "correct_attn_std": 0.0
+      }
+    ]
+  }
+}

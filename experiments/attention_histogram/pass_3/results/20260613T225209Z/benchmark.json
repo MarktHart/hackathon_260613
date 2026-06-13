@@ -1,0 +1,122 @@
+{
+  "goal": "attention_histogram",
+  "attempt": "pass_3",
+  "run_id": "20260613T225209Z",
+  "metrics": {
+    "version": 1,
+    "attention_sharpness_sim_0p0": 0.500779581947707,
+    "attention_entropy_sim_0p0": 1.3841329010036163,
+    "target_hit_rate_sim_0p0": 0.8125,
+    "linear_baseline_sharpness_sim_0p0": 0.005632795041497524,
+    "linear_baseline_hit_rate_sim_0p0": 0.8125,
+    "attention_sharpness_sim_0p2": 0.9437323045868407,
+    "attention_entropy_sim_0p2": 0.1560071777289485,
+    "target_hit_rate_sim_0p2": 1.0,
+    "linear_baseline_sharpness_sim_0p2": 0.00537076232907812,
+    "linear_baseline_hit_rate_sim_0p2": 0.5,
+    "attention_sharpness_sim_0p4": 0.9999975743478553,
+    "attention_entropy_sim_0p4": 6.7253357805688965e-06,
+    "target_hit_rate_sim_0p4": 1.0,
+    "linear_baseline_sharpness_sim_0p4": 0.003731030360191033,
+    "linear_baseline_hit_rate_sim_0p4": 0.5625,
+    "attention_sharpness_sim_0p6": 0.9999963595608226,
+    "attention_entropy_sim_0p6": 1.0093440607202107e-05,
+    "target_hit_rate_sim_0p6": 1.0,
+    "linear_baseline_sharpness_sim_0p6": 0.0030138141775669716,
+    "linear_baseline_hit_rate_sim_0p6": 0.0625,
+    "attention_sharpness_sim_0p8": 0.9996822150387554,
+    "attention_entropy_sim_0p8": 0.0008810869996438871,
+    "target_hit_rate_sim_0p8": 1.0,
+    "linear_baseline_sharpness_sim_0p8": 0.0016338704558353581,
+    "linear_baseline_hit_rate_sim_0p8": 0.0,
+    "attention_sharpness_canonical": 0.500779581947707,
+    "target_hit_rate_canonical": 0.8125,
+    "lift_over_baseline_canonical": 0.4951467869062095,
+    "histogram_robustness": 1.0,
+    "mean_target_hit_rate": 0.9625
+  },
+  "payload": {
+    "version": 1,
+    "model_name": "trained_gated_denoise(beta1=0.00,beta2=10.44,gamma=9.33,gate_w=26.11,gate_b=0.35,n_iter=1)",
+    "d": 32,
+    "n_positions": 16,
+    "chance_hit_rate": 0.0625,
+    "canonical_similarity": 0.0,
+    "key_sim_sweep": [
+      0.0,
+      0.2,
+      0.4,
+      0.6,
+      0.8
+    ],
+    "sweep": [
+      {
+        "similarity": 0.0,
+        "attention_sharpness": 0.500779581947707,
+        "attention_entropy": 1.3841329010036163,
+        "target_hit_rate": 0.8125,
+        "n_seeds": 16
+      },
+      {
+        "similarity": 0.2,
+        "attention_sharpness": 0.9437323045868407,
+        "attention_entropy": 0.1560071777289485,
+        "target_hit_rate": 1.0,
+        "n_seeds": 16
+      },
+      {
+        "similarity": 0.4,
+        "attention_sharpness": 0.9999975743478553,
+        "attention_entropy": 6.7253357805688965e-06,
+        "target_hit_rate": 1.0,
+        "n_seeds": 16
+      },
+      {
+        "similarity": 0.6,
+        "attention_sharpness": 0.9999963595608226,
+        "attention_entropy": 1.0093440607202107e-05,
+        "target_hit_rate": 1.0,
+        "n_seeds": 16
+      },
+      {
+        "similarity": 0.8,
+        "attention_sharpness": 0.9996822150387554,
+        "attention_entropy": 0.0008810869996438871,
+        "target_hit_rate": 1.0,
+        "n_seeds": 16
+      }
+    ],
+    "linear_baseline": [
+      {
+        "similarity": 0.0,
+        "attention_sharpness": 0.005632795041497524,
+        "target_hit_rate": 0.8125,
+        "n_seeds": 16
+      },
+      {
+        "similarity": 0.2,
+        "attention_sharpness": 0.00537076232907812,
+        "target_hit_rate": 0.5,
+        "n_seeds": 16
+      },
+      {
+        "similarity": 0.4,
+        "attention_sharpness": 0.003731030360191033,
+        "target_hit_rate": 0.5625,
+        "n_seeds": 16
+      },
+      {
+        "similarity": 0.6,
+        "attention_sharpness": 0.0030138141775669716,
+        "target_hit_rate": 0.0625,
+        "n_seeds": 16
+      },
+      {
+        "similarity": 0.8,
+        "attention_sharpness": 0.0016338704558353581,
+        "target_hit_rate": 0.0,
+        "n_seeds": 16
+      }
+    ]
+  }
+}

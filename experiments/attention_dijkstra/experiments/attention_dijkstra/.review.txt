@@ -1,0 +1,1 @@
+APPROVED: payload contract consistent across README/task/benchmark; generate(seed=42) deterministic; metric formulae (dijkstra_robustness headline, per-slice, one-hop baseline) match the README; edge cases (empty/mismatched sweep, zero denominator, constant Spearman) handled and verified at runtime; VERSION=1 set with bump procedure documented.

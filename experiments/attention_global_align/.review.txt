@@ -1,0 +1,1 @@
+APPROVED 2026-06-13: payload contract consistent across README/task/benchmark; generate deterministic; metric formulae (robustness/canonical/mean/per-slice/baseline) match README; edge cases guarded; VERSION=1 with documented bump procedure. Verified via live smoke test.

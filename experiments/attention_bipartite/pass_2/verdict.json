@@ -1,0 +1,32 @@
+{
+  "goal": "attention_bipartite",
+  "attempt": "pass_2",
+  "run_id": "20260613T223316Z",
+  "verdict_version": 1,
+  "architecture_fit": {"score": 4, "note": "Single attention layer, no MLP, one fixed cross-group additive mask — a minimal delta from base_model's causal mask that yields clean bipartite attention (within=0, between=0.125)."},
+  "baseline_comparison": {"score": 5, "note": "Two decisive strawmen: no-mask baseline (score -0.0006, retrieval 0.21) and a learned content-only projection that overfits, both failing where the mask succeeds."},
+  "faithfulness": {"score": 5, "note": "Mask on/off ablation directly toggles the behaviour, and the held-out-seed generalisation test (mask 0.52 vs content-only 0.0) gives strong causal evidence the circuit is positional."},
+  "operating_range": {"score": 3, "note": "Robust (1.0) across the full num_heads sweep and to a held-out seed, but flat by construction (0.125=1/group_size) and never probes group_size/seq_len scale."},
+  "hardcoded_weights_bonus": {"score": 5, "note": "Fully hand-set circuit — the bipartite mask is written out by hand and reproduces the target behaviour, demonstrating clear mechanistic understanding."},
+  "visual_judgement": {"score": 5, "note": "Three complementary views (cross-group heatmaps, mechanism-vs-baseline score bars, overfit-vs-transfer generalisation curve), each killing one alternative explanation."},
+  "visualisation_rationale": {"score": 5, "note": "README explicitly ties each chart to the goal's claim — heatmap blocks = bipartite definition, bars = baseline contrast, curve = positional necessity."},
+  "automated_metrics": {
+    "version": 1,
+    "bipartite_score_num_heads_1": 0.125,
+    "retrieval_acc_num_heads_1": 0.5625,
+    "linear_baseline_bipartite_score_num_heads_1": 0.0,
+    "bipartite_score_num_heads_2": 0.125,
+    "retrieval_acc_num_heads_2": 0.5068359375,
+    "linear_baseline_bipartite_score_num_heads_2": 0.0,
+    "bipartite_score_num_heads_4": 0.125,
+    "retrieval_acc_num_heads_4": 0.494140625,
+    "linear_baseline_bipartite_score_num_heads_4": 0.0,
+    "bipartite_score_num_heads_8": 0.125,
+    "retrieval_acc_num_heads_8": 0.45751953125,
+    "linear_baseline_bipartite_score_num_heads_8": 0.0,
+    "bipartite_score_canonical": 0.125,
+    "bipartite_robustness": 1.0
+  },
+  "overall": "good",
+  "notes": "A clean, honest hand-built circuit: one fixed cross-group mask (minimal delta from base_model) produces perfect bipartite separation, with a mask-ablation and a learned-content-only overfitting strawman providing decisive baseline and faithfulness evidence. The attempt also correctly diagnoses that the shipped task.evaluate is broken (np.softmax, ignores model_fn) and faithfully re-implements the documented payload contract. Main weakness is operating range — robustness is shown only across num_heads (flat by construction) and one held-out seed, not across input-scale axes like group_size."
+}

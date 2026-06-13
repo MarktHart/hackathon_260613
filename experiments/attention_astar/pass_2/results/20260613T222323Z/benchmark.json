@@ -1,0 +1,80 @@
+{
+  "goal": "attention_astar",
+  "attempt": "pass_2",
+  "run_id": "20260613T222323Z",
+  "metrics": {
+    "version": 1,
+    "astar_alignment_density_0p0": 0.9172142857142858,
+    "astar_alignment_density_0p1": 0.8952032790708979,
+    "astar_alignment_density_0p2": 0.8947648165101745,
+    "astar_alignment_density_0p3": 0.8681534454120496,
+    "astar_alignment_density_0p4": 0.7492621679890159,
+    "astar_alignment_canonical": 0.8947648165101745,
+    "astar_entropy_density_0p2": 2.157639600522813,
+    "top1_optimal_canonical": 0.24,
+    "top3_optimal_canonical": 0.36,
+    "path_gap_canonical": 0.06134920634920636,
+    "linear_baseline_alignment_density_0p2": 0.0,
+    "lift_over_baseline_canonical": 0.8947648165101745,
+    "density_robustness": 0.8168888989834298
+  },
+  "payload": {
+    "version": 1,
+    "grid_size": 8,
+    "heuristic": "manhattan",
+    "num_grids": 125,
+    "canonical_density_index": 2,
+    "sweep": [
+      {
+        "obstacle_density": 0.0,
+        "n_grids": 25,
+        "attention_entropy": 2.2919043269698163,
+        "heuristic_alignment": 0.9172142857142858,
+        "top1_optimal_rate": 0.52,
+        "top3_optimal_rate": 0.6,
+        "path_optimality_gap": 0.3115670995670996,
+        "linear_baseline_alignment": 0.0
+      },
+      {
+        "obstacle_density": 0.1,
+        "n_grids": 25,
+        "attention_entropy": 2.063479990641884,
+        "heuristic_alignment": 0.8952032790708979,
+        "top1_optimal_rate": 0.44,
+        "top3_optimal_rate": 0.68,
+        "path_optimality_gap": -0.0636984126984127,
+        "linear_baseline_alignment": 0.0
+      },
+      {
+        "obstacle_density": 0.2,
+        "n_grids": 25,
+        "attention_entropy": 2.157639600522813,
+        "heuristic_alignment": 0.8947648165101745,
+        "top1_optimal_rate": 0.24,
+        "top3_optimal_rate": 0.36,
+        "path_optimality_gap": 0.06134920634920636,
+        "linear_baseline_alignment": 0.0
+      },
+      {
+        "obstacle_density": 0.3,
+        "n_grids": 25,
+        "attention_entropy": 1.8118599552398607,
+        "heuristic_alignment": 0.8681534454120496,
+        "top1_optimal_rate": 0.48,
+        "top3_optimal_rate": 0.64,
+        "path_optimality_gap": 0.182017205017205,
+        "linear_baseline_alignment": 0.0
+      },
+      {
+        "obstacle_density": 0.4,
+        "n_grids": 25,
+        "attention_entropy": 1.453712574720783,
+        "heuristic_alignment": 0.7492621679890159,
+        "top1_optimal_rate": 0.48,
+        "top3_optimal_rate": 0.68,
+        "path_optimality_gap": 0.03148329448329448,
+        "linear_baseline_alignment": 0.0
+      }
+    ]
+  }
+}

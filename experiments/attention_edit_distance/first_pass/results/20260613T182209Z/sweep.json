@@ -1,0 +1,56 @@
+[
+  {
+    "edit_distance": 0,
+    "attn_distance_mean": 1.4305114426349519e-08,
+    "attn_distance_std": 3.487763322596038e-08,
+    "n_pairs": 50
+  },
+  {
+    "edit_distance": 1,
+    "attn_distance_mean": 0.025529449805617332,
+    "attn_distance_std": 0.02922305092215538,
+    "n_pairs": 53
+  },
+  {
+    "edit_distance": 2,
+    "attn_distance_mean": 0.04062571004033089,
+    "attn_distance_std": 0.03214910253882408,
+    "n_pairs": 53
+  },
+  {
+    "edit_distance": 3,
+    "attn_distance_mean": 0.046988096088171005,
+    "attn_distance_std": 0.03077777288854122,
+    "n_pairs": 51
+  },
+  {
+    "edit_distance": 4,
+    "attn_distance_mean": 0.05170698091387749,
+    "attn_distance_std": 0.027066661044955254,
+    "n_pairs": 64
+  },
+  {
+    "edit_distance": 5,
+    "attn_distance_mean": 0.05433182418346405,
+    "attn_distance_std": 0.025165287777781487,
+    "n_pairs": 44
+  },
+  {
+    "edit_distance": 6,
+    "attn_distance_mean": 0.06369289755821228,
+    "attn_distance_std": 0.035918716341257095,
+    "n_pairs": 58
+  },
+  {
+    "edit_distance": 7,
+    "attn_distance_mean": 0.06716261804103851,
+    "attn_distance_std": 0.032903578132390976,
+    "n_pairs": 53
+  },
+  {
+    "edit_distance": 8,
+    "attn_distance_mean": 0.06982061266899109,
+    "attn_distance_std": 0.02911427430808544,
+    "n_pairs": 24
+  }
+]

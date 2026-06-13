@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "model_name": "synthetic_attention_tsp",
+  "canonical_n": 10,
+  "n_cities_sweep": [
+    5,
+    10,
+    20,
+    40
+  ],
+  "sweep": [
+    {
+      "n": 5,
+      "nn_accuracy": 1.0,
+      "tour_length_ratio": 1.0,
+      "n_instances": 20
+    },
+    {
+      "n": 10,
+      "nn_accuracy": 1.0,
+      "tour_length_ratio": 1.0,
+      "n_instances": 20
+    },
+    {
+      "n": 20,
+      "nn_accuracy": 1.0,
+      "tour_length_ratio": 1.0,
+      "n_instances": 20
+    },
+    {
+      "n": 40,
+      "nn_accuracy": 1.0,
+      "tour_length_ratio": 1.0,
+      "n_instances": 20
+    }
+  ],
+  "random_baseline": [
+    {
+      "n": 5,
+      "nn_accuracy": 0.5208333333333334,
+      "tour_length_ratio": 0.713163316706687,
+      "n_instances": 20
+    },
+    {
+      "n": 10,
+      "nn_accuracy": 0.31432980599647276,
+      "tour_length_ratio": 0.5390611310156557,
+      "n_instances": 20
+    },
+    {
+      "n": 20,
+      "nn_accuracy": 0.1867231398496675,
+      "tour_length_ratio": 0.38264601440879614,
+      "n_instances": 20
+    },
+    {
+      "n": 40,
+      "nn_accuracy": 0.10906520612657375,
+      "tour_length_ratio": 0.2694493808404617,
+      "n_instances": 20
+    }
+  ]
+}

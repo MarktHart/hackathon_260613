@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "model_name": "gpt2",
+  "layer": 5,
+  "head": 3,
+  "seq_len": 32,
+  "vocab_size": 100,
+  "attention_distance_metric": "1_minus_cosine",
+  "sweep": [
+    {
+      "edit_distance": 0,
+      "attn_distance_mean": 0.0,
+      "attn_distance_std": 0.0,
+      "n_pairs": 50
+    },
+    {
+      "edit_distance": 1,
+      "attn_distance_mean": 0.0,
+      "attn_distance_std": 0.0,
+      "n_pairs": 53
+    },
+    {
+      "edit_distance": 2,
+      "attn_distance_mean": 0.0,
+      "attn_distance_std": 0.0,
+      "n_pairs": 53
+    },
+    {
+      "edit_distance": 3,
+      "attn_distance_mean": 0.0,
+      "attn_distance_std": 0.0,
+      "n_pairs": 51
+    },
+    {
+      "edit_distance": 4,
+      "attn_distance_mean": 0.0,
+      "attn_distance_std": 0.0,
+      "n_pairs": 64
+    },
+    {
+      "edit_distance": 5,
+      "attn_distance_mean": 0.0,
+      "attn_distance_std": 0.0,
+      "n_pairs": 44
+    },
+    {
+      "edit_distance": 6,
+      "attn_distance_mean": 0.0,
+      "attn_distance_std": 0.0,
+      "n_pairs": 58
+    },
+    {
+      "edit_distance": 7,
+      "attn_distance_mean": 0.0,
+      "attn_distance_std": 0.0,
+      "n_pairs": 53
+    },
+    {
+      "edit_distance": 8,
+      "attn_distance_mean": 0.0,
+      "attn_distance_std": 0.0,
+      "n_pairs": 24
+    }
+  ],
+  "linear_baseline": {
+    "attn_distance_mean": [
+      0.2509360611438751,
+      0.25171172618865967,
+      0.24916701018810272,
+      0.25118187069892883,
+      0.24919936060905457,
+      0.251567006111145,
+      0.25090277194976807,
+      0.2502000331878662,
+      0.252135306596756
+    ],
+    "attn_distance_std": [
+      0.00963305588811636,
+      0.009724433533847332,
+      0.010908661410212517,
+      0.009052496403455734,
+      0.008211714215576649,
+      0.008935610763728619,
+      0.01204595621675253,
+      0.01086437702178955,
+      0.009962192736566067
+    ]
+  }
+}

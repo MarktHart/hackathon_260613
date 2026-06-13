@@ -1,0 +1,26 @@
+{
+  "goal": "attention_anagram",
+  "attempt": "pass_3",
+  "run_id": "20260613T224725Z",
+  "verdict_version": 1,
+  "architecture_fit": {"score": 5, "note": "Single cross-attention layer, no MLP/positional term — minimal delta from base_model that directly solves anagram alignment (~0.94 vs 0.125 baseline)."},
+  "baseline_comparison": {"score": 5, "note": "Positional strawman and QK-ablated control both run under identical conditions and collapse to the uniform baseline."},
+  "faithfulness": {"score": 4, "note": "QK->0 ablation causally collapses alignment; honest about being hand-built with no trained model, but no evidence a learned model uses this circuit."},
+  "operating_range": {"score": 5, "note": "Sweeps seq_len 2->256 (flat, no positional dependence) and vocab 8->400 matching the analytic E[1/copies] collision curve."},
+  "hardcoded_weights_bonus": {"score": 5, "note": "Entire mechanism written out by hand (E=I, W_Q=W_K=I, scores=beta*token-match), zero training."},
+  "visual_judgement": {"score": 5, "note": "Three legible panels: grouped bars (match/strawman/ablation/baseline), QK diagonal heatmap, dual operating-range curves."},
+  "visualisation_rationale": {"score": 5, "note": "README ties each panel to a benchmarked or causal quantity with clear axis/baseline justification."},
+  "automated_metrics": {
+    "version": 1,
+    "random_baseline_alignment": 0.125,
+    "anagram_alignment_swap": 0.9389534816145897,
+    "anagram_alignment_rotation": 0.9295580089092255,
+    "anagram_alignment_random": 0.9404761865735054,
+    "anagram_alignment_canonical": 0.9404761865735054,
+    "anagram_alignment_max_canonical": 0.9523809552192688,
+    "lift_over_random_canonical": 0.8154761865735054,
+    "alignment_robustness": 0.988390798384743
+  },
+  "overall": "good",
+  "notes": "A clean, minimal hand-built token-identity matching head that solves anagram alignment with strong lift over baseline, paired with a positional strawman and a QK ablation that both collapse to baseline. Operating range is swept across two axes with analytic references, and the visualisation makes the claim legible. Only gap is faithfulness in the strict sense — the circuit is hand-built rather than shown to be the one a trained model learns, though this is stated explicitly."
+}

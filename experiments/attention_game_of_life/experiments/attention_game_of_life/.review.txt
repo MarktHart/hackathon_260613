@@ -1,0 +1,1 @@
+APPROVED: payload contract is consistent across README/task/benchmark, generate() is deterministic per-seed, metrics match the README (F1/accuracy/baselines + headline life_robustness), edge cases (zero denominators, empty sweep) are handled, and VERSION=1 with a documented bump procedure. Verified end-to-end via the random_model_fn smoke test.

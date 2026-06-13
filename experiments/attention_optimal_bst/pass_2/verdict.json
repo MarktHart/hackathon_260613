@@ -1,0 +1,32 @@
+{
+  "goal": "attention_optimal_bst",
+  "attempt": "pass_2",
+  "run_id": "20260613T205528Z",
+  "verdict_version": 1,
+  "architecture_fit":         {"score": 4, "note": "Minimal softmax->sigmoid-gate delta solves the task at 100%; key insight that softmax structurally can't trace L>1 paths is genuine, though the path is a single-step lookup of a memorized pathmask rather than stepwise tree navigation."},
+  "baseline_comparison":      {"score": 5, "note": "Strong strawman: softmax on identical logits hits its provable 7/128=5.5% ceiling, plus query-knockout and uniform baselines under matched conditions."},
+  "faithfulness":             {"score": 4, "note": "Query-knockout ablation (zeroing the query readout) collapses accuracy to 0%, showing the circuit causally depends on the query input, not a stored label; output is driven only by tokens (model_fn never sees the path)."},
+  "operating_range":          {"score": 4, "note": "Gaussian-noise sweep sigma 0..2 x path length shows graceful, depth-dependent degradation (deeper paths break first, the (1-p)^L signature) with the breakpoint made explicit."},
+  "hardcoded_weights_bonus":  {"score": 5, "note": "Fully hand-set circuit: the fixed Knuth-DP tree is written into the embedding table by hand as an associative memory; no training."},
+  "visual_judgement":         {"score": 4, "note": "Three legible panels (interactive query->path bars, sigmoid-vs-softmax accuracy with the ceiling marked, noise x depth heatmap); minor caveat that the path panel reconstructs attention from the stored path rather than the live tensor."},
+  "visualisation_rationale":  {"score": 5, "note": "README ties each panel to the smallest artefact that would flip the claim, with the right y-axis (perfect-path-trace fraction), the right strawman, and the right grain."},
+  "automated_metrics": {
+    "version": 1,
+    "bst_search_accuracy_canonical": 1.0,
+    "bst_mean_path_attention_canonical": 0.9999996428377926,
+    "bst_best_head_canonical": 0,
+    "bst_path_completion_rate_canonical": 1.0,
+    "bst_search_accuracy_pathlen_1": 1.0,
+    "bst_search_accuracy_pathlen_2": 1.0,
+    "bst_search_accuracy_pathlen_3": 1.0,
+    "bst_search_accuracy_pathlen_4": 1.0,
+    "bst_search_accuracy_pathlen_5": 1.0,
+    "bst_search_accuracy_pathlen_6": 1.0,
+    "linear_baseline_bst_search_accuracy_canonical": 0.0,
+    "linear_baseline_mean_path_attention_canonical": 0.06666666666666667,
+    "lift_over_linear_baseline_bst_search_accuracy": 1.0,
+    "lift_over_linear_baseline_mean_path_attention": 0.933332976171126
+  },
+  "overall": "good",
+  "notes": "A sharp, well-argued hand-built attempt whose central contribution is the structural insight that a sum-to-1 softmax head is mathematically capped at 7/128 on this multi-node-path metric while an independent sigmoid gate clears it at 100%, backed by a matched-logit strawman and a causal query-knockout ablation. The hardcoded tree-in-embedding circuit, noise operating-range sweep, and clear three-panel visualisation all land. Main limitation: the mechanism stores and reads out the whole optimal path as a precomputed mask in one step rather than navigating the tree sequentially, so it demonstrates attention can *attend to* the path more than *search* it."
+}

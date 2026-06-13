@@ -1,0 +1,1 @@
+APPROVED — payload contract, determinism, metrics, and edge cases verified; fixed stale README metric-table noise keys (0p0/10p0/20p0/30p0/40p0) and robustness formula to match benchmark.py (no VERSION bump needed, doc-only).

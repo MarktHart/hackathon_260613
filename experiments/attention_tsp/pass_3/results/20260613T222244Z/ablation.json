@@ -1,0 +1,153 @@
+{
+  "n_cities_sweep": [
+    5,
+    10,
+    20,
+    40
+  ],
+  "variants": {
+    "full": [
+      {
+        "n": 5,
+        "nn_accuracy": 1.0,
+        "tour_length_ratio": 1.0
+      },
+      {
+        "n": 10,
+        "nn_accuracy": 1.0,
+        "tour_length_ratio": 1.0
+      },
+      {
+        "n": 20,
+        "nn_accuracy": 1.0,
+        "tour_length_ratio": 1.0
+      },
+      {
+        "n": 40,
+        "nn_accuracy": 1.0,
+        "tour_length_ratio": 1.0
+      }
+    ],
+    "ablate_key_norm": [
+      {
+        "n": 5,
+        "nn_accuracy": 0.7625,
+        "tour_length_ratio": 0.8837386646531822
+      },
+      {
+        "n": 10,
+        "nn_accuracy": 0.6666666666666667,
+        "tour_length_ratio": 0.8638540833218518
+      },
+      {
+        "n": 20,
+        "nn_accuracy": 0.6052631578947368,
+        "tour_length_ratio": 0.8452912565531658
+      },
+      {
+        "n": 40,
+        "nn_accuracy": 0.5384615384615384,
+        "tour_length_ratio": 0.7513841797401247
+      }
+    ],
+    "ablate_query_norm": [
+      {
+        "n": 5,
+        "nn_accuracy": 1.0,
+        "tour_length_ratio": 1.0
+      },
+      {
+        "n": 10,
+        "nn_accuracy": 1.0,
+        "tour_length_ratio": 1.0
+      },
+      {
+        "n": 20,
+        "nn_accuracy": 1.0,
+        "tour_length_ratio": 1.0
+      },
+      {
+        "n": 40,
+        "nn_accuracy": 1.0,
+        "tour_length_ratio": 1.0
+      }
+    ]
+  },
+  "random_baseline": [
+    {
+      "n": 5,
+      "nn_accuracy": 0.5208333333333334,
+      "tour_length_ratio": 0.713163316706687
+    },
+    {
+      "n": 10,
+      "nn_accuracy": 0.31432980599647276,
+      "tour_length_ratio": 0.5390611310156557
+    },
+    {
+      "n": 20,
+      "nn_accuracy": 0.1867231398496675,
+      "tour_length_ratio": 0.38264601440879614
+    },
+    {
+      "n": 40,
+      "nn_accuracy": 0.10906520612657375,
+      "tour_length_ratio": 0.2694493808404617
+    }
+  ],
+  "weights": {
+    "W_q_full": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "W_k_full": [
+      [
+        2.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        2.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        -1.0
+      ],
+      [
+        0.0,
+        0.0,
+        -1.0,
+        0.0
+      ]
+    ]
+  },
+  "note": "phi(x,y)=[x,y,x^2+y^2,1]; Q.K = -||c_i-c_j||^2. ablate_key_norm removes -s_j (NECESSARY -> collapses); ablate_query_norm removes s_i (constant in j -> INERT, accuracy unchanged)."
+}

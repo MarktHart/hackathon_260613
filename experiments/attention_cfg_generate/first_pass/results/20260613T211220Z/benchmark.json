@@ -1,0 +1,64 @@
+{
+  "goal": "attention_cfg_generate",
+  "attempt": "first_pass",
+  "run_id": "20260613T211220Z",
+  "metrics": {
+    "version": 1,
+    "cfg_acc_canonical": 0.0,
+    "cfg_acc_depth_1": 0.0,
+    "cfg_acc_depth_2": 0.0,
+    "cfg_acc_depth_3": 0.0,
+    "cfg_ce_canonical": 2.0794412288814783,
+    "cfg_ce_depth_1": 2.0794413089752197,
+    "cfg_ce_depth_2": 2.0794410705566406,
+    "cfg_ce_depth_3": 2.0794413089752197,
+    "linear_baseline_acc_struct": 0.125,
+    "linear_baseline_ce": 2.0794415416798357,
+    "lift_over_baseline_acc": -0.125,
+    "lift_over_baseline_ce": 3.1279835743802664e-07,
+    "depth_robustness": 0.0
+  },
+  "payload": {
+    "version": 1,
+    "canonical_seed": 42,
+    "vocab_size": 8,
+    "max_depth": 3,
+    "seq_len": 32,
+    "batch_size": 256,
+    "slice_axis": "max_depth",
+    "sweep": [
+      {
+        "max_depth": 1,
+        "n_sequences": 85,
+        "n_positions": 2720,
+        "ce_loss": 2.0794413089752197,
+        "acc_any": 0.03125,
+        "acc_struct": 0.0,
+        "struct_positions": 1275
+      },
+      {
+        "max_depth": 2,
+        "n_sequences": 86,
+        "n_positions": 2752,
+        "ce_loss": 2.0794410705566406,
+        "acc_any": 0.03125,
+        "acc_struct": 0.0,
+        "struct_positions": 1290
+      },
+      {
+        "max_depth": 3,
+        "n_sequences": 85,
+        "n_positions": 2720,
+        "ce_loss": 2.0794413089752197,
+        "acc_any": 0.03125,
+        "acc_struct": 0.0,
+        "struct_positions": 1229
+      }
+    ],
+    "linear_baseline": {
+      "ce_loss": 2.0794415416798357,
+      "acc_any": 0.125,
+      "acc_struct": 0.125
+    }
+  }
+}

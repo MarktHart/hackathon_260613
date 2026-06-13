@@ -1,0 +1,92 @@
+{
+  "version": 1,
+  "model_name": "synthetic_attention_regex",
+  "d": 64,
+  "vocab_size": 8,
+  "n_positions": 120,
+  "canonical_length": 3,
+  "length_sweep": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "sweep": [
+    {
+      "length": 1,
+      "match_sharpness": 0.9797308933318613,
+      "false_positive_rate": 0.0070975579463178045,
+      "false_negative_rate": 0.15087177954185627,
+      "n_seeds": 10
+    },
+    {
+      "length": 2,
+      "match_sharpness": 0.9739265017794008,
+      "false_positive_rate": 0.03598022875340061,
+      "false_negative_rate": 0.0494327731092437,
+      "n_seeds": 10
+    },
+    {
+      "length": 3,
+      "match_sharpness": 0.980240095084179,
+      "false_positive_rate": 0.02411590317505548,
+      "false_negative_rate": 0.04016860332649806,
+      "n_seeds": 10
+    },
+    {
+      "length": 4,
+      "match_sharpness": 0.9815888986772482,
+      "false_positive_rate": 0.029081755079348393,
+      "false_negative_rate": 0.03875,
+      "n_seeds": 10
+    },
+    {
+      "length": 5,
+      "match_sharpness": 0.9808633111531287,
+      "false_positive_rate": 0.03317435483469257,
+      "false_negative_rate": 0.0,
+      "n_seeds": 10
+    },
+    {
+      "length": 6,
+      "match_sharpness": 0.9785375324274657,
+      "false_positive_rate": 0.04692958597552644,
+      "false_negative_rate": 0.0,
+      "n_seeds": 10
+    }
+  ],
+  "linear_baseline": [
+    {
+      "length": 1,
+      "match_sharpness": 0.9873688104749556,
+      "n_seeds": 10
+    },
+    {
+      "length": 2,
+      "match_sharpness": 0.7133112576730307,
+      "n_seeds": 10
+    },
+    {
+      "length": 3,
+      "match_sharpness": 0.4396112150380448,
+      "n_seeds": 10
+    },
+    {
+      "length": 4,
+      "match_sharpness": 0.8245344897216015,
+      "n_seeds": 10
+    },
+    {
+      "length": 5,
+      "match_sharpness": 0.7478097239380714,
+      "n_seeds": 10
+    },
+    {
+      "length": 6,
+      "match_sharpness": 0.6690855852726276,
+      "n_seeds": 10
+    }
+  ]
+}

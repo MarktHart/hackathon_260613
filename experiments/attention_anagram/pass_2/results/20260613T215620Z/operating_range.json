@@ -1,0 +1,60 @@
+{
+  "seq_len_sweep": [
+    {
+      "seq_len": 4,
+      "vocab": 50,
+      "alignment": 0.9723482131958008,
+      "baseline": 0.25
+    },
+    {
+      "seq_len": 8,
+      "vocab": 50,
+      "alignment": 0.9327347874641418,
+      "baseline": 0.125
+    },
+    {
+      "seq_len": 16,
+      "vocab": 50,
+      "alignment": 0.8630857467651367,
+      "baseline": 0.0625
+    },
+    {
+      "seq_len": 32,
+      "vocab": 50,
+      "alignment": 0.7434024214744568,
+      "baseline": 0.03125
+    },
+    {
+      "seq_len": 64,
+      "vocab": 50,
+      "alignment": 0.566146731376648,
+      "baseline": 0.015625
+    }
+  ],
+  "vocab_sweep": [
+    {
+      "seq_len": 8,
+      "vocab": 10,
+      "alignment": 0.7126244306564331,
+      "baseline": 0.125
+    },
+    {
+      "seq_len": 8,
+      "vocab": 50,
+      "alignment": 0.9327347874641418,
+      "baseline": 0.125
+    },
+    {
+      "seq_len": 8,
+      "vocab": 200,
+      "alignment": 0.9818906784057617,
+      "baseline": 0.125
+    },
+    {
+      "seq_len": 8,
+      "vocab": 500,
+      "alignment": 0.9922926425933838,
+      "baseline": 0.125
+    }
+  ]
+}

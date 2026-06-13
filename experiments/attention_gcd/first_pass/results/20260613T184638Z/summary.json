@@ -1,0 +1,8 @@
+{
+  "headline_resid_r2": 0.9999898816410627,
+  "headline_resid_acc": 1.0,
+  "baseline_resid_r2": -0.16957918438187813,
+  "baseline_resid_acc": 0.125,
+  "best_attn_corr": 0.9999999999999997,
+  "baseline_attn_corr": 0.08815975586200579
+}

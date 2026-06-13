@@ -1,0 +1,7 @@
+# What I did
+
+Implemented a **hand-built attention-based pattern matcher** that runs entirely on GPU using PyTorch. The mechanism explicitly composes information across pattern positions: for each concrete (non-wildcard) token in the pattern, it computes the similarity between the residual stream and that token's embedding, shifts the similarity by the token's required offset from the match end, and takes the element-wise minimum across all concrete tokens (equivalent to log-space product / AND). This directly implements multi-token pattern matching with wildcards using attention-like operations — no training required. The weights are derived analytically from the pattern and embedding matrix.
+
+# Why this visualisation
+
+The **Demo tab** shows per-position attention weights (post-softmax) and raw logits overlaid with ground-truth match-end positions (red dots) for any pattern length and seed. The uniform-attention baseline (red dashed line) makes it trivial to see where the mechanism concentrates mass. The **summary panel** plots match sharpness, false positive rate, and false negative rate across the full length sweep (L=1..6) alongside the linear baseline, directly visualising the headline metric `length_robustness` (sharpness at L=6 / sharpness at L=1). This mirrors the benchmark's primary axis of evaluation and lets a human verify that composition degrades gracefully — or not at all — as pattern depth increases.

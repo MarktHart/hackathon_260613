@@ -1,0 +1,66 @@
+{
+  "sweep": [
+    {
+      "distractor_cos": 0.0,
+      "global_alignment": 0.14966996055283147,
+      "distractor_mass": 0.07684311909608263,
+      "target_margin": 0.07282684145674882,
+      "n_seqs": 24
+    },
+    {
+      "distractor_cos": 0.25,
+      "global_alignment": 0.14639586180218955,
+      "distractor_mass": 0.08879357732296535,
+      "target_margin": 0.0576022844792242,
+      "n_seqs": 24
+    },
+    {
+      "distractor_cos": 0.5,
+      "global_alignment": 0.14531080856518275,
+      "distractor_mass": 0.10411974268038555,
+      "target_margin": 0.04119106588479718,
+      "n_seqs": 24
+    },
+    {
+      "distractor_cos": 0.75,
+      "global_alignment": 0.14119812631010464,
+      "distractor_mass": 0.11952163156674371,
+      "target_margin": 0.021676494743360922,
+      "n_seqs": 24
+    },
+    {
+      "distractor_cos": 1.0,
+      "global_alignment": 0.13954019745626176,
+      "distractor_mass": 0.13954019745626176,
+      "target_margin": 0.0,
+      "n_seqs": 24
+    }
+  ],
+  "uniform_baseline": [
+    {
+      "distractor_cos": 0.0,
+      "global_alignment": 0.08333333333333333,
+      "n_seqs": 24
+    },
+    {
+      "distractor_cos": 0.25,
+      "global_alignment": 0.08333333333333333,
+      "n_seqs": 24
+    },
+    {
+      "distractor_cos": 0.5,
+      "global_alignment": 0.08333333333333333,
+      "n_seqs": 24
+    },
+    {
+      "distractor_cos": 0.75,
+      "global_alignment": 0.08333333333333333,
+      "n_seqs": 24
+    },
+    {
+      "distractor_cos": 1.0,
+      "global_alignment": 0.08333333333333333,
+      "n_seqs": 24
+    }
+  ]
+}

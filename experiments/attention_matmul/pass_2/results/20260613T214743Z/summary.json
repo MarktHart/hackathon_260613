@@ -1,0 +1,77 @@
+{
+  "model_name": "synthetic_attention_matmul",
+  "canonical": "cos_0p3",
+  "conditions": [
+    "orthogonal",
+    "cos_0p3",
+    "cos_0p7",
+    "uniform"
+  ],
+  "config": {
+    "d_model": 64,
+    "n_heads": 4,
+    "d_head": 16,
+    "seq_len": 32,
+    "batch_size": 16
+  },
+  "per_condition": {
+    "orthogonal": {
+      "method_kl": -2.1376763100379367e-08,
+      "uniform_kl": 0.002117070156365984,
+      "no_softmax_kl": 19.10782123499854,
+      "output_mse_method": 2.1300808941616467e-16,
+      "output_mse_uniform": 0.00014215336698288113,
+      "rowsum_mae": 7.785274647176266e-08,
+      "abl_top": 0.15714208781719208,
+      "abl_random": 0.12450022995471954
+    },
+    "cos_0p3": {
+      "method_kl": 1.1550706818789193e-10,
+      "uniform_kl": 0.001904709494824468,
+      "no_softmax_kl": 10.95510420725968,
+      "output_mse_method": 1.0520347683568816e-16,
+      "output_mse_uniform": 0.00011887723840387885,
+      "rowsum_mae": 2.4699147616047412e-08,
+      "abl_top": 0.14121130108833313,
+      "abl_random": 0.12451482564210892
+    },
+    "cos_0p7": {
+      "method_kl": -1.518843642357487e-10,
+      "uniform_kl": 0.00231947803101089,
+      "no_softmax_kl": 10.832608290127665,
+      "output_mse_method": 1.149487054108879e-16,
+      "output_mse_uniform": 0.00014682168145728632,
+      "rowsum_mae": 2.6827365218196064e-08,
+      "abl_top": 0.14758965373039246,
+      "abl_random": 0.124369777739048
+    },
+    "uniform": {
+      "method_kl": -9.815362866866642e-11,
+      "uniform_kl": 0.43704547717377806,
+      "no_softmax_kl": 3.9970312790337608,
+      "output_mse_method": 1.578905673693249e-15,
+      "output_mse_uniform": 0.040673680897677894,
+      "rowsum_mae": 3.265341774749686e-08,
+      "abl_top": 0.6484830379486084,
+      "abl_random": 0.10914599895477295
+    }
+  },
+  "heatmaps": {
+    "orthogonal": {
+      "true": "true_orthogonal.npy",
+      "pred": "pred_orthogonal.npy"
+    },
+    "cos_0p3": {
+      "true": "true_cos_0p3.npy",
+      "pred": "pred_cos_0p3.npy"
+    },
+    "cos_0p7": {
+      "true": "true_cos_0p7.npy",
+      "pred": "pred_cos_0p7.npy"
+    },
+    "uniform": {
+      "true": "true_uniform.npy",
+      "pred": "pred_uniform.npy"
+    }
+  }
+}

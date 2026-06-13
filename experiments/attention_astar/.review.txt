@@ -1,0 +1,1 @@
+APPROVED — payload contract consistent across README/task/benchmark, metrics match, determinism and edge cases verified; fixed unsolvable-instance bug (generate now guarantees start→goal connectivity so astar/greedy_action always point to valid moves), canonical seed=0 unchanged.

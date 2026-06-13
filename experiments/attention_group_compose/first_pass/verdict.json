@@ -1,0 +1,31 @@
+{
+  "goal": "attention_group_compose",
+  "attempt": "first_pass",
+  "run_id": "20260613T205223Z",
+  "verdict_version": 1,
+  "architecture_fit": {"score": 4, "note": "Snap-to-group (template argmax + modular addition) directly tests the group-law hypothesis and solves it; minimal zero-block circuit, though it discretizes rather than exercising softmax attention itself."},
+  "baseline_comparison": {"score": 5, "note": "Naive A@B baseline computed under identical conditions; clear lift at canonical (0.988 vs 0.658, lift 0.33) shown as two curves."},
+  "faithfulness": {"score": 3, "note": "Purely synthetic, no model; README explicitly says so and proposes a concrete ablation (drop group composition), but runs no actual causal check."},
+  "operating_range": {"score": 4, "note": "Full noise sweep σ=0→40 (clean→chance) shows graceful degradation (1.0→0.74) and where it breaks; only n=6 group size tested."},
+  "hardcoded_weights_bonus": {"score": 5, "note": "Fully hand-built: fixed rotation templates plus modular-addition rule, no learned weights — exactly the hardcoded-circuit case."},
+  "visual_judgement": {"score": 4, "note": "Demo tab leads with the method-vs-baseline fidelity curve (canonical marked) plus A/B/pred/true heatmaps — legible and on-point."},
+  "visualisation_rationale": {"score": 5, "note": "README ties every axis to the benchmark: fidelity y-axis, full-sweep x-axis, vertical gap = lift metric, heatmap as concrete permutation check."},
+  "automated_metrics": {
+    "version": 1,
+    "composition_fidelity_noise_0p0": 1.0,
+    "linear_baseline_fidelity_noise_0p0": 1.0,
+    "composition_fidelity_noise_10p0": 1.0,
+    "linear_baseline_fidelity_noise_10p0": 0.974459136981708,
+    "composition_fidelity_noise_20p0": 0.9884529946162075,
+    "linear_baseline_fidelity_noise_20p0": 0.6580659392390023,
+    "composition_fidelity_noise_30p0": 0.8729829407782823,
+    "linear_baseline_fidelity_noise_30p0": 0.5471647469591409,
+    "composition_fidelity_noise_40p0": 0.7430791302106166,
+    "linear_baseline_fidelity_noise_40p0": 0.5238499380420913,
+    "composition_fidelity_canonical": 0.9884529946162075,
+    "lift_over_baseline_canonical": 0.33038705537720525,
+    "composition_robustness": 0.9332438751249494
+  },
+  "overall": "good",
+  "notes": "A clean hand-built snap-to-group composer that directly operationalizes the group-law hypothesis and decisively beats the naive-matmul baseline at canonical noise (lift 0.33), with graceful degradation across the full noise sweep. The hardcoded circuit and tightly-justified visualisation are strengths; the main gap is faithfulness — no causal/ablation evidence, only a proposed check, which is acceptable for a synthetic attempt. Mean of scored items ≈ 4.3 places this in the 'good' band."
+}

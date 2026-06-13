@@ -1,0 +1,51 @@
+{
+  "goal": "attention_topo_sort",
+  "attempt": "first_pass",
+  "run_id": "20260613T213244Z",
+  "metrics": {
+    "version": 1,
+    "topo_consistency_canonical": 0.028263156948857615,
+    "topo_consistency_median": 0.028263156948857615,
+    "topo_consistency_max": 0.028291664774908215,
+    "topo_consistency_min": 0.02823464912280702,
+    "frac_heads_above_half": 0.0,
+    "mean_entropy": 3.922596689257639,
+    "linear_baseline_topo_consistency": 0.02823464912280702,
+    "lift_over_baseline": 2.8507826050596513e-05
+  },
+  "payload": {
+    "version": 1,
+    "seq_len": 64,
+    "batch_size": 32,
+    "max_depth": 4,
+    "n_heads": 2,
+    "head_metrics": [
+      {
+        "head_idx": 0,
+        "topo_consistency": 0.02823464912280702,
+        "topo_consistency_opening": 0.02823464912280702,
+        "topo_consistency_closing": 0.02823464912280702,
+        "mass_to_ancestors": 0.02823464912280702,
+        "mass_to_non_ancestors": 0.971765350877193,
+        "entropy": 4.158883083359671
+      },
+      {
+        "head_idx": 1,
+        "topo_consistency": 0.028291664774908215,
+        "topo_consistency_opening": 0.02816655251144766,
+        "topo_consistency_closing": 0.028416777038368767,
+        "mass_to_ancestors": 0.028291664774908215,
+        "mass_to_non_ancestors": 0.9717083352250916,
+        "entropy": 3.6863102951556073
+      }
+    ],
+    "aggregate": {
+      "mean_topo_consistency": 0.028263156948857615,
+      "median_topo_consistency": 0.028263156948857615,
+      "max_topo_consistency": 0.028291664774908215,
+      "min_topo_consistency": 0.02823464912280702,
+      "frac_heads_above_half": 0.0
+    },
+    "linear_baseline_topo_consistency": 0.02823464912280702
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "degree": 2,
+  "mechanism_quad_qk_r2": 0.9991993449434241,
+  "ablation_linear_qk_r2": 2.358743288577436e-06,
+  "linear_baseline_r2": 6.318062380050726e-06,
+  "note": "Removing the quadratic QK self-score (linear-QK ablation) collapses R^2 to the linear-baseline floor; the softmax-over-QK-square is causally responsible for the fit."
+}
