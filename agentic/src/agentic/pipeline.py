@@ -45,45 +45,55 @@ from agentic.verdict import JURY_OUTPUT_SCHEMA
 
 PICKER_SYSTEM = (
     """\
-You scaffold a new mechanistic-interpretability goal: the README that frames
-the question and the benchmark.py that every attempt is scored against.
+You scaffold a new mechanistic-interpretability goal. The goal owns THREE
+files; every attempt imports the second and third instead of duplicating
+their content:
+
+1. `experiments/<slug>/README.md` — the question, the setup (synthetic vs
+   trained-model), the canonical measurement condition, the payload-contract
+   table, and the metrics table.
+2. `experiments/<slug>/task.py` — the data generator and the evaluator.
+   Exports `generate(seed) -> Batch` and `evaluate(model_fn) -> payload`. The
+   payload dict it returns must match `benchmark.score()`'s expected shape
+   exactly. Two attempts at the same goal must never disagree on the data —
+   that's the whole point of factoring this out.
+3. `experiments/<slug>/benchmark.py` — exports `VERSION = 1` and
+   `score(payload) -> dict[str, float | int]`. One headline summary metric,
+   per-slice values, and a baseline. Handles edge cases (empty sweeps, zero
+   denominators) explicitly. Optionally exports `GPU_REQUIREMENT: int` and
+   `is_obviously_broken(metrics: dict) -> bool`.
 
 You will receive the slug, the title, the spec from BLOCKS.md, and the full
-text of README_BENCHMARK.md (the construction guide). Follow that guide
-exactly:
-
-- Goal README must state the question, the setup (model/dataset or synthetic),
-  the canonical measurement condition, the payload contract table, and the
-  metrics table.
-- benchmark.py exports `VERSION = 1` and `score(payload) -> dict[str, float | int]`,
-  produces one headline summary metric, per-slice values, and a baseline
-  metric. Handles edge cases (empty sweeps, zero denominators) explicitly.
-- Optionally exports `GPU_REQUIREMENT: int = 1` and
-  `is_obviously_broken(metrics: dict) -> bool` — see README_BENCHMARK.md.
+text of README_BENCHMARK.md (the construction guide). Follow that guide.
 
 """
     + OUTPUT_CONTRACT
 )
 
 REVIEWER_SYSTEM = """\
-You audit a freshly-authored benchmark BEFORE any attempt is built against it.
-You have full file tools (Read/Write/Edit/Glob/Grep).
+You audit a freshly-authored goal (README + task.py + benchmark.py) BEFORE any
+attempt is built against it. You have full file tools (Read/Write/Edit/Glob/Grep).
 
 Read:
 - `experiments/<slug>/README.md`
+- `experiments/<slug>/task.py`
 - `experiments/<slug>/benchmark.py`
 - `README_BENCHMARK.md`
 
 Check:
-- Payload contract is unambiguous and model-agnostic.
-- Metric formulae match what the README claims.
-- There is a headline summary, per-slice values, and a baseline.
-- Edge cases (zero denominators, empty sweeps) are handled.
-- `VERSION = 1` is set; the bump procedure is documented in the README.
+- README payload contract matches what `task.evaluate` actually returns and
+  what `benchmark.score` actually consumes — no silent shape drift between
+  the three files.
+- `task.generate` is deterministic for a given seed; the canonical condition
+  is unambiguous.
+- Metric formulae match what the README claims; headline summary + per-slice
+  values + baseline are all present.
+- Edge cases (zero denominators, empty sweeps) are handled in `score()`.
+- `VERSION = 1` is set; bump procedure documented.
 
 If solid: write one line of approval to `experiments/<slug>/.review.txt`.
-If not: edit the README and/or benchmark.py to fix the issues, THEN write the
-approval line. The next stage trusts the benchmark.
+If not: edit any of the three files to fix the issues, THEN write the approval
+line. The next stage trusts the goal.
 """
 
 SOLVER_SYSTEM = (
@@ -92,20 +102,32 @@ You make a first-pass attempt at one mech-interp goal. You cannot execute
 code; you only emit files. The pipeline runs them after you.
 
 You will receive: the slug, the chosen attempt_name, the goal's README.md,
-the goal's benchmark.py, and the README_EXPERIMENT.md conventions.
+the goal's task.py, the goal's benchmark.py, and the README_EXPERIMENT.md
+conventions.
+
+Use `task.py`: every attempt imports the data and the evaluator from there.
+Your main.py loads it via:
+
+    from agentic.experiments import load_task, record_benchmark, results_dir
+
+    task = load_task(__file__)
+    payload = task.evaluate(my_model_fn)  # my_model_fn is THIS attempt's contribution
+    record_benchmark(__file__, results_dir(__file__), payload)
+
+For hand-built attempts, `my_model_fn` directly constructs the answer (no
+training). For trained attempts, train first, then wrap the trained model in
+the function. Either way the same payload shape lands in benchmark.json.
 
 Emit these files exactly (no others):
-- `experiments/<slug>/<attempt_name>/main.py` — computes the result and calls
-  `agentic.experiments.record_benchmark(__file__, run_dir, payload)` so the
-  benchmark is recorded.
+- `experiments/<slug>/<attempt_name>/main.py`
 - `experiments/<slug>/<attempt_name>/app.py` — Gradio Blocks app with a Demo
-  tab (the interactive visualisation) and a Benchmark tab that drops in
-  `agentic.experiments.benchmark_panel(<goal_dir>)`.
-- `experiments/<slug>/<attempt_name>/README.md` — two sections:
-  *What I did* (3-6 sentences) and *Why this visualisation*.
+  tab and a Benchmark tab that drops in `agentic.experiments.benchmark_panel(<goal_dir>)`.
+- `experiments/<slug>/<attempt_name>/README.md` — two sections: *What I did*
+  (3-6 sentences, naming the attempt type — hand_built / trained / interp)
+  and *Why this visualisation*.
 
 Do NOT emit the `pyproject.toml` symlink — the pipeline creates it. Do NOT
-emit any `results/` files — `main.py` will produce those at run time.
+emit any `results/` files — `main.py` produces those at run time.
 
 """
     + OUTPUT_CONTRACT
@@ -385,6 +407,7 @@ Produce two files:
 
     readme_experiment = _read_if_exists("README_EXPERIMENT.md")
     goal_readme = _read_if_exists(goal_dir / "README.md")
+    task_py = _read_if_exists(goal_dir / "task.py")
     benchmark_py = _read_if_exists(goal_dir / "benchmark.py")
 
     gpu_requirement = _load_optional(goal_dir / "benchmark.py", "GPU_REQUIREMENT") or 1
@@ -405,9 +428,18 @@ Goal:
 {goal_readme}
 === END ===
 
+=== experiments/{slug}/task.py ===
+{task_py}
+=== END ===
+
 === experiments/{slug}/benchmark.py ===
 {benchmark_py}
 === END ===
+
+IMPORTANT: write `main.py` against the EXACT signature in `task.py` above.
+`Batch` is a frozen dataclass — access fields as `batch.d`, `batch.canonical_rho`,
+etc., NOT `batch["d"]`. `model_fn` takes ONE argument (a `Batch` instance) and
+returns one numpy array of the shape that `task.evaluate` expects.
 
 Emit:
 - `experiments/{slug}/{attempt_name}/main.py`

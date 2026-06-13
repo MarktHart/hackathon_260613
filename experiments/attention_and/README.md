@@ -1,128 +1,90 @@
-# Attention as a soft AND gate
+# attention_and
 
-## Goal
-Show how softmax attention can approximate an AND gate.
+## Question
 
-## Exmample
-### Setup
+Does a single attention head implement a **logical AND** between two query
+vectors?  That is, when the head's query projects onto two stored keys
+`k_A` and `k_B`, does the attention weight on the *joint* key `k_AND`
+rise sharply only when **both** query components are present?
 
-Scaled dot-product attention assigns to each key/value index $i$ a weight
+This goal measures the **sharpness** of that AND response as a function of
+the cosine similarity between the two query components, and summarises it
+as **superposition robustness** — the ratio of the weakest AND response
+across the sweep to the strongest.
 
-$$
-w_i \;=\; \frac{\exp(q \cdot k_i / \sqrt{d})}{\sum_j \exp(q \cdot k_j / \sqrt{d})}.
-$$
+## Setup
 
-The output is $\sum_i w_i \, v_i$.
+**Synthetic generator.**  No trained model, no dataset.  The task constructs
+a minimal 1-head, 1-layer attention block with fixed `Q`, `K`, `V` matrices
+that *should* implement an ideal AND if the mechanism is clean:
 
-The key (no pun intended) move is to feed in a query that is a **superposition** of two concept directions $q_A$ and $q_B$:
+- `d_model = 64`, `d_head = 64` (no head splitting)
+- Two orthogonal *feature* directions `f_A`, `f_B` ∈ ℝ^64, `‖f‖ = 1`,
+  `⟨f_A, f_B⟩ = 0`.
+- Keys: `k_A = f_A`, `k_B = f_B`, `k_AND = (f_A + f_B) / √2` (normalised sum).
+- Values: `v_A = f_A`, `v_B = f_B`, `v_AND = f_AND` (same direction as key).
+- Query for a sweep point `c ∈ [0, 1]`:
+  `q(c) = normalize( √(1-c) · f_A + √c · f_B )`.
+  When `c = 0` the query is pure `f_A`; when `c = 1` it is pure `f_B`;
+  intermediate `c` interpolates the *cosine similarity* between the two
+  query components: `cos(q_A, q_B) = 2√(c(1-c)) - 1 ∈ [-1, 1]`.
+- The attention block is run with `softmax(Q Kᵀ / √d)` and the weight on
+  `k_AND` is recorded.
 
-$$
-q \;=\; q_A + q_B.
-$$
+The *ideal* AND mechanism would put near-zero weight on `k_AND` for pure
+`f_A` or pure `f_B`, and peak weight at `c = 0.5` (`cos = 0`).
 
-You can think of $q_A$ as "asks: does this token have feature $A$?" and $q_B$ as "asks: does this token have feature $B$?".
+## Canonical measurement condition
 
-### Softmax turns sums into products
+- Sweep `cos(q_A, q_B)` over 11 evenly spaced values in `[-1, 1]`:
+  `[-1.0, -0.8, -0.6, -0.4, -0.2, 0.0, 0.2, 0.4, 0.6, 0.8, 1.0]`.
+- For each cosine value, compute the attention weight on `k_AND`.
+- The *canonical* headline metric is reported at `cos = 0.0` (the
+  orthogonal anchor, `c = 0.5`).
 
-The dot product is linear in $q$, so superposition in $q$ becomes a *sum* in the score:
+## Payload contract
 
-$$
-q \cdot k_i \;=\; q_A \cdot k_i + q_B \cdot k_i.
-$$
+`task.evaluate` returns a `dict` with exactly these keys:
 
-But the softmax exponentiates that score. Exponential of a sum = product of exponentials:
+```python
+{
+    "version": 2,                              # matches benchmark.VERSION
+    "model_name": "synthetic_attention_and",   # fixed string
+    "sweep": [                                 # length 11, ordered by cosine
+        {
+            "cos_qA_qB": float,                # cosine similarity in [-1, 1]
+            "and_weight": float,               # attention weight on k_AND ∈ [0, 1]
+            "a_weight": float,                 # attention weight on k_A
+            "b_weight": float,                 # attention weight on k_B
+        },
+        ...
+    ],
+    "canonical_cos": 0.0,                      # the cosine used for _canonical metrics
+}
+```
 
-$$
-\exp(q \cdot k_i) \;=\; \exp(q_A \cdot k_i)\,\exp(q_B \cdot k_i).
-$$
+- All weights are Python `float` (already reduced from tensors).
+- `sum(and_weight, a_weight, b_weight) ≈ 1.0` for each record (softmax).
+- The sweep order is fixed; `benchmark.score` relies on it.
 
-Define
-$\alpha_i := \exp(q_A \cdot k_i / \sqrt{d})$ ("soft indicator that $k_i$ has feature $A$") and
-$\beta_i := \exp(q_B \cdot k_i / \sqrt{d})$ ("soft indicator that $k_i$ has feature $B$").
+## Metrics
 
-Then the (unnormalized) attention mass on token $i$ is
+| metric | formula | direction | interpretation |
+|--------|---------|-----------|----------------|
+| `and_sharpness_canonical` | `and_weight` at `canonical_cos = 0.0` | **bigger is better** | Peak AND response when the two query components are orthogonal. |
+| `and_sharpness_cos_<val>` | `and_weight` at each sweep cosine | **bigger is better** | Per-slice view; `<val>` uses `0p7` notation (e.g. `cos_0p0`, `cos_n0p8`). |
+| `linear_baseline_sharpness_cos_<val>` | `(1 - │cos│) / 2` at each cosine | **reference** | Weight a *linear* (non-AND) superposition would give to the midpoint key. |
+| `superposition_robustness` | `min(and_sharpness_cos_*) / max(and_sharpness_cos_*)` | **bigger is better** | Ratio of weakest to strongest AND response across the full sweep. 1.0 = perfectly flat (bad); →0 = sharp peak only at orthogonality (good).  *Note: inverted from v1 so higher = more robust.* |
+| `lift_over_linear_baseline_cos_<val>` | `and_sharpness_cos_<val> - linear_baseline_sharpness_cos_<val>` | **bigger is better** | How much the mechanism exceeds a linear superposition at each slice. |
+| `version` | payload["version"] | — | echoed for dashboard filtering. |
 
-$$
-\tilde w_i \;=\; \alpha_i \cdot \beta_i,
-$$
+## Bump procedure
 
-i.e. the **product** of how-much-$A$ and how-much-$B$ that token has. The normalizer $Z = \sum_j \alpha_j \beta_j$ just turns this into a probability.
+`VERSION` is incremented when:
+- any metric formula changes;
+- a payload key is added, removed, or retyped;
+- the canonical cosine or sweep grid changes.
 
-A product is the natural soft AND: it is large only when *both* factors are large; if either $\alpha_i$ or $\beta_i$ is small, $\tilde w_i$ collapses. A pure linear layer (no exp) would only give you $\alpha_i + \beta_i$-like behavior, which is OR-ish — one large factor is enough.
-
-### Concrete example
-
-Three keys, scores in $(q_A \cdot k_i,\; q_B \cdot k_i)$ form, scale $1/\sqrt d$ absorbed:
-
-| token | $A$-match | $B$-match | sum (linear) | product $\alpha_i\beta_i$ |
-|-------|-----------|-----------|--------------|---------------------------|
-| 1: only A  | 6 | 0 | 6 | $e^{6}\approx 403$ |
-| 2: only B  | 0 | 6 | 6 | $e^{6}\approx 403$ |
-| 3: both    | 4 | 4 | 8 | $e^{8}\approx 2981$ |
-
-Without the exponential, token 3 barely edges out 1 and 2 (8 vs 6). After softmax, token 3 grabs $\approx 79\%$ of the mass while tokens 1 and 2 share the rest — the head sharply prefers the conjunction. Push the contrast a bit (e.g. token 3 at $(5,5)$ vs token 1 at $(7,0)$) and the AND-vs-OR gap grows: $e^{10}$ beats $e^{7}$ by $\sim 20\times$, even though their linear scores tie.
-
-### Why this is "kinda an AND"
-
-- **Multiplicative gating.** $\tilde w_i = \alpha_i \beta_i$ is exactly the form of a soft AND on the two soft indicators.
-- **Vanishes if either input vanishes.** If $k_i$ has no $B$-component, then $\beta_i \to 1$ (baseline, not small) — caveat: it's only AND-like when $q_B \cdot k_i$ can become *negative* for non-$B$ tokens. So the gate is sharp to the extent the unembed directions $q_A, q_B$ separate matching keys from non-matching ones with positive vs. negative scores.
-- **Generalizes to $n$-ary AND.** Stacking $q = q_{A_1} + \dots + q_{A_n}$ gives $\tilde w_i = \prod_k \alpha_i^{(k)}$, i.e. attention can soft-AND arbitrarily many concepts in a single head, up to the precision allowed by superposition and the QK rank.
-- **Normalizer = competitive read-out.** The softmax denominator turns the multiplicative score into a winner-take-most distribution, so the value vector of the AND-matching token gets routed through.
-
-### One-line summary
-
-Because the softmax exponentiates a linear score, a query that is a sum of concept directions becomes, after $\exp$, a **product of per-concept match scores** — and a product of soft indicators is a soft AND.
-
-## Benchmark (v2)
-
-Every attempt is scored by `benchmark.py` in this directory. The canonical
-measurement scale is **`scale = 1.0`** — the same value every attempt must
-use so the numbers are comparable. The benchmark sweeps `cos(q_A, q_B)` so
-attempts that only work under orthogonal concept directions show up as fragile
-under superposition.
-
-### Payload contract
-
-Hand `agentic.experiments.record_benchmark(__file__, run_dir, payload)` a dict
-with these keys:
-
-| key | type | meaning |
-|-----|------|---------|
-| `sweep`                  | `list[dict]`       | one record per cosine slice — see below |
-| `both_label`             | `str`              | which key in the per-slice weight dicts is the AND-target token |
-| `single_feature_labels`  | `list[str]`        | keys of the A-only and B-only tokens |
-| `canonical_scale`        | `float`            | record-keeping; should be `1.0` |
-
-Each `sweep` record:
-
-| key | type | meaning |
-|-----|------|---------|
-| `cosine`           | `float`             | `cos(q_A, q_B)` for this slice; pick at least `0.0` and one positive value |
-| `softmax_weights`  | `dict[str, float]`  | per-token softmax mass at this cosine, canonical scale (must sum to ~1) |
-| `linear_weights`   | `dict[str, float]`  | per-token linear-baseline mass at the same setting |
-
-The reference sweep uses `cosine ∈ {0.0, 0.3, 0.5, 0.7, 0.9}`. Attempts can
-add finer-grained slices but must include `0.0` (the orthogonal anchor for
-`*_canonical` metrics) and at least one positive cosine (so
-`superposition_robustness` is computable).
-
-### Metrics
-
-Per slice (one named scalar per cosine value `c`, e.g. `cos_0p7`):
-
-| metric | meaning |
-|--------|---------|
-| `and_sharpness_cos_<c>`              | `softmax[both] / mean(softmax[single])` at that cosine — the core curve |
-| `linear_baseline_sharpness_cos_<c>`  | same ratio for the linear baseline — the no-`exp` ceiling |
-
-Summary (the headline numbers):
-
-| metric | meaning |
-|--------|---------|
-| `superposition_robustness`     | `and_sharpness` at highest cosine ÷ at lowest. `1.0` = method survives superposition; `→ 0` = collapses. |
-| `and_sharpness_canonical`      | `and_sharpness` at the lowest cosine (most orthogonal) — the original "does it AND-gate at all?" |
-| `softmax_both_mass_canonical`  | softmax mass on the `both` token at the lowest cosine |
-
-Bump `VERSION` in `benchmark.py` if you change the formulae — the dashboard
-filters to the latest version so older `benchmark.json` files stay readable
-without polluting the active series.
+After bumping, update this README's **Payload contract** and **Metrics**
+tables in the same commit. Old `benchmark.json` files remain on disk; the
+dashboard filters to the highest version by default.

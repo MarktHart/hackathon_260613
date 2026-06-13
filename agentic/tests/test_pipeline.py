@@ -194,6 +194,8 @@ def test_attention_and_is_obviously_broken_predicate() -> None:
 
     # tests/ -> agentic/ -> repo root; benchmark lives under experiments/.
     bench_path = _Path(__file__).resolve().parents[2] / "experiments/attention_and/benchmark.py"
+    if not bench_path.exists():
+        pytest.skip("experiments/attention_and/benchmark.py not present in this tree")
     spec = importlib.util.spec_from_file_location("_b", bench_path)
     assert spec is not None and spec.loader is not None
     mod = importlib.util.module_from_spec(spec)

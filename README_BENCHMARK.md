@@ -1,15 +1,64 @@
-# Constructing a benchmark for a goal
+# Constructing a goal
 
 You are designing a new mechanistic-interpretability goal under
-`experiments/<goal>/`. This document tells you how to define the benchmark
-that every attempt at your goal will be scored against. The framework owns
-the wiring — recording, storage, dashboard. **You own the metric.**
+`experiments/<goal>/`. The framework owns the wiring — recording, storage,
+dashboard. **You own the question, the data, and the metric.**
 
 The general principle: *whatever can be computed from an attempt's output
 should be a benchmark metric, not a human-judged item.* Move things out of
 the rubric in `README_EXPERIMENT.md` whenever you can.
 
-## Two files you write
+## Three files you write
+
+The goal owns a README, a task, and a benchmark. Every attempt at this goal
+imports the second and third instead of duplicating their content — so two
+attempts can never disagree on what the data is or how it's scored.
+
+### `experiments/<goal>/README.md`
+
+Documents:
+
+- the **question** the goal asks;
+- the **setup** — synthetic generator, real model + dataset, or a mix;
+- the **canonical measurement condition** every attempt must use;
+- the **payload contract** — exact keys, types, semantics, units (this is
+  the shape `task.evaluate` returns and `benchmark.score` consumes);
+- the **metrics** — names, formulas, how to read them, bigger-vs-smaller-
+  is-better;
+- the **bump procedure** when `VERSION` changes.
+
+If a future attempt's author has to read `task.py` or `benchmark.py` to know
+what to pass, the README is not detailed enough.
+
+### `experiments/<goal>/task.py`
+
+```python
+@dataclass(frozen=True)
+class Batch:
+    ...                                    # whatever your task needs
+
+def generate(seed: int = 0) -> Batch:
+    """Deterministic for a given seed."""
+    ...
+
+def evaluate(model_fn) -> dict:
+    """Run `model_fn` over a batch, return a payload that benchmark.score consumes."""
+    ...
+```
+
+Contracts:
+
+- `generate` is **deterministic**: same seed → same batch. If the soft-AND
+  setup is fully fixed, `seed` is accepted but ignored; document that.
+- `evaluate` takes one argument — the attempt's **model function** — and
+  returns the payload dict exactly as `benchmark.score` expects it. Attempts
+  never construct the payload themselves; they hand `evaluate` a model and
+  receive a ready-to-record payload.
+- Pure Python; no I/O, no network.
+
+The `model_fn` signature is the goal's contract with attempts. Document it in
+the goal README and keep it narrow — a small typed callable, not a big API
+surface.
 
 ### `experiments/<goal>/benchmark.py`
 
@@ -26,20 +75,8 @@ Constraints:
 - Deterministic. Same payload → same metrics.
 - Side-effect free. No file I/O, no network, no time-dependent values.
 - Defensive on its inputs. Raise `ValueError` / `KeyError` with a clear
-  message when the contract is violated — silent garbage results are worse
-  than a hard failure.
-
-### `experiments/<goal>/README.md`
-
-Adds a `## Benchmark` section that documents:
-
-- the **payload contract** — exact keys, types, semantics, units;
-- the **metrics returned** — names, formulas, how to read them, whether
-  bigger or smaller is better;
-- the **bump procedure** when `VERSION` changes.
-
-If a future attempt's author has to read `benchmark.py` to know what to pass,
-the README is not detailed enough.
+  message when the contract is violated — silent garbage is worse than a
+  hard failure.
 
 ## Designing the payload
 

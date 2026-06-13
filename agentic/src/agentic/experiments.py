@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import sys
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -26,6 +27,32 @@ def results_dir(caller_file: str | Path, run_id: str | None = None) -> Path:
     out = base / run
     out.mkdir(parents=True, exist_ok=True)
     return out
+
+
+def load_task(caller_file: str | Path) -> Any:
+    """Import the enclosing goal's `task.py` and return the module.
+
+    `task.py` lives at the goal level (sibling of `benchmark.py`) and owns the
+    synthetic data generator + canonical evaluator. Every attempt at the same
+    goal imports it via this helper, so the data is byte-identical across
+    attempts. Returns the imported module — typically used as
+    `task = load_task(__file__); task.evaluate(my_model_fn)`.
+    """
+    attempt_dir = Path(caller_file).resolve().parent
+    goal_dir = attempt_dir.parent
+    task_path = goal_dir / "task.py"
+    if not task_path.is_file():
+        raise FileNotFoundError(
+            f"Expected {task_path} to exist — the goal owns the task definition."
+        )
+    spec = importlib.util.spec_from_file_location(f"_goal_task_{goal_dir.name}", task_path)
+    if spec is None or spec.loader is None:
+        raise ImportError(f"Could not load module spec for {task_path}.")
+    module = importlib.util.module_from_spec(spec)
+    # Register before exec so dataclasses (and similar) can look the module up.
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    return module
 
 
 def record_benchmark(
@@ -52,6 +79,7 @@ def record_benchmark(
     if spec is None or spec.loader is None:
         raise ImportError(f"Could not load module spec for {bench_path}.")
     module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
     spec.loader.exec_module(module)
 
     score_fn = getattr(module, "score", None)

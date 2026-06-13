@@ -88,14 +88,18 @@ async def run_task(
 
 
 def options_at_tier(tier: Tier, **overrides: Any) -> ClaudeAgentOptions:
-    """Build `ClaudeAgentOptions` for an `agentic`-mode tier."""
+    """Build `ClaudeAgentOptions` for an `agentic`-mode tier.
+
+    Sets `effort` (extended-thinking budget) when the tier configures one —
+    e.g. tier 1 defaults to `"high"`.
+    """
     cfg = TIER[tier]
     if cfg.mode != "agentic":
         raise ValueError(f"Tier {tier.value} is mode={cfg.mode!r}; use `run_at_tier_completion`.")
-    base = ClaudeAgentOptions(
-        model=cfg.model,
-        max_turns=cfg.max_turns,
-    )
+    kwargs: dict[str, Any] = {"model": cfg.model, "max_turns": cfg.max_turns}
+    if cfg.effort is not None:
+        kwargs["effort"] = cfg.effort
+    base = ClaudeAgentOptions(**kwargs)
     for key, value in overrides.items():
         setattr(base, key, value)
     return base

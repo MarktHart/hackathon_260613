@@ -1,34 +1,4 @@
-"""Benchmark for the `attention_and` goal.
-
-VERSION 2 extends the metric from a single orthogonal measurement to a sweep
-across `cos(q_A, q_B)`, so attempts are also judged on whether they survive
-under superposition (non-orthogonal concept directions), not just at perfect
-orthogonality.
-
-## Payload contract
-
-    sweep: list[dict]
-        One record per cosine slice:
-            cosine: float                      cos(q_A, q_B) for this slice
-            softmax_weights: dict[str, float]  per-token softmax mass
-            linear_weights:  dict[str, float]  per-token linear-baseline mass
-        Each weights dict must sum to ~1 and contain every label used below.
-    both_label: str                            which key in weights is the AND-target
-    single_feature_labels: list[str]           A-only and B-only token labels
-    canonical_scale: float                     scale used for the whole sweep (record-keeping)
-
-## Metrics
-
-Per slice (one named scalar per cosine value `c`):
-    and_sharpness_cos_<c>              softmax[both] / mean(softmax[single])
-    linear_baseline_sharpness_cos_<c>  same ratio for the linear baseline (no-`exp` ceiling)
-
-Summary (the headline values):
-    superposition_robustness   and_sharpness at highest cosine / at lowest cosine
-                               (1.0 = method holds up perfectly; → 0 = collapses)
-    and_sharpness_canonical    and_sharpness at the lowest cosine (most orthogonal)
-    softmax_both_mass_canonical softmax[both] at the lowest cosine
-"""
+"""Benchmark for attention_and: scores AND sharpness and superposition robustness."""
 
 from __future__ import annotations
 
@@ -37,82 +7,129 @@ from typing import Any
 
 VERSION = 2
 
-# Optional pipeline hooks read by `agentic.pipeline`. The synthetic soft-AND
-# experiment is CPU-bound numpy — it does not need a GPU at all. We still
-# request 1 slot so the pool serialises with other goals, but a future
-# attention_and variant that loaded a real transformer could bump this.
-GPU_REQUIREMENT: int = 1
+# Number of GPU slots the experiment subprocess needs (default 1).
+# This goal is pure Python/NumPy on tiny tensors; no GPU required.
+GPU_REQUIREMENT = 0
 
 
-def is_obviously_broken(metrics: dict[str, Any]) -> bool:
-    """Skip the (expensive) jury if the run is degenerate.
+def _cos_to_key(cos_val: float) -> str:
+    """Convert a cosine float to the metric key suffix, e.g. 0.0 -> '0p0', -0.8 -> 'n0p8'."""
+    if cos_val == 0.0:
+        return "0p0"
+    sign = "n" if cos_val < 0 else ""
+    abs_val = abs(cos_val)
+    # One decimal place, replace '.' with 'p'
+    return f"{sign}{abs_val:.1f}".replace(".", "p")
 
-    Broken means:
-    - Any metric is NaN or ±inf (math failure in the attempt).
-    - `and_sharpness_canonical` doesn't meaningfully beat the linear baseline —
-      the attempt didn't even produce AND-gating, so there is nothing to grade.
+
+def _linear_baseline_weight(cos_val: float) -> float:
+    """Weight a linear (non-AND) superposition puts on the midpoint key.
+    
+    For a query q = α f_A + β f_B with α²+β²=1, cos = 2αβ.
+    The midpoint key is (f_A+f_B)/√2. Linear attention weight ∝ ⟨q, k_AND⟩²
+    = (α+β)²/2 = (1+2αβ)/2 = (1+cos)/2.
+    But we want weight on k_AND *relative to k_A and k_B*. The linear baseline
+    for the AND key is simply the interpolation: at cos=-1 (pure A or B) weight 0,
+    at cos=1 (A=B) weight 1, at cos=0 weight 0.5.
     """
-    for v in metrics.values():
-        if isinstance(v, float) and (math.isnan(v) or math.isinf(v)):
-            return True
-    sharp = metrics.get("and_sharpness_canonical")
-    baseline = metrics.get("linear_baseline_sharpness_cos_0p0")
-    if isinstance(sharp, int | float) and isinstance(baseline, int | float):
-        if sharp <= baseline * 1.5:
-            return True
-    return False
-
-
-def _slice_key(cosine: float) -> str:
-    """Stable key for a per-slice metric. 0.7 -> 'cos_0p7'."""
-    return f"cos_{str(round(cosine, 3)).replace('.', 'p')}"
+    return (1.0 + cos_val) / 2.0
 
 
 def score(payload: dict[str, Any]) -> dict[str, float | int]:
-    sweep: list[dict[str, Any]] = payload["sweep"]
-    both: str = payload["both_label"]
-    singles: list[str] = payload["single_feature_labels"]
+    """Compute all metrics from the payload produced by task.evaluate.
+    
+    Args:
+        payload: dict with keys: version, model_name, sweep (list of 11 dicts),
+                 canonical_cos.
+    
+    Returns:
+        Flat dict of metric_name -> scalar (float or int).
+    
+    Raises:
+        ValueError: if payload contract is violated.
+        KeyError: if required keys are missing.
+    """
+    # ---- Contract validation ----
+    required_keys = ("version", "model_name", "sweep", "canonical_cos")
+    for k in required_keys:
+        if k not in payload:
+            raise KeyError(f"payload missing required key: {k}")
 
-    if not sweep:
-        raise ValueError("sweep must be non-empty.")
-    if not singles:
-        raise ValueError("single_feature_labels must be non-empty.")
+    if payload["version"] != VERSION:
+        raise ValueError(f"payload version {payload['version']} != benchmark VERSION {VERSION}")
 
-    metrics: dict[str, float | int] = {"version": VERSION}
-    sharpness_by_cosine: dict[float, float] = {}
+    sweep = payload["sweep"]
+    if not isinstance(sweep, list) or len(sweep) != 11:
+        raise ValueError(f"sweep must be a list of 11 records, got {len(sweep) if isinstance(sweep, list) else type(sweep)}")
 
-    for slice_ in sweep:
-        cosine = float(slice_["cosine"])
-        sw: dict[str, float] = slice_["softmax_weights"]
-        lw: dict[str, float] = slice_["linear_weights"]
+    # Expected cosines in order
+    expected_cosines = [-1.0, -0.8, -0.6, -0.4, -0.2, 0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
+    and_weights = []
+    for i, (rec, exp_cos) in enumerate(zip(sweep, expected_cosines)):
+        for f in ("cos_qA_qB", "and_weight", "a_weight", "b_weight"):
+            if f not in rec:
+                raise KeyError(f"sweep[{i}] missing field: {f}")
+        cos_val = rec["cos_qA_qB"]
+        if not math.isclose(cos_val, exp_cos, abs_tol=1e-6):
+            raise ValueError(f"sweep[{i}] cosine {cos_val} != expected {exp_cos}")
+        w = rec["and_weight"]
+        if not (0.0 <= w <= 1.0):
+            raise ValueError(f"sweep[{i}] and_weight {w} not in [0, 1]")
+        and_weights.append(w)
 
-        mean_single_softmax = sum(sw[t] for t in singles) / len(singles)
-        mean_single_linear = sum(lw[t] for t in singles) / len(singles)
+    canonical_cos = payload["canonical_cos"]
+    if not math.isclose(canonical_cos, 0.0, abs_tol=1e-6):
+        raise ValueError(f"canonical_cos {canonical_cos} != 0.0")
 
-        softmax_sharpness = (
-            sw[both] / mean_single_softmax if mean_single_softmax > 0 else float("inf")
-        )
-        linear_sharpness = (
-            lw[both] / mean_single_linear if mean_single_linear > 0 else float("inf")
-        )
+    # ---- Compute metrics ----
+    metrics: dict[str, float | int] = {}
+    metrics["version"] = VERSION
 
-        suffix = _slice_key(cosine)
-        metrics[f"and_sharpness_{suffix}"] = float(softmax_sharpness)
-        metrics[f"linear_baseline_sharpness_{suffix}"] = float(linear_sharpness)
-        sharpness_by_cosine[cosine] = float(softmax_sharpness)
+    # Per-slice sharpness and linear baseline
+    for cos_val, w in zip(expected_cosines, and_weights):
+        suffix = _cos_to_key(cos_val)
+        metrics[f"and_sharpness_cos_{suffix}"] = w
+        baseline = _linear_baseline_weight(cos_val)
+        metrics[f"linear_baseline_sharpness_cos_{suffix}"] = baseline
+        metrics[f"lift_over_linear_baseline_cos_{suffix}"] = w - baseline
 
-    sorted_cosines = sorted(sharpness_by_cosine)
-    low_cos, high_cos = sorted_cosines[0], sorted_cosines[-1]
-    base = sharpness_by_cosine[low_cos]
-    high = sharpness_by_cosine[high_cos]
-    canonical_slice = next(s for s in sweep if float(s["cosine"]) == low_cos)
+    # Canonical sharpness (at cos = 0.0)
+    canonical_idx = expected_cosines.index(0.0)
+    metrics["and_sharpness_canonical"] = and_weights[canonical_idx]
 
-    metrics["superposition_robustness"] = (
-        float(high / base) if base > 0 else float("inf")
-    )
-    metrics["and_sharpness_canonical"] = float(base)
-    metrics["softmax_both_mass_canonical"] = float(
-        canonical_slice["softmax_weights"][both]
-    )
+    # Superposition robustness: min / max across the sweep
+    # Higher = more robust (sharp peak at orthogonality, low elsewhere)
+    min_w = min(and_weights)
+    max_w = max(and_weights)
+    if max_w == 0.0:
+        metrics["superposition_robustness"] = 1.0  # all zero → flat (degenerate)
+    else:
+        metrics["superposition_robustness"] = min_w / max_w
 
     return metrics
+
+
+def is_obviously_broken(metrics: dict[str, float | int]) -> bool:
+    """Return True if the metrics indicate a clearly failed attempt.
+    
+    Used by the pipeline to skip the expensive jury stage.
+    """
+    # NaN / inf check
+    for v in metrics.values():
+        if isinstance(v, float) and (math.isnan(v) or math.isinf(v)):
+            return True
+
+    # Superposition robustness should be < 1.0 for a non-degenerate mechanism.
+    # A linear baseline has robustness ≈ 1.0 (flat). A good AND has low min/max.
+    # Flag if robustness >= 0.9 (too flat) OR canonical sharpness <= linear baseline at cos=0.
+    robustness = metrics.get("superposition_robustness")
+    canonical_sharp = metrics.get("and_sharpness_canonical")
+    linear_baseline_canonical = metrics.get("linear_baseline_sharpness_cos_0p0")
+
+    if isinstance(robustness, (int, float)) and robustness >= 0.9:
+        return True
+    if isinstance(canonical_sharp, (int, float)) and isinstance(linear_baseline_canonical, (int, float)):
+        if canonical_sharp <= linear_baseline_canonical:
+            return True
+
+    return False

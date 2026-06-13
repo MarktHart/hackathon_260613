@@ -42,6 +42,8 @@ class TierConfig:
     api_key_env: str
     max_turns: int  # only meaningful in `agentic` mode
     wall_clock_s: int  # cap on a single stage call — abort with TimeoutError
+    # Extended-thinking budget for `agentic`-mode tiers. None means SDK default.
+    effort: str | None = None
 
 
 def _env(key: str, default: str) -> str:
@@ -55,12 +57,13 @@ def _env_int(key: str, default: int) -> int:
 
 TIER: dict[Tier, TierConfig] = {
     Tier.EXPERT: TierConfig(
-        model=_env("AGENTIC_TIER1_MODEL", "claude-opus-4-8-high"),
+        model=_env("AGENTIC_TIER1_MODEL", "claude-opus-4-8"),
         mode="agentic",
         api_base=os.getenv("AGENTIC_TIER1_BASE_URL"),
         api_key_env=_env("AGENTIC_TIER1_API_KEY_ENV", "ANTHROPIC_API_KEY"),
         max_turns=_env_int("AGENTIC_TIER1_MAX_TURNS", 20),
-        wall_clock_s=_env_int("AGENTIC_TIER1_WALL_CLOCK_S", 300),
+        wall_clock_s=_env_int("AGENTIC_TIER1_WALL_CLOCK_S", 600),
+        effort=_env("AGENTIC_TIER1_EFFORT", "high"),
     ),
     Tier.STANDARD: TierConfig(
         model=_env("AGENTIC_TIER2_MODEL", "nvidia/Nemotron-3-Ultra-550b-a55b"),

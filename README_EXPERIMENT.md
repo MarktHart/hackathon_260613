@@ -15,6 +15,7 @@ experiments/
 ├── pyproject.toml              # shared deps for every attempt (torch, transformers, datasets, gradio)
 └── <goal>/                     # one mech-interp question
     ├── README.md               # ← goal spec; read this first
+    ├── task.py                 # ← data generator + evaluator; import via load_task
     ├── benchmark.py            # ← the metric every attempt at this goal is scored on
     └── <attempt_name>/         # ← one approach to the goal; this is your workspace
         ├── pyproject.toml      # symlink to ../../pyproject.toml
@@ -29,6 +30,13 @@ experiments/
 A goal has many attempts — that is the point. Pick an `attempt_name` that
 describes your angle (`attention_head_ablation`, `sae_basis_swap`,
 `direct_logit_attribution`), not `attempt_1`.
+
+Your `main.py` imports the goal's `task.py` via
+`agentic.experiments.load_task(__file__)` so the data and the canonical sweep
+are byte-identical across every attempt at the same goal. You only ever
+contribute a **model function** — the analytical/hand-built/trained piece
+this attempt is testing — and pass it to `task.evaluate(...)`. The returned
+payload goes straight into `record_benchmark`.
 
 ## Scaffold
 
