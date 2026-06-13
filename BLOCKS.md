@@ -73,18 +73,18 @@ anything higher up will only be as clean as Tier 0 is.
      a different shape of computation from a plain sum.
    - builds on: linear sum.
 
-8. **Modular addition (a + b) mod p** — `attention_modular_addition`
+8. **Modular addition (a + b) mod p** — `attention_modular_add`
    - I/O: (a, b) → (a+b) mod p.
    - What makes it hard: routing is trivial; the hard part is what to
      compute on the gathered operands — closed-form interpretable
      structure, classic grokking target.
 
-9. **One-hot lookup / dispatch** — `attention_lookup`
+9. **One-hot lookup / dispatch** — `attention_one_hot`
    - I/O: (key, table) → table[key].
    - What makes it hard: needs key-conditioned routing sharp enough to
      isolate one row without leaking from neighbours.
 
-10. **Sign / threshold on a scalar** — `attention_threshold`
+10. **Sign / threshold on a scalar** — `attention_sign_threshold`
     - I/O: scalar x → 1[x > θ].
     - What makes it hard: turning a soft score into a hard classification
       at a learned threshold.
