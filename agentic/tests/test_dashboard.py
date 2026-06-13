@@ -6,8 +6,12 @@ rollup, stage timeline, and liveness without booting FastAPI.
 
 from __future__ import annotations
 
-from agentic.blocks import BlockState
+import pytest
+
+from agentic.blocks import Block, BlockState
+from agentic.dashboard import aggregate, launcher
 from agentic.dashboard.aggregate import STALL_AFTER_S, build_view
+from agentic.dashboard.launcher import UnknownSlug, launch_slug
 from agentic.dashboard.pricing import cost_for
 
 
@@ -97,6 +101,37 @@ def test_running_vs_stalled_liveness() -> None:
     ps = stalled["problems"][0]
     assert ps["is_stalled"] and not ps["is_running"]
     assert stalled["stalled_count"] == 1
+
+
+def test_pending_blocks_are_visible_and_startable(monkeypatch: pytest.MonkeyPatch) -> None:
+    # Two BLOCKS.md tasks, neither with events or state.
+    monkeypatch.setattr(
+        aggregate,
+        "parse_blocks",
+        lambda: [Block(slug="x", title="X", spec=""), Block(slug="y", title="Y", spec="")],
+    )
+    v = build_view(events=[], states={}, now_iso="2026-06-13T10:00:00+00:00")
+    by = {p["slug"]: p for p in v["problems"]}
+    assert set(by) == {"x", "y"}
+    assert by["x"]["status"] == "pending"
+    assert by["x"]["is_startable"] and not by["x"]["is_running"]
+
+
+def test_running_block_is_not_startable() -> None:
+    events = [
+        _usage("a", "solver", "nvidia/Cosmos3-Super-Reasoner", 1, 1, "2026-06-13T10:00:00+00:00")
+    ]
+    states = {"a": BlockState(slug="a", status="solving")}
+    v = build_view(events=events, states=states, now_iso="2026-06-13T10:00:05+00:00")
+    p = v["problems"][0]
+    assert p["is_running"] and not p["is_startable"]
+
+
+def test_launch_rejects_unknown_slug(monkeypatch: pytest.MonkeyPatch) -> None:
+    # Validation happens before any subprocess spawn, so this never launches.
+    monkeypatch.setattr(launcher, "known_slugs", lambda: {"real_task"})
+    with pytest.raises(UnknownSlug):
+        launch_slug("not_a_task")
 
 
 def test_graded_problem_is_not_running() -> None:

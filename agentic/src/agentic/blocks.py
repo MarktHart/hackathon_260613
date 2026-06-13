@@ -55,31 +55,42 @@ class BlockState:
     notes: list[str] = field(default_factory=list)
 
 
-_HEADING_RE = re.compile(r"^## +(.+?)\s*$", re.MULTILINE)
-_GOAL_RE = re.compile(r"^Goal:\s*(\S+)\s*$", re.MULTILINE)
+_HEADING_RE = re.compile(r"^#{2,3} +.+$", re.MULTILINE)
+# A task is a numbered list item whose title line carries an inline backtick
+# slug, e.g. ``3. **NOT / negation** — `attention_not` ``. The slug must sit on
+# the title line (`[^\n]*?` never crosses a newline), so bullet text below an
+# item can mention other slugs without being mistaken for a new task.
+_ITEM_RE = re.compile(
+    r"^[ \t]*\d+\.[ \t]+\*\*(?P<title>.+?)\*\*[^\n]*?`(?P<slug>[A-Za-z0-9_]+)`",
+    re.MULTILINE,
+)
 
 
 def parse_blocks(blocks_file: str | Path | None = None) -> list[Block]:
-    """Parse BLOCKS.md into Block records. Skips blocks without a `Goal:` line."""
+    """Parse BLOCKS.md into Block records.
+
+    Each `N. **Title** — \\`slug\\`` list item becomes a Block; its spec is the
+    indented body (I/O, "what makes it hard", "builds on") up to the next item
+    or `##`/`###` heading. Numbered items without a backtick slug are skipped.
+    """
     path = Path(blocks_file or settings.blocks_file)
     if not path.exists():
         return []
     text = path.read_text()
 
-    # Find every `## Title` heading and its body up to the next `## ` or EOF.
-    blocks: list[Block] = []
-    matches = list(_HEADING_RE.finditer(text))
-    for i, m in enumerate(matches):
-        title = m.group(1).strip()
-        start = m.end()
-        end = matches[i + 1].start() if i + 1 < len(matches) else len(text)
-        body = text[start:end]
+    items = list(_ITEM_RE.finditer(text))
+    # Section breaks bound each item's spec: the next item or the next heading.
+    breaks = sorted([m.start() for m in items] + [m.start() for m in _HEADING_RE.finditer(text)])
 
-        slug_match = _GOAL_RE.search(body)
-        if not slug_match:
-            continue
-        slug = slug_match.group(1).strip()
-        spec = _GOAL_RE.sub("", body).strip()
+    blocks: list[Block] = []
+    for m in items:
+        title = m.group("title").strip()
+        slug = m.group("slug").strip()
+        line_end = text.find("\n", m.end())
+        body_start = line_end + 1 if line_end != -1 else len(text)
+        later = [b for b in breaks if b > m.start()]
+        body_end = min(later) if later else len(text)
+        spec = text[body_start:body_end].strip()
         blocks.append(Block(slug=slug, title=title, spec=spec))
     return blocks
 
@@ -156,3 +167,48 @@ def list_pending(limit: int | None = None, blocks_file: str | Path | None = None
             if limit is not None and len(out) >= limit:
                 break
     return out
+
+
+# Non-terminal states a crashed pipeline can leave a slug stuck in. None of
+# these survive a process death — they always represent in-flight work that
+# is now gone, so reconcile resets them to `pending`.
+_NON_TERMINAL: tuple[BlockStatus, ...] = (
+    "claimed",
+    "solving",
+    "pending_solver",
+    "awaiting_jury",
+)
+
+
+def reconcile(experiments_dir: str | Path = "experiments") -> list[tuple[str, str, str]]:
+    """Bring block state back in line with reality after a crash or manual edit.
+
+    Two repairs, each appending one corrected state record:
+
+    1. **Stuck in-flight** — a slug in a non-terminal state (the pipeline died
+       mid-run) is reset to `pending` so `next_pending` / `pipeline-multi` pick
+       it up again. GPU locks need no repair: they are `flock`-based and the
+       kernel frees them on process death.
+    2. **Dangling reference** — a slug recorded as `graded` whose `attempt`
+       directory or `verdict_path` no longer exists on disk (e.g. the attempt
+       was deleted by hand) is reset to `pending`.
+
+    Returns a list of `(slug, old_status, new_status)` for everything changed.
+    """
+    exp = Path(experiments_dir)
+    changed: list[tuple[str, str, str]] = []
+    for slug, state in load_state().items():
+        new_status: BlockStatus | None = None
+
+        if state.status in _NON_TERMINAL:
+            new_status = "pending"
+        elif state.status == "graded":
+            attempt_ok = bool(state.attempt) and (exp / slug / str(state.attempt)).is_dir()
+            verdict_ok = state.verdict_path is not None and Path(state.verdict_path).is_file()
+            if not (attempt_ok and verdict_ok):
+                new_status = "pending"
+
+        if new_status is not None:
+            changed.append((slug, state.status, new_status))
+            update_state(slug, status=new_status, attempt=None, verdict_path=None)
+    return changed

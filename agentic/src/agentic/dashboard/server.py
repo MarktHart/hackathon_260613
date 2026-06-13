@@ -1,12 +1,15 @@
 """FastAPI app serving the dashboard.
 
 Endpoints:
-    GET /              static single-page UI
-    GET /api/state     full snapshot (page load / reconnect)
-    GET /api/stream    SSE: pushes a fresh snapshot whenever the log changes
+    GET  /                  static single-page UI
+    GET  /api/state         full snapshot (page load / reconnect)
+    GET  /api/stream        SSE: pushes a fresh snapshot whenever the log changes
+    POST /api/start         launch one task (spawns a detached pipeline run)
+    POST /api/start-pending fan out a pipeline-multi run across pending tasks
 
-Stateless and read-only — it polls the two JSONL files' mtime/size and
-recomputes the view on change. No DB, no websockets.
+The GET side polls the two JSONL files' mtime/size and recomputes the view on
+change. The POST side spawns the normal CLI as a detached subprocess (see
+`launcher`); it never runs the pipeline in-process. No DB, no websockets.
 """
 
 from __future__ import annotations
@@ -17,11 +20,13 @@ from collections.abc import AsyncIterator
 from pathlib import Path
 from typing import Any
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse, StreamingResponse
+from pydantic import BaseModel
 
 from agentic.config import settings
 from agentic.dashboard.aggregate import build_view
+from agentic.dashboard.launcher import UnknownSlug, launch_pending, launch_slug
 
 _STATIC = Path(__file__).parent / "static"
 
@@ -48,6 +53,35 @@ def _fingerprint() -> tuple[Any, ...]:
 @app.get("/api/state")
 def api_state() -> dict[str, Any]:
     return build_view()
+
+
+class StartRequest(BaseModel):
+    slug: str
+
+
+class StartPendingRequest(BaseModel):
+    count: int | None = None
+
+
+@app.post("/api/start")
+def api_start(req: StartRequest) -> dict[str, Any]:
+    """Launch a pipeline run for one task. Rejects unknown or already-running slugs."""
+    view = build_view()
+    match = next((p for p in view["problems"] if p["slug"] == req.slug), None)
+    if match is not None and match["is_running"]:
+        raise HTTPException(status_code=409, detail=f"{req.slug} is already running")
+    try:
+        pid = launch_slug(req.slug)
+    except UnknownSlug:
+        raise HTTPException(status_code=400, detail=f"unknown task: {req.slug}") from None
+    return {"ok": True, "slug": req.slug, "pid": pid}
+
+
+@app.post("/api/start-pending")
+def api_start_pending(req: StartPendingRequest) -> dict[str, Any]:
+    """Fan out a `pipeline-multi` run across pending tasks."""
+    pid = launch_pending(req.count)
+    return {"ok": True, "pid": pid}
 
 
 @app.get("/api/stream")

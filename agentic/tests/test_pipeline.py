@@ -26,19 +26,21 @@ def isolated_state(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
 def test_blocks_parses_and_picks_next(tmp_path: Path) -> None:
     blocks_path = Path(os.environ["AGENTIC_BLOCKS_FILE"])
     blocks_path.write_text(
-        """# header
+        """# Problems
 
-## First task
+## Tier 0 — primitives
 
-Goal: first_one
+1. **First task** — `first_one`
+   - I/O: spec for first.
+   - What makes it hard: nothing.
 
-Spec for first.
+2. **Second task** — `second_one`
+   - I/O: spec for second.
+   - builds on: `first_one`.
 
-## Second task
+## How to use this list
 
-Goal: second_one
-
-Spec for second.
+Prose with no numbered items — must yield no blocks.
 """
     )
     import importlib
@@ -50,6 +52,9 @@ Spec for second.
     blocks = agentic.blocks.parse_blocks()
     assert [b.slug for b in blocks] == ["first_one", "second_one"]
     assert blocks[0].title == "First task"
+    # Spec captures the indented body; the `first_one` mention in item 2's
+    # "builds on" line must not be parsed as a third task.
+    assert "spec for first" in blocks[0].spec.lower()
 
     nxt = agentic.blocks.next_pending()
     assert nxt is not None and nxt.slug == "first_one"
@@ -165,17 +170,11 @@ def test_gpu_pool_rejects_overrequest(monkeypatch: pytest.MonkeyPatch) -> None:
 def test_list_pending_respects_limit() -> None:
     blocks_path = Path(os.environ["AGENTIC_BLOCKS_FILE"])
     blocks_path.write_text(
-        """## One
+        """## Tier 0
 
-Goal: alpha
-
-## Two
-
-Goal: beta
-
-## Three
-
-Goal: gamma
+1. **One** — `alpha`
+2. **Two** — `beta`
+3. **Three** — `gamma`
 """
     )
     import importlib

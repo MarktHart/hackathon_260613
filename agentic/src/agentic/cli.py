@@ -84,5 +84,24 @@ def show_events(
         typer.echo(json.dumps(record))
 
 
+@app.command()
+def reconcile() -> None:
+    """Repair block state after a crash: reset stuck/dangling slugs to pending.
+
+    Slugs left in a non-terminal state by a dead pipeline, or marked graded
+    but missing their attempt/verdict on disk, are reset to `pending` so the
+    runner picks them up cleanly. GPU locks self-heal (flock) — nothing to do.
+    """
+    from agentic.blocks import reconcile as _reconcile
+
+    changed = _reconcile()
+    if not changed:
+        typer.echo("nothing to reconcile — all block state is consistent")
+        return
+    for slug, old, new in changed:
+        typer.echo(f"  {slug}: {old} → {new}")
+    typer.echo(f"reconciled {len(changed)} slug(s)")
+
+
 if __name__ == "__main__":
     app()

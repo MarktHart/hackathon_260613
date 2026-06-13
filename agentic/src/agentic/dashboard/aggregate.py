@@ -71,7 +71,8 @@ def build_view(
     """Build the full dashboard snapshot from events + block state."""
     events = read_events() if events is None else events
     states = load_state() if states is None else states
-    titles = {b.slug: b.title for b in parse_blocks()}
+    blocks = parse_blocks()
+    titles = {b.slug: b.title for b in blocks}
 
     now = _epoch(now_iso) if now_iso else datetime.now(UTC).timestamp()
 
@@ -96,6 +97,11 @@ def build_view(
                 "totals": {**_empty_tokens(), "cost_usd": 0.0, "n_calls": 0},
             }
         return problems[slug]
+
+    # Seed every BLOCKS.md task so pending (never-claimed) ones are visible
+    # and startable from the dashboard, even with no events/state yet.
+    for b in blocks:
+        problem(b.slug)
 
     for ev in events:
         slug = ev.get("slug")
@@ -164,15 +170,18 @@ def build_view(
     # Finalize each problem: ordered timeline + running/stalled flags.
     out_problems: list[dict[str, Any]] = []
     for p in problems.values():
-        p["stage_timeline"] = [
-            p["stages"][s] for s in STAGE_ORDER if s in p["stages"]
-        ] + [v for k, v in p["stages"].items() if k not in STAGE_ORDER]
+        p["stage_timeline"] = [p["stages"][s] for s in STAGE_ORDER if s in p["stages"]] + [
+            v for k, v in p["stages"].items() if k not in STAGE_ORDER
+        ]
         del p["stages"]
 
         active = p["status"] in ACTIVE_STATUSES
         age = now - _epoch(p["last_event_ts"]) if p["last_event_ts"] else None
         p["is_stalled"] = bool(active and age is not None and age > STALL_AFTER_S)
         p["is_running"] = bool(active and not p["is_stalled"])
+        # Startable = not actively running. Pending/graded/failed/stalled tasks
+        # can be (re)launched; a graded/failed re-run needs --force (server adds it).
+        p["is_startable"] = not p["is_running"]
         p["last_event_age_s"] = round(age, 1) if age is not None else None
         out_problems.append(p)
 

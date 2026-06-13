@@ -48,6 +48,18 @@
     justify-content:center; font-size:10px; color:#0d1117; min-width:36px; padding:0 6px; }
   .empty{ color:var(--mut); padding:18px; text-align:center; }
   .mut{ color:var(--mut); }
+  button{ font:inherit; color:var(--fg); background:var(--panel); border:1px solid var(--line);
+    border-radius:6px; padding:3px 12px; cursor:pointer; }
+  button:hover:not(:disabled){ border-color:var(--acc); color:var(--acc); }
+  button:disabled{ opacity:.35; cursor:default; }
+  button.primary{ border-color:var(--ok); color:var(--ok); }
+  button.start{ padding:2px 10px; font-size:12px; }
+  #toast{ position:fixed; bottom:20px; right:20px; display:flex; flex-direction:column; gap:8px; z-index:9; }
+  .toast{ background:var(--panel); border:1px solid var(--line); border-left:3px solid var(--acc);
+    border-radius:6px; padding:8px 14px; min-width:220px; animation:slidein .2s; }
+  .toast.ok{ border-left-color:var(--ok); }
+  .toast.err{ border-left-color:var(--bad); }
+  @keyframes slidein{ from{transform:translateX(20px);opacity:0} to{transform:none;opacity:1} }
   .legend{ display:flex; gap:14px; font-size:11px; color:var(--mut); margin-bottom:8px; }
   .legend i{ display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:4px; vertical-align:middle; }
   svg text{ fill:var(--mut); font-size:10px; }
@@ -60,8 +72,10 @@
   <span class="stat">stalled <b id="s-stalled">–</b></span>
   <span class="stat">total cost <b id="s-cost">–</b></span>
   <span class="stat">total tokens <b id="s-tokens">–</b></span>
-  <span class="stat" style="margin-left:auto" id="s-conn">connecting…</span>
+  <button class="primary" id="start-pending" style="margin-left:auto" onclick="startPending()">▶ Start all pending</button>
+  <span class="stat" id="s-conn">connecting…</span>
 </header>
+<div id="toast"></div>
 <main>
   <section>
     <h2>Running now</h2>
@@ -91,7 +105,7 @@
       <thead><tr>
         <th>Problem</th><th>Status</th><th>Stage</th>
         <th class="num">In</th><th class="num">Out</th>
-        <th class="num">Calls</th><th class="num">Cost</th><th class="num">Last seen</th>
+        <th class="num">Calls</th><th class="num">Cost</th><th class="num">Last seen</th><th></th>
       </tr></thead>
       <tbody id="rows"></tbody>
     </table>
@@ -139,6 +153,9 @@ function render(v){
       <td class="num">${p.totals.n_calls}</td>
       <td class="num">${usd(p.totals.cost_usd)}</td>
       <td class="num">${ago(p.last_event_age_s)}</td>
+      <td>${p.is_startable
+        ? `<button class="start" onclick="startSlug('${esc(p.slug)}',this)">${p.status==='pending'?'Start':'Re-run'}</button>`
+        : `<span class="mut">running</span>`}</td>
     </tr>`).join("");
 
   // Stage timeline (bar width ∝ tokens within each problem)
@@ -176,6 +193,46 @@ function drawChart(series){
     <text x="${pad}" y="14">${usd(max)}</text>
     <text x="${pad}" y="${H-6}">$0</text>
     <text x="${W-pad}" y="${H-6}" text-anchor="end">${series.length} calls</text>`;
+}
+
+function toast(msg, kind){
+  const box=document.getElementById("toast");
+  const el=document.createElement("div");
+  el.className="toast "+(kind||"");
+  el.textContent=msg;
+  box.appendChild(el);
+  setTimeout(()=>el.remove(), 4000);
+}
+
+async function post(url, body){
+  const r=await fetch(url,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+  const data=await r.json().catch(()=>({}));
+  if(!r.ok) throw new Error(data.detail || r.statusText);
+  return data;
+}
+
+async function startSlug(slug, btn){
+  if(btn){ btn.disabled=true; btn.textContent="starting…"; }
+  try{
+    await post("/api/start",{slug});
+    toast(`Started ${slug}`,"ok");
+  }catch(e){
+    toast(`Could not start ${slug}: ${e.message}`,"err");
+    if(btn){ btn.disabled=false; btn.textContent="Start"; }
+  }
+}
+
+async function startPending(){
+  const btn=document.getElementById("start-pending");
+  btn.disabled=true;
+  try{
+    await post("/api/start-pending",{});
+    toast("Started pipeline-multi over pending tasks","ok");
+  }catch(e){
+    toast(`Could not start: ${e.message}`,"err");
+  }finally{
+    setTimeout(()=>{ btn.disabled=false; }, 2000);
+  }
 }
 
 function connect(){
