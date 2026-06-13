@@ -1,0 +1,36 @@
+[project]
+name = "experiments-env"
+version = "0"
+requires-python = ">=3.11"
+description = "Shared dependency set for every experiment under experiments/*/*."
+dependencies = [
+    "gradio",
+    "torch==2.12.*",
+    "transformers",
+    "datasets",
+    "numpy",
+    "pandas",
+    "matplotlib",
+]
+
+[tool.uv]
+package = false
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+
+[tool.mypy]
+strict = true
+python_version = "3.11"
+files = ["."]
+
+[[tool.mypy.overrides]]
+module = ["pandas", "pandas.*", "gradio", "gradio.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
